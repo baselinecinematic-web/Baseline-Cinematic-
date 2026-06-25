@@ -1,3 +1,19 @@
+Got it! I have stripped out that overlapping placeholder text and the CSS that went with it. Your header will now be a clean, solid dark background where your title and tagline can clearly stand out without any messy text on top.
+
+Here is your fixed code.
+
+How to Update Your Site
+Copy all the code inside the black block below.
+
+Go back to your GitHub tab where you are in edit mode.
+
+Delete absolutely everything currently in that text box.
+
+Paste this new, clean code in its place.
+
+Click the green Commit changes button.
+
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +30,7 @@
             padding: 0; 
         }
         
-        /* Hero Section for your Showreel */
+        /* Hero Section */
         header { 
             height: 100vh; 
             display: flex; 
@@ -27,19 +43,6 @@
         }
         .hero-content { 
             z-index: 2; 
-        }
-        .hero-video-placeholder { 
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background: #1a1a1a; 
-            z-index: 1; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            border: 2px dashed #444;
         }
         h1 { 
             font-size: 4rem; 
@@ -114,9 +117,6 @@
 <body>
 
     <header>
-        <div class="hero-video-placeholder">
-            <p style="color: #666;">[Your Cinematic Reel Video Will Go Here]</p>
-        </div>
         <div class="hero-content">
             <h1>Baseline Cinematic</h1>
             <p class="tagline">Premium Drone Videography & Post-Production</p>
