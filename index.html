@@ -6,9 +6,6 @@
     <title>Baseline Cinematic</title>
     <style>
         /* Dark Theme Styling */
-        html, body {
-            height: 100%; /* Safari fix requirement */
-        }
         body { 
             background-color: #121212; 
             color: #f5f5f5; 
@@ -17,11 +14,9 @@
             padding: 0; 
         }
         
-        /* Hero Section - Bulletproof Mobile Fix */
+        /* Hero Section - Fixed for iPhone/Safari */
         header { 
-            min-height: 100vh; /* Fallback for older phones */
-            min-height: -webkit-fill-available; /* Specific fix for iOS Safari */
-            min-height: 100dvh; /* Modern mobile fix */
+            min-height: 100dvh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -30,7 +25,6 @@
             position: relative; 
             overflow: hidden; 
             padding: 20px;
-            box-sizing: border-box;
         }
         
         /* Video Background Styling */
@@ -49,7 +43,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6); 
+            background: rgba(0,0,0,0.6);
             z-index: 2;
         }
         .hero-content { 
@@ -59,12 +53,12 @@
         }
 
         h1 { 
-            font-size: 3.5rem; 
+            font-size: 4rem; 
             margin-bottom: 10px; 
             letter-spacing: 2px; 
             text-transform: uppercase; 
             text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-            line-height: 1.1;
+            word-wrap: break-word;
         }
         p.tagline { 
             font-size: 1.2rem; 
@@ -72,13 +66,6 @@
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
         
-        /* Mobile-Specific Resizing (The magic trick for phones) */
-        @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            p.tagline { font-size: 1rem; }
-            section { padding: 50px 15px; } /* Tighter spacing for easier phone scrolling */
-        }
-
         /* Content Sections */
         section { 
             padding: 80px 20px; 
@@ -200,8 +187,8 @@
             font-weight: bold;
             letter-spacing: 1px;
         }
-        .label-before { left: 10px; }
-        .label-after { right: 10px; }
+        .label-before { left: 20px; }
+        .label-after { right: 20px; }
         
         /* Certification Badge & Buttons */
         .cert-badge { 
@@ -240,11 +227,8 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .bio-text { flex: 1; min-width: 250px; }
+        .bio-text { flex: 1; min-width: 300px; }
         .bio-image { flex: 0 0 300px; text-align: center; }
-        @media (max-width: 768px) {
-            .bio-image { flex: 0 0 100%; }
-        }
         .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
 
@@ -268,6 +252,23 @@
             background: #0a0a0a; 
             border-top: 1px solid #333; 
             color: #777;
+        }
+
+        /* MOBILE RESPONSIVE FIXES */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem; /* Shrinks the giant text to fit iPhones */
+                letter-spacing: 1px;
+            }
+            p.tagline {
+                font-size: 1rem;
+            }
+            section {
+                padding: 50px 15px; /* Slightly tighter spacing on phones */
+            }
+            h2 {
+                font-size: 2rem;
+            }
         }
     </style>
 </head>
@@ -342,4 +343,39 @@
         <h2>Meet the Team</h2>
         <div class="bio-flex">
             <div class="bio-text">
-                <p>I'm Michael Cunningham, the founder, lead editor, and FAA Part 107 Certified Remote Pilot behind Baseline Cinematic. I specialize in capturing premium 10-bit aerial footage and utilizing
+                <p>I'm Michael Cunningham, the founder, lead editor, and FAA Part 107 Certified Remote Pilot behind Baseline Cinematic. I specialize in capturing premium 10-bit aerial footage and utilizing advanced node-based color grading in DaVinci Resolve to bring a unique, high-end cinematic look to the Peoria and Pekin area.</p>
+                <p>Baseline Cinematic is proud to be a husband-and-wife team. While I am navigating the skies and managing post-production, my wife expertly handles our stabilized ground cinematography. Utilizing the advanced AI-assisted imaging of the Pixel 10 Pro, she ensures we capture dynamic, high-quality ground shots that seamlessly blend with our aerial operations.</p>
+                <p>Beyond the lens, our faith and our family are at the core of everything we do. As proud parents and active members of our local Christian church in Pekin, we believe in treating every client with honesty, integrity, and a strict commitment to safety and excellence. When you hire us, you are getting a dedicated team focused on bringing your vision to life.</p>
+            </div>
+            <div class="bio-image" style="display: none;">
+                <img src="team.jpg" alt="Baseline Cinematic Team">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Let's Work Together</h2>
+        <div class="contact-container">
+            <p>Ready to elevate your next project? Baseline Cinematic proudly serves Peoria, Pekin, and the greater Central Illinois region.</p>
+            <p>Reach out today to discuss your vision, request a quote, or schedule a flight.</p>
+            <a href="mailto:baselinecinematic@gmail.com" class="btn">Email Us Directly</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const slider = document.getElementById('compare-slider');
+        const beforeImage = document.querySelector('.img-before');
+        const sliderHandle = document.querySelector('.slider-handle');
+
+        slider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            beforeImage.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
+            sliderHandle.style.left = `${value}%`;
+        });
+    </script>
+</body>
+</html>
