@@ -14,9 +14,9 @@
             padding: 0; 
         }
         
-        /* Hero Section */
+        /* Hero Section - Fixed for iPhone/Safari */
         header { 
-            height: 100vh; 
+            min-height: 100dvh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -24,19 +24,20 @@
             background: #000; 
             position: relative; 
             overflow: hidden; 
+            padding: 20px;
         }
         .hero-content { 
             z-index: 2; 
         }
         h1 { 
-            font-size: 4rem; 
+            font-size: 3.5rem; /* Slightly reduced for better mobile fit */
             margin-bottom: 10px; 
             letter-spacing: 2px; 
             text-transform: uppercase; 
             text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
         }
         p.tagline { 
-            font-size: 1.5rem; 
+            font-size: 1.2rem; 
             color: #ccc; 
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
@@ -192,18 +193,20 @@
         }
 
         /* Bio Section */
-        .bio-container {
+        .bio-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
             background: #1e1e1e;
             padding: 40px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            line-height: 1.8;
-            color: #ccc;
-            font-size: 1.1rem;
         }
-        .bio-container p {
-            margin-bottom: 20px;
-        }
+        .bio-text { flex: 1; min-width: 300px; }
+        .bio-image { flex: 0 0 300px; text-align: center; }
+        .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
 
         /* Contact Section Specific */
         .contact-container {
@@ -246,7 +249,7 @@
             </div>
             <div class="card">
                 <h3>Stabilized Ground Cinematography</h3>
-                <p>Utilizing advanced AI-assisted imaging and DJI professional gimbal stabilization, we capture buttery-smooth, high-dynamic-range ground footage to perfectly complement our aerial operations.</p>
+                <p>Utilizing advanced AI-assisted imaging and professional gimbal stabilization, we capture buttery-smooth, high-dynamic-range ground footage to perfectly complement our aerial operations.</p>
             </div>
             <div class="card">
                 <h3>Professional Post-Production</h3>
@@ -261,12 +264,9 @@
         
         <div class="slider-wrapper">
             <img src="Dirksen%20Sunset.jpeg" alt="Graded Sunset" class="slider-image img-after">
-            
             <img src="Sunset1.JPG" alt="Raw Log Sunset" class="slider-image img-before">
-            
             <div class="slider-label label-before">RAW 10-BIT LOG</div>
             <div class="slider-label label-after">GRADED</div>
-            
             <input type="range" min="0" max="100" value="50" class="slider-input" id="compare-slider">
             <div class="slider-handle"></div>
         </div>
@@ -278,9 +278,9 @@
             <div class="card">
                 <h3>The Gear</h3>
                 <ul>
-                    <li>Aerial Imaging: DJI Mini 5 Pro (10-bit color cinematic system)</li>
-                    <li>Ground Imaging: Advanced Computational Camera System with AI-assisted capture</li>
-                    <li>Post-Production: DaVinci Resolve Studio 21 (node-based color grading & AI enhancement)</li>
+                    <li>DJI Air 3S & Mini 5 Pro</li>
+                    <li>Pixel 10 Pro with Gimbal Stabilization</li>
+                    <li>DaVinci Resolve Studio 21</li>
                     <li>High-Performance 4K Rendering Hardware</li>
                 </ul>
             </div>
@@ -294,10 +294,15 @@
 
     <section id="about">
         <h2>Meet the Team</h2>
-        <div class="bio-container">
-            <p>I'm Michael Cunningham, the founder, lead editor, and FAA Part 107 Certified Remote Pilot behind Baseline Cinematic. I specialize in capturing premium 10-bit aerial footage and utilizing advanced node-based color grading in DaVinci Resolve to bring a unique, high-end cinematic look to the Peoria and Pekin area.</p>
-            <p>Baseline Cinematic is proud to be a husband-and-wife team. While I am navigating the skies and managing post-production, my wife expertly handles our stabilized ground cinematography. Utilizing advanced AI-assisted imaging, she ensures we capture dynamic, high-quality ground shots that seamlessly blend with our aerial operations to give you a complete visual package.</p>
-            <p>Beyond the lens, our faith and our family are at the core of everything we do. As proud parents and active members of our local Christian church in Pekin, we believe in treating every client with honesty, integrity, and a strict commitment to safety and excellence. When you hire us, you are getting a dedicated team focused on bringing your vision to life.</p>
+        <div class="bio-flex">
+            <div class="bio-text">
+                <p>I'm Michael Cunningham, the founder, lead editor, and FAA Part 107 Certified Remote Pilot behind Baseline Cinematic. I specialize in capturing premium 10-bit aerial footage and utilizing advanced node-based color grading in DaVinci Resolve to bring a unique, high-end cinematic look to the Peoria and Pekin area.</p>
+                <p>Baseline Cinematic is proud to be a husband-and-wife team. While I am navigating the skies and managing post-production, my wife expertly handles our stabilized ground cinematography. Utilizing the advanced AI-assisted imaging of the Pixel 10 Pro, she ensures we capture dynamic, high-quality ground shots that seamlessly blend with our aerial operations.</p>
+                <p>Beyond the lens, our faith and our family are at the core of everything we do. As proud parents and active members of our local Christian church in Pekin, we believe in treating every client with honesty, integrity, and a strict commitment to safety and excellence. When you hire us, you are getting a dedicated team focused on bringing your vision to life.</p>
+            </div>
+            <div class="bio-image" style="display: none;">
+                <img src="team.jpg" alt="Baseline Cinematic Team">
+            </div>
         </div>
     </section>
 
