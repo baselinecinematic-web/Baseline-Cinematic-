@@ -6,6 +6,9 @@
     <title>Baseline Cinematic</title>
     <style>
         /* Dark Theme Styling */
+        html, body {
+            height: 100%; /* Safari fix requirement */
+        }
         body { 
             background-color: #121212; 
             color: #f5f5f5; 
@@ -14,9 +17,11 @@
             padding: 0; 
         }
         
-        /* Hero Section - Fixed for iPhone/Safari */
+        /* Hero Section - Bulletproof Mobile Fix */
         header { 
-            min-height: 100dvh; 
+            min-height: 100vh; /* Fallback for older phones */
+            min-height: -webkit-fill-available; /* Specific fix for iOS Safari */
+            min-height: 100dvh; /* Modern mobile fix */
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -25,6 +30,7 @@
             position: relative; 
             overflow: hidden; 
             padding: 20px;
+            box-sizing: border-box;
         }
         
         /* Video Background Styling */
@@ -43,12 +49,13 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6); /* Dims the video so your white text pops */
+            background: rgba(0,0,0,0.6); 
             z-index: 2;
         }
         .hero-content { 
             z-index: 3; 
             position: relative;
+            width: 100%;
         }
 
         h1 { 
@@ -57,6 +64,7 @@
             letter-spacing: 2px; 
             text-transform: uppercase; 
             text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            line-height: 1.1;
         }
         p.tagline { 
             font-size: 1.2rem; 
@@ -64,6 +72,13 @@
             text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
         }
         
+        /* Mobile-Specific Resizing (The magic trick for phones) */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            p.tagline { font-size: 1rem; }
+            section { padding: 50px 15px; } /* Tighter spacing for easier phone scrolling */
+        }
+
         /* Content Sections */
         section { 
             padding: 80px 20px; 
@@ -185,8 +200,8 @@
             font-weight: bold;
             letter-spacing: 1px;
         }
-        .label-before { left: 20px; }
-        .label-after { right: 20px; }
+        .label-before { left: 10px; }
+        .label-after { right: 10px; }
         
         /* Certification Badge & Buttons */
         .cert-badge { 
@@ -225,8 +240,11 @@
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        .bio-text { flex: 1; min-width: 300px; }
+        .bio-text { flex: 1; min-width: 250px; }
         .bio-image { flex: 0 0 300px; text-align: center; }
+        @media (max-width: 768px) {
+            .bio-image { flex: 0 0 100%; }
+        }
         .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
 
@@ -287,4 +305,41 @@
     </section>
 
     <section id="portfolio">
-        <h2>Color
+        <h2>Color Grading Showcase</h2>
+        <p style="text-align: center; color: #ccc; margin-bottom: 30px; font-size: 1.1rem;">Drag the slider to see the difference professional node-based color grading makes.</p>
+        
+        <div class="slider-wrapper">
+            <img src="Dirksen%20Sunset.jpeg" alt="Graded Sunset" class="slider-image img-after">
+            <img src="Sunset1.JPG" alt="Raw Log Sunset" class="slider-image img-before">
+            <div class="slider-label label-before">RAW 10-BIT LOG</div>
+            <div class="slider-label label-after">GRADED</div>
+            <input type="range" min="0" max="100" value="50" class="slider-input" id="compare-slider">
+            <div class="slider-handle"></div>
+        </div>
+    </section>
+
+    <section id="equipment">
+        <h2>Equipment & Credentials</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>The Gear</h3>
+                <ul>
+                    <li>DJI Air 3S & Mini 5 Pro</li>
+                    <li>Pixel 10 Pro with Gimbal Stabilization</li>
+                    <li>DaVinci Resolve Studio 21</li>
+                    <li>High-Performance 4K Rendering Hardware</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3>Certifications</h3>
+                <p>Fully licensed, certified, and insured for commercial flight operations.</p>
+                <div class="cert-badge">FAA Part 107 Certified Remote Pilot</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>Meet the Team</h2>
+        <div class="bio-flex">
+            <div class="bio-text">
+                <p>I'm Michael Cunningham, the founder, lead editor, and FAA Part 107 Certified Remote Pilot behind Baseline Cinematic. I specialize in capturing premium 10-bit aerial footage and utilizing
