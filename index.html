@@ -78,7 +78,7 @@
             color: #ccc;
         }
         
-        /* Certification Badge */
+        /* Certification Badge & Buttons */
         .cert-badge { 
             background: #d4af37; 
             color: #000; 
@@ -87,6 +87,35 @@
             font-weight: bold; 
             display: inline-block; 
             margin-top: 20px; 
+        }
+        .btn {
+            background: #d4af37;
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #b5952f;
+        }
+
+        /* Contact Section Specific */
+        .contact-container {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .contact-container p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 20px;
         }
         
         footer { 
@@ -116,7 +145,7 @@
             </div>
             <div class="card">
                 <h3>Stabilized Ground Cinematography</h3>
-                <p>Utilizing the advanced AI-assisted imaging features of the Pixel 10 Pro, paired with professional gimbal stabilization, we capture buttery-smooth, high-dynamic-range ground footage to perfectly complement our aerial operations.</p>
+                <p>Utilizing advanced AI-assisted imaging and professional gimbal stabilization, we capture buttery-smooth, high-dynamic-range ground footage to perfectly complement our aerial operations.</p>
             </div>
             <div class="card">
                 <h3>Professional Post-Production</h3>
@@ -142,6 +171,15 @@
                 <p>Fully licensed, certified, and insured for commercial flight operations.</p>
                 <div class="cert-badge">FAA Part 107 Certified Remote Pilot</div>
             </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Let's Work Together</h2>
+        <div class="contact-container">
+            <p>Ready to elevate your next project? Baseline Cinematic proudly serves Peoria, Pekin, and the greater Central Illinois region.</p>
+            <p>Reach out today to discuss your vision, request a quote, or schedule a flight.</p>
+            <a href="mailto:baselinecinematic@gmail.com" class="btn">Email Us Directly</a>
         </div>
     </section>
 
