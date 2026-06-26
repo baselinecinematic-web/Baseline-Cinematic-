@@ -5,13 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baseline Cinematic</title>
     <style>
-        /* Dark Theme Styling */
+        /* Dark Theme & Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
         body { 
             background-color: #121212; 
             color: #f5f5f5; 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
+        }
+
+        /* Sticky Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px); /* Gives it a premium frosted glass look */
+            z-index: 1000;
+            padding: 15px 0;
+            text-align: center;
+            border-bottom: 1px solid #333;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        nav a:hover {
+            color: #d4af37;
         }
         
         /* Hero Section - Fixed for iPhone/Safari */
@@ -43,7 +70,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6); /* Dims the video so your white text pops */
+            background: rgba(0,0,0,0.6);
             z-index: 2;
         }
         .hero-content { 
@@ -68,7 +95,7 @@
         
         /* Content Sections */
         section { 
-            padding: 80px 20px; 
+            padding: 100px 20px 80px; /* Added extra top padding so the sticky nav doesn't cover titles */
             max-width: 1200px; 
             margin: 0 auto; 
         }
@@ -101,6 +128,27 @@
         ul {
             line-height: 1.8;
             color: #ccc;
+        }
+
+        /* FAQ Section Specifics */
+        .faq-item {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border-left: 4px solid #d4af37;
+        }
+        .faq-item h3 {
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+        .faq-item p {
+            color: #ccc;
+            line-height: 1.6;
+            margin-bottom: 0;
         }
 
         /* Image Slider Section */
@@ -190,7 +238,7 @@
         .label-before { left: 20px; }
         .label-after { right: 20px; }
         
-        /* Certification Badge & Buttons */
+        /* Buttons & Badges */
         .cert-badge { 
             background: #d4af37; 
             color: #000; 
@@ -235,7 +283,7 @@
         .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
 
-        /* Contact Section & Form Styling */
+        /* Contact Form */
         .contact-container {
             background: #1e1e1e;
             padding: 40px;
@@ -264,12 +312,12 @@
             color: #fff;
             font-size: 1rem;
             font-family: inherit;
-            box-sizing: border-box; /* Keeps padding inside the width */
+            box-sizing: border-box;
             transition: border-color 0.3s ease;
         }
         .contact-form input:focus, .contact-form textarea:focus {
             outline: none;
-            border-color: #d4af37; /* Gold highlight when typing */
+            border-color: #d4af37;
         }
         .contact-form button {
             width: 100%;
@@ -285,15 +333,19 @@
 
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
+            nav a {
+                font-size: 0.9rem;
+                margin: 0 8px;
+            }
             h1 {
-                font-size: 2.2rem; /* Shrinks the giant text to fit iPhones */
+                font-size: 2.2rem; 
                 letter-spacing: 1px;
             }
             p.tagline {
                 font-size: 1rem;
             }
             section {
-                padding: 50px 15px; /* Slightly tighter spacing on phones */
+                padding: 70px 15px 50px; 
             }
             h2 {
                 font-size: 2rem;
@@ -302,6 +354,14 @@
     </style>
 </head>
 <body>
+
+    <nav>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#faq">FAQ</a>
+        <a href="#about">Team</a>
+        <a href="#contact">Contact</a>
+    </nav>
 
     <header>
         <video autoplay muted loop playsinline poster="Sunset1.JPG" class="hero-video">
@@ -367,6 +427,35 @@
         </div>
     </section>
 
+    <section id="faq">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <h3>Are you licensed and insured to fly commercially?</h3>
+            <p>Absolutely. We operate under full FAA Part 107 Certification for commercial flight and carry comprehensive liability insurance. Safety and compliance are our top priorities. We handle all local airspace authorizations in the Peoria and Pekin region before the drone ever leaves the ground, ensuring your property and project are completely protected.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What makes your footage look different from a standard drone video?</h3>
+            <p>We capture our aerial and ground footage using 10-bit color cinematic profiles, which record billions of colors and massive dynamic range. Instead of just applying a basic filter, every single clip goes through a custom, node-based color grading process. This high-end post-production pipeline ensures a rich, broadcast-ready look that standard cameras simply cannot match.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Do you only shoot aerial drone footage?</h3>
+            <p>Not at all! We are a dual-operator team. While one of us is navigating the skies, the other utilizes an advanced computational camera system on the ground. This allows us to capture buttery-smooth, high-dynamic-range ground cinematography that seamlessly blends with our aerial shots to tell the complete story of your business, real estate property, or event.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What happens if it rains or is too windy on the day of the shoot?</h3>
+            <p>Central Illinois weather can be unpredictable, but we never compromise on safety or the quality of your footage. If the conditions aren't right for safe flying—such as high winds, rain, or poor visibility—we will simply work with you to reschedule the flight for the next clear weather window at no additional cost.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How long does it take to receive the final edited video?</h3>
+            <p>Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is 3 to 5 business days. We ensure every frame is polished to perfection before delivering the final product.</p>
+        </div>
+    </section>
+
     <section id="about">
         <h2>Meet the Team</h2>
         <div class="bio-flex">
@@ -392,9 +481,23 @@
                 <textarea name="message" rows="5" placeholder="Tell us about your project or request a quote..." required></textarea>
                 <button type="submit" class="btn">Send Message</button>
             </form>
-
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p
+        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const slider = document.getElementById('compare-slider');
+        const beforeImage = document.querySelector('.img-before');
+        const sliderHandle = document.querySelector('.slider-handle');
+
+        slider.addEventListener('input', (e) => {
+            const value = e.target.value;
+            beforeImage.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
+            sliderHandle.style.left = `${value}%`;
+        });
+    </script>
+</body>
+</html>
