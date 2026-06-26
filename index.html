@@ -31,6 +31,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
+            overflow-x: hidden;
         }
 
         /* CUSTOM CINEMATIC SCROLLBAR */
@@ -163,10 +164,11 @@
             padding: 30px; 
             border-radius: 8px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
-            transition: transform 0.3s ease; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
         }
         .card:hover { 
             transform: translateY(-5px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
         }
         .card h3 { 
             color: #fff; 
@@ -405,6 +407,21 @@
             color: #fff;
         }
 
+        /* --- SCROLL ANIMATION CSS --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .faq-item {
+            margin-bottom: 30px;
+        }
+
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
             nav {
@@ -484,17 +501,17 @@
     </header>
 
     <section id="services">
-        <h2>Our Services</h2>
+        <h2 class="fade-in">Our Services</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Aerial Videography</h3>
                 <p>Capturing stunning 10-bit color cinematic footage from above for commercial, event, and real estate projects.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Stabilized Ground Cinematography</h3>
                 <p>Utilizing advanced AI-assisted imaging and professional gimbal stabilization, we capture buttery-smooth, high-dynamic-range ground footage to perfectly complement our aerial operations.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Professional Post-Production</h3>
                 <p>Advanced editing, motion tracking, and node-based color grading to bring your raw footage to its full potential.</p>
             </div>
@@ -502,9 +519,9 @@
     </section>
 
     <section id="portfolio">
-        <h2>Our Work & Portfolio</h2>
+        <h2 class="fade-in">Our Work & Portfolio</h2>
         
-        <div class="portfolio-video-wrapper">
+        <div class="portfolio-video-wrapper fade-in">
             <div class="portfolio-text">
                 <h3>Commercial Site Tracking</h3>
                 <p>Dynamic, cinematic progress updates for local commercial and construction partners.</p>
@@ -515,10 +532,10 @@
             </video>
         </div>
 
-        <h3 style="text-align: center; color: #fff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px;">Color Grading Showcase</h3>
-        <p style="text-align: center; color: #ccc; margin-bottom: 30px; font-size: 1.1rem;">Drag the slider to see the difference professional node-based color grading makes.</p>
+        <h3 class="fade-in" style="text-align: center; color: #fff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px;">Color Grading Showcase</h3>
+        <p class="fade-in" style="text-align: center; color: #ccc; margin-bottom: 30px; font-size: 1.1rem;">Drag the slider to see the difference professional node-based color grading makes.</p>
         
-        <div class="slider-wrapper">
+        <div class="slider-wrapper fade-in">
             <img src="Dirksen%20Sunset.jpeg" alt="Graded Sunset" class="slider-image img-after">
             <img src="Sunset1.JPG" alt="Raw Log Sunset" class="slider-image img-before">
             <div class="slider-label label-before">RAW 10-BIT LOG</div>
@@ -529,17 +546,17 @@
     </section>
 
     <section id="production-value">
-        <h2>The Cinematic Difference</h2>
+        <h2 class="fade-in">The Cinematic Difference</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card fade-in">
                 <h3>10-Bit Cinematic Capture</h3>
                 <p>We do not just point and shoot. By filming in high-dynamic-range log color profiles, our cameras capture billions of colors. This preserves crucial details in bright skies and deep shadows, completely eliminating the "blown out" look of standard video.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Precision Color Mastering</h3>
                 <p>Every single project is custom-graded. We build advanced node trees to isolate cinematic skin tones, seamlessly match our aerial and ground cameras, and apply a premium, stylized look to your final film.</p>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>AI-Powered Post-Production</h3>
                 <p>We leverage cutting-edge tools for intelligent upscaling and advanced motion tracking. This ensures your final product looks flawlessly polished and perfectly framed, whether your clients are watching on a smartphone or a 4K display.</p>
             </div>
@@ -547,9 +564,9 @@
     </section>
 
     <section id="equipment">
-        <h2>Equipment & Credentials</h2>
+        <h2 class="fade-in">Equipment & Credentials</h2>
         <div class="grid">
-            <div class="card">
+            <div class="card fade-in">
                 <h3>The Gear</h3>
                 <ul>
                     <li><strong>Aerial Imaging:</strong> DJI Mini 5 Pro (10-bit color cinematic system)</li>
@@ -557,7 +574,7 @@
                     <li><strong>Post-Production:</strong> DaVinci Resolve Studio 21 (node-based color grading & AI enhancement)</li>
                 </ul>
             </div>
-            <div class="card">
+            <div class="card fade-in">
                 <h3>Certifications</h3>
                 <p>Fully licensed, certified, and insured for commercial flight operations.</p>
                 <div class="cert-badge">FAA Part 107 Certified Remote Pilot</div>
@@ -566,37 +583,37 @@
     </section>
 
     <section id="faq">
-        <h2>Frequently Asked Questions</h2>
+        <h2 class="fade-in">Frequently Asked Questions</h2>
         
-        <div class="faq-item">
+        <div class="faq-item fade-in">
             <h3>Are you licensed and insured to fly commercially?</h3>
             <p>Absolutely. We operate under full FAA Part 107 Certification for commercial flight and carry comprehensive liability insurance. Safety and compliance are our top priorities. We handle all local airspace authorizations in the Peoria and Pekin region before the drone ever leaves the ground, ensuring your property and project are completely protected.</p>
         </div>
 
-        <div class="faq-item">
+        <div class="faq-item fade-in">
             <h3>What makes your footage look different from a standard drone video?</h3>
             <p>We capture our aerial and ground footage using 10-bit color cinematic profiles, which record billions of colors and massive dynamic range. Instead of just applying a basic filter, every single clip goes through a custom, node-based color grading process. This high-end post-production pipeline ensures a rich, broadcast-ready look that standard cameras simply cannot match.</p>
         </div>
 
-        <div class="faq-item">
+        <div class="faq-item fade-in">
             <h3>Do you only shoot aerial drone footage?</h3>
             <p>Not at all! We are a dual-operator team. While one of us is navigating the skies, the other utilizes an advanced computational camera system on the ground. This allows us to capture buttery-smooth, high-dynamic-range ground cinematography that seamlessly blends with our aerial shots to tell the complete story of your business, real estate property, or event.</p>
         </div>
 
-        <div class="faq-item">
+        <div class="faq-item fade-in">
             <h3>What happens if it rains or is too windy on the day of the shoot?</h3>
             <p>Central Illinois weather can be unpredictable, but we never compromise on safety or the quality of your footage. If the conditions aren't right for safe flying—such as high winds, rain, or poor visibility—we will simply work with you to reschedule the flight for the next clear weather window at no additional cost.</p>
         </div>
 
-        <div class="faq-item">
+        <div class="faq-item fade-in">
             <h3>How long does it take to receive the final edited video?</h3>
             <p>Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is 3 to 5 business days. We ensure every frame is polished to perfection before delivering the final product.</p>
         </div>
     </section>
 
     <section id="about">
-        <h2>Meet the Team</h2>
-        <div class="bio-flex">
+        <h2 class="fade-in">Meet the Team</h2>
+        <div class="bio-flex fade-in">
             <div class="bio-text">
                 <p>I'm Michael Cunningham, the founder, lead editor, and FAA Part 107 Certified Remote Pilot behind Baseline Cinematic. I specialize in capturing premium 10-bit aerial footage and utilizing advanced node-based color grading in DaVinci Resolve to bring a unique, high-end cinematic look to the Peoria and Pekin area.</p>
                 <p>Baseline Cinematic is proud to be a husband-and-wife team. While I am navigating the skies and managing post-production, my wife expertly handles our stabilized ground cinematography. Utilizing an advanced computational camera system, she ensures we capture dynamic, high-quality ground shots that seamlessly blend with our aerial operations.</p>
@@ -609,8 +626,8 @@
     </section>
 
     <section id="contact">
-        <h2>Let's Work Together</h2>
-        <div class="contact-container">
+        <h2 class="fade-in">Let's Work Together</h2>
+        <div class="contact-container fade-in">
             <p>Ready to elevate your next project? Baseline Cinematic proudly serves Pekin, Peoria, Morton, Tremont, Groveland, and everywhere within a 100-mile radius.</p>
             
             <form action="https://formspree.io/f/mwvdljwd" method="POST" class="contact-form">
@@ -633,6 +650,7 @@
     </footer>
 
     <script>
+        // --- Color Grading Slider Script ---
         const slider = document.getElementById('compare-slider');
         const beforeImage = document.querySelector('.img-before');
         const sliderHandle = document.querySelector('.slider-handle');
@@ -641,6 +659,29 @@
             const value = e.target.value;
             beforeImage.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
             sliderHandle.style.left = `${value}%`;
+        });
+
+        // --- Scroll Animation Script ---
+        const faders = document.querySelectorAll('.fade-in');
+
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
         });
     </script>
 </body>
