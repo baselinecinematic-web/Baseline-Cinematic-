@@ -23,7 +23,7 @@
             top: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(10px); /* Gives it a premium frosted glass look */
+            backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 15px 0;
             text-align: center;
@@ -41,7 +41,7 @@
             color: #d4af37;
         }
         
-        /* Hero Section - Fixed for iPhone/Safari */
+        /* Hero Section */
         header { 
             min-height: 100dvh; 
             display: flex; 
@@ -95,7 +95,7 @@
         
         /* Content Sections */
         section { 
-            padding: 100px 20px 80px; /* Added extra top padding so the sticky nav doesn't cover titles */
+            padding: 100px 20px 80px; 
             max-width: 1200px; 
             margin: 0 auto; 
         }
@@ -405,6 +405,24 @@
             <div class="slider-label label-after">GRADED</div>
             <input type="range" min="0" max="100" value="50" class="slider-input" id="compare-slider">
             <div class="slider-handle"></div>
+        </div>
+    </section>
+
+    <section id="production-value">
+        <h2>The Cinematic Difference</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>10-Bit Cinematic Capture</h3>
+                <p>We do not just point and shoot. By filming in high-dynamic-range log color profiles, our cameras capture billions of colors. This preserves crucial details in bright skies and deep shadows, completely eliminating the "blown out" look of standard video.</p>
+            </div>
+            <div class="card">
+                <h3>Precision Color Mastering</h3>
+                <p>Every single project is custom-graded. We build advanced node trees to isolate cinematic skin tones, seamlessly match our aerial and ground cameras, and apply a premium, stylized look to your final film.</p>
+            </div>
+            <div class="card">
+                <h3>AI-Powered Post-Production</h3>
+                <p>We leverage cutting-edge tools for intelligent upscaling and advanced motion tracking. This ensures your final product looks flawlessly polished and perfectly framed, whether your clients are watching on a smartphone or a 4K display.</p>
+            </div>
         </div>
     </section>
 
