@@ -211,6 +211,9 @@
             transition: background 0.3s ease;
             margin-top: 20px;
             display: inline-block;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
         .btn:hover {
             background: #b5952f;
@@ -232,7 +235,7 @@
         .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
         .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
 
-        /* Contact Section Specific */
+        /* Contact Section & Form Styling */
         .contact-container {
             background: #1e1e1e;
             padding: 40px;
@@ -243,7 +246,33 @@
         .contact-container p {
             font-size: 1.2rem;
             color: #ccc;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: inherit;
+            box-sizing: border-box; /* Keeps padding inside the width */
+            transition: border-color 0.3s ease;
+        }
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #d4af37; /* Gold highlight when typing */
+        }
+        .contact-form button {
+            width: 100%;
         }
         
         footer { 
@@ -356,25 +385,16 @@
         <h2>Let's Work Together</h2>
         <div class="contact-container">
             <p>Ready to elevate your next project? Baseline Cinematic proudly serves Peoria, Pekin, and the greater Central Illinois region.</p>
-            <p>Reach out today to discuss your vision, request a quote, or schedule a flight.</p>
-            <a href="mailto:baselinecinematic@gmail.com" class="btn">Email Us Directly</a>
+            
+            <form action="https://formspree.io/f/mwvdljwd" method="POST" class="contact-form">
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <textarea name="message" rows="5" placeholder="Tell us about your project or request a quote..." required></textarea>
+                <button type="submit" class="btn">Send Message</button>
+            </form>
+
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
-    </footer>
-
-    <script>
-        const slider = document.getElementById('compare-slider');
-        const beforeImage = document.querySelector('.img-before');
-        const sliderHandle = document.querySelector('.slider-handle');
-
-        slider.addEventListener('input', (e) => {
-            const value = e.target.value;
-            beforeImage.style.clipPath = `polygon(0 0, ${value}% 0, ${value}% 100%, 0 100%)`;
-            sliderHandle.style.left = `${value}%`;
-        });
-    </script>
-</body>
-</html>
+        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p
