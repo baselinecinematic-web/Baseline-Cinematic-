@@ -5,21 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baseline Cinematic</title>
     
+    <!-- Core SEO Meta Tags -->
     <meta name="description" content="Baseline Cinematic provides premium FAA certified drone videography & color grading across Central IL. Serving Pekin, Peoria, Morton, Tremont, Groveland & a 100-mile radius.">
     <meta name="author" content="Michael Cunningham">
     <meta name="robots" content="index, follow">
     
+    <!-- Favicon -->
     <link rel="icon" href="share-preview.jpg" type="image/jpeg">
 
+    <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="Baseline Cinematic">
     <meta property="og:description" content="Premium Drone Videography & Post-Production serving Central Illinois and a 100-mile radius.">
     <meta property="og:image" content="share-preview.jpg">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
 
+    <!-- Google Fonts: Montserrat (Headings) & Inter (Body Text) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Invisible Schema SEO (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Baseline Cinematic",
+      "founder": {
+        "@type": "Person",
+        "name": "Michael Cunningham"
+      },
+      "email": "baselinecinematic@gmail.com",
+      "image": "https://yourwebsite.com/share-preview.jpg",
+      "description": "Premium FAA certified drone videography, stabilized ground cinematography, and professional color grading serving Central Illinois and a 100-mile radius.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Pekin",
+        "addressRegion": "IL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Pekin"},
+        {"@type": "City", "name": "Peoria"},
+        {"@type": "City", "name": "East Peoria"},
+        {"@type": "City", "name": "Morton"},
+        {"@type": "City", "name": "Washington"},
+        {"@type": "City", "name": "Bartonville"},
+        {"@type": "City", "name": "Creve Coeur"},
+        {"@type": "City", "name": "Marquette Heights"},
+        {"@type": "City", "name": "Peoria Heights"},
+        {"@type": "City", "name": "Dunlap"},
+        {"@type": "City", "name": "Chillicothe"},
+        {"@type": "City", "name": "Germantown Hills"},
+        {"@type": "City", "name": "Metamora"},
+        {"@type": "City", "name": "Eureka"},
+        {"@type": "City", "name": "Roanoke"},
+        {"@type": "City", "name": "El Paso"},
+        {"@type": "City", "name": "Goodfield"},
+        {"@type": "City", "name": "Deer Creek"},
+        {"@type": "City", "name": "Mackinaw"},
+        {"@type": "City", "name": "Tremont"},
+        {"@type": "City", "name": "Groveland"},
+        {"@type": "City", "name": "Delavan"},
+        {"@type": "City", "name": "Minier"},
+        {"@type": "City", "name": "Hopedale"},
+        {"@type": "City", "name": "South Pekin"},
+        {"@type": "City", "name": "Manito"},
+        {"@type": "City", "name": "Havana"},
+        {"@type": "City", "name": "Lewistown"},
+        {"@type": "City", "name": "Canton"},
+        {"@type": "City", "name": "Farmington"},
+        {"@type": "City", "name": "Elmwood"},
+        {"@type": "City", "name": "Brimfield"},
+        {"@type": "City", "name": "Princeville"},
+        {"@type": "City", "name": "Galesburg"},
+        {"@type": "City", "name": "Bloomington"},
+        {"@type": "City", "name": "Normal"},
+        {"@type": "City", "name": "Lincoln"}
+      ],
+      "knowsAbout": [
+        "Aerial Videography", 
+        "Drone Cinematography", 
+        "Color Grading", 
+        "Commercial Site Tracking"
+      ]
+    }
+    </script>
 
     <style>
         /* Dark Theme & Smooth Scrolling */
@@ -29,7 +100,7 @@
         body { 
             background-color: #121212; 
             color: #f5f5f5; 
-            font-family: 'Inter', sans-serif; /* Updated to Inter */
+            font-family: 'Inter', sans-serif; 
             margin: 0; 
             padding: 0; 
             overflow-x: hidden;
@@ -526,6 +597,7 @@
                 <h3>Commercial Site Tracking</h3>
                 <p>Dynamic, cinematic progress updates for local commercial and construction partners.</p>
             </div>
+            <!-- Added preload="none" for performance optimization -->
             <video controls playsinline preload="none">
                 <source src="Construction%20Site.mp4" type="video/mp4">
                 Your browser does not support HTML5 video.
@@ -536,6 +608,7 @@
         <p class="fade-in" style="text-align: center; color: #ccc; margin-bottom: 30px; font-size: 1.1rem;">Drag the slider to see the difference professional node-based color grading makes.</p>
         
         <div class="slider-wrapper fade-in">
+            <!-- Added loading="lazy" to below-the-fold images -->
             <img src="Dirksen%20Sunset.jpeg" alt="Graded Sunset" class="slider-image img-after" loading="lazy">
             <img src="Sunset1.JPG" alt="Raw Log Sunset" class="slider-image img-before" loading="lazy">
             <div class="slider-label label-before">RAW 10-BIT LOG</div>
@@ -620,6 +693,7 @@
                 <p>Beyond the lens, our faith and our family are at the core of everything we do. As proud parents and active members of our local Christian church in Pekin, we believe in treating every client with honesty, integrity, and a strict commitment to safety and excellence. When you hire us, you are getting a dedicated team focused on bringing your vision to life.</p>
             </div>
             <div class="bio-image" style="display: none;">
+                <!-- Added loading="lazy" -->
                 <img src="team.jpg" alt="Baseline Cinematic Team" loading="lazy">
             </div>
         </div>
