@@ -46,7 +46,7 @@
             border-bottom: 1px solid #333;
             display: flex;
             align-items: center;
-            justify-content: space-between; /* Pushes logo left, links right */
+            justify-content: space-between; 
             padding: 10px 30px; 
             box-sizing: border-box;
         }
@@ -56,9 +56,9 @@
             text-decoration: none;
         }
         .nav-logo img {
-            height: 45px; /* Keeps the navbar sleek and not too tall */
+            height: 45px; 
             width: auto;
-            border-radius: 4px; /* Softens the edges of the square slightly */
+            border-radius: 4px; 
         }
         .nav-links {
             display: flex;
@@ -387,11 +387,11 @@
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
             nav {
-                flex-direction: column; /* Stacks logo on top of links for phones */
+                flex-direction: column; 
                 padding: 15px 10px;
             }
             .nav-logo {
-                margin-bottom: 10px; /* Space between logo and links */
+                margin-bottom: 10px; 
             }
             .nav-logo img {
                 height: 40px;
@@ -412,10 +412,21 @@
                 font-size: 1rem;
             }
             section {
-                padding: 130px 15px 50px; /* Extra padding so the taller mobile navbar doesn't cover section titles */
+                padding: 130px 15px 50px; 
             }
             h2 {
                 font-size: 2rem;
+            }
+            
+            /* --- TEXT OVERFLOW FIXES --- */
+            .bio-flex {
+                padding: 20px; /* Reduces the massive box padding on small screens */
+            }
+            .bio-text {
+                min-width: 100%; /* Prevents text from forcing itself wider than the screen */
+            }
+            .grid {
+                grid-template-columns: 1fr; /* Ensures cards stack perfectly instead of squeezing */
             }
         }
     </style>
