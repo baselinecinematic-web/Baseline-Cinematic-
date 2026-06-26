@@ -35,7 +35,7 @@
             background: #d4af37; 
         }
 
-        /* Sticky Navigation Bar */
+        /* UPGRADED STICKY NAVIGATION BAR */
         nav {
             position: fixed;
             top: 0;
@@ -43,11 +43,28 @@
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
             z-index: 1000;
-            padding: 15px 0;
-            text-align: center;
             border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Pushes logo left, links right */
+            padding: 10px 30px; 
+            box-sizing: border-box;
         }
-        nav a {
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .nav-logo img {
+            height: 45px; /* Keeps the navbar sleek and not too tall */
+            width: auto;
+            border-radius: 4px; /* Softens the edges of the square slightly */
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
             color: #fff;
             text-decoration: none;
             margin: 0 15px;
@@ -55,7 +72,7 @@
             font-size: 1.1rem;
             transition: color 0.3s ease;
         }
-        nav a:hover {
+        .nav-links a:hover {
             color: #d4af37;
         }
         
@@ -113,7 +130,7 @@
         
         /* Content Sections */
         section { 
-            padding: 100px 20px 80px; 
+            padding: 120px 20px 80px; 
             max-width: 1200px; 
             margin: 0 auto; 
         }
@@ -369,9 +386,23 @@
 
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
-            nav a {
+            nav {
+                flex-direction: column; /* Stacks logo on top of links for phones */
+                padding: 15px 10px;
+            }
+            .nav-logo {
+                margin-bottom: 10px; /* Space between logo and links */
+            }
+            .nav-logo img {
+                height: 40px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-links a {
                 font-size: 0.9rem;
-                margin: 0 8px;
+                margin: 5px 8px;
             }
             h1 {
                 font-size: 2.2rem; 
@@ -381,7 +412,7 @@
                 font-size: 1rem;
             }
             section {
-                padding: 70px 15px 50px; 
+                padding: 130px 15px 50px; /* Extra padding so the taller mobile navbar doesn't cover section titles */
             }
             h2 {
                 font-size: 2rem;
@@ -392,11 +423,16 @@
 <body>
 
     <nav>
-        <a href="#services">Services</a>
-        <a href="#portfolio">Portfolio</a>
-        <a href="#faq">FAQ</a>
-        <a href="#about">Team</a>
-        <a href="#contact">Contact</a>
+        <a href="#" class="nav-logo">
+            <img src="favicon.png" alt="Baseline Cinematic Logo">
+        </a>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#faq">FAQ</a>
+            <a href="#about">Team</a>
+            <a href="#contact">Contact</a>
+        </div>
     </nav>
 
     <header>
