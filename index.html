@@ -165,25 +165,33 @@
             color: #ccc;
         }
 
-        /* FAQ Section Specifics */
-        .faq-item {
+        /* PORTFOLIO SECTION UPDATES */
+        .portfolio-video-wrapper {
             background: #1e1e1e;
-            padding: 25px;
+            padding: 30px;
             border-radius: 8px;
-            margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            border-left: 4px solid #d4af37;
+            margin-bottom: 60px;
+            text-align: center;
         }
-        .faq-item h3 {
+        .portfolio-text h3 {
             color: #fff;
             margin-top: 0;
             margin-bottom: 10px;
-            font-size: 1.3rem;
+            font-size: 1.5rem;
         }
-        .faq-item p {
+        .portfolio-text p {
             color: #ccc;
-            line-height: 1.6;
-            margin-bottom: 0;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        .portfolio-video-wrapper video {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 6px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.8);
+            outline: none;
+            background: #000;
         }
 
         /* Image Slider Section */
@@ -417,16 +425,19 @@
             h2 {
                 font-size: 2rem;
             }
+            .portfolio-video-wrapper {
+                padding: 15px;
+            }
             
             /* --- TEXT OVERFLOW FIXES --- */
             .bio-flex {
-                padding: 20px; /* Reduces the massive box padding on small screens */
+                padding: 20px; 
             }
             .bio-text {
-                min-width: 100%; /* Prevents text from forcing itself wider than the screen */
+                min-width: 100%; 
             }
             .grid {
-                grid-template-columns: 1fr; /* Ensures cards stack perfectly instead of squeezing */
+                grid-template-columns: 1fr; 
             }
         }
     </style>
@@ -478,7 +489,20 @@
     </section>
 
     <section id="portfolio">
-        <h2>Color Grading Showcase</h2>
+        <h2>Our Work & Portfolio</h2>
+        
+        <div class="portfolio-video-wrapper">
+            <div class="portfolio-text">
+                <h3>Commercial Site Tracking</h3>
+                <p>Dynamic, cinematic progress updates for local commercial and construction partners.</p>
+            </div>
+            <video controls playsinline>
+                <source src="Construction%20Site.mp4" type="video/mp4">
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+
+        <h3 style="text-align: center; color: #fff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px;">Color Grading Showcase</h3>
         <p style="text-align: center; color: #ccc; margin-bottom: 30px; font-size: 1.1rem;">Drag the slider to see the difference professional node-based color grading makes.</p>
         
         <div class="slider-wrapper">
