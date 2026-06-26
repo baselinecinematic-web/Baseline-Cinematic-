@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Baseline Cinematic</title>
+    
+    <link rel="icon" href="favicon.png" type="image/png">
+
     <style>
         /* Dark Theme & Smooth Scrolling */
         html {
@@ -15,6 +18,21 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
+        }
+
+        /* CUSTOM CINEMATIC SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37; 
         }
 
         /* Sticky Navigation Bar */
@@ -323,12 +341,30 @@
             width: 100%;
         }
         
+        /* AGENCY STYLE FOOTER */
         footer { 
             text-align: center; 
-            padding: 40px; 
+            padding: 50px 20px; 
             background: #0a0a0a; 
-            border-top: 1px solid #333; 
+            border-top: 1px solid #222; 
             color: #777;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            color: #d4af37;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #fff;
         }
 
         /* MOBILE RESPONSIVE FIXES */
@@ -503,6 +539,12 @@
     </section>
 
     <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="mailto:baselinecinematic@gmail.com">baselinecinematic@gmail.com</a>
+                <a href="#portfolio">View Portfolio</a>
+            </div>
+        </div>
         <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
     </footer>
 
