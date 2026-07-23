@@ -281,12 +281,25 @@
             font-size: 1.1rem;
             margin-bottom: 25px;
         }
-        .portfolio-video-wrapper video {
+        
+        /* RESPONSIVE YOUTUBE IFRAME STYLING */
+        .iframe-container {
+            position: relative;
             width: 100%;
             max-width: 900px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border-radius: 6px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.8);
             outline: none;
+            border: none;
             background: #000;
         }
 
@@ -597,40 +610,37 @@
     <section id="portfolio">
         <h2 class="fade-in">Our Work & Portfolio</h2>
 
-        <!-- NEW AERIAL SHOWCASE -->
+        <!-- YOUTUBE EMBED 1 -->
         <div class="portfolio-video-wrapper fade-in">
             <div class="portfolio-text">
-                <h3>Baseline Cinematic Highlight Reel</h3>
-                <p>A comprehensive showcase of our premium drone cinematography, featuring historic architecture, local landmarks, and stunning landscapes from across the region.</p>
+                <h3>Golden hour magic in Washington Square!</h3>
+                <p>We took to the streets and the skies to showcase the timeless charm of historic downtown Washington, IL. Go take a stroll and check it out!<br><br>Captured by Baseline Cinematic. Want to showcase your property, business, or community with professional ground & aerial video? Let's work together! 🎬🚁</p>
             </div>
-            <video controls playsinline preload="metadata">
-                <source src="Beautiful%20Peoria%20from%20Above.mp4" type="video/mp4">
-                Your browser does not support HTML5 video.
-            </video>
+            <div class="iframe-container">
+                <iframe src="https://www.youtube.com/embed/LaM2WcMHRXs?rel=0" title="Golden hour magic in Washington Square!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
         </div>
 
-        <!-- RIVERFRONT SHOWCASE -->
+        <!-- YOUTUBE EMBED 2 -->
         <div class="portfolio-video-wrapper fade-in">
             <div class="portfolio-text">
-                <h3>Peoria Riverfront & Skyline Hyper-Lapse</h3>
-                <p>A high-energy, cinematic hyper-lapse sweeping across the downtown riverfront, highlighting our ability to capture ultra-smooth accelerated aerial motion.</p>
+                <h3>A cinematic look at the historic beauty of Peoria, Illinois.</h3>
+                <p>Join Baseline Cinematic as we take flight over some of Peoria's most stunning historic homes, featuring iconic streets like Moss Avenue and Grandview. We love capturing the timeless beauty of our region from a new perspective.</p>
             </div>
-            <video controls playsinline preload="metadata">
-                <source src="Riverfront.mp4" type="video/mp4">
-                Your browser does not support HTML5 video.
-            </video>
+            <div class="iframe-container">
+                <iframe src="https://www.youtube.com/embed/kncKUzgVizA?rel=0" title="A cinematic look at the historic beauty of Peoria, Illinois." allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
         </div>
         
-        <!-- EXISTING CONSTRUCTION TRACKING -->
+        <!-- YOUTUBE EMBED 3 -->
         <div class="portfolio-video-wrapper fade-in">
             <div class="portfolio-text">
-                <h3>Commercial Site Tracking</h3>
-                <p>Dynamic, cinematic progress updates for local commercial and construction partners.</p>
+                <h3>Flying high over the heart of Peoria</h3>
+                <p>Bringing professional aerial drone videography services to life. Let us know what you would like to see next.</p>
             </div>
-            <video controls playsinline preload="none">
-                <source src="Construction%20Site.mp4" type="video/mp4">
-                Your browser does not support HTML5 video.
-            </video>
+            <div class="iframe-container">
+                <iframe src="https://www.youtube.com/embed/IEdpmG7ocCM?rel=0" title="Flying high over the heart of Peoria" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
         </div>
 
         <h3 class="fade-in" style="text-align: center; color: #fff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-bottom: 20px;">Color Grading Showcase</h3>
