@@ -677,6 +677,11 @@
             <input type="range" min="0" max="100" value="50" class="slider-input" id="compare-slider">
             <div class="slider-handle"></div>
         </div>
+        
+        <!-- NEW MID-PAGE BOOKING BUTTON -->
+        <div style="text-align: center; margin-top: 50px; margin-bottom: 20px;" class="fade-in">
+            <a href="#contact" class="btn" style="box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Check Availability & Pricing</a>
+        </div>
     </section>
 
     <section id="production-value">
@@ -762,20 +767,24 @@
     <section id="contact">
         <h2 class="fade-in">Let's Work Together</h2>
         <div class="contact-container fade-in">
+            
             <p style="color: #d4af37; font-size: 1.3rem; font-weight: 600; font-family: 'Montserrat', sans-serif; margin-bottom: 5px;">Aerial Drone Videography Showcase: $149</p>
-            <p style="color: #d4af37; font-size: 1.3rem; font-weight: 600; font-family: 'Montserrat', sans-serif; margin-top: 0; margin-bottom: 20px;">Standard Real Estate Video Tour: $199</p>
-            <p>Every commercial and creative project is unique. We proudly partner with real estate agents across Pekin, Peoria, Morton, and Tremont to deliver property tours that stand out. Reach out today to schedule a shoot or request a custom quote.</p>
+            <p style="color: #d4af37; font-size: 1.3rem; font-weight: 600; font-family: 'Montserrat', sans-serif; margin-top: 0; margin-bottom: 25px;">Standard Real Estate Video Tour: $199</p>
+            
+            <div style="background: #2a2a2a; border: 1px solid #444; border-radius: 5px; padding: 15px; margin-bottom: 25px; display: inline-block;">
+                <p style="margin: 0; font-size: 1.1rem; color: #fff;">Need immediate availability?</p>
+                <p style="margin: 5px 0 0 0; font-size: 1.3rem; font-weight: bold;">Call or Text: <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none;">(309) 863-5181</a></p>
+            </div>
+
+            <p>Every commercial and creative project is unique. We proudly partner with real estate agents across the region to deliver property tours that stand out. Reach out today to schedule a shoot or request a custom quote.</p>
             <p style="font-size: 0.95rem; margin-top: -15px; margin-bottom: 30px;">Proudly serving Pekin, Peoria, Morton, Tremont, Groveland, and the surrounding 50-mile radius.</p>
             
             <form action="https://formspree.io/f/mwvdljwd" method="POST" class="contact-form">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email Address" required>
-                <textarea name="message" rows="5" placeholder="Tell us about your project or request a quote..." required></textarea>
+                <textarea name="message" rows="5" placeholder="What is the property address, approximate square footage, and your target shoot date?" required></textarea>
                 
                 <input type="text" name="_gotcha" style="display:none" />
-                
-                <!-- THIS IS THE NEW LINE THAT CAUSES THE REDIRECT -->
-                <input type="hidden" name="_next" value="https://baselinecinematic.com/thank-you.html">
                 
                 <button type="submit" class="btn">Send Message</button>
             </form>
