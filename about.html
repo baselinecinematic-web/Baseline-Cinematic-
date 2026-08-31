@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Baseline Cinematic</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- Uses the exact same CSS as your main page -->
+    <style>
+        body { background-color: #121212; color: #f5f5f5; font-family: 'Inter', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
+        h1, h2, h3, .nav-links a, .btn { font-family: 'Montserrat', sans-serif; }
+        
+        nav { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #333; display: flex; align-items: center; justify-content: space-between; padding: 10px 30px; box-sizing: border-box; }
+        .nav-logo img { height: 45px; border-radius: 4px; }
+        .nav-links a { color: #fff; text-decoration: none; margin: 0 15px; font-size: 1.1rem; transition: color 0.3s ease; }
+        .nav-links a:hover { color: #d4af37; }
+
+        .page-header { padding: 120px 20px 40px; text-align: center; background: #0a0a0a; border-bottom: 1px solid #222; }
+        .page-header h1 { font-size: 3rem; color: #d4af37; margin: 0; text-transform: uppercase; }
+
+        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+        
+        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; background: #000; border-radius: 8px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.8); margin-bottom: 40px; }
+        .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+        .bio-flex { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; background: #1e1e1e; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin-bottom: 40px; }
+        .bio-text { flex: 1; min-width: 300px; }
+        .bio-text h2 { color: #fff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 0; font-size: 2rem;}
+        .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
+        .bio-image { flex: 0 0 300px; text-align: center; }
+        .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+        footer { text-align: center; padding: 50px 20px; background: #0a0a0a; border-top: 1px solid #222; color: #777; }
+        
+        @media (max-width: 768px) {
+            nav { flex-direction: column; padding: 15px 10px; }
+            .nav-links { flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+            .page-header { padding-top: 140px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
+        </a>
+        <div class="nav-links">
+            <a href="index.html#services">Services</a>
+            <a href="index.html#portfolio">Portfolio</a>
+            <a href="index.html#faq">FAQ</a>
+            <a href="about.html" style="color: #d4af37;">About Us</a>
+            <a href="index.html#contact">Contact</a>
+        </div>
+    </nav>
+
+    <div class="page-header">
+        <h1>Meet The Team</h1>
+        <p style="color: #ccc; font-size: 1.1rem; margin-top: 10px;">The family behind the lens at Baseline Cinematic.</p>
+    </div>
+
+    <section>
+        <!-- This is where your Peoria Disc Golf video is embedded! -->
+        <div class="video-container">
+            <video controls poster="Sunset1.JPG">
+                <source src="Peoria Disc Golf.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div class="bio-flex">
+            <div class="bio-image">
+                <img src="1784567756059~2.jpg" alt="Michael and Judith Cunningham" loading="lazy">
+            </div>
+            <div class="bio-text">
+                <h2>Our Story</h2>
+                <p>Based right here in the Peoria area, Baseline Cinematic provides high-end aerial and ground videography for commercial marketing, real estate, and brand storytelling. We are a local husband-and-wife team, and we treat every property we film with the care and attention to detail it deserves.</p>
+                
+                <p><strong>Michael Cunningham – Lead Pilot & Editor:</strong> As an FAA Part 107 Certified Remote Pilot, Michael handles all cinematic aerial drone operations. He also manages the post-production editing, color grading, and sound design to ensure your final video looks flawless.</p>
+                
+                <p><strong>Judith Cunningham – Lead Ground Operator:</strong> Judith runs our stabilized handheld camera systems. She captures the ultra-smooth, high-resolution interior walkthroughs that make properties feel expansive and inviting.</p>
+                
+                <p>Baseline Cinematic is incredibly proud to be a family-owned operation. Beyond the lens, our faith and our four children are at the core of everything we do. As active members of our local Christian church here in Pekin, we believe in treating every client with honesty, integrity, and a strict commitment to excellence. When you hire us, you are getting a dedicated team focused on bringing your vision to life.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
