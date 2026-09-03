@@ -131,14 +131,45 @@
             background: #d4af37; 
         }
 
-        /* UPGRADED STICKY NAVIGATION BAR */
-        nav {
+        /* NEW: STICKY WRAPPER FOR BANNER & NAV */
+        .sticky-wrapper {
             position: fixed;
             top: 0;
             width: 100%;
+            z-index: 1000;
+        }
+
+        /* NEW: TOP PROMO BANNER */
+        .top-banner {
+            background-color: #d4af37;
+            color: #000;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .top-banner a {
+            color: #000;
+            text-decoration: underline;
+            font-weight: 800;
+            transition: opacity 0.2s ease;
+        }
+        .top-banner a:hover {
+            opacity: 0.7;
+        }
+
+        /* NAVIGATION BAR */
+        nav {
+            width: 100%;
             background: rgba(0, 0, 0, 0.85);
             backdrop-filter: blur(10px);
-            z-index: 1000;
             border-bottom: 1px solid #333;
             display: flex;
             align-items: center;
@@ -451,7 +482,7 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        /* UPDATED FORM STYLES TO INCLUDE SELECT (DROPDOWN) */
+        
         .contact-form input, .contact-form select, .contact-form textarea {
             width: 100%;
             padding: 15px;
@@ -465,7 +496,7 @@
             transition: border-color 0.3s ease;
         }
         .contact-form select {
-            appearance: none; /* Removes default browser styling arrow */
+            appearance: none;
             cursor: pointer;
             background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
             background-repeat: no-repeat;
@@ -522,6 +553,10 @@
 
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
+            .top-banner {
+                font-size: 0.85rem;
+                padding: 8px 10px;
+            }
             nav {
                 flex-direction: column; 
                 padding: 15px 10px;
@@ -548,7 +583,7 @@
                 font-size: 1rem;
             }
             section {
-                padding: 130px 15px 50px; 
+                padding: 160px 15px 50px; /* Increased top padding to clear taller mobile sticky header */
             }
             h2 {
                 font-size: 2rem;
@@ -572,18 +607,25 @@
 </head>
 <body>
 
-    <nav>
-        <a href="index.html" class="nav-logo">
-            <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html#services">Services</a>
-            <a href="index.html#portfolio">Portfolio</a>
-            <a href="index.html#faq">FAQ</a>
-            <a href="about.html">About Us</a>
-            <a href="index.html#contact">Contact</a>
+    <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
+    <div class="sticky-wrapper">
+        <div class="top-banner">
+            <span>🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
+            <a href="#contact">Claim Spot →</a>
         </div>
-    </nav>
+        <nav>
+            <a href="index.html" class="nav-logo">
+                <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
+            </a>
+            <div class="nav-links">
+                <a href="index.html#services">Services</a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#faq">FAQ</a>
+                <a href="about.html">About Us</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </div>
 
     <header>
         <video autoplay muted loop playsinline poster="Sunset1.JPG" class="hero-video">
