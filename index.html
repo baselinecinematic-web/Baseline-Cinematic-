@@ -451,7 +451,8 @@
             max-width: 600px;
             margin: 0 auto;
         }
-        .contact-form input, .contact-form textarea {
+        /* UPDATED FORM STYLES TO INCLUDE SELECT (DROPDOWN) */
+        .contact-form input, .contact-form select, .contact-form textarea {
             width: 100%;
             padding: 15px;
             background: #2a2a2a;
@@ -463,7 +464,15 @@
             box-sizing: border-box;
             transition: border-color 0.3s ease;
         }
-        .contact-form input:focus, .contact-form textarea:focus {
+        .contact-form select {
+            appearance: none; /* Removes default browser styling arrow */
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 97%;
+            background-position-y: center;
+        }
+        .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
             outline: none;
             border-color: #d4af37;
         }
@@ -610,6 +619,17 @@
 
     <section id="portfolio">
         <h2 class="fade-in">Our Work & Portfolio</h2>
+
+        <!-- YOUTUBE EMBED - LEVEE DISTRICT -->
+        <div class="portfolio-video-wrapper fade-in">
+            <div class="portfolio-text">
+                <h3>How We Film EP: The Levee District</h3>
+                <p>A behind-the-scenes look at how Baseline Cinematic captures dynamic aerial and ground footage. Watch us in action as we film East Peoria's Levee District, highlighting our dual-operator workflow and cinematic techniques.</p>
+            </div>
+            <div class="iframe-container">
+                <iframe src="https://www.youtube.com/embed/CPFW9At-drc?rel=0" title="How We Film EP: The Levee District" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
 
         <!-- YOUTUBE EMBED - LUXURY ESTATES (NEWEST) -->
         <div class="portfolio-video-wrapper fade-in">
@@ -782,15 +802,25 @@
             <p>Every commercial and creative project is unique. We proudly partner with real estate agents across the region to deliver property tours that stand out. Reach out today to schedule a shoot or request a custom quote.</p>
             <p style="font-size: 0.95rem; margin-top: -15px; margin-bottom: 30px;">Proudly serving Pekin, Peoria, Morton, Tremont, Groveland, and the surrounding 50-mile radius.</p>
             
+            <!-- NEW HIGH-CONVERTING LEAD GEN FORM -->
             <form action="https://formspree.io/f/mwvdljwd" method="POST" class="contact-form">
                 <input type="text" name="name" placeholder="Your Name" required>
                 <input type="email" name="email" placeholder="Your Email Address" required>
-                <textarea name="message" rows="5" placeholder="What is the property address, approximate square footage, and your target shoot date?" required></textarea>
+                <input type="tel" name="phone" placeholder="Your Phone Number (Optional but recommended)">
+                
+                <select name="service_needed" required>
+                    <option value="" disabled selected>What do you need?</option>
+                    <option value="Full Property Tour">Full Property Tour (Drone + Ground)</option>
+                    <option value="Drone Photos/Video Only">Drone Photos/Video Only</option>
+                    <option value="Commercial Project">Commercial / Brand Project</option>
+                    <option value="General Question">Just a General Question</option>
+                </select>
                 
                 <input type="text" name="_gotcha" style="display:none" />
                 
-                <button type="submit" class="btn">Send Message</button>
+                <button type="submit" class="btn">Get Started</button>
             </form>
+            <!-- END NEW FORM -->
         </div>
     </section>
 
