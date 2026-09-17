@@ -143,6 +143,7 @@
             justify-content: space-between; 
             padding: 10px 30px; 
             box-sizing: border-box;
+            position: relative;
         }
         .nav-logo {
             display: flex;
@@ -169,6 +170,16 @@
             color: #d4af37;
         }
         
+        /* HAMBURGER MENU BUTTON */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #d4af37;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
         /* DROPDOWN MENU STYLES */
         .dropdown {
             position: relative;
@@ -216,8 +227,11 @@
             background-color: #222;
             color: #d4af37;
         }
-        .dropdown:hover .dropdown-content {
-            display: block;
+        /* Desktop Hover Trigger */
+        @media (min-width: 769px) {
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
         }
         
         /* Hero Section */
@@ -556,23 +570,48 @@
                 font-size: 0.85rem;
                 padding: 8px 10px;
             }
+            .menu-toggle {
+                display: block; /* Show hamburger icon */
+            }
             nav {
-                flex-direction: column; 
-                padding: 15px 10px;
+                flex-wrap: wrap; 
+                padding: 15px 20px;
             }
             .nav-logo {
-                margin-bottom: 10px; 
+                margin-bottom: 0; 
             }
             .nav-logo img {
                 height: 40px;
             }
             .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
+                display: none; /* Hide links initially */
+                width: 100%;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 10px 0;
+                border-top: 1px solid #333;
+            }
+            .nav-links.nav-active {
+                display: flex; /* Show when active */
             }
             .nav-links a, .dropbtn {
-                font-size: 0.9rem;
-                margin: 5px 8px;
+                font-size: 1rem;
+                margin: 10px 20px;
+                display: block;
+            }
+            .dropdown {
+                width: 100%;
+            }
+            .dropdown-content {
+                position: static;
+                display: none;
+                box-shadow: none;
+                border: none;
+                background: none;
+                padding-left: 20px;
             }
             h1 {
                 font-size: 2.2rem; 
@@ -593,10 +632,6 @@
             .grid {
                 grid-template-columns: 1fr; 
             }
-            .dropdown-content {
-                min-width: 150px;
-                left: 0;
-            }
         }
     </style>
 </head>
@@ -612,11 +647,12 @@
             <a href="index.html" class="nav-logo">
                 <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
             </a>
-            <div class="nav-links">
+            <button class="menu-toggle" id="mobile-menu">☰</button>
+            <div class="nav-links" id="nav-links">
                 <!-- DROPDOWN MENU -->
                 <div class="dropdown">
-                    <button class="dropbtn" style="color: #d4af37;">Services ▾</button>
-                    <div class="dropdown-content">
+                    <button class="dropbtn" id="services-btn" style="color: #d4af37;">Services ▾</button>
+                    <div class="dropdown-content" id="services-dropdown">
                         <a href="real-estate.html">Real Estate Media</a>
                         <a href="commercial.html">Commercial & Brand</a>
                     </div>
@@ -915,6 +951,27 @@
                     console.error('Error:', error);
                     alert("There was an issue submitting your request. Please call or text us at (309) 863-5181.");
                 });
+            });
+        }
+
+        // --- Hamburger Menu Script ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        const servicesBtn = document.getElementById('services-btn');
+        const servicesDropdown = document.getElementById('services-dropdown');
+
+        if(mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+            });
+        }
+        
+        if(servicesBtn && servicesDropdown) {
+            servicesBtn.addEventListener('click', (e) => {
+                if(window.innerWidth <= 768) {
+                    e.preventDefault();
+                    servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
+                }
             });
         }
     </script>
