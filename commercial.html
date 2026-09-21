@@ -838,6 +838,7 @@
         const navLinks = document.getElementById('nav-links');
         const servicesBtn = document.getElementById('services-btn');
         const servicesDropdown = document.getElementById('services-dropdown');
+        const menuAnchorLinks = document.querySelectorAll('.nav-links a');
 
         if(mobileMenu && navLinks) {
             mobileMenu.addEventListener('click', () => {
@@ -851,6 +852,20 @@
                     e.preventDefault();
                     servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
                 }
+            });
+        }
+
+        // Auto-close the mobile menu when any link is clicked
+        if(menuAnchorLinks.length > 0) {
+            menuAnchorLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if(window.innerWidth <= 768) {
+                        navLinks.classList.remove('nav-active');
+                        if(servicesDropdown) {
+                            servicesDropdown.style.display = 'none'; 
+                        }
+                    }
+                });
             });
         }
     </script>
