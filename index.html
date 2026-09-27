@@ -58,11 +58,16 @@
         "addressCountry": "US"
       },
       "areaServed": [
-        {"@type": "City", "name": "Pekin"},
         {"@type": "City", "name": "Peoria"},
-        {"@type": "City", "name": "East Peoria"},
-        {"@type": "City", "name": "Morton"},
-        {"@type": "City", "name": "Washington"}
+        {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.5679,
+            "longitude": -89.6534
+          },
+          "geoRadius": "80467"
+        }
       ],
       "knowsAbout": [
         "Commercial Video Production",
@@ -1066,7 +1071,7 @@
                 <p style="margin: 5px 0 0 0; font-size: 1.3rem; font-weight: bold;">Call or Text: <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none;" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a></p>
             </div>
 
-            <p style="margin-bottom: 30px;" data-field="business.serviceArea">Proudly serving Pekin, Peoria, Morton, Tremont, Groveland, and the surrounding 50-mile radius.</p>
+            <p style="margin-bottom: 30px;" data-field="business.serviceArea">Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects.</p>
             
             <!-- LEAD GEN FORM -->
             <form id="lead-gen-form" action="https://hook.us2.make.com/8j75tewx8yk48zpdt55ibo6lu4sfssly" method="POST" class="contact-form">

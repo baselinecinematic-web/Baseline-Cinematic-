@@ -22,7 +22,7 @@ window.SITE_DATA = {
     phoneHref: "tel:+13098635181",
     email: "baselinecinematic@gmail.com",
     emailHref: "mailto:baselinecinematic@gmail.com",
-    serviceArea: "Proudly serving Pekin, Peoria, Morton, Tremont, Groveland, and the surrounding 50-mile radius."
+    serviceArea: "Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects."
   },
 
   promo: {
