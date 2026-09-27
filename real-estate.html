@@ -654,8 +654,9 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="site-ui.css">
 </head>
-<body>
+<body ontouchstart="">
 
     <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
     <div class="sticky-wrapper">
@@ -675,9 +676,9 @@
             <div class="nav-links" id="nav-links">
                 <!-- DROPDOWN MENU -->
                 <div class="dropdown">
-                    <button class="dropbtn" id="services-btn" style="color: #d4af37;">Services ▾</button>
+                    <button class="dropbtn is-current" id="services-btn">Services ▾</button>
                     <div class="dropdown-content" id="services-dropdown">
-                        <a href="real-estate.html">Real Estate Media</a>
+                        <a href="real-estate.html" aria-current="page">Real Estate Media</a>
                         <a href="commercial.html">Commercial & Brand</a>
                     </div>
                 </div>
@@ -704,7 +705,7 @@
         </div>
     </header>
 
-    <section id="services">
+    <section id="services" class="section-alt">
         <h2 class="fade-in">Our Services</h2>
         <div class="grid">
             <div class="card fade-in">
@@ -776,7 +777,7 @@
         </div>
     </section>
 
-    <section id="production-value">
+    <section id="production-value" class="section-alt">
         <h2 class="fade-in">The Cinematic Difference</h2>
         <div class="grid">
             <div class="card fade-in">
@@ -814,7 +815,7 @@
         </div>
     </section>
 
-    <section id="faq">
+    <section id="faq" class="section-alt">
         <h2 class="fade-in">Frequently Asked Questions</h2>
         
         <div class="faq-item fade-in">

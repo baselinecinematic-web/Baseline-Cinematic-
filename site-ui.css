@@ -1,0 +1,191 @@
+/* Baseline Cinematic — shared interaction & section styling
+ *
+ * Loaded after each page's own <style> block, so these rules refine the
+ * page styles rather than fight them. What's in here:
+ *
+ *   1. Current-page indicator in the nav (gold text + persistent underline)
+ *        - mark a nav link with aria-current="page"
+ *        - mark the Services button with class="dropbtn is-current"
+ *   2. Alternating section bands — add class="section-alt" to a <section>
+ *      to give it the deeper background and gold hairline edges
+ *   3. Press/tap feedback (:active) on buttons and nav links
+ *   4. Keyboard focus rings (:focus-visible), plus keyboard access to the
+ *      Services dropdown on desktop
+ *   5. Animated gold underline that grows in on nav hover
+ */
+
+:root {
+  --bc-gold: #d4af37;
+  --bc-gold-hover: #b5952f;
+  --bc-gold-pressed: #9c8028;
+  --bc-band-bg: #0c0c0c;
+  --bc-gold-hairline: rgba(212, 175, 55, 0.35);
+}
+
+/* ------------------------------------------------------------------ */
+/* 5 + 1. Nav underline (hover) and current-page indicator            */
+/* ------------------------------------------------------------------ */
+
+.nav-links > a,
+.dropbtn {
+  position: relative;
+}
+
+.nav-links > a::after,
+.dropbtn::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--bc-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+.nav-links > a:hover::after,
+.nav-links > a:focus-visible::after,
+.dropdown:hover .dropbtn::after,
+.dropdown:focus-within .dropbtn::after,
+.nav-links > a[aria-current="page"]::after,
+.dropbtn.is-current::after {
+  transform: scaleX(1);
+}
+
+.nav-links > a[aria-current="page"],
+.dropbtn.is-current {
+  color: var(--bc-gold);
+}
+
+/* The specific page inside the Services dropdown */
+.dropdown-content a[aria-current="page"] {
+  color: var(--bc-gold);
+  background-color: rgba(212, 175, 55, 0.08);
+  box-shadow: inset 3px 0 0 var(--bc-gold);
+}
+
+/* Keep the underline the width of the text in the stacked mobile menu */
+@media (max-width: 768px) {
+  .nav-links > a {
+    width: fit-content;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* 2. Alternating section bands                                        */
+/* ------------------------------------------------------------------ */
+
+/* Sections are max-width 1200px, so the box-shadow + clip-path pair
+   extends the background edge-to-edge without changing the layout. */
+section.section-alt {
+  position: relative;
+  background-color: var(--bc-band-bg);
+  box-shadow: 0 0 0 100vmax var(--bc-band-bg);
+  clip-path: inset(0 -100vmax);
+}
+
+/* Gold hairline at the top and bottom edge of each band, fading out
+   toward the sides */
+section.section-alt::before,
+section.section-alt::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: min(1200px, 100vw);
+  height: 1px;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, var(--bc-gold-hairline), transparent);
+  pointer-events: none;
+}
+section.section-alt::before { top: 0; }
+section.section-alt::after { bottom: 0; }
+
+/* ------------------------------------------------------------------ */
+/* 3. Press / tap feedback                                             */
+/* ------------------------------------------------------------------ */
+
+/* Replace the default grey mobile tap flash with the styled states below */
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn {
+  transition: background 0.3s ease, transform 0.12s ease, box-shadow 0.3s ease;
+}
+.btn:active {
+  transform: scale(0.97);
+  background: var(--bc-gold-pressed);
+}
+.btn-outline:active {
+  background: rgba(212, 175, 55, 0.25);
+}
+
+.nav-links > a:active,
+.dropbtn:active,
+.footer-links a:active {
+  color: var(--bc-gold-hover);
+}
+.dropdown-content a:active {
+  background-color: #2a2a2a;
+  color: var(--bc-gold-hover);
+}
+.top-banner a:active {
+  opacity: 0.5;
+}
+
+.menu-toggle {
+  transition: transform 0.12s ease;
+}
+.menu-toggle:active {
+  transform: scale(0.9);
+}
+
+/* ------------------------------------------------------------------ */
+/* 4. Keyboard focus                                                   */
+/* ------------------------------------------------------------------ */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--bc-gold);
+  outline-offset: 4px;
+}
+.btn:focus-visible {
+  outline-offset: 3px;
+}
+.dropdown-content a:focus-visible {
+  outline-offset: -2px;
+}
+/* Gold ring would disappear on the gold promo banner */
+.top-banner a:focus-visible {
+  outline-color: #000;
+}
+
+/* Let keyboard users (and a click on "Services") open the dropdown on
+   desktop, not just mouse hover */
+@media (min-width: 769px) {
+  .dropdown:focus-within .dropdown-content {
+    display: block;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Respect reduced-motion preferences                                  */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-links > a::after,
+  .dropbtn::after,
+  .btn,
+  .menu-toggle {
+    transition: none;
+  }
+  .btn:active,
+  .menu-toggle:active {
+    transform: none;
+  }
+}
