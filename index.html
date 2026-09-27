@@ -26,14 +26,11 @@
     <meta property="og:url" content="https://www.baselinecinematic.com/">
     <meta property="og:type" content="website">
 
-    <!-- LAUNCH SPECIAL SWITCH: shows the $199 promo through Sept 30, 2026 (Central time),
-         then the page automatically falls back to the evergreen banner and regular prices.
-         To run a new promo later, change the date below. -->
-    <script>
-      if (new Date() < new Date('2026-10-01T00:00:00-05:00')) {
-        document.documentElement.classList.add('promo-active');
-      }
-    </script>
+    <!-- Shared site content & launch-promo switch: values live in site-data.js,
+         so changing a price, delivery time, or the promo end date only needs
+         one edit there instead of touching every page. -->
+    <script src="site-data.js"></script>
+    <script src="promo-check.js"></script>
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -808,11 +805,11 @@
     <div class="sticky-wrapper">
         <div class="top-banner">
             <!-- Shows until Sept 30 -->
-            <span class="promo-only">🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
-            <a class="promo-only" href="#contact">Claim Spot →</a>
+            <span class="promo-only" data-field="promo.bannerActiveText">🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
+            <a class="promo-only" href="#contact" data-field="promo.bannerActiveCta">Claim Spot →</a>
             <!-- Shows from Oct 1 onward -->
-            <span class="after-promo">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
-            <a class="after-promo" href="#contact">Claim Voucher →</a>
+            <span class="after-promo" data-field="promo.bannerAfterText">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
+            <a class="after-promo" href="#contact" data-field="promo.bannerAfterCta">Claim Voucher →</a>
         </div>
         <nav>
             <a href="index.html" class="nav-logo">
@@ -850,7 +847,7 @@
             <p class="tagline">Cinematic drone and ground video for real estate listings and local businesses across Central Illinois.</p>
             <ul class="hero-facts">
                 <li>Listing videos from $199</li>
-                <li>Delivered in 1–2 business days</li>
+                <li data-field="delivery.heroFact">Delivered in 1–2 business days</li>
                 <li>FAA Part 107 certified &amp; insured</li>
             </ul>
             <div class="hero-buttons">
@@ -872,11 +869,11 @@
                 <h3>Real Estate Media</h3>
                 <p>Give your listings the premium treatment. Seamless aerial-to-ground property tours and custom color grading make homes stand out in a crowded market.</p>
                 <ul class="price-list">
-                    <li><span>Cinematic Property Tour</span><span class="price"><span class="after-promo">$399</span><span class="promo-only"><s>$399</s> $199</span></span></li>
-                    <li><span>Aerial-Only Showcase</span><span class="price">$199</span></li>
-                    <li><span>Vertical Social Add-On</span><span class="price">$75</span></li>
+                    <li><span>Cinematic Property Tour</span><span class="price"><span class="after-promo" data-field="pricing.realEstate.tourRegularDisplay">$399</span><span class="promo-only"><s data-field="pricing.realEstate.tourRegularDisplay">$399</s> <span data-field="pricing.realEstate.tourPromoDisplay">$199</span></span></span></li>
+                    <li><span>Aerial-Only Showcase</span><span class="price" data-field="pricing.realEstate.aerialOnlyDisplay">$199</span></li>
+                    <li><span>Vertical Social Add-On</span><span class="price" data-field="pricing.realEstate.verticalAddOnDisplay">$75</span></li>
                 </ul>
-                <p class="price-note">Delivered in 1–2 business days.<span class="promo-only"> Introductory $199 tour rate valid through Sept 30th.</span></p>
+                <p class="price-note"><span data-field="delivery.priceNote">Delivered in 1–2 business days.</span><span class="promo-only"> Introductory $199 tour rate valid through Sept 30th.</span></p>
             </div>
 
             <!-- Commercial -->
@@ -884,8 +881,8 @@
                 <h3>Commercial &amp; Brand Films</h3>
                 <p>Tell your company's story. Cinematic overviews for local businesses, dealerships, and attractions, combining sweeping aerials with smooth ground tracking.</p>
                 <ul class="price-list">
-                    <li><span>Brand Profiles</span><span class="price">from $850</span></li>
-                    <li><span>Commercial Campaigns</span><span class="price">from $1,500</span></li>
+                    <li><span>Brand Profiles</span><span class="price">from <span data-field="pricing.commercial.brandProfileDisplay">$850</span></span></li>
+                    <li><span>Commercial Campaigns</span><span class="price">from <span data-field="pricing.commercial.campaignDisplay">$1,500</span></span></li>
                 </ul>
                 <p class="price-note">Custom-quoted based on project scope and licensed audio needs.</p>
             </div>
@@ -895,13 +892,13 @@
                 <h3>Social Media Retainers</h3>
                 <p>Stay relevant without the stress. We drop by your business monthly to capture and edit a steady stream of vertical reels for Instagram and TikTok.</p>
                 <ul class="price-list">
-                    <li><span>Monthly Retainer (4 Reels)</span><span class="price">$299/mo</span></li>
+                    <li><span>Monthly Retainer (4 Reels)</span><span class="price" data-field="pricing.commercial.socialRetainerDisplay">$299/mo</span></li>
                 </ul>
             </div>
         </div>
 
         <p class="pricing-cta fade-in">
-            Not sure which fits? Call or text <a class="phone" href="tel:+13098635181">(309) 863-5181</a><br>
+            Not sure which fits? Call or text <a class="phone" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>
             <a href="#contact" class="btn">Book a Shoot</a>
         </p>
     </section>
@@ -1024,28 +1021,28 @@
         <h2 class="fade-in">Frequently Asked Questions</h2>
         
         <div class="faq-item fade-in">
-            <h3>Are you licensed and insured to fly commercially?</h3>
-            <p>Absolutely. We operate under full FAA Part 107 Certification for commercial flight and carry comprehensive liability insurance. Safety and compliance are our top priorities. We handle all local airspace authorizations in the Peoria and Pekin region before the drone ever leaves the ground, ensuring your property and project are completely protected.</p>
+            <h3 data-field="faq.licensed.question">Are you licensed and insured to fly commercially?</h3>
+            <p data-field="faq.licensed.answer">Absolutely. We operate under full FAA Part 107 Certification for commercial flight and carry comprehensive liability insurance. Safety and compliance are our top priorities. We handle all local airspace authorizations in the Peoria and Pekin region before the drone ever leaves the ground, ensuring your property and project are completely protected.</p>
         </div>
 
         <div class="faq-item fade-in">
-            <h3>What makes your footage look different from a standard drone video?</h3>
-            <p>We capture our aerial and ground footage using 10-bit color cinematic profiles, which record billions of colors and massive dynamic range. Instead of just applying a basic filter, every single clip goes through a custom, node-based color grading process. This high-end post-production pipeline ensures a rich, broadcast-ready look that standard cameras simply cannot match.</p>
+            <h3 data-field="faq.footageQuality.question">What makes your footage look different from a standard drone video?</h3>
+            <p data-field="faq.footageQuality.answer">We capture our aerial and ground footage using 10-bit color cinematic profiles, which record billions of colors and massive dynamic range. Instead of just applying a basic filter, every single clip goes through a custom, node-based color grading process. This high-end post-production pipeline ensures a rich, broadcast-ready look that standard cameras simply cannot match.</p>
         </div>
 
         <div class="faq-item fade-in">
-            <h3>Do you only shoot aerial drone footage?</h3>
-            <p>Not at all! We are a dual-operator team. While one of us is navigating the skies, the other utilizes an advanced computational camera system on the ground. This allows us to capture buttery-smooth, high-dynamic-range ground cinematography that seamlessly blends with our aerial shots to tell the complete story of your business, real estate property, or event.</p>
+            <h3 data-field="faq.dualOperator.question">Do you only shoot aerial drone footage?</h3>
+            <p data-field="faq.dualOperator.answer">Not at all! We are a dual-operator team. While one of us is navigating the skies, the other utilizes an advanced computational camera system on the ground. This allows us to capture buttery-smooth, high-dynamic-range ground cinematography that seamlessly blends with our aerial shots to tell the complete story of your business, real estate property, or event.</p>
         </div>
 
         <div class="faq-item fade-in">
-            <h3>What happens if it rains or is too windy on the day of the shoot?</h3>
-            <p>Central Illinois weather can be unpredictable, but we never compromise on safety or the quality of your footage. If the conditions aren't right for safe flying—such as high winds, rain, or poor visibility—we will simply work with you to reschedule the flight for the next clear weather window at no additional cost.</p>
+            <h3 data-field="faq.weather.question">What happens if it rains or is too windy on the day of the shoot?</h3>
+            <p data-field="faq.weather.answer">Central Illinois weather can be unpredictable, but we never compromise on safety or the quality of your footage. If the conditions aren't right for safe flying—such as high winds, rain, or poor visibility—we will simply work with you to reschedule the flight for the next clear weather window at no additional cost.</p>
         </div>
 
         <div class="faq-item fade-in">
-            <h3>How long does it take to receive the final edited video?</h3>
-            <p>Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is 1 to 2 business days. We ensure every frame is polished to perfection before delivering the final product.</p>
+            <h3 data-field="faq.turnaround.question">How long does it take to receive the final edited video?</h3>
+            <p data-field="faq.turnaround.answer">Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is 1 to 2 business days. We ensure every frame is polished to perfection before delivering the final product.</p>
         </div>
     </section>
 
@@ -1057,19 +1054,19 @@
 
             <!-- UPDATED VOUCHER LEAD MAGNET CALLOUT -->
             <div style="background: linear-gradient(135deg, #1f1a0e 0%, #2a2212 100%); border: 2px dashed #d4af37; border-radius: 8px; padding: 25px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 20px rgba(212,175,55,0.15);">
-                <span style="background: #d4af37; color: #000; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;">New Client Special</span>
-                <h3 style="color: #fff; font-size: 1.5rem; margin: 15px 0 10px 0; font-family: 'Montserrat', sans-serif;">🎁 Claim a Free Vertical Social Media Reel ($75 Value)</h3>
-                <p style="color: #ddd; font-size: 1rem; line-height: 1.6; margin: 0 auto; max-width: 500px;">
+                <span style="background: #d4af37; color: #000; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;" data-field="voucher.badge">New Client Special</span>
+                <h3 style="color: #fff; font-size: 1.5rem; margin: 15px 0 10px 0; font-family: 'Montserrat', sans-serif;" data-field="voucher.heading">🎁 Claim a Free Vertical Social Media Reel ($75 Value)</h3>
+                <p style="color: #ddd; font-size: 1rem; line-height: 1.6; margin: 0 auto; max-width: 500px;" data-field="voucher.body">
                     Drop your email below to instantly receive your digital voucher. Get a fully edited, 9:16 vertical video optimized for Instagram and TikTok included completely free when you book your first property tour or commercial shoot!
                 </p>
             </div>
             
             <div style="background: #2a2a2a; border: 1px solid #444; border-radius: 5px; padding: 15px; margin-bottom: 25px; display: inline-block;">
                 <p style="margin: 0; font-size: 1.1rem; color: #fff;">Need immediate availability?</p>
-                <p style="margin: 5px 0 0 0; font-size: 1.3rem; font-weight: bold;">Call or Text: <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none;">(309) 863-5181</a></p>
+                <p style="margin: 5px 0 0 0; font-size: 1.3rem; font-weight: bold;">Call or Text: <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none;" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a></p>
             </div>
 
-            <p style="margin-bottom: 30px;">Proudly serving Pekin, Peoria, Morton, Tremont, Groveland, and the surrounding 50-mile radius.</p>
+            <p style="margin-bottom: 30px;" data-field="business.serviceArea">Proudly serving Pekin, Peoria, Morton, Tremont, Groveland, and the surrounding 50-mile radius.</p>
             
             <!-- LEAD GEN FORM -->
             <form id="lead-gen-form" action="https://hook.us2.make.com/8j75tewx8yk48zpdt55ibo6lu4sfssly" method="POST" class="contact-form">
@@ -1101,7 +1098,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-links">
-                <a href="mailto:baselinecinematic@gmail.com">baselinecinematic@gmail.com</a>
+                <a href="mailto:baselinecinematic@gmail.com" data-field="business.email" data-href-field="business.emailHref">baselinecinematic@gmail.com</a>
                 <a href="#portfolio">View Portfolio</a>
             </div>
         </div>
@@ -1207,5 +1204,6 @@
             });
         }
     </script>
+    <script src="site-render.js"></script>
 </body>
 </html>
