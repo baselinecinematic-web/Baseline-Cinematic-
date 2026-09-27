@@ -17,12 +17,23 @@
     <meta name="author" content="Michael Cunningham">
     <meta name="robots" content="index, follow">
     
-    <link rel="icon" href="share-preview.jpg" type="image/jpeg">
+    <link rel="canonical" href="https://www.baselinecinematic.com/real-estate.html">
+    <link rel="icon" href="favicon.png" type="image/png">
 
     <meta property="og:title" content="Real Estate Videography & Drone Tours | Baseline Cinematic">
     <meta property="og:description" content="Premium real estate videography, FAA-certified drone property tours, and high-end editing in Peoria and Central IL.">
-    <meta property="og:image" content="share-preview.jpg">
+    <meta property="og:image" content="https://www.baselinecinematic.com/share-preview.jpg">
+    <meta property="og:url" content="https://www.baselinecinematic.com/real-estate.html">
     <meta property="og:type" content="website">
+
+    <!-- LAUNCH SPECIAL SWITCH: shows the $199 promo through Sept 30, 2026 (Central time),
+         then the page automatically falls back to the evergreen banner and regular prices.
+         To run a new promo later, change the date below. -->
+    <script>
+      if (new Date() < new Date('2026-10-01T00:00:00-05:00')) {
+        document.documentElement.classList.add('promo-active');
+      }
+    </script>
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,8 +49,10 @@
         "@type": "Person",
         "name": "Michael Cunningham"
       },
+      "url": "https://www.baselinecinematic.com/",
       "email": "baselinecinematic@gmail.com",
-      "image": "https://yourwebsite.com/share-preview.jpg",
+      "telephone": "+1-309-863-5181",
+      "image": "https://www.baselinecinematic.com/share-preview.jpg",
       "description": "Premium real estate videography, FAA certified drone cinematography, stabilized ground tours, and professional color grading serving Central Illinois.",
       "address": {
         "@type": "PostalAddress",
@@ -564,6 +577,11 @@
             margin-bottom: 30px;
         }
 
+        /* PROMO SWITCH (see script in <head>) */
+        .promo-only { display: none; }
+        html.promo-active .promo-only { display: revert; }
+        html.promo-active .after-promo { display: none; }
+
         /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
             .top-banner {
@@ -640,8 +658,12 @@
     <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
     <div class="sticky-wrapper">
         <div class="top-banner">
-            <span>🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
-            <a href="#contact">Claim Spot →</a>
+            <!-- Shows until Sept 30 -->
+            <span class="promo-only">🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
+            <a class="promo-only" href="#contact">Claim Spot →</a>
+            <!-- Shows from Oct 1 onward -->
+            <span class="after-promo">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
+            <a class="after-promo" href="#contact">Claim Voucher →</a>
         </div>
         <nav>
             <a href="index.html" class="nav-logo">
@@ -667,8 +689,8 @@
     </div>
 
     <header>
-        <video autoplay muted loop playsinline poster="Sunset1.JPG" class="hero-video">
-            <source src="Pekin%20Trim.mp4" type="video/mp4">
+        <video autoplay muted loop playsinline poster="hero-poster.jpg" class="hero-video">
+            <source src="hero-reel.mp4" type="video/mp4">
         </video>
         
         <div class="overlay"></div>
@@ -739,8 +761,8 @@
         
         <!-- COLOR GRADING SLIDER -->
         <div class="slider-wrapper fade-in">
-            <img src="Dirksen%20Sunset.jpeg" alt="Graded Sunset" class="slider-image img-after" loading="lazy">
-            <img src="Sunset1.JPG" alt="Raw Log Sunset" class="slider-image img-before" loading="lazy">
+            <img src="grade-after.jpg" alt="Graded Sunset" class="slider-image img-after" loading="lazy">
+            <img src="grade-before.jpg" alt="Raw Log Sunset" class="slider-image img-before" loading="lazy">
             <div class="slider-label label-before">RAW UNEDITED FOOTAGE</div>
             <div class="slider-label label-after">BASELINE COLOR GRADE</div>
             <input type="range" min="0" max="100" value="50" class="slider-input" id="compare-slider">
@@ -829,11 +851,11 @@
                     <h3 style="color: #fff; font-size: 1.8rem; margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 10px;">Real Estate Media</h3>
                     <p style="color: #ccc; font-size: 1.1rem; margin-bottom: 20px;">Premium, high-speed delivery for active listings. Next-day turnaround available.</p>
                     <ul style="color: #aaa; padding-left: 20px; font-size: 1.05rem; margin-bottom: 25px; line-height: 1.8;">
-                        <li><strong>Cinematic Property Tour:</strong> $399 <span style="color: #d4af37; font-weight: bold;">(Promo: $199)</span><br><span style="font-size: 0.9rem; color: #888;">Full exterior drone & stabilized interior ground video.</span></li>
+                        <li><strong>Cinematic Property Tour:</strong> $399 <span class="promo-only" style="color: #d4af37; font-weight: bold;">(Promo: $199)</span><br><span style="font-size: 0.9rem; color: #888;">Full exterior drone & stabilized interior ground video.</span></li>
                         <li><strong>Aerial-Only Showcase:</strong> $199<br><span style="font-size: 0.9rem; color: #888;">Perfect for land listings or commercial lots.</span></li>
                         <li><strong>Vertical Social Add-On:</strong> $75<br><span style="font-size: 0.9rem; color: #888;">Optimized 9:16 reels for Instagram/TikTok.</span></li>
                     </ul>
-                    <p style="color: #d4af37; font-size: 0.95rem; font-style: italic; margin: 0; text-align: center;">*Introductory $199 bundle rate valid through Sept 30th.</p>
+                    <p class="promo-only" style="color: #d4af37; font-size: 0.95rem; font-style: italic; margin: 0; text-align: center;">*Introductory $199 bundle rate valid through Sept 30th.</p>
                 </div>
             </div>
             <!-- END PRICING -->
