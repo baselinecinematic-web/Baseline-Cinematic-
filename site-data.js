@@ -25,6 +25,13 @@ window.SITE_DATA = {
     serviceArea: "Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects."
   },
 
+  social: {
+    facebookHref: "https://www.facebook.com/profile.php?id=61591572504349",
+    instagramHref: "https://www.instagram.com/baselinecinematic",
+    tiktokHref: "https://www.tiktok.com/@baseline.cinemati",
+    youtubeHref: "https://www.youtube.com/@BaselineCinematic"
+  },
+
   promo: {
     // Promo banner + promo pricing badges show until this date/time
     // (Central time), then pages automatically fall back to the
