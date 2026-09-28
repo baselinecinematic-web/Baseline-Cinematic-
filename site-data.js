@@ -22,7 +22,8 @@ window.SITE_DATA = {
     phoneHref: "tel:+13098635181",
     email: "baselinecinematic@gmail.com",
     emailHref: "mailto:baselinecinematic@gmail.com",
-    serviceArea: "Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects."
+    serviceArea: "Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects.",
+    guarantee: "100% Satisfaction Guarantee: if you're not happy with your final video, we'll re-edit it at no additional charge."
   },
 
   social: {
@@ -36,10 +37,14 @@ window.SITE_DATA = {
     // Promo banner + promo pricing badges show until this date/time
     // (Central time), then pages automatically fall back to the
     // evergreen banner and regular prices. Change ONLY this to run a
-    // new promo later.
-    endDateISO: "2026-10-01T00:00:00-05:00",
-    bannerActiveText: "🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for {{pricing.realEstate.tourPromoDisplay}} — Ends Sept 30th!",
-    bannerActiveCta: "Claim Spot →",
+    // new promo later, or move it out further to keep the founding-client
+    // rate running longer.
+    endDateISO: "2027-03-01T00:00:00-06:00",
+    badgeText: "Founding Client Rate",
+    bannerActiveText: "🎬 Founding Client Rate: Full 4K Drone & Ground Walkthrough for {{pricing.realEstate.tourPromoDisplay}} — Limited Spots While We Launch",
+    bannerActiveCta: "Claim Your Spot →",
+    introNote: "*Founding Client Rate — a limited introductory price for our first bookings as we build our portfolio.",
+    priceNoteSuffix: " Founding Client Rate — limited spots available.",
     bannerAfterText: "🎁 New clients: get a free vertical social reel ({{pricing.realEstate.verticalAddOnDisplay}} value) with your first shoot",
     bannerAfterCta: "Claim Voucher →"
   },
@@ -89,6 +94,19 @@ window.SITE_DATA = {
       question: "How long does it take to receive the final edited video?",
       answer: "Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is {{delivery.turnaroundWords}}. We ensure every frame is polished to perfection before delivering the final product."
     }
+  },
+
+  process: {
+    heading: "Our Process",
+    subheading: "A simple, fast path from booking to a finished film.",
+    step1Title: "1. Book",
+    step1Desc: "Choose your package and reserve a date online or by phone — most bookings are confirmed within 24 hours.",
+    step2Title: "2. Shoot",
+    step2Desc: "Our licensed, dual-operator team captures aerial and ground footage on-site. If weather won't cooperate, we reschedule at no additional cost.",
+    step3Title: "3. Edit",
+    step3Desc: "Every clip goes through our in-house, node-based color grading and editing pipeline — no outsourcing, no shortcuts.",
+    step4Title: "4. Deliver",
+    step4Desc: "Your finished film lands in your inbox in {{delivery.turnaroundWords}}, ready to publish."
   },
 
   voucher: {

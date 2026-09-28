@@ -173,6 +173,12 @@ button:focus-visible {
   }
 }
 
+/* Let the 4-step Our Process section fit a tidy single row on desktop
+   instead of leaving one card stranded on its own line */
+#process .grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
 /* ------------------------------------------------------------------ */
 /* 6. Footer social icons                                              */
 /* ------------------------------------------------------------------ */

@@ -661,9 +661,9 @@
     <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
     <div class="sticky-wrapper">
         <div class="top-banner">
-            <!-- Shows until Sept 30 -->
-            <span class="promo-only" data-field="promo.bannerActiveText">🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
-            <a class="promo-only" href="#contact" data-field="promo.bannerActiveCta">Claim Spot →</a>
+            <!-- Founding-client rate; auto-falls back after promo.endDateISO in site-data.js -->
+            <span class="promo-only" data-field="promo.bannerActiveText">🎬 Founding Client Rate: Full 4K Drone & Ground Walkthrough for $199 — Limited Spots While We Launch</span>
+            <a class="promo-only" href="#contact" data-field="promo.bannerActiveCta">Claim Your Spot →</a>
             <!-- Shows from Oct 1 onward -->
             <span class="after-promo" data-field="promo.bannerAfterText">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
             <a class="after-promo" href="#contact" data-field="promo.bannerAfterCta">Claim Voucher →</a>
@@ -795,6 +795,29 @@
         </div>
     </section>
 
+    <section id="process">
+        <h2 class="fade-in" data-field="process.heading">Our Process</h2>
+        <p class="fade-in" style="text-align: center; color: #ccc; margin-top: -10px; margin-bottom: 30px; font-size: 1.1rem;" data-field="process.subheading">A simple, fast path from booking to a finished film.</p>
+        <div class="grid">
+            <div class="card fade-in">
+                <h3 data-field="process.step1Title">1. Book</h3>
+                <p data-field="process.step1Desc">Choose your package and reserve a date online or by phone — most bookings are confirmed within 24 hours.</p>
+            </div>
+            <div class="card fade-in">
+                <h3 data-field="process.step2Title">2. Shoot</h3>
+                <p data-field="process.step2Desc">Our licensed, dual-operator team captures aerial and ground footage on-site. If weather won't cooperate, we reschedule at no additional cost.</p>
+            </div>
+            <div class="card fade-in">
+                <h3 data-field="process.step3Title">3. Edit</h3>
+                <p data-field="process.step3Desc">Every clip goes through our in-house, node-based color grading and editing pipeline — no outsourcing, no shortcuts.</p>
+            </div>
+            <div class="card fade-in">
+                <h3 data-field="process.step4Title">4. Deliver</h3>
+                <p data-field="process.step4Desc">Your finished film lands in your inbox in 1 to 2 business days, ready to publish.</p>
+            </div>
+        </div>
+    </section>
+
     <section id="equipment">
         <h2 class="fade-in">Production Capabilities & Credentials</h2>
         <div class="grid">
@@ -858,10 +881,12 @@
                         <li><strong>Aerial-Only Showcase:</strong> <span data-field="pricing.realEstate.aerialOnlyDisplay">$199</span><br><span style="font-size: 0.9rem; color: #888;">Perfect for land listings or commercial lots.</span></li>
                         <li><strong>Vertical Social Add-On:</strong> <span data-field="pricing.realEstate.verticalAddOnDisplay">$75</span><br><span style="font-size: 0.9rem; color: #888;">Optimized 9:16 reels for Instagram/TikTok.</span></li>
                     </ul>
-                    <p class="promo-only" style="color: #d4af37; font-size: 0.95rem; font-style: italic; margin: 0; text-align: center;">*Introductory $199 bundle rate valid through Sept 30th.</p>
+                    <p class="promo-only" style="color: #d4af37; font-size: 0.95rem; font-style: italic; margin: 0; text-align: center;" data-field="promo.introNote">*Founding Client Rate — a limited introductory price for our first bookings as we build our portfolio.</p>
                 </div>
             </div>
             <!-- END PRICING -->
+
+            <p style="color: #ccc; font-size: 0.95rem; text-align: center; margin: -20px auto 30px; max-width: 500px;">🛡️ <span data-field="business.guarantee">100% Satisfaction Guarantee: if you're not happy with your final video, we'll re-edit it at no additional charge.</span></p>
 
             <!-- UPDATED VOUCHER LEAD MAGNET CALLOUT -->
             <div style="background: linear-gradient(135deg, #1f1a0e 0%, #2a2212 100%); border: 2px dashed #d4af37; border-radius: 8px; padding: 25px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 20px rgba(212,175,55,0.15);">

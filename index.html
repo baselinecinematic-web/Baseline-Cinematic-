@@ -810,9 +810,9 @@
     <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
     <div class="sticky-wrapper">
         <div class="top-banner">
-            <!-- Shows until Sept 30 -->
-            <span class="promo-only" data-field="promo.bannerActiveText">🔥 2026 Fall Launch Special: Full 4K Drone & Ground Walkthrough for $199 — Ends Sept 30th!</span>
-            <a class="promo-only" href="#contact" data-field="promo.bannerActiveCta">Claim Spot →</a>
+            <!-- Founding-client rate; auto-falls back after promo.endDateISO in site-data.js -->
+            <span class="promo-only" data-field="promo.bannerActiveText">🎬 Founding Client Rate: Full 4K Drone & Ground Walkthrough for $199 — Limited Spots While We Launch</span>
+            <a class="promo-only" href="#contact" data-field="promo.bannerActiveCta">Claim Your Spot →</a>
             <!-- Shows from Oct 1 onward -->
             <span class="after-promo" data-field="promo.bannerAfterText">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
             <a class="after-promo" href="#contact" data-field="promo.bannerAfterCta">Claim Voucher →</a>
@@ -871,7 +871,7 @@
 
             <!-- Real Estate -->
             <div class="card price-card featured fade-in">
-                <span class="card-tag promo-only">Launch special through Sept 30</span>
+                <span class="card-tag promo-only" data-field="promo.badgeText">Founding Client Rate</span>
                 <h3>Real Estate Media</h3>
                 <p>Give your listings the premium treatment. Seamless aerial-to-ground property tours and custom color grading make homes stand out in a crowded market.</p>
                 <ul class="price-list">
@@ -879,7 +879,7 @@
                     <li><span>Aerial-Only Showcase</span><span class="price" data-field="pricing.realEstate.aerialOnlyDisplay">$199</span></li>
                     <li><span>Vertical Social Add-On</span><span class="price" data-field="pricing.realEstate.verticalAddOnDisplay">$75</span></li>
                 </ul>
-                <p class="price-note"><span data-field="delivery.priceNote">Delivered in 1–2 business days.</span><span class="promo-only"> Introductory $199 tour rate valid through Sept 30th.</span></p>
+                <p class="price-note"><span data-field="delivery.priceNote">Delivered in 1–2 business days.</span><span class="promo-only" data-field="promo.priceNoteSuffix"> Founding Client Rate — limited spots available.</span></p>
             </div>
 
             <!-- Commercial -->
@@ -907,6 +907,7 @@
             Not sure which fits? Call <a class="phone" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>
             <a href="#contact" class="btn">Book a Shoot</a>
         </p>
+        <p class="fade-in" style="color: #ccc; font-size: 0.95rem; text-align: center; margin-top: 20px;">🛡️ <span data-field="business.guarantee">100% Satisfaction Guarantee: if you're not happy with your final video, we'll re-edit it at no additional charge.</span></p>
     </section>
     </div>
 
@@ -999,6 +1000,29 @@
             <div class="card fade-in">
                 <h3>AI-Powered Post-Production</h3>
                 <p>We leverage cutting-edge tools for intelligent upscaling and advanced motion tracking. This ensures your final product looks flawlessly polished and perfectly framed, whether your clients are watching on a smartphone or a 4K display.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="process">
+        <h2 class="fade-in" data-field="process.heading">Our Process</h2>
+        <p class="fade-in" style="text-align: center; color: #ccc; margin-top: -10px; margin-bottom: 30px; font-size: 1.1rem;" data-field="process.subheading">A simple, fast path from booking to a finished film.</p>
+        <div class="grid">
+            <div class="card fade-in">
+                <h3 data-field="process.step1Title">1. Book</h3>
+                <p data-field="process.step1Desc">Choose your package and reserve a date online or by phone — most bookings are confirmed within 24 hours.</p>
+            </div>
+            <div class="card fade-in">
+                <h3 data-field="process.step2Title">2. Shoot</h3>
+                <p data-field="process.step2Desc">Our licensed, dual-operator team captures aerial and ground footage on-site. If weather won't cooperate, we reschedule at no additional cost.</p>
+            </div>
+            <div class="card fade-in">
+                <h3 data-field="process.step3Title">3. Edit</h3>
+                <p data-field="process.step3Desc">Every clip goes through our in-house, node-based color grading and editing pipeline — no outsourcing, no shortcuts.</p>
+            </div>
+            <div class="card fade-in">
+                <h3 data-field="process.step4Title">4. Deliver</h3>
+                <p data-field="process.step4Desc">Your finished film lands in your inbox in 1 to 2 business days, ready to publish.</p>
             </div>
         </div>
     </section>
