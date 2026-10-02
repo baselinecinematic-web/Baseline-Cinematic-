@@ -128,11 +128,11 @@ window.SITE_DATA = {
     },
     licenseNeeded: {
       question: "Do you need a license to fly a drone for real estate in Illinois?",
-      answer: "Yes. Anyone who flies a drone for business, including real estate photos and video, must hold an FAA Part 107 Remote Pilot Certificate. That federal rule applies everywhere in the U.S., including Illinois. Hiring an unlicensed pilot can put your listing, your client and your brokerage at risk."
+      answer: "Yes. Anyone who flies a drone for business, including real estate photos and video, must hold an FAA Part 107 Remote Pilot Certificate. That federal rule applies everywhere in the U.S., including Illinois. An unlicensed pilot can be fined by the FAA, and they often aren't insured if something goes wrong."
     },
     part107: {
       question: "What is an FAA Part 107 certificate?",
-      answer: "Part 107 is the FAA rule that covers commercial drone flights. To earn the certificate, a pilot has to pass the FAA's aeronautical knowledge test at an approved testing center, covering airspace, weather, safety and flight rules, and then complete recurrent training every two years to keep it current."
+      answer: "It's the license the FAA requires to fly a drone for business. \"Part 107\" is the name of the FAA's rulebook for commercial drone flights, and the Remote Pilot Certificate proves a pilot knows those rules. To earn it, a pilot must pass an FAA exam on airspace, weather and flight safety, then complete a refresher course every two years to stay certified."
     },
     verifyPilot: {
       question: "How can I check if a drone pilot is certified?",
@@ -140,7 +140,7 @@ window.SITE_DATA = {
     },
     insurance: {
       question: "Do drone pilots need insurance?",
-      answer: "The FAA doesn't require it, but any professional operator should carry liability insurance. If something goes wrong on a shoot, insurance protects the property owner, not just the pilot. Baseline Cinematic carries comprehensive liability insurance on every job."
+      answer: "The FAA doesn't require it, but any professional operator should carry liability insurance. If a drone ever damages a roof, a car or a person, the pilot's liability insurance pays for it, not you or the homeowner. Baseline Cinematic carries comprehensive liability insurance on every job."
     },
     registration: {
       question: "Do commercial drones have to be registered?",
