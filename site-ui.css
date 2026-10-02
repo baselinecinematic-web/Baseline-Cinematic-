@@ -384,8 +384,46 @@ button:focus-visible {
   margin: 0 auto;
 }
 .photo-tile { margin: 0; overflow: hidden; border-radius: 6px; aspect-ratio: 4 / 3; }
-.photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .4s ease; }
-.photo-tile:hover img { transform: scale(1.03); }
-@media (max-width: 768px) {
-  .photo-gallery { grid-template-columns: 1fr; gap: 10px; }
+.photo-tile img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  cursor: zoom-in; transition: transform .4s ease;
 }
+.photo-tile:hover img { transform: scale(1.04); }
+.photo-tile img:focus-visible { outline: 3px solid #d4af37; outline-offset: -3px; }
+
+/* Homepage: a full-width strip that spans the whole screen edge to edge */
+.photo-gallery.strip {
+  width: 100vw;
+  max-width: none;
+  margin-left: calc(50% - 50vw);
+  gap: 4px;
+}
+.photo-gallery.strip .photo-tile { border-radius: 0; }
+
+@media (max-width: 768px) {
+  .photo-gallery.full { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  /* Strip becomes a swipeable row on phones, with the next photo peeking in */
+  .photo-gallery.strip {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 8px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+  }
+  .photo-gallery.strip .photo-tile {
+    flex: 0 0 82%;
+    scroll-snap-align: center;
+    border-radius: 6px;
+  }
+}
+
+/* Click-to-enlarge viewer */
+.photo-lightbox {
+  position: fixed; inset: 0; z-index: 10000;
+  display: none; align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.94); cursor: zoom-out; padding: 2vh 2vw;
+}
+.photo-lightbox.open { display: flex; }
+.photo-lightbox img { max-width: 96vw; max-height: 96vh; object-fit: contain; border-radius: 4px; }
