@@ -890,6 +890,7 @@
                     body: formData
                 }).then(response => {
                     if(response.ok) {
+                        if (window.trackLead) { window.trackLead(form); } // counts the lead in Google Analytics
                         form.style.display = 'none'; 
                         successMessage.style.display = 'block'; 
                     } else {
@@ -939,5 +940,6 @@
         }
     </script>
     <script src="site-render.js"></script>
+    <script src="lead-tracking.js"></script>
 </body>
 </html>
