@@ -351,3 +351,17 @@ button:focus-visible {
   line-height: 1.6;
   margin: 0;
 }
+
+/* ------------------------------------------------------------------ */
+/* 9. Footer links: one per line on phones so long emails don't wrap  */
+/* ------------------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .footer-links a { margin: 0; }
+}

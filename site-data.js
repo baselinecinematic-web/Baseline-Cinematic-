@@ -22,6 +22,8 @@ window.SITE_DATA = {
     phoneHref: "tel:+13098635181",
     email: "michael@baselinecinematic.com",
     emailHref: "mailto:michael@baselinecinematic.com",
+    emailJudith: "judith@baselinecinematic.com",
+    emailJudithHref: "mailto:judith@baselinecinematic.com",
     serviceArea: "Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects.",
     guarantee: "100% Satisfaction Guarantee: if you're not happy with your final video, we'll re-edit it at no additional charge."
   },
