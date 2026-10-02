@@ -335,3 +335,19 @@ button:focus-visible {
   .review-card { padding: 22px; }
   .reviews-grid { grid-template-columns: 1fr; }
 }
+
+/* ------------------------------------------------------------------ */
+/* 8. Credentials line under "Our Process" (homepage)                 */
+/* ------------------------------------------------------------------ */
+
+.process-credentials {
+  text-align: center;
+  max-width: 720px;
+  margin: 40px auto 0;
+}
+.process-credentials p {
+  color: #ccc;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0;
+}
