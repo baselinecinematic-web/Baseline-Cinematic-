@@ -93,6 +93,10 @@ window.SITE_DATA = {
     turnaround: {
       question: "How long does it take to receive the final edited video?",
       answer: "Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is {{delivery.turnaroundWords}}. We ensure every frame is polished to perfection before delivering the final product."
+    },
+    travel: {
+      question: "Do you charge a travel fee?",
+      answer: "Shoots within 50 miles of Pekin and Peoria have no travel fee. Beyond that, it's $50 for 50–75 miles, $100 for 75–100 miles, and a custom quote for anything over 100 miles. You'll always know the travel fee before you book."
     }
   },
 
