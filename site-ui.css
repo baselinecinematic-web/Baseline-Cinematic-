@@ -283,3 +283,55 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .floating-cta { transition: none; }
 }
+
+/* ------------------------------------------------------------------ */
+/* 7. Client reviews (#reviews)                                       */
+/* ------------------------------------------------------------------ */
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+.review-card {
+  margin: 0;
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-top: 3px solid var(--bc-gold);
+  border-radius: 8px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+.review-stars {
+  color: var(--bc-gold);
+  font-size: 1.3rem;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+}
+.review-card blockquote {
+  margin: 0 0 20px;
+  color: #e6e6e6;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  font-style: italic;
+}
+.review-card figcaption {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.review-card figcaption strong {
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+.review-card figcaption span {
+  color: #999;
+  font-size: 0.9rem;
+}
+@media (max-width: 768px) {
+  .review-card { padding: 22px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+}
