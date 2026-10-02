@@ -10,44 +10,362 @@
     </script>
 
     <meta charset="UTF-8">
-    <link rel="icon" href="favicon-gold.png" type="image/png">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FAQ | Real Estate & Drone Video Questions | Baseline Cinematic</title>
-    <meta name="description" content="Answers to common questions about Baseline Cinematic's real estate and drone video: pricing, travel fees, turnaround, MLS-ready versions, revisions, drone pilot licensing, FAA rules and more.">
-    <link rel="canonical" href="https://www.baselinecinematic.com/faq.html">
     
+    <meta name="description" content="Answers to common questions about Baseline Cinematic's real estate and drone video: pricing, travel fees, turnaround, MLS-ready versions, revisions, drone pilot licensing, FAA rules and more.">
+    <meta name="author" content="Michael Cunningham">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://www.baselinecinematic.com/faq.html">
+    <link rel="icon" href="favicon-gold.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <meta property="og:title" content="FAQ | Real Estate & Drone Video Questions | Baseline Cinematic">
+    <meta property="og:description" content="Answers to common questions about Baseline Cinematic's real estate and drone video: pricing, travel fees, turnaround, MLS-ready versions, revisions, drone pilot licensing, FAA rules and more.">
+    <meta property="og:image" content="https://www.baselinecinematic.com/share-preview.jpg">
+    <meta property="og:url" content="https://www.baselinecinematic.com/faq.html">
+    <meta property="og:type" content="website">
+
+    <!-- Shared site content & launch-promo switch: values live in site-data.js,
+         so changing a price, delivery time, or the promo end date only needs
+         one edit there instead of touching every page. -->
+    <script src="site-data.js"></script>
+    <script src="promo-check.js"></script>
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Baseline Cinematic",
+      "founder": {
+        "@type": "Person",
+        "name": "Michael Cunningham"
+      },
+      "url": "https://www.baselinecinematic.com/",
+      "email": "michael@baselinecinematic.com",
+      "telephone": "+1-309-863-5181",
+      "image": "https://www.baselinecinematic.com/share-preview.jpg",
+      "description": "Premium commercial video production, brand films, and social media retainers serving Central Illinois.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Pekin",
+        "addressRegion": "IL",
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {"@type": "City", "name": "Peoria"},
+        {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": 40.5679,
+            "longitude": -89.6534
+          },
+          "geoRadius": "80467"
+        }
+      ],
+      "knowsAbout": [
+        "Commercial Video Production",
+        "Brand Storytelling",
+        "Social Media Reels",
+        "Aerial Videography", 
+        "Drone Cinematography", 
+        "Color Grading"
+      ]
+    }
+    </script>
+
     <style>
-        body { background-color: #121212; color: #f5f5f5; font-family: 'Inter', sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        h1, h2, h3, .nav-links a, .btn { font-family: 'Montserrat', sans-serif; }
-        
+        /* Dark Theme & Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        body { 
+            background-color: #121212; 
+            color: #f5f5f5; 
+            font-family: 'Inter', sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            overflow-x: hidden;
+        }
+
+        /* Apply Montserrat to all Headings and Buttons */
+        h1, h2, h3, .nav-links a, .dropbtn, .btn, .slider-label, .cert-badge {
+            font-family: 'Montserrat', sans-serif;
+        }
+
         /* CUSTOM CINEMATIC SCROLLBAR */
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: #121212; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 6px; }
-        ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 6px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37; 
+        }
 
-        nav { position: fixed; top: 0; width: 100%; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid #333; display: flex; align-items: center; justify-content: space-between; padding: 10px 30px; box-sizing: border-box; }
-        .nav-logo img { height: 45px; border-radius: 4px; }
-        .nav-links { display: flex; align-items: center; }
-        .nav-links a { color: #fff; text-decoration: none; margin: 0 15px; font-size: 1.1rem; transition: color 0.3s ease; }
-        .nav-links a:hover { color: #d4af37; }
+        /* STICKY WRAPPER FOR BANNER & NAV */
+        .sticky-wrapper {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
 
-        .page-header { padding: 120px 20px 40px; text-align: center; background: #0a0a0a; border-bottom: 1px solid #222; }
-        .page-header h1 { font-size: 3rem; color: #d4af37; margin: 0; text-transform: uppercase; }
+        /* TOP PROMO BANNER */
+        .top-banner {
+            background-color: #d4af37;
+            color: #000;
+            text-align: center;
+            padding: 10px 15px;
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .top-banner a {
+            color: #000;
+            text-decoration: underline;
+            font-weight: 800;
+            transition: opacity 0.2s ease;
+        }
+        .top-banner a:hover {
+            opacity: 0.7;
+        }
 
-        section { padding: 60px 20px; max-width: 1000px; margin: 0 auto; }
+        /* NAVIGATION BAR */
+        nav {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 10px 30px; 
+            box-sizing: border-box;
+            position: relative;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+        .nav-logo img {
+            height: 45px; 
+            width: auto;
+            border-radius: 4px; 
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #d4af37;
+        }
         
-        /* RESPONSIVE YOUTUBE IFRAME STYLING */
+        /* HAMBURGER MENU BUTTON */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #d4af37;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* DROPDOWN MENU STYLES */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropbtn {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+        .dropdown:hover .dropbtn {
+            color: #d4af37;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.95);
+            min-width: 220px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.6);
+            z-index: 1;
+            border: 1px solid #333;
+            border-radius: 4px;
+            top: 100%;
+            left: 15px;
+        }
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0;
+            font-size: 1rem;
+            border-bottom: 1px solid #222;
+        }
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+        .dropdown-content a:hover {
+            background-color: #222;
+            color: #d4af37;
+        }
+        /* Desktop Hover Trigger */
+        @media (min-width: 769px) {
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+        }
+        
+        /* Hero Section */
+        header { 
+            min-height: 100dvh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            background: #000; 
+            position: relative; 
+            overflow: hidden; 
+            padding: 20px;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 2;
+        }
+        .hero-content { 
+            z-index: 3; 
+            position: relative;
+            width: 100%;
+        }
+
+        h1 { 
+            font-size: 4rem; 
+            margin-bottom: 10px; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            word-wrap: break-word;
+        }
+        p.tagline { 
+            font-size: 1.2rem; 
+            color: #ccc; 
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+            font-weight: 300;
+        }
+        
+        /* Content Sections */
+        section { 
+            padding: 120px 20px 80px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        h2 { 
+            font-size: 2.5rem; 
+            border-bottom: 2px solid #333; 
+            padding-bottom: 10px; 
+            margin-bottom: 40px; 
+        }
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 30px; 
+        }
+        .card { 
+            background: #1e1e1e; 
+            padding: 30px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            transition: transform 0.3s ease, box-shadow 0.3s ease; 
+        }
+        .card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.7);
+        }
+        .card h3 { 
+            color: #fff; 
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+        ul {
+            line-height: 1.8;
+            color: #ccc;
+        }
+
+        /* PORTFOLIO SECTION */
+        .portfolio-video-wrapper {
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 60px;
+            text-align: center;
+        }
+        .portfolio-text h3 {
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        .portfolio-text p {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+        
         .iframe-container {
             position: relative;
             width: 100%;
             max-width: 900px;
-            margin: 0 auto 40px;
+            margin: 0 auto;
             aspect-ratio: 16 / 9;
         }
         .iframe-container iframe {
@@ -56,33 +374,215 @@
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 8px;
+            border-radius: 6px;
             box-shadow: 0 8px 25px rgba(0,0,0,0.8);
             outline: none;
             border: none;
             background: #000;
         }
 
-        .bio-flex { display: flex; flex-wrap: wrap; gap: 40px; align-items: center; background: #1e1e1e; padding: 40px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); margin-bottom: 40px; }
-        .bio-text { flex: 1; min-width: 300px; }
-        .bio-text h2 { color: #fff; border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 0; font-size: 2rem;}
-        .bio-text p { margin-bottom: 20px; line-height: 1.8; color: #ccc; }
-        .bio-image { flex: 0 0 300px; text-align: center; }
-        .bio-image img { width: 100%; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        /* Buttons & Badges */
+        .cert-badge { 
+            background: #d4af37; 
+            color: #000; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            display: inline-block; 
+            margin-top: 20px; 
+        }
+        .btn {
+            background: #d4af37;
+            color: #000;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            transition: background 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: #b5952f;
+        }
 
-        footer { text-align: center; padding: 50px 20px; background: #0a0a0a; border-top: 1px solid #222; color: #777; }
+        /* Contact Form */
+        .contact-container {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .contact-container p {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
         
+        .contact-form input, .contact-form select, .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .contact-form select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%23ffffff" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 97%;
+            background-position-y: center;
+        }
+        .contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+        .contact-form button {
+            width: 100%;
+        }
+        
+        /* FOOTER */
+        footer { 
+            text-align: center; 
+            padding: 50px 20px; 
+            background: #0a0a0a; 
+            border-top: 1px solid #222; 
+            color: #777;
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .footer-links a {
+            color: #d4af37;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #fff;
+        }
+
+        /* SCROLL ANIMATION CSS */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            will-change: opacity, transform;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .faq-item {
+            margin-bottom: 30px;
+        }
+
+        /* PROMO SWITCH (see script in <head>) */
+        .promo-only { display: none; }
+        html.promo-active .promo-only { display: revert; }
+        html.promo-active .after-promo { display: none; }
+
+        /* MOBILE RESPONSIVE FIXES */
         @media (max-width: 768px) {
-            nav { flex-direction: column; padding: 15px 10px; }
-            .nav-logo { margin-bottom: 10px; }
-            .nav-links { flex-wrap: wrap; justify-content: center; margin-top: 5px; }
-            .nav-links a { font-size: 0.9rem; margin: 5px 8px; }
-            .page-header { padding-top: 140px; }
-            .bio-flex { padding: 20px; }
+            .top-banner {
+                font-size: 0.85rem;
+                padding: 8px 10px;
+            }
+            .menu-toggle {
+                display: block; /* Show hamburger icon */
+            }
+            nav {
+                flex-wrap: wrap; 
+                padding: 15px 20px;
+            }
+            .nav-logo {
+                margin-bottom: 0; 
+            }
+            .nav-logo img {
+                height: 40px;
+            }
+            .nav-links {
+                display: none; /* Hide links initially */
+                width: 100%;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 10px 0;
+                border-top: 1px solid #333;
+            }
+            .nav-links.nav-active {
+                display: flex; /* Show when active */
+            }
+            .nav-links a, .dropbtn {
+                font-size: 1rem;
+                margin: 10px 20px;
+                display: block;
+            }
+            .dropdown {
+                width: 100%;
+            }
+            .dropbtn {
+                text-align: center;
+                width: calc(100% - 40px);
+            }
+            .dropdown-content {
+                position: static;
+                display: none;
+                box-shadow: none;
+                border: none;
+                background: none;
+                padding-left: 20px;
+            }
+            h1 {
+                font-size: 2.2rem; 
+                letter-spacing: 1px;
+            }
+            p.tagline {
+                font-size: 1rem;
+            }
+            section {
+                padding: 160px 15px 50px; 
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .portfolio-video-wrapper {
+                padding: 15px;
+            }
+            .grid {
+                grid-template-columns: 1fr; 
+            }
         }
     </style>
+    <link rel="stylesheet" href="site-ui.css">
     <style>
-        .faq-intro { text-align: center; color: #ccc; font-size: 1.1rem; margin: 10px auto 0; max-width: 640px; line-height: 1.6; }
+        header.page-hero { min-height: 55vh; min-height: 55dvh; padding-top: 110px; box-sizing: border-box; }
+        @media (max-width: 768px) { header.page-hero { min-height: 50vh; padding-top: 150px; } }
+        .page-cta { text-align: center; background: #1e1e1e; border: 1px solid #d4af37; border-radius: 8px; padding: 40px 20px; }
+        .page-cta h2 { border: none; margin: 0 0 10px; padding: 0; }
+        .page-cta p { color: #ccc; font-size: 1.1rem; margin: 0 0 10px; }
+        .page-cta a.phone { color: #d4af37; text-decoration: none; font-weight: 600; }
         .faq-group h2 { color: #fff; font-size: 1.8rem; border-bottom: 2px solid #333; padding-bottom: 10px; margin: 0 0 20px; }
         .faq-group { margin-bottom: 50px; }
         .faq-group details { background: #1e1e1e; border: 1px solid #333; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.35); }
@@ -93,36 +593,56 @@
         .faq-group details[open] summary::after { content: '–'; }
         .faq-group summary:focus-visible { outline: 2px solid #d4af37; outline-offset: 2px; border-radius: 8px; }
         .faq-group details p { margin: 0; padding: 0 24px 22px; color: #ccc; line-height: 1.7; }
-        .faq-cta { text-align: center; background: #1e1e1e; border: 1px solid #d4af37; border-radius: 8px; padding: 35px 20px; }
-        .faq-cta h2 { color: #fff; margin-top: 0; }
-        .faq-cta p { color: #ccc; font-size: 1.1rem; }
-        .faq-cta a.phone { color: #d4af37; text-decoration: none; font-weight: 600; }
-        .faq-cta .btn { background: #d4af37; color: #000; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-size: 1.1rem; display: inline-block; margin-top: 10px; }
         @media (max-width: 768px) { .faq-group summary { font-size: 1rem; padding: 18px 48px 18px 18px; } .faq-group details p { padding: 0 18px 18px; } }
     </style>
-    <link rel="stylesheet" href="site-ui.css">
 </head>
 <body ontouchstart="">
 
-    <nav>
-        <a href="index.html" class="nav-logo">
-            <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
-        </a>
-        <div class="nav-links">
-            <a href="index.html#services">Services</a>
-            <a href="index.html#portfolio">Portfolio</a>
-            <a href="faq.html" aria-current="page">FAQ</a>
-            <a href="about.html">About Us</a>
-            <a href="index.html#contact">Contact</a>
+    <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
+    <div class="sticky-wrapper">
+        <div class="top-banner">
+            <!-- Founding-client rate; auto-falls back after promo.endDateISO in site-data.js -->
+            <span class="promo-only" data-field="promo.bannerActiveText">🎬 Founding Client Rate: Full 4K Drone & Ground Walkthrough for $199 — Limited Spots While We Launch</span>
+            <a class="promo-only" href="index.html#contact" data-field="promo.bannerActiveCta">Claim Your Spot →</a>
+            <!-- Shows from Oct 1 onward -->
+            <span class="after-promo" data-field="promo.bannerAfterText">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
+            <a class="after-promo" href="index.html#contact" data-field="promo.bannerAfterCta">Claim Voucher →</a>
         </div>
-    </nav>
-
-    <div class="page-header">
-        <h1>Frequently Asked Questions</h1>
-        <p class="faq-intro">Everything agents, homeowners and businesses usually ask before booking. Tap a question to see the answer.</p>
+        <nav>
+            <a href="index.html" class="nav-logo">
+                <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
+            </a>
+            <button class="menu-toggle" id="mobile-menu">☰</button>
+            <div class="nav-links" id="nav-links">
+                <!-- DROPDOWN MENU -->
+                <div class="dropdown">
+                    <button class="dropbtn" id="services-btn">Services ▾</button>
+                    <div class="dropdown-content" id="services-dropdown">
+                        <a href="real-estate.html">Real Estate Media</a>
+                        <a href="commercial.html">Commercial & Brand</a>
+                    </div>
+                </div>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="faq.html" aria-current="page">FAQ</a>
+                <a href="about.html">About Us</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
     </div>
 
-    <section>
+    <header class="page-hero">
+        <video autoplay muted loop playsinline poster="hero-poster.jpg" class="hero-video">
+            <source src="hero-reel.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>Frequently Asked Questions</h1>
+            <p class="tagline">Everything agents, homeowners and businesses usually ask before booking. Tap a question to see the answer.</p>
+        </div>
+    </header>
+
+    <section id="questions">
         <div class="faq-group">
             <h2>Pricing &amp; Booking</h2>
             <details>
@@ -219,33 +739,127 @@
             </details>
         </div>
 
-        <div class="faq-cta">
+        <div class="page-cta fade-in">
             <h2>Still have a question?</h2>
-            <p>Call us at <a class="phone" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> and we'll walk you through it.</p>
+            <p>We're happy to walk you through it. Call <a class="phone" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> or book online.</p>
             <a href="index.html#contact" class="btn">Book a Shoot</a>
         </div>
     </section>
 
     <footer>
-        <div class="social-links">
-            <a href="https://www.facebook.com/profile.php?id=61591572504349" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/baselinecinematic" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
-            </a>
-            <a href="https://www.tiktok.com/@baseline.cinemati" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok">
-                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg>
-            </a>
-            <a href="https://www.youtube.com/@BaselineCinematic" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
-            </a>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
+                </a>
+            </div>
+            <div class="footer-links">
+                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
+                <a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
+                <a href="index.html#portfolio">View Portfolio</a>
+            </div>
         </div>
         <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
     </footer>
 
-    <script src="site-data.js"></script>
+    <script>
+        // --- Scroll Animation Script ---
+        const faders = document.querySelectorAll('.fade-in');
+
+        const appearOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        // --- Form Background Submit Script (Kills the white "Accepted" screen) ---
+        const form = document.getElementById('lead-gen-form');
+        const successMessage = document.getElementById('success-message');
+
+        if(form && successMessage) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+                const formData = new FormData(form);
+                
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData
+                }).then(response => {
+                    if(response.ok) {
+                        if (window.trackLead) { window.trackLead(form); } // counts the lead in Google Analytics
+                        form.style.display = 'none'; 
+                        successMessage.style.display = 'block'; 
+                    } else {
+                        alert("There was an issue submitting your request. Please call us at (309) 863-5181.");
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                    alert("There was an issue submitting your request. Please call us at (309) 863-5181.");
+                });
+            });
+        }
+
+        // --- Hamburger Menu Script ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+        const servicesBtn = document.getElementById('services-btn');
+        const servicesDropdown = document.getElementById('services-dropdown');
+        const menuAnchorLinks = document.querySelectorAll('.nav-links a');
+
+        if(mobileMenu && navLinks) {
+            mobileMenu.addEventListener('click', () => {
+                navLinks.classList.toggle('nav-active');
+            });
+        }
+        
+        if(servicesBtn && servicesDropdown) {
+            servicesBtn.addEventListener('click', (e) => {
+                if(window.innerWidth <= 768) {
+                    e.preventDefault();
+                    servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+        }
+
+        // Auto-close the mobile menu when any link is clicked
+        if(menuAnchorLinks.length > 0) {
+            menuAnchorLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if(window.innerWidth <= 768) {
+                        navLinks.classList.remove('nav-active');
+                        if(servicesDropdown) {
+                            servicesDropdown.style.display = 'none'; 
+                        }
+                    }
+                });
+            });
+        }
+    </script>
     <script src="site-render.js"></script>
     <script src="lead-tracking.js"></script>
+    <script src="floating-cta.js"></script>
 </body>
 </html>
