@@ -460,3 +460,33 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .lb-in-right, .lb-in-left { animation: none; }
 }
+
+/* ------------------------------------------------------------------ */
+/* 11. Pricing cards: photos, item descriptions, per-card buttons     */
+/* ------------------------------------------------------------------ */
+
+.price-card .card-photo {
+  display: block;
+  width: calc(100% + 60px);
+  max-width: none;
+  margin: -30px -30px 22px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 8px 8px 0 0;
+}
+.price-list .item-desc {
+  display: block;
+  color: #999;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  margin-top: 3px;
+}
+.price-card .price-note { margin-top: 0; }
+.price-card .card-btn {
+  align-self: stretch;
+  text-align: center;
+  margin-top: auto;
+  color: #fff;
+}
+.price-card .price-note + .card-btn { margin-top: auto; }
+.price-card .price-note { margin-bottom: 18px; }
