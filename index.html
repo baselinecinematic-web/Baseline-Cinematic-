@@ -868,6 +868,33 @@
         </div>
     </header>
 
+    <!-- QUICK REQUEST (lighter version of the contact form further down) -->
+    <section id="quick-request" class="quick-request">
+        <div class="quick-inner">
+            <div class="quick-copy">
+                <h2>Check availability in 30 seconds</h2>
+                <p>Tell us what you need and we'll reply with a quote. No obligation.</p>
+            </div>
+            <form id="quick-form" class="quick-form" action="https://hook.us2.make.com/8j75tewx8yk48zpdt55ibo6lu4sfssly" method="POST">
+                <input type="text" name="name" placeholder="Your name" aria-label="Your name" required>
+                <input type="email" name="email" placeholder="Email address" aria-label="Email address" required>
+                <select name="service_needed" aria-label="Project type" required>
+                    <option value="" disabled selected>Project type</option>
+                    <option value="Full Property Tour">Property tour (real estate)</option>
+                    <option value="Drone Photos/Video Only">Aerial only</option>
+                    <option value="Commercial Brand Film">Commercial / brand film</option>
+                    <option value="Social Media Retainer">Social media retainer</option>
+                    <option value="General Question">Just a question</option>
+                </select>
+                <input type="hidden" name="phone" value="">
+                <button type="submit" class="btn">Check Availability</button>
+            </form>
+            <div id="quick-success" class="quick-success" style="display:none;" role="status">
+                <strong>Thanks, we got it.</strong> Check your inbox. We'll be in touch shortly.
+            </div>
+        </div>
+    </section>
+
     <!-- SERVICES & PRICING (merged so prices sit right under the hero) -->
     <div id="services">
     <section id="pricing" class="section-alt">
@@ -1276,6 +1303,7 @@
     <script src="lead-tracking.js"></script>
     <script src="floating-cta.js"></script>
     <script src="service-select.js"></script>
+    <script src="quick-form.js"></script>
     <script src="gallery-lightbox.js"></script>
 </body>
 </html>

@@ -490,3 +490,55 @@ button:focus-visible {
 }
 .price-card .price-note + .card-btn { margin-top: auto; }
 .price-card .price-note { margin-bottom: 18px; }
+
+/* ------------------------------------------------------------------ */
+/* 12. Quick request band (short form just under the homepage hero)   */
+/* ------------------------------------------------------------------ */
+
+.quick-request {
+  max-width: none;
+  margin: 0;
+  padding: 28px 20px;
+  background: #151515;
+  border-top: 1px solid #2c2c2c;
+  border-bottom: 1px solid #2c2c2c;
+}
+.quick-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.quick-copy { flex: 1 1 260px; }
+.quick-copy h2 { font-size: 1.5rem; margin: 0 0 4px; padding: 0; border: 0; }
+.quick-copy p { margin: 0; color: #bbb; }
+.quick-form {
+  flex: 2 1 560px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.quick-form input[type="text"],
+.quick-form input[type="email"],
+.quick-form select {
+  flex: 1 1 150px;
+  min-width: 0;
+  padding: 14px;
+  background: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+.quick-form input:focus, .quick-form select:focus { outline: 2px solid #d4af37; border-color: #d4af37; }
+.quick-form .btn { margin-top: 0; padding: 14px 26px; font-size: 1.05rem; flex: 0 0 auto; }
+.quick-success { flex: 2 1 560px; color: #fff; font-size: 1.1rem; }
+.quick-success strong { color: #d4af37; }
+@media (max-width: 768px) {
+  .quick-form { flex-direction: column; flex: 1 1 100%; }
+  .quick-form input[type="text"], .quick-form input[type="email"], .quick-form select { flex: 0 0 auto; }
+  .quick-form .btn { width: 100%; }
+  .quick-copy h2 { font-size: 1.3rem; }
+}
