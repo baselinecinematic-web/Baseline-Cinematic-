@@ -126,6 +126,30 @@ window.SITE_DATA = {
       question: "Can I get the raw footage?",
       answer: "Yes. If you'd rather edit it yourself, we can deliver the raw footage. If you'd like us to handle the editing, you'll receive the polished, finished film. Just let us know which you prefer when you book."
     },
+    licenseNeeded: {
+      question: "Do you need a license to fly a drone for real estate in Illinois?",
+      answer: "Yes. Anyone who flies a drone for business, including real estate photos and video, must hold an FAA Part 107 Remote Pilot Certificate. That federal rule applies everywhere in the U.S., including Illinois. Hiring an unlicensed pilot can put your listing, your client and your brokerage at risk."
+    },
+    part107: {
+      question: "What is an FAA Part 107 certificate?",
+      answer: "Part 107 is the FAA rule that covers commercial drone flights. To earn the certificate, a pilot has to pass the FAA's aeronautical knowledge test at an approved testing center, covering airspace, weather, safety and flight rules, and then complete recurrent training every two years to keep it current."
+    },
+    verifyPilot: {
+      question: "How can I check if a drone pilot is certified?",
+      answer: "Ask to see their Part 107 Remote Pilot Certificate. You can also look them up by name using the FAA's free online Airmen Inquiry search. A professional operator will be happy to show you their certificate and proof of insurance before the shoot."
+    },
+    insurance: {
+      question: "Do drone pilots need insurance?",
+      answer: "The FAA doesn't require it, but any professional operator should carry liability insurance. If something goes wrong on a shoot, insurance protects the property owner, not just the pilot. Baseline Cinematic carries comprehensive liability insurance on every job."
+    },
+    registration: {
+      question: "Do commercial drones have to be registered?",
+      answer: "Yes. Every drone flown commercially must be registered with the FAA and display its registration number, and it must broadcast Remote ID, a digital identification signal that lets authorities identify drones in flight. All of our aircraft are registered and Remote ID compliant."
+    },
+    worthIt: {
+      question: "Is drone video worth it for a real estate listing?",
+      answer: "For most listings, yes. Aerial footage shows things photos from the ground can't: the size and shape of the lot, the layout of the property, and what's nearby, like a lake, park or quiet street. It helps a listing stand out online and gives out-of-town buyers a real feel for the home before they visit."
+    },
     travel: {
       question: "Do you charge a travel fee?",
       answer: "Shoots within 50 miles of Pekin and Peoria have no travel fee. Beyond that, it's $50 for 50–75 miles, $100 for 75–100 miles, and a custom quote for anything over 100 miles. You'll always know the travel fee before you book."
