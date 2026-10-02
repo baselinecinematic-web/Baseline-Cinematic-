@@ -94,6 +94,38 @@ window.SITE_DATA = {
       question: "How long does it take to receive the final edited video?",
       answer: "Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is {{delivery.turnaroundWords}}. We ensure every frame is polished to perfection before delivering the final product."
     },
+    pricing: {
+      question: "How much does a real estate video cost?",
+      answer: "Our Cinematic Property Tour is {{pricing.realEstate.tourRegularDisplay}}, an Aerial-Only Showcase is {{pricing.realEstate.aerialOnlyDisplay}}, and a vertical social cut can be added for {{pricing.realEstate.verticalAddOnDisplay}}. Commercial brand profiles start at {{pricing.commercial.brandProfileDisplay}}. Every price is listed up front on our homepage. No surprise fees."
+    },
+    payment: {
+      question: "How do I pay? Is a deposit required?",
+      answer: "We accept PayPal, Cash App, and all major credit cards. Larger projects, such as brand films and commercial campaigns, require a 40% deposit to reserve your date."
+    },
+    prep: {
+      question: "How should the home be prepared for the shoot?",
+      answer: "Whether the home is empty or staged is completely up to you. Both film beautifully. Just make sure it's clean. A few quick touches make a big difference: clear off countertops, turn on every light, open the blinds, move cars out of the driveway, and tuck away trash cans and garden hoses."
+    },
+    airport: {
+      question: "Can you fly near the airport?",
+      answer: "Yes. Much of the Peoria area sits in controlled airspace near local airports. Before flying there, we get FAA authorization through LAANC, the FAA's official approval system for drone flights in controlled airspace. We handle all of it, so there's nothing you need to do."
+    },
+    mls: {
+      question: "Do I get an unbranded version for the MLS?",
+      answer: "Yes. Every real estate video comes with an unbranded version, with no logos or contact details, so it's ready to post on the MLS, listing sites, or any social media platform."
+    },
+    revisions: {
+      question: "How many rounds of changes are included?",
+      answer: "Your video includes two rounds of revisions for smaller changes, like trimming a clip, swapping a shot, or adjusting the music. On top of that, our 100% Satisfaction Guarantee means that if you're not happy with the final video, we'll re-edit it at no additional charge."
+    },
+    music: {
+      question: "Is the music in my video licensed?",
+      answer: "Yes. All of our music comes from a professional licensed music library, so your video is cleared to use on your listing, website, and social media."
+    },
+    rawFootage: {
+      question: "Can I get the raw footage?",
+      answer: "Yes. If you'd rather edit it yourself, we can deliver the raw footage. If you'd like us to handle the editing, you'll receive the polished, finished film. Just let us know which you prefer when you book."
+    },
     travel: {
       question: "Do you charge a travel fee?",
       answer: "Shoots within 50 miles of Pekin and Peoria have no travel fee. Beyond that, it's $50 for 50–75 miles, $100 for 75–100 miles, and a custom quote for anything over 100 miles. You'll always know the travel fee before you book."
