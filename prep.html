@@ -81,6 +81,7 @@
         .pp-done strong { font-family: 'Montserrat', sans-serif; color: var(--gold-hi); display: block; margin-bottom: 2px; }
 
         .pp-help { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 26px; display: flex; gap: 20px 32px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 10px 0 72px; }
+        .pp-ready { margin-bottom: 16px; border-color: rgba(212,175,55,0.55); background: linear-gradient(180deg, rgba(212,175,55,0.09), rgba(212,175,55,0.02) 60%), var(--panel); }
         .pp-help h2 { font-size: 1.25rem; font-weight: 800; margin: 0 0 4px; }
         .pp-help p { margin: 0; color: var(--mute); max-width: 52ch; }
         .pp-help-actions { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -155,6 +156,16 @@
             <div class="pp-panel" id="panel" role="tabpanel" aria-labelledby="tab-business" tabindex="0">
                 <noscript><p class="pg-lead">This checklist needs JavaScript to switch lists and save your ticks. Call (309) 863-5181 or text (309) 863-5089 and we'll walk you through it.</p></noscript>
             </div>
+
+            <aside class="pp-help pp-ready" aria-labelledby="pp-ready-h">
+                <div>
+                    <h2 id="pp-ready-h">All prepped?</h2>
+                    <p id="pp-ready-note">Send us a quick text with your checklist progress so we know you're ready.</p>
+                </div>
+                <div class="pp-help-actions">
+                    <a class="bq-btn" id="pp-ready" href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic!">Text us you're ready</a>
+                </div>
+            </aside>
 
             <aside class="pp-help" aria-labelledby="pp-help-h">
                 <div>
@@ -323,7 +334,22 @@
             document.getElementById('pp-count').textContent = n + ' of ' + boxes.length;
             document.getElementById('pp-meter').style.width = (boxes.length ? Math.round(n / boxes.length * 100) : 0) + '%';
             document.getElementById('pp-done').hidden = !(boxes.length && n === boxes.length);
+            readyLink(n, boxes.length);
         }
+
+        // "Text us you're ready" button: the message follows the open tab and the tick count
+        var READY_MSG = {
+            business: function (n, t) { return 'Hi Baseline Cinematic! We\'ve completed our Commercial Shoot Prep Checklist (' + n + '/' + t + ' items checked) and are ready for filming.'; },
+            realestate: function (n, t) { return 'Hi Baseline Cinematic! We\'ve completed our Real Estate Listing Prep Checklist (' + n + '/' + t + ' items checked) and the property is ready for camera & drone.'; }
+        };
+        function readyLink(n, total) {
+            var btn = document.getElementById('pp-ready');
+            btn.href = 'sms:+13098635089?&body=' + encodeURIComponent(READY_MSG[current](n, total));
+            btn.textContent = 'Text us you\'re ready (' + n + '/' + total + ')';
+        }
+        document.getElementById('pp-ready').addEventListener('click', function () {
+            if (typeof window.gtag === 'function') window.gtag('event', 'prep_ready_text', { checklist: current });
+        });
 
         panel.addEventListener('change', function (e) {
             var id = e.target && e.target.getAttribute('data-id');
