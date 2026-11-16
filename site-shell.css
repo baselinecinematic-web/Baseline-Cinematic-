@@ -1,5 +1,5 @@
 /* Baseline Cinematic — shared page shell for the newer standalone pages
- * (peoria-video-production.html, prep.html, deliver.html, proposal-builder.html).
+ * (peoria-video-production.html, prep.html and other standalone pages).
  *
  * Holds the design tokens, banner, nav, footer and buttons in one place so those
  * pages stay identical to the rest of the site without each repeating ~150 lines.
