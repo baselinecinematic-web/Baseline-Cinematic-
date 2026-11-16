@@ -563,3 +563,17 @@ button:focus-visible {
 .gc-frame input[type=range] { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: ew-resize; touch-action: pan-y; }
 .gc-frame:focus-within .gc-knob { outline: 3px solid #fff; outline-offset: 2px; }
 @media (max-width: 600px) { .gc-label { font-size: .68rem; padding: 5px 9px; bottom: 10px; } .gc-knob { width: 40px; height: 40px; margin: -20px 0 0 -20px; } }
+
+/* ------------------------------------------------------------------ */
+/* 11. Tighter desktop nav on narrow tablets, so the seven menu items   */
+/*     (including Build a Quote) stay on one row                        */
+/* ------------------------------------------------------------------ */
+
+@media (min-width: 769px) and (max-width: 960px) {
+  nav { padding-left: 20px; padding-right: 20px; }
+  .nav-links a,
+  .dropbtn {
+    margin: 0 9px;
+    font-size: 0.98rem;
+  }
+}
