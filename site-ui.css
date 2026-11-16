@@ -577,3 +577,21 @@ button:focus-visible {
     font-size: 0.98rem;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* 12. Footer Call | Text line                                         */
+/* ------------------------------------------------------------------ */
+
+footer .footer-phones {
+  margin: 0;
+  color: #bbb;
+  font-size: 1rem;
+}
+footer .footer-phones a {
+  color: #d4af37;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+}
+footer .footer-phones a:hover { color: #fff; }
+footer .footer-phones span { color: #555; margin: 0 8px; }

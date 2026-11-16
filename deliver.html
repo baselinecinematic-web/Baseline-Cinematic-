@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1135RW1V01"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1135RW1V01');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Video Is Ready | Baseline Cinematic</title>
+    <meta name="description" content="Download your finished Baseline Cinematic video files.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="icon" href="favicon-gold.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <script src="site-data.js"></script>
+    <script src="promo-check.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="site-shell.css">
+    <link rel="stylesheet" href="site-ui.css">
+    <style>
+        /* Client delivery page */
+        .dl-head { padding-bottom: 36px; }
+        .dl-head h1 { font-size: clamp(2rem, 4.8vw, 3.3rem); font-weight: 800; line-height: 1.06; margin: 0 0 14px; max-width: 20ch; overflow-wrap: anywhere; }
+        .dl-head .pg-lead { margin-bottom: 0; }
+
+        .dl-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+        .dl-card { position: relative; background: var(--panel); border: 1.5px solid var(--line); border-radius: 12px; padding: 22px 22px 20px; display: flex; flex-direction: column; gap: 8px; }
+        .dl-card.is-ready { border-color: rgba(212,175,55,0.55); background: linear-gradient(180deg, rgba(212,175,55,0.09), rgba(212,175,55,0.02) 55%), var(--panel); }
+        .dl-card.is-missing { opacity: 0.62; }
+        .dl-shape { height: 74px; display: flex; align-items: flex-end; margin-bottom: 6px; }
+        .dl-shape i { display: block; border: 1.5px solid var(--gold); border-radius: 5px; background: repeating-linear-gradient(-55deg, rgba(212,175,55,0.16) 0 6px, transparent 6px 12px); }
+        .dl-shape.is-wide i { width: 118px; height: 66px; }
+        .dl-shape.is-tall i { width: 40px; height: 72px; margin-right: 8px; }
+        .dl-card.is-missing .dl-shape i { border-color: #4a5058; background: none; }
+        .dl-card h2 { margin: 0; font-size: 1.15rem; font-weight: 700; }
+        .dl-card p { margin: 0; color: var(--mute); font-size: 0.95rem; }
+        .dl-spec { color: var(--gold-hi) !important; font-weight: 600; font-size: 0.88rem !important; }
+        .dl-actions { margin-top: auto; padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+        .dl-actions .bq-btn { padding: 12px 16px; font-size: 0.95rem; }
+        .dl-status { color: var(--dim) !important; font-size: 0.9rem !important; margin-top: auto !important; padding-top: 12px; }
+
+        .dl-empty { border: 1.5px dashed rgba(212,175,55,0.6); border-radius: 12px; padding: 26px; background: rgba(212,175,55,0.05); }
+        .dl-empty h2 { margin: 0 0 6px; font-size: 1.3rem; }
+        .dl-empty p { margin: 0 0 14px; color: var(--mute); max-width: 60ch; }
+
+        .dl-note { color: var(--dim); font-size: 0.9rem; margin: 18px 0 0; }
+
+        .dl-review { border: 1.5px solid var(--gold); border-radius: 14px; padding: 34px; text-align: center;
+            background: radial-gradient(120% 140% at 50% 0%, rgba(212,175,55,0.16), rgba(212,175,55,0.02) 60%), var(--panel); }
+        .dl-review .dl-stars { color: var(--gold); font-size: 1.6rem; letter-spacing: 6px; margin: 0 0 6px; }
+        .dl-review h2 { margin: 0 auto 10px; font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 800; max-width: 24ch; }
+        .dl-review p { margin: 0 auto 22px; color: #d6d3ca; max-width: 54ch; }
+        .dl-review .bq-btn { font-size: 1.08rem; padding: 16px 28px; }
+
+        .dl-steps { list-style: none; counter-reset: dl; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+        .dl-steps li { counter-increment: dl; }
+        .dl-steps li::before {
+            content: counter(dl); display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
+            border: 1.5px solid var(--gold); color: var(--gold); font-family: 'Montserrat', sans-serif; font-weight: 800; margin-bottom: 14px;
+        }
+        .dl-steps h3 { margin: 0 0 6px; font-size: 1.1rem; }
+        .dl-steps p { margin: 0 0 8px; color: var(--mute); }
+        .dl-steps .dl-tip { color: #d6d3ca; font-size: 0.93rem; }
+
+        .dl-help { text-align: center; padding-bottom: 72px; }
+        .dl-help p { margin: 0; }
+
+        @media (max-width: 900px) {
+            .dl-cards, .dl-steps { grid-template-columns: 1fr; }
+            .dl-review { padding: 26px 20px; }
+            .dl-review .bq-btn { width: 100%; }
+        }
+    </style>
+</head>
+<body ontouchstart="">
+
+    <div class="sticky-wrapper" id="site-top">
+        <nav>
+            <a href="index.html" class="nav-logo">
+                <img src="share-preview.jpg" alt="Baseline Cinematic Logo" onerror="this.replaceWith(document.createTextNode('Baseline Cinematic'))">
+            </a>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Open menu">☰</button>
+            <div class="nav-links" id="nav-links">
+                <div class="dropdown">
+                    <button class="dropbtn" id="services-btn">Services ▾</button>
+                    <div class="dropdown-content" id="services-dropdown">
+                        <a href="real-estate.html">Real Estate Media</a>
+                        <a href="commercial.html">Commercial & Brand</a>
+                    </div>
+                </div>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#build-your-shoot">Build a Quote</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About Us</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <main>
+        <div class="pg-wrap pg-top dl-head">
+            <h1 id="dl-title">Your video is ready</h1>
+            <p class="pg-lead" id="dl-lead">Download your files below. Save a copy somewhere you'll find it again.</p>
+        </div>
+
+        <section class="pg-sec" id="files" style="padding-top: 0;" aria-label="Your files">
+            <div class="pg-wrap">
+                <div class="dl-empty" id="dl-empty" hidden>
+                    <h2>Your download links aren't on this page yet</h2>
+                    <p>This link is missing its files, which usually means it was cut off when it was copied. Text or call us and we'll send a fresh link right away.</p>
+                    <p class="pg-contact-line" style="margin: 0;">Call: <a href="tel:+13098635181" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20my%20video%20delivery%20link%20isn%27t%20showing%20my%20files." data-text-link>(309) 863-5089</a></p>
+                </div>
+                <div class="dl-cards" id="dl-cards">
+                    <article class="dl-card" data-file="master">
+                        <div class="dl-shape is-wide" aria-hidden="true"><i></i></div>
+                        <h2>Master 4K cut</h2>
+                        <p class="dl-spec">16:9 · 4K</p>
+                        <p>Your full, color-graded film. Use it on your website, YouTube and your Google Business Profile.</p>
+                    </article>
+                    <article class="dl-card" data-file="mls">
+                        <div class="dl-shape is-wide" aria-hidden="true"><i></i></div>
+                        <h2>Unbranded MLS version</h2>
+                        <p class="dl-spec">16:9 · No logos or contact info</p>
+                        <p>Ready for the MLS virtual tour field and listing sites that don't allow branding.</p>
+                    </article>
+                    <article class="dl-card" data-file="reel">
+                        <div class="dl-shape is-tall" aria-hidden="true"><i></i><i></i><i></i></div>
+                        <h2>Vertical social reels</h2>
+                        <p class="dl-spec">9:16 · Reels, TikTok, Shorts</p>
+                        <p>Short vertical cuts made for phones. Post one now and save the rest for the weeks ahead.</p>
+                    </article>
+                </div>
+                <p class="dl-note">Download links open in a new tab. On a phone, tap the download icon in the file viewer to save to your device.</p>
+            </div>
+        </section>
+
+        <section class="pg-sec" id="review" style="padding-top: 8px;">
+            <div class="pg-wrap">
+                <div class="dl-review">
+                    <p class="dl-stars" aria-hidden="true">★★★★★</p>
+                    <h2>Love your video? Leave us a 30-second Google review</h2>
+                    <p>We're a small, local, owner-run business, and a quick review is the biggest help to us. One or two sentences about how it went is perfect.</p>
+                    <a class="bq-btn" id="dl-review-btn" href="https://g.page/r/CUy8yB2KUa2WEBM/review" data-href-field="business.googleReviewHref" target="_blank" rel="noopener">Leave a Google review</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="pg-band">
+            <section class="pg-sec" id="deploy">
+                <div class="pg-wrap">
+                    <h2>3 ways to put your video to work</h2>
+                    <p class="pg-lead">A great video only pays off when people see it. These three take about ten minutes and keep working for months.</p>
+                    <ol class="dl-steps">
+                        <li>
+                            <h3>Add it to your Google Business Profile</h3>
+                            <p>In your profile, choose Add photos &amp; videos, then upload a short clip. Video helps your listing stand out in Maps and local search.</p>
+                            <p class="dl-tip">Google takes clips up to 30 seconds, so use a vertical reel or a short trim of the master.</p>
+                        </li>
+                        <li>
+                            <h3>Put it at the top of your website</h3>
+                            <p>Place the master cut on your homepage, above the fold, where visitors land. A muted, looping clip works well as a hero background.</p>
+                            <p class="dl-tip">Realtors: put the MLS version in the listing's virtual tour field.</p>
+                        </li>
+                        <li>
+                            <h3>Post a reel and pin it</h3>
+                            <p>Post a vertical reel to Facebook and Instagram, then pin it to the top of your profile so it's the first thing new visitors see.</p>
+                            <p class="dl-tip">Tag @baselinecinematic and we'll share it too.</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+        </div>
+
+        <div class="pg-wrap dl-help">
+            <section class="pg-sec">
+                <h2 style="margin: 0 auto 10px;">Need a change or a different format?</h2>
+                <p class="pg-lead" style="margin: 0 auto 14px;">Your video includes two rounds of revisions, and if you're not happy we'll re-edit it free.</p>
+                <p class="pg-contact-line">Call: <a href="tel:+13098635181" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%20have%20a%20question%20about%20my%20video%20delivery." data-text-link>(309) 863-5089</a></p>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
+                </a>
+            </div>
+            <p class="footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
+            <div class="footer-links">
+                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
+                <a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
+                <a href="index.html#portfolio">View Portfolio</a>
+                <a href="peoria-video-production.html">Peoria Video Production</a>
+                <a href="prep.html">Shoot Prep Checklist</a>
+            </div>
+        </div>
+        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+        // Builds the download cards from the link's query string:
+        //   deliver.html?client=Acme%20Motors&master=URL&mls=URL&reel=URL&reel2=URL&reel3=URL
+        // Optional: &project=Spring%20Campaign  (shown under the client name)
+        // Any file left out shows as "not part of this delivery". Only http(s) links are used.
+        var params = new URLSearchParams(window.location.search);
+
+        function cleanText(v, max) { return (v || '').replace(/[\u0000-\u001f<>]/g, '').trim().slice(0, max); }
+        function cleanUrl(v) {
+            if (!v) return '';
+            try {
+                var u = new URL(v.trim());
+                return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : '';
+            } catch (e) { return ''; }
+        }
+
+        var client = cleanText(params.get('client'), 80);
+        var project = cleanText(params.get('project'), 80);
+        var files = {
+            master: [cleanUrl(params.get('master'))].filter(Boolean),
+            mls: [cleanUrl(params.get('mls'))].filter(Boolean),
+            reel: ['reel', 'reel1', 'reel2', 'reel3', 'reel4', 'reel5'].map(function (k) { return cleanUrl(params.get(k)); })
+                .filter(function (v, i, a) { return v && a.indexOf(v) === i; })
+        };
+        var LABEL = { master: 'Download master 4K cut', mls: 'Download MLS version', reel: 'Download reel' };
+
+        if (client) {
+            document.getElementById('dl-title').textContent = client + ', your video is ready';
+            document.title = 'Your Video Is Ready, ' + client + ' | Baseline Cinematic';
+        }
+        if (project) {
+            document.getElementById('dl-lead').textContent = project + ': download your files below and save a copy somewhere you\'ll find it again.';
+        }
+
+        var any = false;
+        document.querySelectorAll('.dl-card').forEach(function (card) {
+            var key = card.getAttribute('data-file'), links = files[key] || [];
+            var box = document.createElement('div');
+            if (links.length) {
+                any = true;
+                card.classList.add('is-ready');
+                box.className = 'dl-actions';
+                links.forEach(function (href, i) {
+                    var a = document.createElement('a');
+                    a.className = 'bq-btn' + (i ? ' is-ghost' : '');
+                    a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer';
+                    a.textContent = key === 'reel' && links.length > 1 ? 'Download reel ' + (i + 1) : LABEL[key];
+                    a.addEventListener('click', function () {
+                        if (typeof window.gtag === 'function') window.gtag('event', 'delivery_download', { file_type: key });
+                    });
+                    box.appendChild(a);
+                });
+            } else {
+                card.classList.add('is-missing');
+                box.className = 'dl-status';
+                box.textContent = 'Not part of this delivery';
+            }
+            card.appendChild(box);
+        });
+
+        if (!any) {
+            document.getElementById('dl-empty').hidden = false;
+            document.getElementById('dl-cards').hidden = true;
+            document.getElementById('dl-title').textContent = client ? client + ', your files are almost here' : 'Your files are almost here';
+            document.getElementById('dl-lead').hidden = true;
+            document.querySelector('.dl-note').hidden = true;
+        }
+
+        document.getElementById('dl-review-btn').addEventListener('click', function () {
+            if (typeof window.gtag === 'function') window.gtag('event', 'review_click', { link_location: 'deliver' });
+        });
+    })();
+    </script>
+    <script>
+        // Hamburger menu (same behavior as the other pages)
+        (function () {
+            var mobileMenu = document.getElementById('mobile-menu'), navLinks = document.getElementById('nav-links'),
+                servicesBtn = document.getElementById('services-btn'), servicesDropdown = document.getElementById('services-dropdown');
+            if (!mobileMenu) return;
+            mobileMenu.addEventListener('click', function () { navLinks.classList.toggle('nav-active'); });
+            servicesBtn.addEventListener('click', function (e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+            document.querySelectorAll('.nav-links a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 768) { navLinks.classList.remove('nav-active'); servicesDropdown.style.display = 'none'; }
+                });
+            });
+            // The fixed banner + nav changes height on phones, so measure it for page spacing
+            var top = document.querySelector('.sticky-wrapper');
+            function measure() { if (top) document.documentElement.style.setProperty('--nav-h', top.offsetHeight + 'px'); }
+            measure(); window.addEventListener('resize', measure); window.addEventListener('load', measure);
+        })();
+    </script>
+    <script src="site-render.js"></script>
+    <script src="lead-tracking.js"></script>
+</body>
+</html>

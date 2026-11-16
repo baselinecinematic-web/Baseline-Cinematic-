@@ -7,6 +7,7 @@
 //                    form script calls trackLead(form) once Make.com accepts it)
 //   phone_click    - someone tapped a phone number link
 //   email_click    - someone tapped an email link
+//   sms_click      - someone tapped the texting number
 //
 // Each event also says WHERE on the page it happened (link_location), e.g.
 // "pricing", "contact" or "footer", and the form event says which service
@@ -31,10 +32,11 @@
   // Phone and email taps. One listener on the whole page catches every
   // tel:/mailto: link, including any added later.
   document.addEventListener('click', function (e) {
-    var link = e.target.closest('a[href^="tel:"], a[href^="mailto:"]');
+    var link = e.target.closest('a[href^="tel:"], a[href^="mailto:"], a[href^="sms:"]');
     if (!link) return;
-    var isPhone = link.getAttribute('href').indexOf('tel:') === 0;
-    send(isPhone ? 'phone_click' : 'email_click', {
+    var href = link.getAttribute('href');
+    var name = href.indexOf('tel:') === 0 ? 'phone_click' : href.indexOf('sms:') === 0 ? 'sms_click' : 'email_click';
+    send(name, {
       link_location: locationOf(link)
     });
   });

@@ -239,6 +239,8 @@
 .bq-msg.is-ok { background: rgba(212,175,55,0.10); border: 1px solid var(--gold); color: var(--ink); }
 .bq-msg h3 { margin: 0 0 4px; padding: 0; border: 0; font-size: 1.1rem; color: var(--gold-hi); }
 .bq-msg p { margin: 0; }
+.bq-msg p + p { margin-top: 8px; }
+.bq-contact-line { font-size: 0.95rem; }
 .bq-msg a { color: var(--gold-hi); }
 
 /* Mobile total bar */

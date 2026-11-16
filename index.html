@@ -41,42 +41,237 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
+      "@type": [
+        "ProfessionalService",
+        "LocalBusiness"
+      ],
+      "@id": "https://www.baselinecinematic.com/#business",
       "name": "Baseline Cinematic",
-      "founder": {
-        "@type": "Person",
-        "name": "Michael Cunningham"
-      },
+      "legalName": "Baseline Cinematic LLC",
       "url": "https://www.baselinecinematic.com/",
-      "email": "michael@baselinecinematic.com",
-      "telephone": "+1-309-863-5181",
+      "mainEntityOfPage": "https://www.baselinecinematic.com/",
+      "logo": "https://www.baselinecinematic.com/apple-touch-icon.png",
       "image": "https://www.baselinecinematic.com/share-preview.jpg",
-      "description": "Premium commercial video production, real estate videography, FAA certified drone cinematography, and social media retainers serving Central Illinois.",
+      "description": "Commercial video production, real estate videography, FAA Part 107 drone cinematography, and social media content from Pekin, IL, serving Peoria, East Peoria, Morton, Washington and Tazewell County.",
+      "telephone": "+1-309-863-5181",
+      "email": "michael@baselinecinematic.com",
+      "priceRange": "$$",
+      "founder": [
+        {
+          "@type": "Person",
+          "name": "Michael Cunningham",
+          "jobTitle": "Owner"
+        },
+        {
+          "@type": "Person",
+          "name": "Judith Cunningham",
+          "jobTitle": "Owner"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Pekin",
         "addressRegion": "IL",
         "addressCountry": "US"
       },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 40.5675,
+        "longitude": -89.6407
+      },
       "areaServed": [
-        {"@type": "City", "name": "Peoria"},
+        {
+          "@type": "City",
+          "name": "Pekin, IL"
+        },
+        {
+          "@type": "City",
+          "name": "Peoria, IL"
+        },
+        {
+          "@type": "City",
+          "name": "East Peoria, IL"
+        },
+        {
+          "@type": "City",
+          "name": "Morton, IL"
+        },
+        {
+          "@type": "City",
+          "name": "Washington, IL"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "Tazewell County, IL"
+        },
         {
           "@type": "GeoCircle",
           "geoMidpoint": {
             "@type": "GeoCoordinates",
-            "latitude": 40.5679,
-            "longitude": -89.6534
+            "latitude": 40.5675,
+            "longitude": -89.6407
           },
           "geoRadius": "80467"
+        }
+      ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "telephone": "+1-309-863-5181",
+          "areaServed": "US-IL",
+          "availableLanguage": "English",
+          "description": "Phone calls"
+        },
+        {
+          "@type": "ContactPoint",
+          "contactType": "text messages (SMS)",
+          "telephone": "+1-309-863-5089",
+          "areaServed": "US-IL",
+          "availableLanguage": "English",
+          "description": "Texting line for quotes and shoot-day questions. Text only."
         }
       ],
       "knowsAbout": [
         "Commercial Video Production",
         "Real Estate Videography",
+        "Brand Films",
         "Social Media Reels",
-        "Aerial Videography", 
-        "Drone Cinematography", 
+        "Event Videography",
+        "FAA Part 107 Drone Cinematography",
         "Color Grading"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Video production services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Cinematic Property Tour"
+            },
+            "price": "399",
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Aerial-Only Showcase"
+            },
+            "price": "199",
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Brand Profile Film"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "850",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Multi-Scene Commercial Campaign"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "1500",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Event Highlight Film"
+            },
+            "priceSpecification": {
+              "@type": "PriceSpecification",
+              "minPrice": "650",
+              "priceCurrency": "USD"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Monthly Social Media Retainer"
+            },
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "minPrice": "299",
+              "priceCurrency": "USD",
+              "unitText": "MONTH"
+            }
+          }
+        ]
+      },
+      "review": [
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Organization",
+            "name": "Nathan Noyes Car Sales"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "reviewBody": "We had a fantastic experience with Baseline Cinematic. The quality of the video work was impressive, and the drone footage added a whole new level to the finished project. Everything looked polished, smooth, and professionally produced. You can tell they care about the details and take pride in their work. The final result exceeded expectations, and I would absolutely recommend them to anyone needing high-quality videography or aerial footage.",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Google"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Person",
+            "name": "Missy S."
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "reviewBody": "These folks know how it’s done! They made a gorgeous video of my property, including my home and the lake that it sits on when I put it up for sale. They knew exactly how to highlight the best features of the property and I highly recommend Baseline Cinematic!",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Google"
+          }
+        },
+        {
+          "@type": "Review",
+          "author": {
+            "@type": "Organization",
+            "name": "Gethsemane Church"
+          },
+          "reviewRating": {
+            "@type": "Rating",
+            "ratingValue": "5",
+            "bestRating": "5"
+          },
+          "reviewBody": "Baseline Cinematic did an outstanding job for us! Their drone footage was excellent, and the overall cinematography was professional, creative, and beautifully done. They have a great eye for capturing the right angles and moments, and the finished video work really stood out. We were very impressed with the quality of their work and would gladly recommend Baseline Cinematic to anyone looking for professional video, drone footage, or cinematic production. Great work from start to finish!",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Google"
+          }
+        }
+      ],
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61591572504349",
+        "https://www.instagram.com/baselinecinematic",
+        "https://www.tiktok.com/@baseline.cinemati",
+        "https://www.youtube.com/@BaselineCinematic"
       ]
     }
     </script>
@@ -861,7 +1056,7 @@
         </div>
 
         <p class="pricing-cta fade-in">
-            Not sure which fits? Call <a class="phone" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>
+            Not sure which fits? Call <a class="phone" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> or text <a class="phone" href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><br>
             <a href="#step-1" class="btn">Book a Shoot</a>
         </p>
         <p class="fade-in" style="color: #ccc; font-size: 0.95rem; text-align: center; margin-top: 20px;">🛡️ <span data-field="business.guarantee">100% Satisfaction Guarantee: if you're not happy with your final video, we'll re-edit it at no additional charge.</span></p>
@@ -876,7 +1071,7 @@
         <h2 class="fade-in">Build Your Shoot</h2>
         <p class="fade-in" style="color: #ccc; font-size: 1.1rem; margin: -15px 0 45px; max-width: 62ch; line-height: 1.6;">Pick a package, add what you need, and watch your itemized quote build as you go. Send it when you're ready and we'll confirm your date.</p>
         <div class="bq-build is-embedded" id="build" data-quote-builder>
-            <p class="bq-noscript">The quote builder needs JavaScript. Call <a href="tel:+13098635181">(309) 863-5181</a> or email <a href="mailto:michael@baselinecinematic.com">michael@baselinecinematic.com</a> and we'll price your shoot with you.</p>
+            <p class="bq-noscript">The quote builder needs JavaScript. Call <a href="tel:+13098635181">(309) 863-5181</a>, text <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot.">(309) 863-5089</a>, or email <a href="mailto:michael@baselinecinematic.com">michael@baselinecinematic.com</a> and we'll price your shoot with you.</p>
         </div>
     </section>
 
@@ -1066,7 +1261,8 @@
             <a href="#step-1" class="btn">Build Your Quote</a>
             <p style="margin: 35px 0 12px; font-size: 1.05rem;">Prefer to reach us directly?</p>
             <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px; font-size: 1.1rem;">
-                <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none; font-weight: 600;" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a>
+                <span>Call: <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none; font-weight: 600;" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a></span>
+                <span>Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." style="color: #d4af37; text-decoration: none; font-weight: 600;" data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></span>
                 <a href="mailto:michael@baselinecinematic.com" style="color: #d4af37; text-decoration: none;" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
                 <a href="mailto:judith@baselinecinematic.com" style="color: #d4af37; text-decoration: none;" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
             </div>
@@ -1089,10 +1285,13 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
                 </a>
             </div>
+            <p class="footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
             <div class="footer-links">
                 <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
                 <a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
                 <a href="#portfolio">View Portfolio</a>
+                <a href="peoria-video-production.html">Peoria Video Production</a>
+                <a href="prep.html">Shoot Prep Checklist</a>
             </div>
         </div>
         <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>

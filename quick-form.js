@@ -21,7 +21,7 @@
       .catch(function () {
         busy = false;
         if (btn) btn.disabled = false;
-        alert('There was an issue submitting your request. Please call us at (309) 863-5181.');
+        alert('There was an issue submitting your request. Please call (309) 863-5181 or text (309) 863-5089.');
       });
   });
 })();

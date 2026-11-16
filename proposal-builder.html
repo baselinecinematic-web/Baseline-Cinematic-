@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en" class="is-locked">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposal Builder | Baseline Cinematic</title>
+    <meta name="description" content="Internal tool.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="referrer" content="no-referrer">
+
+    <link rel="icon" href="favicon-gold.png" type="image/png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <script src="site-data.js"></script>
+    <script src="promo-check.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="site-shell.css">
+    <link rel="stylesheet" href="site-ui.css">
+    <style>
+        /* Proposal builder (internal). Screen layout first, then the printed proposal, then print rules. */
+
+        /* ---------- PIN lock ---------- */
+        .pb-lock {
+            position: fixed; inset: 0; z-index: 2000; display: grid; place-items: center; padding: 20px;
+            background: rgba(10,11,13,0.55);
+        }
+        html:not(.is-locked) .pb-lock { display: none; }
+        html.is-locked .pb-app, html.is-locked .sticky-wrapper, html.is-locked body > footer { filter: blur(14px) saturate(0.6); pointer-events: none; user-select: none; }
+        .pb-lock-card {
+            width: min(360px, 100%); text-align: center; background: #111316; border: 1px solid #3a3f47; border-radius: 16px;
+            padding: 30px 26px 26px; box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+        }
+        .pb-lock-card img { width: 64px; height: 64px; object-fit: cover; border-radius: 12px; margin: 0 auto 14px; }
+        .pb-lock-card h1 { font-size: 1.3rem; font-weight: 800; margin: 0 0 4px; }
+        .pb-lock-card p { color: var(--mute); margin: 0 0 20px; font-size: 0.95rem; }
+        .pb-pin-row { display: flex; justify-content: center; gap: 12px; margin: 0 0 14px; }
+        .pb-pin-row span { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #5a606a; transition: background 0.12s ease, border-color 0.12s ease; }
+        .pb-pin-row span.is-on { background: var(--gold); border-color: var(--gold); }
+        .pb-pin-input {
+            width: 100%; text-align: center; font: 600 1.6rem/1 'Inter', sans-serif; letter-spacing: 0.6em; padding: 14px 0 14px 0.6em;
+            background: var(--panel); color: #fff; border: 1.5px solid var(--line); border-radius: 10px; color-scheme: dark;
+        }
+        .pb-pin-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.2); }
+        .pb-pin-msg { min-height: 1.4em; margin: 12px 0 0 !important; color: #ffb4aa !important; font-size: 0.92rem !important; }
+        .pb-shake { animation: pb-shake 0.36s ease; }
+        @keyframes pb-shake { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+
+        /* ---------- App shell ---------- */
+        .pb-app { padding: calc(var(--nav-h) + 28px) 0 64px; }
+        .pb-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; justify-content: space-between; margin-bottom: 22px; }
+        .pb-bar h1 { font-size: 1.6rem; font-weight: 800; margin: 0; }
+        .pb-bar-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+        .pb-bar-actions .bq-btn { padding: 11px 16px; font-size: 0.93rem; }
+        .pb-tabs { display: inline-flex; gap: 6px; padding: 5px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; margin-bottom: 22px; }
+        .pb-tab { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.95rem; background: transparent; color: var(--mute); border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer; }
+        .pb-tab[aria-selected="true"] { background: var(--gold); color: #0b0b0b; }
+        .pb-tab:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+
+        .pb-grid { display: grid; grid-template-columns: minmax(340px, 440px) minmax(0, 1fr); gap: 32px; align-items: start; }
+        .pb-form fieldset { border: 1px solid var(--line); border-radius: 12px; padding: 18px 18px 6px; margin: 0 0 16px; min-width: 0; background: rgba(28,32,37,0.5); }
+        .pb-form legend { font-family: 'Montserrat', sans-serif; font-weight: 700; padding: 0 6px; }
+        .pb-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .pb-field { display: flex; flex-direction: column; gap: 5px; margin: 0 0 12px; min-width: 0; }
+        .pb-field label, .pb-label { font-size: 0.86rem; font-weight: 600; color: #dedbd2; }
+        .pb-field input, .pb-field select, .pb-field textarea, .pb-items input {
+            width: 100%; padding: 10px 11px; background: var(--panel); border: 1.5px solid var(--line); border-radius: 8px;
+            color: #fff; font: inherit; font-size: 0.95rem; color-scheme: dark;
+        }
+        .pb-field textarea { min-height: 84px; resize: vertical; }
+        .pb-field input:focus, .pb-field select:focus, .pb-field textarea:focus, .pb-items input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.18); }
+        .pb-hint { color: var(--dim); font-size: 0.82rem; margin: 0 0 12px; }
+
+        .pb-add { display: flex; gap: 8px; margin: 0 0 10px; }
+        .pb-add select { flex: 1; min-width: 0; }
+        .pb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+        .pb-chip { background: var(--panel); color: var(--ink); border: 1.5px solid var(--line); border-radius: 20px; padding: 6px 11px; font: 500 0.84rem/1.2 'Inter', sans-serif; cursor: pointer; }
+        .pb-chip:hover { border-color: var(--gold); }
+        .pb-chip.is-discount { color: var(--gold-hi); border-style: dashed; }
+        .pb-items { list-style: none; margin: 0 0 12px; padding: 0; }
+        .pb-item { display: grid; grid-template-columns: minmax(0, 1fr) 56px 92px 32px; gap: 6px; align-items: center; padding: 6px 0; border-top: 1px solid var(--line); }
+        .pb-item input { padding: 8px 8px; font-size: 0.9rem; }
+        .pb-item .pb-x { background: none; border: 0; color: var(--dim); font-size: 1.3rem; line-height: 1; cursor: pointer; padding: 4px; border-radius: 6px; }
+        .pb-item .pb-x:hover { color: #ffb4aa; background: rgba(200,86,75,0.12); }
+        .pb-items-head { display: grid; grid-template-columns: minmax(0, 1fr) 56px 92px 32px; gap: 6px; font-size: 0.78rem; color: var(--dim); padding: 0 0 4px; }
+        .pb-empty { color: var(--dim); font-size: 0.9rem; padding: 10px 0 14px; border-top: 1px solid var(--line); }
+        .pb-custom { display: grid; grid-template-columns: minmax(0, 1fr) 56px 92px auto; gap: 6px; margin: 0 0 14px; }
+        .pb-custom input { padding: 8px; background: var(--panel); border: 1.5px dashed var(--line); border-radius: 8px; color: #fff; font: inherit; font-size: 0.9rem; min-width: 0; }
+        .pb-custom button { padding: 8px 12px; font-size: 0.88rem; }
+
+        .pb-preview { position: sticky; top: calc(var(--nav-h) + 16px); min-width: 0; }
+        .pb-preview-label { color: var(--dim); font-size: 0.84rem; margin: 0 0 8px; }
+        .pb-scale { overflow: hidden; border-radius: 6px; box-shadow: 0 24px 60px rgba(0,0,0,0.6); }
+        .pb-scale > .doc { transform-origin: top left; }
+
+        /* Links tab */
+        .pb-links { max-width: 760px; }
+        .pb-out { background: #101215; border: 1px solid #3a3f47; border-radius: 10px; padding: 14px; font: 0.9rem/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: #e8e4da; overflow-wrap: anywhere; margin: 0 0 10px; min-height: 48px; white-space: pre-wrap; }
+        .pb-out-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 22px; }
+        .pb-out-actions .bq-btn { padding: 10px 14px; font-size: 0.9rem; }
+        .pb-copied { color: var(--gold-hi); font-size: 0.88rem; align-self: center; }
+
+        /* ---------- The printed proposal ---------- */
+        .doc {
+            --d-bg: #15181c; --d-panel: #1d2127; --d-line: #343a42; --d-ink: #f1ede4; --d-mute: #a9acb3; --d-gold: #d4af37; --d-gold-hi: #e8cd78;
+            width: 816px; background: var(--d-bg); color: var(--d-ink); font: 13.5px/1.5 'Inter', system-ui, sans-serif;
+            -webkit-print-color-adjust: exact; print-color-adjust: exact;
+        }
+        .doc-inner { padding: 44px 56px 40px; }
+        .doc-clap { height: 14px; background: repeating-linear-gradient(-55deg, var(--d-gold) 0 16px, var(--d-bg) 16px 32px); }
+        .doc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; padding-bottom: 22px; border-bottom: 1px solid var(--d-line); }
+        .doc-brand { display: flex; align-items: center; gap: 14px; }
+        .doc-brand img { width: 62px; height: 62px; object-fit: cover; border-radius: 10px; }
+        .doc-brand strong { display: block; font: 800 19px/1.1 'Montserrat', sans-serif; letter-spacing: 0.02em; }
+        .doc-brand span { display: block; color: var(--d-mute); font-size: 12px; margin-top: 3px; }
+        .doc-title { text-align: right; }
+        .doc-title h2 { margin: 0 0 6px; font: 800 22px/1.15 'Montserrat', sans-serif; color: var(--d-gold); }
+        .doc-title dl { margin: 0; display: grid; grid-template-columns: auto auto; gap: 1px 12px; justify-content: end; font-size: 12px; }
+        .doc-title dt { color: var(--d-mute); text-align: right; }
+        .doc-title dd { margin: 0; font-weight: 600; text-align: right; }
+
+        .doc h3 { font: 700 11px/1.2 'Montserrat', sans-serif; color: var(--d-gold); letter-spacing: 0.12em; text-transform: uppercase; margin: 0 0 8px; }
+        .doc-sec { padding: 20px 0 0; break-inside: avoid; page-break-inside: avoid; }
+        .doc-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        .doc-parties p { margin: 0; }
+        .doc-parties strong { font-size: 15px; }
+        .doc-muted { color: var(--d-mute); }
+        .doc-facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border: 1px solid var(--d-line); border-radius: 8px; overflow: hidden; }
+        .doc-facts div { padding: 9px 12px; border-right: 1px solid var(--d-line); min-width: 0; }
+        .doc-facts div:last-child { border-right: 0; }
+        .doc-facts span { display: block; color: var(--d-mute); font-size: 11px; }
+        .doc-facts b { display: block; font-weight: 600; overflow-wrap: anywhere; }
+
+        .doc-table { width: 100%; border-collapse: collapse; }
+        .doc-table th { text-align: left; font: 600 11px/1.2 'Inter', sans-serif; color: var(--d-mute); padding: 0 0 8px; border-bottom: 1px solid var(--d-line); }
+        .doc-table td { padding: 10px 0; border-bottom: 1px solid var(--d-line); vertical-align: top; }
+        .doc-table .n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; padding-left: 14px; }
+        .doc-table td:first-child { padding-right: 10px; }
+        .doc-table .doc-note { display: block; color: var(--d-mute); font-size: 12px; margin-top: 2px; }
+        .doc-table tr.is-discount td { color: var(--d-gold-hi); }
+        .doc-table tr { break-inside: avoid; page-break-inside: avoid; }
+        .doc-totals { margin: 12px 0 0 auto; width: 300px; }
+        .doc-totals div { display: flex; justify-content: space-between; gap: 16px; padding: 4px 0; font-variant-numeric: tabular-nums; }
+        .doc-totals .is-discount { color: var(--d-gold-hi); }
+        .doc-totals .is-total { border-top: 1px solid var(--d-line); margin-top: 6px; padding-top: 10px; font: 800 20px/1.2 'Montserrat', sans-serif; color: var(--d-gold); }
+        .doc-totals .is-deposit { background: rgba(212,175,55,0.12); border: 1px solid rgba(212,175,55,0.5); border-radius: 6px; padding: 8px 10px; margin-top: 10px; font-weight: 600; }
+        .doc-totals .is-balance { padding: 6px 10px 0; color: var(--d-mute); font-size: 12.5px; }
+
+        .doc-terms { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 26px; }
+        .doc-terms li { position: relative; padding-left: 14px; }
+        .doc-terms li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 6px; height: 6px; border-radius: 50%; background: var(--d-gold); }
+        .doc-notes { white-space: pre-wrap; margin: 0; }
+
+        .doc-sign { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; padding-top: 10px; }
+        .doc-sign div { padding-top: 34px; border-bottom: 1px solid var(--d-mute); }
+        .doc-sign p { margin: 6px 0 0; font-size: 12px; color: var(--d-mute); }
+        .doc-sign-row { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+
+        .doc-foot { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--d-line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--d-mute); }
+        .doc-foot b { color: var(--d-gold-hi); font-weight: 600; }
+
+        @media (max-width: 1100px) {
+            .pb-grid { grid-template-columns: 1fr; }
+            .pb-preview { position: static; }
+        }
+        @media (max-width: 520px) {
+            .pb-row { grid-template-columns: 1fr; }
+            .pb-item, .pb-items-head { grid-template-columns: minmax(0, 1fr) 46px 78px 28px; }
+            .pb-custom { grid-template-columns: 1fr 1fr; }
+            .pb-custom input:first-child { grid-column: 1 / -1; }
+        }
+
+        /* ---------- Print: only the proposal, full-bleed dark pages ---------- */
+        @page { size: letter; margin: 0; }
+        @media print {
+            html, body { background: #15181c !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .sticky-wrapper, body > footer, .pb-lock, .pb-bar, .pb-tabs, .pb-form, .pb-preview-label, .pb-links, .floating-cta { display: none !important; }
+            .pb-app { padding: 0 !important; filter: none !important; }
+            .pg-wrap { padding: 0 !important; max-width: none !important; }
+            .pb-grid { display: block !important; }
+            .pb-preview { position: static !important; }
+            .pb-scale { overflow: visible !important; height: auto !important; box-shadow: none !important; border-radius: 0 !important; }
+            .pb-scale > .doc { transform: none !important; width: 8.5in !important; }
+            .doc-inner { padding: 0.55in 0.65in 0.5in; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+        }
+    </style>
+</head>
+<body ontouchstart="">
+
+    <div class="sticky-wrapper" id="site-top">
+        <nav>
+            <a href="index.html" class="nav-logo">
+                <img src="share-preview.jpg" alt="Baseline Cinematic Logo" onerror="this.replaceWith(document.createTextNode('Baseline Cinematic'))">
+            </a>
+            <button class="menu-toggle" id="mobile-menu" aria-label="Open menu">☰</button>
+            <div class="nav-links" id="nav-links">
+                <div class="dropdown">
+                    <button class="dropbtn" id="services-btn">Services ▾</button>
+                    <div class="dropdown-content" id="services-dropdown">
+                        <a href="real-estate.html">Real Estate Media</a>
+                        <a href="commercial.html">Commercial & Brand</a>
+                    </div>
+                </div>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="index.html#pricing">Pricing</a>
+                <a href="index.html#build-your-shoot">Build a Quote</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About Us</a>
+                <a href="index.html#contact">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Staff-only tool. Not linked anywhere on the site and kept out of search results. -->
+    <div class="pb-lock" id="pb-lock" role="dialog" aria-modal="true" aria-labelledby="pb-lock-h">
+        <form class="pb-lock-card" id="pb-lock-form" autocomplete="off">
+            <img src="share-preview.jpg" alt="" width="64" height="64">
+            <h1 id="pb-lock-h">Staff proposal builder</h1>
+            <p>Enter your 4-digit staff PIN.</p>
+            <div class="pb-pin-row" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+            <label class="bq-visually-hidden" for="pb-pin" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">Staff PIN</label>
+            <input class="pb-pin-input" id="pb-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" autofocus>
+            <p class="pb-pin-msg" id="pb-pin-msg" role="alert"></p>
+            <noscript><p class="pb-pin-msg">This tool needs JavaScript turned on.</p></noscript>
+        </form>
+    </div>
+
+    <main class="pb-app" id="pb-app" inert>
+        <div class="pg-wrap">
+            <div class="pb-bar">
+                <h1>Proposal &amp; agreement builder</h1>
+                <div class="pb-bar-actions">
+                    <button type="button" class="bq-btn" id="pb-print">Print / Save Branded PDF Proposal</button>
+                    <button type="button" class="bq-btn is-ghost" id="pb-clear">Start a new proposal</button>
+                    <button type="button" class="bq-btn is-ghost" id="pb-lockbtn">Lock</button>
+                </div>
+            </div>
+
+            <div class="pb-tabs" role="tablist" aria-label="Tool">
+                <button class="pb-tab" role="tab" id="tab-proposal" aria-controls="panel-proposal" aria-selected="true">Proposal</button>
+                <button class="pb-tab" role="tab" id="tab-links" aria-controls="panel-links" aria-selected="false" tabindex="-1">Client links</button>
+            </div>
+
+            <!-- PROPOSAL -->
+            <div id="panel-proposal" role="tabpanel" aria-labelledby="tab-proposal">
+                <div class="pb-grid">
+                    <form class="pb-form" id="pb-form" autocomplete="off" onsubmit="return false">
+                        <fieldset>
+                            <legend>Client</legend>
+                            <div class="pb-field"><label for="f-biz">Business or brokerage name</label><input id="f-biz" name="biz" type="text"></div>
+                            <div class="pb-row">
+                                <div class="pb-field"><label for="f-contact">Contact name</label><input id="f-contact" name="contact" type="text"></div>
+                                <div class="pb-field"><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel"></div>
+                            </div>
+                            <div class="pb-field"><label for="f-email">Email</label><input id="f-email" name="email" type="email"></div>
+                            <div class="pb-field"><label for="f-location">Shoot location or property address</label><input id="f-location" name="location" type="text"></div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Project</legend>
+                            <div class="pb-row">
+                                <div class="pb-field">
+                                    <label for="f-type">Project type</label>
+                                    <select id="f-type" name="type">
+                                        <option value="commercial">Commercial &amp; brand</option>
+                                        <option value="realestate">Real estate</option>
+                                        <option value="event">Event coverage</option>
+                                        <option value="retainer">Monthly social retainer</option>
+                                    </select>
+                                </div>
+                                <div class="pb-field"><label for="f-shoot">Shoot date</label><input id="f-shoot" name="shoot" type="date"></div>
+                            </div>
+                            <div class="pb-row">
+                                <div class="pb-field"><label for="f-date">Proposal date</label><input id="f-date" name="date" type="date"></div>
+                                <div class="pb-field">
+                                    <label for="f-valid">Valid for</label>
+                                    <select id="f-valid" name="valid">
+                                        <option value="14">14 days</option>
+                                        <option value="30" selected>30 days</option>
+                                        <option value="60">60 days</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="pb-field"><label for="f-number">Proposal number</label><input id="f-number" name="number" type="text"></div>
+                            <p class="pb-hint">The number fills in from the date and client name. Type over it to use your own.</p>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Packages &amp; line items</legend>
+                            <div class="pb-add">
+                                <select id="f-catalog" aria-label="Package to add"></select>
+                                <button type="button" class="bq-btn" id="pb-add-pkg" style="padding: 9px 14px; font-size: 0.9rem;">Add</button>
+                            </div>
+                            <div class="pb-chips" id="pb-chips" aria-label="Quick add"></div>
+                            <div class="pb-items-head" aria-hidden="true"><span>Description</span><span>Qty</span><span>Price</span><span></span></div>
+                            <ul class="pb-items" id="pb-items"></ul>
+                            <span class="pb-label" id="pb-custom-label">Custom line item</span>
+                            <div class="pb-custom" role="group" aria-labelledby="pb-custom-label">
+                                <input id="c-desc" type="text" placeholder="Description" aria-label="Custom item description">
+                                <input id="c-qty" type="number" min="1" step="1" value="1" aria-label="Quantity">
+                                <input id="c-price" type="number" step="1" placeholder="$" aria-label="Price each (use a minus sign for a discount)">
+                                <button type="button" class="bq-btn is-ghost" id="pb-add-custom">Add</button>
+                            </div>
+                            <p class="pb-hint">Use a minus sign in the price for a discount line.</p>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Deposit &amp; payment</legend>
+                            <div class="pb-row">
+                                <div class="pb-field">
+                                    <label for="f-deposit">Deposit</label>
+                                    <select id="f-deposit" name="deposit">
+                                        <option value="auto">Standard for project type</option>
+                                        <option value="40">40% to lock the date</option>
+                                        <option value="0">$0 deposit</option>
+                                        <option value="custom">Custom %</option>
+                                    </select>
+                                </div>
+                                <div class="pb-field"><label for="f-depositpct">Custom deposit %</label><input id="f-depositpct" name="depositpct" type="number" min="0" max="100" step="1" value="50" disabled></div>
+                            </div>
+                            <div class="pb-field"><label for="f-balance">Balance terms</label><input id="f-balance" name="balance" type="text"></div>
+                            <p class="pb-hint">Standard: 40% deposit for commercial, brand and event shoots; $0 for real estate.</p>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Notes for the client</legend>
+                            <div class="pb-field"><label for="f-notes">Scope notes <span class="doc-muted" style="font-weight:400">(optional)</span></label><textarea id="f-notes" name="notes" placeholder="Shot list, locations, people on camera, anything agreed on the call."></textarea></div>
+                        </fieldset>
+                        <p class="pb-hint">Drafts stay in this browser tab only and are cleared when you close it. Nothing is sent or saved to the website.</p>
+                    </form>
+
+                    <div class="pb-preview">
+                        <p class="pb-preview-label">Live preview: prints on US Letter</p>
+                        <div class="pb-scale" id="pb-scale">
+                            <article class="doc" id="pb-doc" aria-label="Proposal preview"></article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CLIENT LINKS -->
+            <div id="panel-links" role="tabpanel" aria-labelledby="tab-links" hidden>
+                <div class="pb-links">
+                    <form class="pb-form" id="pb-links-form" autocomplete="off" onsubmit="return false">
+                        <fieldset>
+                            <legend>Delivery link (deliver.html)</legend>
+                            <div class="pb-row">
+                                <div class="pb-field"><label for="l-client">Client name</label><input id="l-client" type="text"></div>
+                                <div class="pb-field"><label for="l-project">Project <span class="doc-muted" style="font-weight:400">(optional)</span></label><input id="l-project" type="text"></div>
+                            </div>
+                            <div class="pb-field"><label for="l-master">Master 4K cut link</label><input id="l-master" type="url" placeholder="https://"></div>
+                            <div class="pb-field"><label for="l-mls">Unbranded MLS version link</label><input id="l-mls" type="url" placeholder="https://"></div>
+                            <div class="pb-row">
+                                <div class="pb-field"><label for="l-reel">Reel 1 link</label><input id="l-reel" type="url" placeholder="https://"></div>
+                                <div class="pb-field"><label for="l-reel2">Reel 2 link</label><input id="l-reel2" type="url" placeholder="https://"></div>
+                            </div>
+                            <div class="pb-field"><label for="l-reel3">Reel 3 link</label><input id="l-reel3" type="url" placeholder="https://"></div>
+                            <p class="pb-hint">Paste share links set so anyone with the link can view (Google Drive, Dropbox, Frame.io). Leave a box empty if that file isn't part of the delivery.</p>
+                        </fieldset>
+                    </form>
+                    <div class="pb-out" id="l-out" aria-live="polite"></div>
+                    <div class="pb-out-actions">
+                        <button type="button" class="bq-btn" data-copy="l-out">Copy link</button>
+                        <a class="bq-btn is-ghost" id="l-open" href="deliver.html" target="_blank" rel="noopener">Open delivery page</a>
+                        <span class="pb-copied" data-copied="l-out" hidden>Copied</span>
+                    </div>
+
+                    <form class="pb-form" autocomplete="off" onsubmit="return false">
+                        <fieldset>
+                            <legend>Shoot-prep text (send 48 hours before)</legend>
+                            <div class="pb-row">
+                                <div class="pb-field"><label for="p-name">Client first name</label><input id="p-name" type="text"></div>
+                                <div class="pb-field">
+                                    <label for="p-type">Checklist</label>
+                                    <select id="p-type"><option value="business">Business &amp; commercial</option><option value="realestate">Real estate listing</option></select>
+                                </div>
+                            </div>
+                            <div class="pb-row">
+                                <div class="pb-field"><label for="p-when">Shoot day and time</label><input id="p-when" type="text" placeholder="Thursday at 10am"></div>
+                            </div>
+                        </fieldset>
+                    </form>
+                    <div class="pb-out" id="p-out" aria-live="polite"></div>
+                    <div class="pb-out-actions">
+                        <button type="button" class="bq-btn" data-copy="p-out">Copy text message</button>
+                        <span class="pb-copied" data-copied="p-out" hidden>Copied</span>
+                    </div>
+                    <p class="pb-hint">Paste into a message from the (309) 863-5089 texting line.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
+                </a>
+                <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg>
+                </a>
+                <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
+                </a>
+            </div>
+            <p class="footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
+            <div class="footer-links">
+                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
+                <a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
+                <a href="index.html#portfolio">View Portfolio</a>
+                <a href="peoria-video-production.html">Peoria Video Production</a>
+                <a href="prep.html">Shoot Prep Checklist</a>
+            </div>
+        </div>
+        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
+    </footer>
+
+    <script>
+    // =====================================================================
+    // Staff PIN for this page. Change it here.
+    // This is a privacy screen to keep casual visitors out, not real security:
+    // anyone who views this page's source can read it.
+    // =====================================================================
+    const STAFF_PIN = "8993";
+
+    (function () {
+        'use strict';
+
+        /* ---------------- PIN lock ---------------- */
+        var UNLOCK_KEY = 'bc-staff-unlocked';
+        var root = document.documentElement, app = document.getElementById('pb-app');
+        var pin = document.getElementById('pb-pin'), pinMsg = document.getElementById('pb-pin-msg');
+        var dots = document.querySelectorAll('.pb-pin-row span');
+        var card = document.getElementById('pb-lock-form');
+
+        function unlock() {
+            root.classList.remove('is-locked');
+            app.removeAttribute('inert');
+            try { sessionStorage.setItem(UNLOCK_KEY, '1'); } catch (e) {}
+            refit();
+        }
+        function lock() {
+            try { sessionStorage.removeItem(UNLOCK_KEY); } catch (e) {}
+            root.classList.add('is-locked');
+            app.setAttribute('inert', '');
+            pin.value = ''; paintDots(); pinMsg.textContent = '';
+            pin.focus();
+        }
+        function paintDots() { dots.forEach(function (d, i) { d.classList.toggle('is-on', i < pin.value.length); }); }
+        function tryPin() {
+            if (pin.value === STAFF_PIN) { pinMsg.textContent = ''; unlock(); return; }
+            pinMsg.textContent = "That PIN didn't match. Try again.";
+            card.classList.remove('pb-shake'); void card.offsetWidth; card.classList.add('pb-shake');
+            pin.value = ''; paintDots(); pin.focus();
+        }
+        pin.addEventListener('input', function () {
+            pin.value = pin.value.replace(/\D/g, '').slice(0, 4);
+            paintDots();
+            if (pin.value.length === 4) tryPin();
+        });
+        card.addEventListener('submit', function (e) { e.preventDefault(); if (pin.value.length) tryPin(); });
+        document.getElementById('pb-lockbtn').addEventListener('click', lock);
+
+        /* ---------------- Prices (shared with the site where possible) ---------------- */
+        var D = window.SITE_DATA || {};
+        function fromSite(path, fallback) {
+            var v = path.split('.').reduce(function (a, k) { return (a && a[k] !== undefined) ? a[k] : undefined; }, D);
+            var n = parseFloat(String(v === undefined ? '' : v).replace(/[^0-9.]/g, ''));
+            return (isFinite(n) && n > 0) ? n : fallback;
+        }
+        var P = {
+            brand: fromSite('pricing.commercial.brandProfileDisplay', 850),
+            campaign: fromSite('pricing.commercial.campaignDisplay', 1500),
+            starter: fromSite('pricing.commercial.socialRetainerDisplay', 299),
+            tour: fromSite('pricing.realEstate.tourRegularDisplay', 399),
+            tourPromo: fromSite('pricing.realEstate.tourPromoDisplay', 199),
+            aerial: fromSite('pricing.realEstate.aerialOnlyDisplay', 199),
+            reel1: fromSite('pricing.realEstate.verticalAddOnDisplay', 75)
+        };
+
+        var CATALOG = [
+            { id: 'brand', type: 'commercial', name: 'Brand Profile Film', price: P.brand, note: '60–90 sec cinematic business overview · stabilized ground footage · licensed music · 10-bit color grading' },
+            { id: 'campaign', type: 'commercial', name: 'Multi-Scene Commercial Campaign', price: P.campaign, note: 'Half-day / multi-location production · staff and customer interviews · b-roll · hero brand cut' },
+            { id: 'tour', type: 'realestate', name: 'Cinematic Property Tour', price: P.tour, note: '4K aerial drone · stabilized interior and exterior walkthrough · custom color grading · unbranded MLS version included' },
+            { id: 'aerial', type: 'realestate', name: 'Aerial-Only Showcase', price: P.aerial, note: 'High-resolution 4K drone exterior · lot lines · neighborhood context' },
+            { id: 'event', type: 'event', name: 'Event Highlight Film', price: 650, note: 'Dual-operator aerial and ground coverage · custom color grading · licensed audio' },
+            { id: 'starter', type: 'retainer', name: 'Social Media Retainer: Starter (monthly)', price: P.starter, note: '4 Reels per month · monthly on-site filming and editing' },
+            { id: 'growth', type: 'retainer', name: 'Social Media Retainer: Growth (monthly)', price: 650, note: '6 Reels + 1 horizontal web cut per month · monthly on-site filming and editing' },
+            { id: 'partner', type: 'retainer', name: 'Social Media Retainer: Full Partner (monthly)', price: 1250, note: '1 hero cut + 8 Reels per month · monthly on-site filming and editing' }
+        ];
+        var CHIPS = [
+            { name: '4K aerial drone add-on', price: 150, note: 'FAA Part 107 certified and insured pilot' },
+            { name: 'Vertical social reel (1 cut)', price: P.reel1, note: '9:16 for Instagram, TikTok and Shorts' },
+            { name: 'Vertical social reels (3-pack)', price: 199, note: '9:16 for Instagram, TikTok and Shorts' },
+            { name: 'Raw footage delivery', price: 100, note: 'Unedited high-bitrate files delivered alongside the final cut' },
+            { name: 'Rush 24-hour turnaround', price: 125, note: 'Final cut within 24 hours of the shoot' },
+            { name: 'Travel: 50–75 miles', price: 50, note: '' },
+            { name: 'Travel: 75–100 miles', price: 100, note: '' },
+            { name: 'Founding Client Rate', price: P.tourPromo - P.tour, note: 'Cinematic Property Tour at the founding client price', discount: true },
+            { name: 'First-time client free vertical reel', price: -P.reel1, note: 'Verified on booking confirmation, new clients only', discount: true }
+        ];
+        var TYPE_LABEL = { commercial: 'Commercial & brand', realestate: 'Real estate', event: 'Event coverage', retainer: 'Monthly social retainer' };
+        var BALANCE_DEFAULT = {
+            commercial: 'Balance due on delivery of the final video.',
+            realestate: 'Full amount due on delivery of the final video.',
+            event: 'Balance due on delivery of the final video.',
+            retainer: 'Billed monthly. First month due before the first shoot.'
+        };
+
+        /* ---------------- State ---------------- */
+        var DRAFT_KEY = 'bc-proposal-draft';
+        var form = document.getElementById('pb-form');
+        var FIELDS = ['biz', 'contact', 'phone', 'email', 'location', 'type', 'shoot', 'date', 'valid', 'number', 'deposit', 'depositpct', 'balance', 'notes'];
+        var state = { items: [], numberEdited: false, balanceEdited: false };
+
+        function today() {
+            var d = new Date();
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+        function parseDate(iso) { var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
+        function fmtDate(iso) { var d = parseDate(iso); return d ? d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : ''; }
+        function usd(n) {
+            var neg = n < 0, v = Math.abs(Math.round(n * 100) / 100);
+            return (neg ? '−$' : '$') + v.toLocaleString('en-US', { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 });
+        }
+        function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
+        function val(name) { return (form.elements[name].value || '').trim(); }
+
+        function autoNumber() {
+            var d = (val('date') || today()).replace(/-/g, '').slice(2);
+            var initials = val('biz').split(/\s+/).filter(Boolean).map(function (w) { return w[0]; }).join('').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 4);
+            return 'BC-' + d + (initials ? '-' + initials : '');
+        }
+
+        function save() {
+            var data = { items: state.items, numberEdited: state.numberEdited, balanceEdited: state.balanceEdited, f: {} };
+            FIELDS.forEach(function (n) { data.f[n] = form.elements[n].value; });
+            try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(data)); } catch (e) {}
+        }
+        function restore() {
+            var data = null;
+            try { data = JSON.parse(sessionStorage.getItem(DRAFT_KEY) || 'null'); } catch (e) {}
+            if (!data) return false;
+            FIELDS.forEach(function (n) { if (data.f && data.f[n] !== undefined) form.elements[n].value = data.f[n]; });
+            state.items = Array.isArray(data.items) ? data.items : [];
+            state.numberEdited = !!data.numberEdited; state.balanceEdited = !!data.balanceEdited;
+            return true;
+        }
+        function reset() {
+            form.reset();
+            form.elements.date.value = today();
+            state = { items: [], numberEdited: false, balanceEdited: false };
+            form.elements.balance.value = BALANCE_DEFAULT[val('type')];
+            form.elements.number.value = autoNumber();
+        }
+
+        /* ---------------- Line items ---------------- */
+        var list = document.getElementById('pb-items');
+        function addItem(item) {
+            state.items.push({ desc: item.name, qty: 1, price: item.price, note: item.note || '' });
+            update(true);
+        }
+        function renderItems() {
+            if (!state.items.length) { list.innerHTML = '<li class="pb-empty">No items yet. Add a package above.</li>'; return; }
+            list.innerHTML = state.items.map(function (it, i) {
+                return '<li class="pb-item" data-i="' + i + '">' +
+                    '<input data-k="desc" value="' + esc(it.desc) + '" aria-label="Item ' + (i + 1) + ' description">' +
+                    '<input data-k="qty" type="number" min="1" step="1" value="' + esc(it.qty) + '" aria-label="Item ' + (i + 1) + ' quantity">' +
+                    '<input data-k="price" type="number" step="1" value="' + esc(it.price) + '" aria-label="Item ' + (i + 1) + ' price each">' +
+                    '<button type="button" class="pb-x" data-remove="' + i + '" aria-label="Remove ' + esc(it.desc) + '">×</button></li>';
+            }).join('');
+        }
+        list.addEventListener('input', function (e) {
+            var row = e.target.closest('.pb-item'); if (!row) return;
+            var it = state.items[+row.getAttribute('data-i')], k = e.target.getAttribute('data-k');
+            if (k === 'desc') it.desc = e.target.value;
+            if (k === 'qty') it.qty = Math.max(1, parseInt(e.target.value, 10) || 1);
+            if (k === 'price') it.price = parseFloat(e.target.value) || 0;
+            update(false);
+        });
+        list.addEventListener('click', function (e) {
+            var b = e.target.closest('[data-remove]'); if (!b) return;
+            state.items.splice(+b.getAttribute('data-remove'), 1);
+            update(true);
+        });
+
+        var catalogSel = document.getElementById('f-catalog');
+        function fillCatalog() {
+            var type = val('type');
+            var first = CATALOG.filter(function (c) { return c.type === type; }), rest = CATALOG.filter(function (c) { return c.type !== type; });
+            catalogSel.innerHTML = '<optgroup label="' + esc(TYPE_LABEL[type]) + '">' + first.map(opt).join('') + '</optgroup>' +
+                '<optgroup label="Other packages">' + rest.map(opt).join('') + '</optgroup>';
+            function opt(c) { return '<option value="' + c.id + '">' + esc(c.name) + ' (' + usd(c.price) + ')</option>'; }
+        }
+        document.getElementById('pb-add-pkg').addEventListener('click', function () {
+            var c = CATALOG.filter(function (x) { return x.id === catalogSel.value; })[0];
+            if (c) addItem(c);
+        });
+        document.getElementById('pb-chips').innerHTML = CHIPS.map(function (c, i) {
+            return '<button type="button" class="pb-chip' + (c.discount ? ' is-discount' : '') + '" data-chip="' + i + '">' +
+                (c.price < 0 ? '' : '+ ') + esc(c.name) + ' ' + (c.price < 0 ? usd(c.price) : usd(c.price)) + '</button>';
+        }).join('');
+        document.getElementById('pb-chips').addEventListener('click', function (e) {
+            var b = e.target.closest('[data-chip]'); if (b) addItem(CHIPS[+b.getAttribute('data-chip')]);
+        });
+        document.getElementById('pb-add-custom').addEventListener('click', function () {
+            var d = document.getElementById('c-desc'), q = document.getElementById('c-qty'), p = document.getElementById('c-price');
+            if (!d.value.trim() || p.value === '') { (d.value.trim() ? p : d).focus(); return; }
+            state.items.push({ desc: d.value.trim(), qty: Math.max(1, parseInt(q.value, 10) || 1), price: parseFloat(p.value) || 0, note: '' });
+            d.value = ''; q.value = '1'; p.value = '';
+            update(true); d.focus();
+        });
+
+        /* ---------------- Totals ---------------- */
+        function totals() {
+            var sub = 0, disc = 0;
+            state.items.forEach(function (it) { var line = it.qty * it.price; if (line < 0) disc += line; else sub += line; });
+            var total = Math.max(0, sub + disc);
+            var type = val('type'), mode = val('deposit'), pct;
+            if (mode === 'auto') pct = (type === 'commercial' || type === 'event') ? 40 : 0;
+            else if (mode === 'custom') pct = Math.min(100, Math.max(0, parseFloat(val('depositpct')) || 0));
+            else pct = parseFloat(mode) || 0;
+            var deposit = Math.round(total * pct) / 100;
+            return { sub: sub, disc: disc, total: total, pct: pct, deposit: deposit, balance: total - deposit, monthly: type === 'retainer' };
+        }
+
+        /* ---------------- The proposal document ---------------- */
+        var doc = document.getElementById('pb-doc');
+        function renderDoc() {
+            var t = totals(), type = val('type');
+            var date = val('date') || today(), valid = new Date(parseDate(date) || new Date());
+            valid.setDate(valid.getDate() + (parseInt(val('valid'), 10) || 30));
+            var validIso = valid.getFullYear() + '-' + String(valid.getMonth() + 1).padStart(2, '0') + '-' + String(valid.getDate()).padStart(2, '0');
+            var per = t.monthly ? ' / month' : '';
+            var depositLine = t.pct > 0
+                ? '<div class="is-deposit"><span>' + t.pct + '% deposit to lock your date</span><span>' + usd(t.deposit) + '</span></div><div class="is-balance"><span>' + esc(val('balance') || BALANCE_DEFAULT[type]) + '</span><span>' + usd(t.balance) + '</span></div>'
+                : '<div class="is-deposit"><span>' + (type === 'realestate' ? '$0 deposit for real estate' : '$0 deposit') + '</span><span>$0</span></div><div class="is-balance"><span>' + esc(val('balance') || BALANCE_DEFAULT[type]) + '</span><span></span></div>';
+
+            var rows = state.items.length ? state.items.map(function (it) {
+                var line = it.qty * it.price;
+                return '<tr class="' + (line < 0 ? 'is-discount' : '') + '"><td>' + esc(it.desc) + (it.note ? '<span class="doc-note">' + esc(it.note) + '</span>' : '') + '</td>' +
+                    '<td class="n">' + esc(it.qty) + '</td><td class="n">' + usd(it.price) + '</td><td class="n">' + usd(line) + '</td></tr>';
+            }).join('') : '<tr><td colspan="4" class="doc-muted">Add packages and line items to build the investment summary.</td></tr>';
+
+            var terms = [
+                'FAA Part 107 certified and insured drone operation',
+                'Final video delivered in 1–2 business days (24 hours with rush)',
+                'No-cost rescheduling for Illinois weather that makes flying unsafe',
+                '100% satisfaction guarantee: free re-edit if you\'re not happy',
+                'Two rounds of revisions included',
+                '$0 travel within 50 miles of Pekin and Peoria',
+                'Licensed music, cleared for web, listing and social use',
+                type === 'realestate' ? 'Unbranded MLS version included free' : 'You own the right to use the final video for your business'
+            ];
+
+            var notes = val('notes');
+            doc.innerHTML =
+                '<div class="doc-clap"></div><div class="doc-inner">' +
+                '<header class="doc-head"><div class="doc-brand"><img src="share-preview.jpg" alt="Baseline Cinematic logo"><div><strong>BASELINE CINEMATIC</strong><span>Commercial video &amp; FAA Part 107 drone production · Pekin, Illinois</span></div></div>' +
+                '<div class="doc-title"><h2>Proposal &amp; Service Agreement</h2><dl><dt>Proposal</dt><dd>' + esc(val('number') || autoNumber()) + '</dd><dt>Date</dt><dd>' + esc(fmtDate(date)) + '</dd><dt>Valid until</dt><dd>' + esc(fmtDate(validIso)) + '</dd></dl></div></header>' +
+
+                '<section class="doc-sec doc-parties"><div><h3>Prepared for</h3><p><strong>' + esc(val('biz') || 'Client business name') + '</strong></p>' +
+                (val('contact') ? '<p>' + esc(val('contact')) + '</p>' : '') + (val('email') ? '<p class="doc-muted">' + esc(val('email')) + '</p>' : '') + (val('phone') ? '<p class="doc-muted">' + esc(val('phone')) + '</p>' : '') + '</div>' +
+                '<div><h3>Prepared by</h3><p><strong>Baseline Cinematic LLC</strong></p><p>Michael &amp; Judith Cunningham, Owners</p><p class="doc-muted">Call: (309) 863-5181 &nbsp;|&nbsp; Text: (309) 863-5089</p><p class="doc-muted">michael@baselinecinematic.com · judith@baselinecinematic.com</p></div></section>' +
+
+                '<section class="doc-sec"><div class="doc-facts"><div><span>Project</span><b>' + esc(TYPE_LABEL[type]) + '</b></div><div><span>Shoot date</span><b>' + esc(fmtDate(val('shoot')) || 'To be scheduled') + '</b></div>' +
+                '<div><span>Location</span><b>' + esc(val('location') || 'To be confirmed') + '</b></div><div><span>Turnaround</span><b>' + (t.monthly ? 'Monthly' : '1–2 business days') + '</b></div></div></section>' +
+
+                '<section class="doc-sec"><h3>Investment</h3><table class="doc-table"><thead><tr><th>Item</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+                '<div class="doc-totals"><div><span>Subtotal</span><span>' + usd(t.sub) + '</span></div>' + (t.disc ? '<div class="is-discount"><span>Discounts</span><span>' + usd(t.disc) + '</span></div>' : '') +
+                '<div class="is-total"><span>Total' + per + '</span><span>' + usd(t.total) + '</span></div>' + depositLine + '</div></section>' +
+
+                (notes ? '<section class="doc-sec"><h3>Scope notes</h3><p class="doc-notes">' + esc(notes) + '</p></section>' : '') +
+
+                '<section class="doc-sec"><h3>Service terms</h3><ul class="doc-terms">' + terms.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></section>' +
+                '<section class="doc-sec"><h3>Payment</h3><p style="margin:0">We accept PayPal, Cash App and all major credit cards.' + (t.pct > 0 ? ' Your shoot date is reserved once the deposit is received.' : '') + ' This proposal is valid until ' + esc(fmtDate(validIso)) + '.</p></section>' +
+
+                '<section class="doc-sec"><h3>Acceptance</h3><p style="margin:0 0 4px">By signing below, the client accepts this proposal, the pricing above and the service terms.</p>' +
+                '<div class="doc-sign-row"><div class="doc-sign" style="display:block"><div></div><p>Client signature &amp; date' + (val('contact') ? ' · ' + esc(val('contact')) : '') + '</p></div>' +
+                '<div class="doc-sign" style="display:block"><div></div><p>Baseline Cinematic LLC · Michael or Judith Cunningham, Owners</p></div></div></section>' +
+
+                '<div class="doc-foot"><span>Call: <b>(309) 863-5181</b> &nbsp;|&nbsp; Text: <b>(309) 863-5089</b></span><span>michael@baselinecinematic.com · judith@baselinecinematic.com</span><span>baselinecinematic.com</span></div>' +
+                '</div>';
+            refit();
+        }
+
+        /* ---------------- Preview scaling ---------------- */
+        var scaleBox = document.getElementById('pb-scale');
+        function refit() {
+            var w = scaleBox.clientWidth; if (!w) return;
+            var s = Math.min(1, w / 816);
+            doc.style.transform = 'scale(' + s + ')';
+            scaleBox.style.height = Math.ceil(doc.offsetHeight * s) + 'px';
+        }
+        window.addEventListener('resize', refit);
+
+        /* ---------------- Wiring ---------------- */
+        function update(rebuildItems) {
+            if (rebuildItems) renderItems();
+            if (!state.numberEdited) form.elements.number.value = autoNumber();
+            form.elements.depositpct.disabled = val('deposit') !== 'custom';
+            renderDoc(); save();
+        }
+        form.addEventListener('input', function (e) {
+            if (!e.target.name) return;
+            if (e.target.name === 'number') state.numberEdited = e.target.value.trim() !== '';
+            if (e.target.name === 'balance') state.balanceEdited = true;
+            update(false);
+        });
+        form.addEventListener('change', function (e) {
+            if (e.target.name === 'type') {
+                fillCatalog();
+                if (!state.balanceEdited) form.elements.balance.value = BALANCE_DEFAULT[val('type')];
+            }
+            if (e.target.name) update(false);
+        });
+        document.getElementById('pb-clear').addEventListener('click', function () {
+            var b = this;
+            if (!b.classList.contains('is-confirm')) {
+                b.classList.add('is-confirm'); b.textContent = 'Click again to clear everything';
+                setTimeout(function () { b.classList.remove('is-confirm'); b.textContent = 'Start a new proposal'; }, 4000);
+                return;
+            }
+            b.classList.remove('is-confirm'); b.textContent = 'Start a new proposal';
+            try { sessionStorage.removeItem(DRAFT_KEY); } catch (e) {}
+            reset(); fillCatalog(); update(true);
+            form.elements.biz.focus();
+        });
+
+        // Print: name the PDF after the client, then restore the page title
+        var baseTitle = document.title;
+        document.getElementById('pb-print').addEventListener('click', function () {
+            var name = val('biz') || 'Client';
+            document.title = 'Baseline Cinematic Proposal - ' + name.replace(/[\\/:*?"<>|]/g, '') + ' - ' + (val('number') || autoNumber());
+            window.print();
+        });
+        window.addEventListener('afterprint', function () { document.title = baseTitle; refit(); });
+        window.addEventListener('beforeprint', function () { doc.style.transform = 'none'; });
+
+        // Tabs
+        var tabs = [document.getElementById('tab-proposal'), document.getElementById('tab-links')];
+        function showTab(i) {
+            tabs.forEach(function (t, j) {
+                t.setAttribute('aria-selected', i === j ? 'true' : 'false'); t.tabIndex = i === j ? 0 : -1;
+                document.getElementById(t.getAttribute('aria-controls')).hidden = i !== j;
+            });
+            document.getElementById('pb-print').hidden = i !== 0;
+            if (i === 0) refit();
+        }
+        tabs.forEach(function (t, i) {
+            t.addEventListener('click', function () { showTab(i); });
+            t.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { var n = (i + 1) % 2; showTab(n); tabs[n].focus(); }
+            });
+        });
+
+        /* ---------------- Client links ---------------- */
+        var SITE = 'https://www.baselinecinematic.com/';
+        function cleanUrl(v) {
+            try { var u = new URL((v || '').trim()); return (u.protocol === 'https:' || u.protocol === 'http:') ? u.href : ''; } catch (e) { return ''; }
+        }
+        function lv(id) { return (document.getElementById(id).value || '').trim(); }
+        function buildDelivery() {
+            var q = new URLSearchParams();
+            if (lv('l-client')) q.set('client', lv('l-client'));
+            if (lv('l-project')) q.set('project', lv('l-project'));
+            [['master', 'l-master'], ['mls', 'l-mls'], ['reel', 'l-reel'], ['reel2', 'l-reel2'], ['reel3', 'l-reel3']].forEach(function (p) {
+                var u = cleanUrl(lv(p[1])); if (u) q.set(p[0], u);
+            });
+            var url = SITE + 'deliver.html' + (q.toString() ? '?' + q.toString() : '');
+            document.getElementById('l-out').textContent = url;
+            document.getElementById('l-open').href = 'deliver.html' + (q.toString() ? '?' + q.toString() : '');
+        }
+        function buildPrep() {
+            var name = lv('p-name'), type = document.getElementById('p-type').value, when = lv('p-when');
+            var msg = 'Hi' + (name ? ' ' + name : '') + ', this is Baseline Cinematic. ' +
+                (when ? 'We\'re all set for your shoot ' + when + '. ' : 'Your shoot is coming up soon. ') +
+                'Here\'s a quick checklist to help everything look its best on camera: ' + SITE + 'prep.html?type=' + type +
+                ' Any questions, just reply to this text.';
+            document.getElementById('p-out').textContent = msg;
+        }
+        document.getElementById('panel-links').addEventListener('input', function () { buildDelivery(); buildPrep(); });
+        document.getElementById('panel-links').addEventListener('change', function () { buildDelivery(); buildPrep(); });
+        document.querySelectorAll('[data-copy]').forEach(function (b) {
+            b.addEventListener('click', function () {
+                var id = b.getAttribute('data-copy'), text = document.getElementById(id).textContent;
+                var flag = document.querySelector('[data-copied="' + id + '"]');
+                function done() { flag.hidden = false; setTimeout(function () { flag.hidden = true; }, 1800); }
+                if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, legacy); else legacy();
+                function legacy() {
+                    var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+                    document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); done(); } catch (e) {} document.body.removeChild(ta);
+                }
+            });
+        });
+
+        /* ---------------- Start ---------------- */
+        if (!restore()) reset();
+        if (!form.elements.date.value) form.elements.date.value = today();
+        fillCatalog(); renderItems(); update(false);
+        buildDelivery(); buildPrep();
+        var ok = false; try { ok = sessionStorage.getItem(UNLOCK_KEY) === '1'; } catch (e) {}
+        if (ok) unlock(); else pin.focus();
+    })();
+    </script>
+    <script>
+        // Hamburger menu (same behavior as the other pages)
+        (function () {
+            var mobileMenu = document.getElementById('mobile-menu'), navLinks = document.getElementById('nav-links'),
+                servicesBtn = document.getElementById('services-btn'), servicesDropdown = document.getElementById('services-dropdown');
+            if (!mobileMenu) return;
+            mobileMenu.addEventListener('click', function () { navLinks.classList.toggle('nav-active'); });
+            servicesBtn.addEventListener('click', function (e) {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+            document.querySelectorAll('.nav-links a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    if (window.innerWidth <= 768) { navLinks.classList.remove('nav-active'); servicesDropdown.style.display = 'none'; }
+                });
+            });
+            // The fixed banner + nav changes height on phones, so measure it for page spacing
+            var top = document.querySelector('.sticky-wrapper');
+            function measure() { if (top) document.documentElement.style.setProperty('--nav-h', top.offsetHeight + 'px'); }
+            measure(); window.addEventListener('resize', measure); window.addEventListener('load', measure);
+        })();
+    </script>
+    <script src="site-render.js"></script>
+</body>
+</html>

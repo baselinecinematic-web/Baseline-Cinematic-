@@ -18,8 +18,12 @@
 
 window.SITE_DATA = {
   business: {
+    // Calls go to the main line; texts go to the separate texting line.
     phoneDisplay: "(309) 863-5181",
     phoneHref: "tel:+13098635181",
+    textDisplay: "(309) 863-5089",
+    textHref: "sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot.",
+    googleReviewHref: "https://g.page/r/CUy8yB2KUa2WEBM/review",
     email: "michael@baselinecinematic.com",
     emailHref: "mailto:michael@baselinecinematic.com",
     emailJudith: "judith@baselinecinematic.com",

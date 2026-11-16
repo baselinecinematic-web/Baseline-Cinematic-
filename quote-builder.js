@@ -247,12 +247,14 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
                 <a class="bq-btn is-ghost" id="bq-mailto" href="mailto:michael@baselinecinematic.com">Email this quote</a>
                 <button type="button" class="bq-btn is-ghost" id="bq-copy">Copy quote summary</button>
             </div>
-            <p class="bq-form-note" id="bq-form-note">Prefer to talk it through? Call <a class="bq-link" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a>.</p>
+            <p class="bq-form-note" id="bq-form-note">Prefer to talk it through? Call <a class="bq-link" href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> or text <a class="bq-link" href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a>.</p>
         </form>
 
         <div class="bq-msg is-ok" id="bq-success" role="status" hidden>
             <h3>Booking request sent</h3>
-            <p>We have your quote and details. We'll reply to confirm your date, usually within 24 hours. Need us sooner? Call <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a>.</p>
+            <p>We have your quote and details. We'll reply to confirm your date, usually within 24 hours.</p>
+            <p class="bq-contact-line">Need us sooner? Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
+            <p class="bq-contact-line">Booked? Here's how to get ready: <a href="prep.html">shoot prep checklist</a>.</p>
         </div>
     </div>
 </div>
@@ -753,7 +755,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
             .catch(function () {
                 sendBtn.disabled = false;
                 sendBtn.textContent = originalLabel;
-                showError("Your request didn't go through. Try again, use <strong>Email this quote</strong>, or call <a href=\"tel:+13098635181\">(309) 863-5181</a>.");
+                showError("Your request didn't go through. Try again, use <strong>Email this quote</strong>, or call <a href=\"tel:+13098635181\">(309) 863-5181</a> / text <a href=\"sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot.\">(309) 863-5089</a>.");
             });
     });
 
