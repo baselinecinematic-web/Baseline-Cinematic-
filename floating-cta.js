@@ -2,22 +2,24 @@
 // getting in touch never depends on scrolling all the way to the form.
 //
 // - Appears once the hero (the big video at the top) is scrolled past
-// - Hides again while the contact form is on screen (it's not needed there)
-// - Jumps to the #contact section when tapped
+// - Hides again while the booking form is on screen (it's not needed there)
+// - Jumps to Step 1 of the Build Your Shoot configurator on pages that have
+//   it (the homepage), otherwise to the #contact section
 // - Sends a "book_button_click" event to Google Analytics, so you can see
 //   how often it gets used
 //
 // Styles live in site-ui.css (section 6). Load this at the end of <body>.
-// Pages without a #contact section don't get the button.
+// Pages with neither a configurator nor a #contact section don't get the button.
 (function () {
-  var contact = document.getElementById('contact');
+  var builder = document.querySelector('[data-quote-builder]');
+  var contact = builder || document.getElementById('contact');
   if (!contact || !('IntersectionObserver' in window)) return;
 
   var button = document.createElement('a');
-  button.href = '#contact';
+  button.href = builder ? '#step-1' : '#contact';
   button.className = 'floating-cta';
   button.textContent = 'Book a Shoot';
-  button.setAttribute('aria-label', 'Book a shoot: jump to the contact form');
+  button.setAttribute('aria-label', builder ? 'Book a shoot: jump to the quote builder' : 'Book a shoot: jump to the contact form');
   document.body.appendChild(button);
 
   var pastHero = false;
@@ -42,7 +44,7 @@
   new IntersectionObserver(function (entries) {
     atContact = entries[0].isIntersecting;
     update();
-  }, { threshold: 0.15 }).observe(contact);
+  }, { threshold: builder ? 0.02 : 0.15 }).observe(contact);   // the configurator is taller than the screen
 
   button.addEventListener('click', function () {
     if (typeof window.gtag === 'function') {
