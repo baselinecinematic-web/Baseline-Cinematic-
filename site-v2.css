@@ -937,3 +937,7 @@ section.s-paper-band .faq-item h3 { color: var(--bc-ink); }
     .bc-ba-stage.is-hint .bc-ba-knob::after { animation: none; }
     .bc-ba-knob { transition: none; }
 }
+/* Code on its own line, Copy Code underneath, so longer codes (BASELINE75) never clip */
+.bc-ticket-code { flex-direction: column; }
+.bc-ticket-code code { letter-spacing: 0.08em; padding: 14px 10px 12px; white-space: nowrap; }
+.bc-ticket-copy { justify-content: center; border-left: 0; border-top: 1.5px dashed rgba(232, 205, 120, 0.5); min-height: 44px; padding: 0 14px; }

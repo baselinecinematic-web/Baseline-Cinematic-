@@ -1,7 +1,7 @@
 // Golden Cinema Ticket (the gold-rimmed promo pass right above the footer).
-//   - "Copy Code" button copies the promo code (PEKIN75) and confirms on screen
+//   - "Copy Code" button copies the promo code (BASELINE75) and confirms on screen
 //   - Sends ticket_code_copy / ticket_quote_click events to Google Analytics
-// The ticket's Build a Quote button links to quote.html?promo=PEKIN75, where the
+// The ticket's Build a Quote button links to quote.html?promo=BASELINE75, where the
 // quote builder switches on the free vertical reel automatically.
 // Markup + styles: .bc-ticket in site-v2.css (section 11). Load at the end of <body>.
 (function () {
@@ -60,7 +60,7 @@
         var cta = ticket.querySelector('.bc-btn-quote');
         if (cta) {
             cta.addEventListener('click', function () {
-                track('ticket_quote_click', { promo_code: 'PEKIN75', page: location.pathname });
+                track('ticket_quote_click', { promo_code: 'BASELINE75', page: location.pathname });
             });
         }
     });
