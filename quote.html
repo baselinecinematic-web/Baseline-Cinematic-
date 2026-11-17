@@ -225,15 +225,17 @@
             html { scroll-behavior: auto; }
         }
 
-        /* Charcoal reading surface (Black, Charcoal & Gold) for the comparison and FAQ */
+        /* Tone B, Warm Satin Champagne Gold, for the comparison section (bg comes from site-v2.css) */
         .bq-paper {
-            --ink: #f2f0eb; --mute: #b8b5ad; --dim: #8a877f; --line: rgba(212, 175, 55, 0.24); --panel: #232730; --gold-hi: #e8cd78;
-            background: #1b1e24; color: #f2f0eb; border-color: rgba(212, 175, 55, 0.24);
+            --ink: #14161a; --mute: #3a362e; --dim: #5a5448; --line: rgba(20, 22, 26, 0.18); --panel: rgba(255, 250, 236, 0.42); --gold-hi: #5c440b; --gold: #5c440b;
+            background: var(--bc-satin-bg); color: #14161a;
+            border-top: 1px solid #d4af37; border-bottom: 1px solid #d4af37;
         }
-        .bq-paper-full { max-width: none; padding-left: max(24px, calc((100% - 1132px) / 2)); padding-right: max(24px, calc((100% - 1132px) / 2)); }
-        .bq-paper .bq-compare thead th:last-child { color: #d4af37; border-bottom-color: #d4af37; }
-        .bq-paper .bq-compare td:last-child { background: rgba(212, 175, 55, 0.12); color: #f2f0eb; }
-        .bq-paper .bq-faq summary:hover { color: #e8cd78; }
+        .bq-paper .bq-compare thead th:last-child { color: #14161a; border-bottom-color: #14161a; }
+        .bq-paper .bq-compare td:last-child { background: rgba(255, 250, 236, 0.5); color: #14161a; }
+        .bq-paper .bq-review { border-left-color: #14161a; }
+        .bq-paper .bq-review blockquote, .bq-paper .bq-review figcaption strong { color: #14161a; }
+        .bq-paper .bq-review .bq-stars { color: #5c440b; }
     </style>
     <link rel="stylesheet" href="quote-builder.css">
     <link rel="stylesheet" href="site-ui.css">
@@ -387,7 +389,7 @@
     <!-- ============================================================ -->
     <!-- FAQ (answers come from site-data.js, same as faq.html)        -->
     <!-- ============================================================ -->
-    <section class="bq-sec bq-paper bq-paper-full" id="faq">
+    <section class="bq-sec" id="faq">
         <h2>Before you book</h2>
         <p class="bq-sec-lead">Turnaround, weather, revisions and the rest of the fine print.</p>
         <div class="bq-faq">

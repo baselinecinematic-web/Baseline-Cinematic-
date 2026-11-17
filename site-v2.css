@@ -1,12 +1,14 @@
 /* Baseline Cinematic — Hybrid Cinema + Clean Editorial design system
  *
- * Black, Charcoal & Gold: every section is dark, layered so transitions stay soft.
- *   Cinema  (#121417 obsidian)                 hero, video and showcase sections
- *   Charcoal (#1B1E24 / #232730 deep slate)    reading sections: services, reviews, forms, About
- *            (class names .s-paper / .s-paper-2 / .s-paper-band are kept from the earlier
- *            light design so no page markup had to change)
- *   Gold    (#D4AF37 accents, #C59B27 brushed-gold bars, rgba(212,175,55,0.12) wash callouts)
- *   Text    #F2F0EB soft off-white, #B8B5AD muted warm gray
+ * Charcoal Black <-> Warm Satin Champagne Gold. Sections alternate between two tones:
+ *   Tone A  Smooth Charcoal Black  #14161A, #1D2026 cards, #F5F2EB text, #D4AF37 gold accents
+ *           (.s-cinema, and anything not marked Tone B): hero, video, proof, forms, footer
+ *   Tone B  Warm Satin Champagne Gold  #DFC896 with a fine-grain satin sheen, #14161A ink,
+ *           bronze hairline borders, obsidian buttons with gold text
+ *           (.s-paper / .s-paper-band; names kept from the earlier light design)
+ *   A thin #D4AF37 hairline marks every change of tone.
+ *   Colors are set per surface with the --bc-* variables below, so every component
+ *   (cards, buttons, forms, stars) reads correctly on either tone.
  *
  * Every class here starts with bc- (components) or s- (surfaces), so this file can sit
  * on top of any page's older inline styles without clashing. Loaded by every public page.
@@ -27,25 +29,35 @@
 /* 1. Tokens                                                           */
 /* ------------------------------------------------------------------ */
 :root {
-    --bc-cinema: #121417;
-    --bc-cinema-2: #1b1e24;
+    --bc-cinema: #14161a;
+    --bc-cinema-2: #1d2026;
     --bc-cinema-line: #2f333b;
-    --bc-cinema-ink: #f2f0eb;
-    --bc-cinema-mute: #b8b5ad;
+    --bc-cinema-ink: #f5f2eb;
+    --bc-cinema-mute: #bdb8ac;
     --bc-gold: #d4af37;
     --bc-gold-hover: #c19d2a;
     --bc-gold-soft: #e8cd78;
     --bc-gold-brushed: #c59b27;  /* solid gold bars and flags, with #121417 text */
+    --bc-satin: #dfc896;
+    --bc-satin-bg:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .24 0 0 0 0 .08 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+        radial-gradient(120% 90% at 15% 0%, rgba(255, 248, 226, 0.55), rgba(255, 248, 226, 0) 58%),
+        radial-gradient(90% 70% at 100% 100%, rgba(150, 112, 40, 0.16), rgba(150, 112, 40, 0) 60%),
+        linear-gradient(160deg, #e8d6aa 0%, #dfc896 46%, #d5bb83 100%);
+
+    /* Surface variables. Defaults are Tone A (charcoal); Tone B sections override them. */
     --bc-gold-wash: rgba(212, 175, 55, 0.12);
-    /* Charcoal reading surfaces (named "paper" from the earlier light design) */
-    --bc-paper: #1b1e24;         /* section background */
-    --bc-paper-2: #232730;       /* alternate section background */
-    --bc-paper-card: #232730;    /* cards on --bc-paper */
-    --bc-ink: #f2f0eb;           /* main text */
-    --bc-ink-2: #b8b5ad;         /* secondary text */
-    --bc-paper-line: rgba(212, 175, 55, 0.24);   /* subtle gold borders */
-    --bc-gold-ink: #d4af37;      /* gold text and markers */
-    --bc-field: #121417;         /* form fields */
+    --bc-paper: #14161a;         /* section background */
+    --bc-paper-card: #1d2026;    /* cards */
+    --bc-ink: #f5f2eb;           /* main text */
+    --bc-ink-2: #bdb8ac;         /* secondary text */
+    --bc-paper-line: rgba(212, 175, 55, 0.24);   /* borders */
+    --bc-gold-ink: #d4af37;      /* gold text, stars and markers */
+    --bc-field: #14161a;         /* form fields */
+    --bc-accent: #d4af37;        /* rules, focus rings, highlighted borders */
+    --bc-cta-bg: #d4af37;        /* main button */
+    --bc-cta-ink: #14161a;
+    --bc-cta-hover: #c19d2a;
     --bc-radius: 10px;
     --bc-wrap: 1160px;
     --nav-h: 96px;               /* measured and corrected by site-nav.js */
@@ -138,15 +150,15 @@ html.bc-drawer-open, html.bc-drawer-open body { overflow: hidden; }
 }
 .bc-btn:active { transform: scale(0.98); }
 .bc-btn:focus-visible { outline: 2px solid var(--bc-gold-soft); outline-offset: 3px; }
-.bc-btn-gold { background: var(--bc-gold); color: #121417; border-color: var(--bc-gold); }
-.bc-btn-gold:hover { background: var(--bc-gold-hover); border-color: var(--bc-gold-hover); }
+/* Main button: gold on charcoal, obsidian with gold text on satin */
+.bc-btn-gold { background: var(--bc-cta-bg); color: var(--bc-cta-ink); border-color: var(--bc-cta-bg); }
+.bc-btn-gold:hover { background: var(--bc-cta-hover); border-color: var(--bc-cta-hover); }
 .bc-btn-ghost { background: rgba(18,20,23,0.35); color: #fff; border-color: rgba(255,255,255,0.75); }
 .bc-btn-ghost:hover { border-color: var(--bc-gold); color: var(--bc-gold-soft); }
-/* .bc-btn-ink was the dark button on light sections; on the dark site it is solid gold */
-.bc-btn-ink { background: var(--bc-gold); color: #121417; border-color: var(--bc-gold); }
-.bc-btn-ink:hover { background: var(--bc-gold-hover); border-color: var(--bc-gold-hover); }
-.bc-btn-line { background: transparent; color: var(--bc-ink); border-color: rgba(212, 175, 55, 0.55); }
-.bc-btn-line:hover { border-color: var(--bc-gold); background: var(--bc-gold-wash); }
+.bc-btn-ink { background: var(--bc-cta-bg); color: var(--bc-cta-ink); border-color: var(--bc-cta-bg); }
+.bc-btn-ink:hover { background: var(--bc-cta-hover); border-color: var(--bc-cta-hover); }
+.bc-btn-line { background: transparent; color: var(--bc-ink); border-color: var(--bc-gold-ink); }
+.bc-btn-line:hover { border-color: var(--bc-accent); background: var(--bc-gold-wash); }
 .bc-btn-sm { padding: 10px 16px; font-size: 0.9rem; }
 .bc-btn[disabled] { opacity: 0.6; cursor: progress; }
 .bc-link { color: var(--bc-gold-ink); font-weight: 600; text-underline-offset: 3px; }
@@ -156,8 +168,28 @@ html.bc-drawer-open, html.bc-drawer-open body { overflow: hidden; }
 /* 4. Surfaces                                                         */
 /* ------------------------------------------------------------------ */
 .s-cinema { background: var(--bc-cinema); color: var(--bc-cinema-ink); }
-.s-paper { background: var(--bc-paper); color: var(--bc-ink); }
-.s-paper-2 { background: var(--bc-paper-2); color: var(--bc-ink); --bc-paper-card: #1b1e24; }
+.s-paper, .s-paper-band {
+    /* Tone B: Warm Satin Champagne Gold */
+    --bc-paper: #dfc896;
+    --bc-paper-card: rgba(255, 250, 236, 0.42);
+    --bc-ink: #14161a;
+    --bc-ink-2: #3a362e;
+    --bc-paper-line: rgba(20, 22, 26, 0.18);
+    --bc-gold-ink: #5c440b;
+    --bc-gold-wash: rgba(20, 22, 26, 0.06);
+    --bc-field: rgba(255, 252, 244, 0.75);
+    --bc-accent: #14161a;
+    --bc-cta-bg: #14161a;
+    --bc-cta-ink: #dfc896;
+    --bc-cta-hover: #2a2d34;
+    color: var(--bc-ink);
+}
+.s-paper {
+    background: var(--bc-satin-bg);
+    /* gold hairlines where charcoal meets satin */
+    box-shadow: 0 -1px 0 var(--bc-gold), 0 1px 0 var(--bc-gold);
+    position: relative; z-index: 1;
+}
 .bc-sec { padding: clamp(64px, 9vw, 112px) 0; scroll-margin-top: var(--nav-h); font-family: 'Inter', system-ui, sans-serif; }
 .bc-wrap { max-width: var(--bc-wrap); margin: 0 auto; padding: 0 clamp(18px, 4vw, 32px); }
 .bc-h2 {
@@ -169,13 +201,13 @@ html.bc-drawer-open, html.bc-drawer-open body { overflow: hidden; }
 .s-cinema .bc-lead { color: var(--bc-cinema-mute); }
 .bc-center { text-align: center; }
 .bc-center .bc-h2, .bc-center .bc-lead { margin-left: auto; margin-right: auto; }
-.bc-rule { width: 56px; height: 3px; background: var(--bc-gold); border: 0; margin: 0 0 22px; }
+.bc-rule { width: 56px; height: 3px; background: var(--bc-accent); border: 0; margin: 0 0 22px; }
 .bc-center .bc-rule { margin-left: auto; margin-right: auto; }
 .bc-contact-line { font-size: 0.98rem; margin: 18px 0 0; }
 .s-paper .bc-contact-line { color: var(--bc-ink-2); }
 .s-cinema .bc-contact-line { color: var(--bc-cinema-mute); }
-.bc-contact-line a { font-weight: 700; text-decoration: none; white-space: nowrap; }
-.s-paper .bc-contact-line a { color: var(--bc-gold-soft); border-bottom: 1px solid rgba(212, 175, 55, 0.5); }
+.bc-contact-line a { font-weight: 700; text-decoration: none; white-space: nowrap; color: var(--bc-gold-soft); }
+.s-paper .bc-contact-line a { color: var(--bc-ink); border-bottom: 1px solid var(--bc-gold-ink); }
 .s-cinema .bc-contact-line a { color: var(--bc-gold-soft); }
 .bc-sep { opacity: 0.45; margin: 0 8px; }
 
@@ -227,7 +259,7 @@ html.bc-drawer-open, html.bc-drawer-open body { overflow: hidden; }
     padding: 30px 26px 26px; display: flex; flex-direction: column; text-decoration: none; color: var(--bc-ink);
     transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
-.bc-outcome:hover { border-color: var(--bc-gold); box-shadow: 0 14px 32px rgba(0,0,0,0.35); }
+.bc-outcome:hover { border-color: var(--bc-accent); box-shadow: 0 14px 32px rgba(0,0,0,0.35); }
 .bc-outcome:focus-visible { outline: 2px solid var(--bc-gold); outline-offset: 3px; }
 .bc-outcome svg { width: 34px; height: 34px; color: var(--bc-gold-ink); margin-bottom: 18px; }
 .bc-outcome h3 { font: 800 1.25rem/1.2 'Montserrat', sans-serif; margin: 0 0 8px; }
@@ -235,8 +267,8 @@ html.bc-drawer-open, html.bc-drawer-open body { overflow: hidden; }
 .bc-outcome span { margin-top: auto; font-weight: 700; color: var(--bc-gold-ink); }
 /* Four benefit cards (not links): two per row, gold top edge */
 .bc-outcomes.is-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-div.bc-outcome { border-top: 4px solid var(--bc-gold); }
-div.bc-outcome:hover { border-color: var(--bc-paper-line); border-top-color: var(--bc-gold); box-shadow: none; }
+div.bc-outcome { border-top: 4px solid var(--bc-accent); }
+div.bc-outcome:hover { border-color: var(--bc-paper-line); border-top-color: var(--bc-accent); box-shadow: none; }
 div.bc-outcome p:last-child { margin-bottom: 0; }
 
 /* Before / after slider */
@@ -276,7 +308,7 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 /* Reviews */
 .bc-reviews { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .bc-review { margin: 0; background: var(--bc-paper-card); border: 1px solid var(--bc-paper-line); border-radius: var(--bc-radius); padding: 26px; display: flex; flex-direction: column; }
-.bc-stars { color: var(--bc-gold); letter-spacing: 3px; font-size: 1rem; margin-bottom: 12px; }
+.bc-stars { color: var(--bc-gold-ink); letter-spacing: 3px; font-size: 1rem; margin-bottom: 12px; }
 .bc-review blockquote { margin: 0 0 18px; font-size: 1.05rem; line-height: 1.55; color: var(--bc-ink); }
 .bc-review figcaption { margin-top: auto; }
 .bc-review figcaption strong { display: block; font: 700 1rem/1.3 'Montserrat', sans-serif; }
@@ -299,18 +331,18 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 .bc-types input { position: absolute; opacity: 0; pointer-events: none; }
 .bc-types span { display: block; padding: 10px 15px; border-radius: 30px; border: 1.5px solid var(--bc-paper-line); background: var(--bc-field); color: var(--bc-ink); font-weight: 500; font-size: 0.93rem; transition: border-color 0.15s ease, background 0.15s ease; }
 .bc-types label:hover span { border-color: var(--bc-gold); }
-.bc-types input:checked + span { background: var(--bc-gold); border-color: var(--bc-gold); color: #121417; }
+.bc-types input:checked + span { background: var(--bc-cta-bg); border-color: var(--bc-cta-bg); color: var(--bc-cta-ink); }
 .bc-types input:focus-visible + span { outline: 2px solid var(--bc-gold); outline-offset: 2px; }
 .bc-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; }
 .bc-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .bc-field.is-full { grid-column: 1 / -1; }
 .bc-field small { font-weight: 400; color: var(--bc-ink-2); }
 .bc-field input, .bc-field textarea, .bc-field select {
-    width: 100%; padding: 13px 14px; border: 1.5px solid #3a3f48; border-radius: 8px; background: var(--bc-field); color: var(--bc-ink); color-scheme: dark; font: inherit; font-size: 1rem;
+    width: 100%; padding: 13px 14px; border: 1.5px solid var(--bc-paper-line); border-radius: 8px; background: var(--bc-field); color: var(--bc-ink); color-scheme: dark; font: inherit; font-size: 1rem;
 }
 .bc-field textarea { min-height: 96px; resize: vertical; }
-.bc-field input:focus, .bc-field textarea:focus, .bc-field select:focus { outline: none; border-color: var(--bc-gold); box-shadow: 0 0 0 3px rgba(212,175,55,0.3); }
-.bc-voucher { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; margin: 20px 0 0; padding: 16px; border: 1.5px dashed rgba(212, 175, 55, 0.6); border-radius: 10px; background: var(--bc-gold-wash); cursor: pointer; }
+.bc-field input:focus, .bc-field textarea:focus, .bc-field select:focus { outline: none; border-color: var(--bc-accent); box-shadow: 0 0 0 3px rgba(212,175,55,0.3); }
+.bc-voucher { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 12px; align-items: start; margin: 20px 0 0; padding: 16px; border: 1.5px dashed var(--bc-gold-ink); border-radius: 10px; background: var(--bc-gold-wash); cursor: pointer; }
 .bc-voucher input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--bc-gold); }
 .bc-voucher strong { display: block; font-size: 0.97rem; }
 .bc-voucher span { display: block; font-size: 0.86rem; color: var(--bc-ink-2); margin-top: 3px; font-weight: 400; }
@@ -320,10 +352,10 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 .bc-msg { border-radius: 10px; padding: 14px 16px; margin: 16px 0 0; font-size: 0.96rem; line-height: 1.5; }
 .bc-msg[hidden] { display: none; }
 .bc-msg.is-error { background: rgba(200, 86, 75, 0.14); border: 1px solid #a8483f; color: #ffd9d4; }
-.bc-msg.is-ok { background: var(--bc-paper-card); border: 1.5px solid var(--bc-gold); }
+.bc-msg.is-ok { background: var(--bc-paper-card); border: 1.5px solid var(--bc-accent); }
 .bc-msg.is-ok h3 { font: 800 1.35rem/1.2 'Montserrat', sans-serif; margin: 0 0 6px; }
 .bc-msg.is-ok p { margin: 0 0 8px; color: var(--bc-ink-2); }
-.bc-msg a { color: var(--bc-gold-soft); font-weight: 700; }
+.bc-msg a { color: var(--bc-gold-ink); font-weight: 700; }
 
 /* About */
 .bc-page-head { padding: calc(var(--nav-h) + 56px) 0 56px; }
@@ -352,7 +384,7 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 
 /* Numbered pillars */
 .bc-pillars { list-style: none; counter-reset: pillar; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
-.bc-pillars li { counter-increment: pillar; border-top: 2px solid var(--bc-gold); padding-top: 18px; }
+.bc-pillars li { counter-increment: pillar; border-top: 2px solid var(--bc-accent); padding-top: 18px; }
 .bc-pillars li::before { content: counter(pillar); display: block; font: 800 2.2rem/1 'Montserrat', sans-serif; color: var(--bc-gold-ink); margin-bottom: 14px; }
 .bc-pillars h3 { font: 800 1.2rem/1.25 'Montserrat', sans-serif; margin: 0 0 10px; }
 .bc-pillars p { margin: 0; color: var(--bc-ink-2); line-height: 1.6; }
@@ -376,10 +408,10 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 /* ------------------------------------------------------------------ */
 .bc-packages { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-bottom: 56px; }
 .bc-pkg { position: relative; background: var(--bc-paper-card); border: 1.5px solid var(--bc-paper-line); border-radius: 12px; padding: 26px 24px 22px; display: flex; flex-direction: column; }
-.bc-pkg.is-entry { border-color: var(--bc-gold); box-shadow: 0 16px 40px rgba(212,175,55,0.12); }
-.bc-pkg-flag { position: absolute; top: -12px; left: 22px; background: var(--bc-gold-brushed); color: #121417; font: 700 0.78rem/1 'Inter', sans-serif; padding: 6px 10px; border-radius: 20px; }
+.bc-pkg.is-entry { border-color: var(--bc-accent); box-shadow: 0 16px 40px rgba(0,0,0,0.14); }
+.bc-pkg-flag { position: absolute; top: -12px; left: 22px; background: var(--bc-cta-bg); color: var(--bc-cta-ink); font: 700 0.78rem/1 'Inter', sans-serif; padding: 6px 10px; border-radius: 20px; }
 .bc-pkg h3, .bc-pkg h4 { font: 800 1.2rem/1.25 'Montserrat', sans-serif; margin: 0 0 6px; }
-.bc-pkg-flag.is-quiet { background: #121417; color: var(--bc-gold-soft); border: 1px solid var(--bc-gold); }
+.bc-pkg-flag.is-quiet { background: transparent; color: var(--bc-ink); border: 1px solid var(--bc-ink); }
 .bc-h3 { font: 800 1.35rem/1.2 'Montserrat', sans-serif; margin: 0 0 6px; scroll-margin-top: calc(var(--nav-h) + 20px); }
 .bc-group-note { color: var(--bc-ink-2); margin: 0 0 26px; max-width: 60ch; line-height: 1.55; }
 .bc-pkg-price { font: 800 2rem/1.1 'Montserrat', sans-serif; margin: 6px 0 4px; color: var(--bc-ink); }
@@ -440,9 +472,23 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 /*    warm-white band edge to edge without changing the page's markup.   */
 /* ------------------------------------------------------------------ */
 section.s-paper-band {
-    background: var(--bc-paper); color: var(--bc-ink);
-    box-shadow: 0 0 0 100vmax var(--bc-paper); clip-path: inset(0 -100vmax);
+    color: var(--bc-ink);
+    /* the satin runs edge to edge past the page's centered column */
+    border-image: linear-gradient(180deg, #d4af37 0, #d4af37 1px, #e6d3a5 1px, #dfc896 45%, #d5bb83 calc(100% - 1px), #d4af37 calc(100% - 1px)) fill 0 / / 0 100vmax;
 }
+section.s-paper-band .btn { background: var(--bc-cta-bg); color: var(--bc-cta-ink); border-color: var(--bc-cta-bg); }
+section.s-paper-band details, section.s-paper-band .faq-item { background: var(--bc-paper-card); border-color: var(--bc-paper-line); box-shadow: none; }
+section.s-paper-band details[open] { border-color: var(--bc-ink); }
+section.s-paper-band summary { color: var(--bc-ink); }
+section.s-paper-band summary::after { color: var(--bc-gold-ink); }
+section.s-paper-band .faq-group h2 { border-bottom-color: var(--bc-paper-line); }
+/* A charcoal call-to-action card inside a satin band (FAQ page): Tone A colors */
+section.s-paper-band .page-cta {
+    --bc-ink: #f5f2eb; --bc-ink-2: #bdb8ac; --bc-gold-ink: #d4af37; --bc-paper-line: rgba(212, 175, 55, 0.3);
+    --bc-cta-bg: #d4af37; --bc-cta-ink: #14161a;
+    background: #1d2026; color: #f5f2eb; border-color: rgba(212, 175, 55, 0.4);
+}
+section.s-paper-band [style*="color: #d4af37"], section.s-paper-band [style*="color:#d4af37"] { color: var(--bc-gold-ink) !important; }
 section.s-paper-band h2 { color: var(--bc-ink); border-bottom-color: var(--bc-paper-line); }
 section.s-paper-band h3 { color: var(--bc-ink); }
 section.s-paper-band p, section.s-paper-band li { color: var(--bc-ink-2) !important; }
@@ -456,13 +502,7 @@ section.s-paper-band .review-card blockquote { color: var(--bc-ink); }
 section.s-paper-band .review-card figcaption span { color: var(--bc-ink-2); }
 section.s-paper-band a:not(.btn):not(.bc-btn) { color: var(--bc-gold-ink); }
 section.s-paper-band .faq-item h3 { color: var(--bc-ink); }
-/* The dark estimate card inside a paper band keeps its own colors */
-section.s-paper-band .bc-estimate h3 { color: var(--bc-gold-soft); }
-section.s-paper-band .bc-estimate li, section.s-paper-band .bc-estimate p { color: var(--bc-cinema-mute) !important; }
-section.s-paper-band .bc-estimate li span:first-child { color: var(--bc-cinema-ink); }
-section.s-paper-band .bc-estimate strong { color: var(--bc-gold); }
-section.s-paper-band .bc-estimate .bc-btn { color: #121417; }
-section.s-paper-band .bc-pkg-flag { color: #121417; }
+
 
 /* ------------------------------------------------------------------ */
 /* 9. Responsive + reduced motion                                      */
@@ -493,3 +533,7 @@ section.s-paper-band .bc-pkg-flag { color: #121417; }
 @media (prefers-reduced-motion: reduce) {
     .bc-drawer-backdrop, .bc-drawer-panel, .bc-btn, .bc-burger span, .bc-outcome, .bc-yt-play, .bc-faq summary::after { transition: none; }
 }
+
+/* Form fields and native controls on satin */
+.s-paper .bc-field input, .s-paper .bc-field textarea, .s-paper .bc-field select { color-scheme: light; }
+.s-paper .bc-msg.is-error, .s-paper-band .bc-msg.is-error { background: rgba(140, 30, 20, 0.1); border-color: #8a2a20; color: #4f140c; }

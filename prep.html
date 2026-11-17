@@ -35,11 +35,12 @@
     <link rel="stylesheet" href="site-ui.css">
     <link rel="stylesheet" href="site-v2.css">
     <style>
-        /* Shoot prep checklist (charcoal reading surface, Black, Charcoal & Gold) */
+        /* Shoot prep checklist: Tone B satin gold page, with charcoal action cards */
         .pp-paper {
-            --ink: #f2f0eb; --mute: #b8b5ad; --dim: #8a877f; --line: rgba(212, 175, 55, 0.22); --panel: #232730; --panel-hi: #2a2f39; --gold-hi: #e8cd78;
-            background: #1b1e24; color: #f2f0eb;
-            display: flow-root;   /* keeps the last card's margin inside the charcoal area */
+            --ink: #14161a; --mute: #3a362e; --dim: #5a5448; --line: rgba(20, 22, 26, 0.18); --panel: rgba(255, 250, 236, 0.45); --panel-hi: rgba(255, 250, 236, 0.7); --gold-hi: #5c440b;
+            background: var(--bc-satin-bg); color: #14161a;
+            border-top: 1px solid #d4af37;
+            display: flow-root;   /* keeps the last card's margin inside the satin area */
         }
         .pp-head { padding-bottom: 8px; }
         .pp-head h1 { font-size: clamp(2rem, 4.6vw, 3.1rem); font-weight: 800; line-height: 1.08; margin: 0 0 14px; max-width: 18ch; }
@@ -55,16 +56,16 @@
         .pp-tab[aria-selected="true"] { background: var(--gold); color: #0b0b0b; }
         .pp-tab:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
 
-        .pp-bar { position: sticky; top: var(--nav-h); z-index: 50; background: rgba(27,30,36,0.96); backdrop-filter: blur(8px);
+        .pp-bar { position: sticky; top: var(--nav-h); z-index: 50; background: rgba(223,200,150,0.97); backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--line); margin-top: 28px; }
         .pp-bar .pg-wrap { display: flex; align-items: center; gap: 18px; padding-top: 14px; padding-bottom: 14px; }
         .pp-progress { flex: 1; min-width: 0; }
         .pp-progress-text { font-weight: 600; font-size: 0.95rem; margin: 0 0 7px; }
         .pp-progress-text span { color: var(--gold-hi); font-variant-numeric: tabular-nums; }
-        .pp-meter { height: 6px; background: #2f333b; border-radius: 6px; overflow: hidden; }
+        .pp-meter { height: 6px; background: rgba(20,22,26,0.15); border-radius: 6px; overflow: hidden; }
         .pp-meter i { display: block; height: 100%; width: 0; background: var(--gold); border-radius: 6px; transition: width 0.25s ease; }
         .pp-reset { flex: none; padding: 10px 16px; font-size: 0.92rem; }
-        .pp-reset.is-confirm { border-color: #c8564b; color: #ffd9d4; background: rgba(200,86,75,0.14); }
+        .pp-reset.is-confirm { border-color: #8a2a20; color: #4f140c; background: rgba(140,30,20,0.1); }
 
         .pp-panel { padding: 36px 0 20px; }
         .pp-group { margin: 0 0 34px; }
@@ -74,16 +75,16 @@
         .pp-item { border-bottom: 1px solid var(--line); }
         .pp-item label { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 14px; align-items: start; padding: 15px 4px; cursor: pointer; }
         .pp-item input { position: absolute; opacity: 0; pointer-events: none; }
-        .pp-box { width: 24px; height: 24px; margin-top: 1px; border-radius: 6px; border: 1.5px solid #6b6f78; background: #121417; display: grid; place-items: center; color: transparent; transition: background 0.15s ease, border-color 0.15s ease; }
+        .pp-box { width: 24px; height: 24px; margin-top: 1px; border-radius: 6px; border: 1.5px solid #5a5448; background: rgba(255,252,244,0.75); display: grid; place-items: center; color: transparent; transition: background 0.15s ease, border-color 0.15s ease; }
         .pp-box svg { width: 15px; height: 15px; }
         .pp-item input:checked + .pp-box { background: var(--gold); border-color: var(--gold); color: #0b0b0b; }
         .pp-item input:focus-visible + .pp-box { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
         .pp-text strong { display: block; font-weight: 600; line-height: 1.4; }
         .pp-text span { display: block; color: var(--mute); font-size: 0.94rem; margin-top: 2px; }
         .pp-item input:checked ~ .pp-text strong { color: var(--dim); text-decoration: line-through; text-decoration-color: rgba(212,175,55,0.6); }
-        .pp-item input:checked ~ .pp-text span { color: #7a7770; }
+        .pp-item input:checked ~ .pp-text span { color: #6f6858; }
 
-        .pp-done { border: 1.5px solid var(--gold); border-radius: 10px; padding: 18px 20px; background: rgba(212, 175, 55, 0.12); margin: 0 0 30px; }
+        .pp-done { border: 1.5px solid var(--gold); border-radius: 10px; padding: 18px 20px; background: rgba(255, 250, 236, 0.5); margin: 0 0 30px; }
         .pp-done strong { font-family: 'Montserrat', sans-serif; color: var(--gold-hi); display: block; margin-bottom: 2px; }
 
         .pp-help { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 26px; display: flex; gap: 20px 32px; align-items: center; justify-content: space-between; flex-wrap: wrap; margin: 10px 0 72px; }
@@ -105,8 +106,17 @@
             .pp-box { border-color: #000; }
         }
 
-        .pp-paper .pp-ready { background: rgba(212, 175, 55, 0.12); border-color: rgba(212, 175, 55, 0.6); }
-        .pp-paper .pp-help { background: #232730; }
+        /* On satin: obsidian for active and checked states */
+        .pp-paper .pp-tab[aria-selected="true"] { background: #14161a; color: #dfc896; }
+        .pp-paper .pp-item input:checked + .pp-box { background: #14161a; border-color: #14161a; color: #dfc896; }
+        .pp-paper .pp-meter i { background: #14161a; }
+        .pp-paper .pp-done { border-color: #14161a; }
+        .pp-paper .pp-done strong, .pp-paper .pp-progress-text span { color: #5c440b; }
+        .pp-paper .bq-btn.is-ghost { color: #14161a; border-color: rgba(20,22,26,0.4); }
+        /* Action cards stay charcoal (Tone A) */
+        .pp-paper .pp-help { --ink: #f5f2eb; --mute: #bdb8ac; --line: rgba(212,175,55,0.3); background: #1d2026; color: #f5f2eb; border-color: rgba(212,175,55,0.35); }
+        .pp-paper .pp-help .bq-btn.is-ghost { color: #f5f2eb; border-color: rgba(212,175,55,0.5); }
+        .pp-paper .pp-ready { border-color: #d4af37; }
     </style>
 </head>
 <body ontouchstart="">
