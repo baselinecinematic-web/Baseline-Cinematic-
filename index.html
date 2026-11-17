@@ -368,25 +368,51 @@
             </div>
         </section>
 
-        <!-- 3. SEE THE DIFFERENCE (cinema) -->
-        <section class="bc-sec s-cinema" id="see-the-difference">
+        <!-- PROOF SLIDER: Baseline Cinematic Facebook reach (styles: site-v2.css section 12, drag: proof-slider.js) -->
+        <section class="bc-sec s-cinema bc-ba-sec" id="brand-reach">
             <div class="bc-wrap">
-                <hr class="bc-rule">
-                <h2 class="bc-h2">See the Difference</h2>
-                <p class="bc-lead">Drag the slider. Same moment, same camera: on the left, the shot as it came off the card. On the right, after our edit and color grade.</p>
-                <div class="bc-compare" id="bc-compare">
-                    <img src="grade-after.jpg" alt="The Peoria bridge at dusk after Baseline Cinematic's color grade" width="1920" height="1080" loading="lazy">
-                    <img class="bc-before" src="grade-before.jpg" alt="The same Peoria bridge shot as it came off the camera, before grading" width="1920" height="1080" loading="lazy">
-                    <span class="bc-compare-label is-l">As shot</span>
-                    <span class="bc-compare-label is-r">After our color grade</span>
-                    <input type="range" min="0" max="100" value="50" aria-label="Drag to compare the shot before and after our color grade">
-                    <div class="bc-compare-line"></div>
-                    <div class="bc-compare-knob" aria-hidden="true">↔</div>
+                <div class="bc-ba-grid">
+                    <div class="bc-ba-copy">
+                        <span class="bc-ba-eyebrow">Our Brand Reach &bull; Baseline Cinematic</span>
+                        <h2 class="bc-h2" id="brand-reach-h">We Know How to Capture Local Attention.</h2>
+                        <p class="bc-lead">Same page, same town. Once we built every reel around a local hook and tighter pacing, one Grandview Drive reel reached 24,500 views.</p>
+                        <div class="bc-ba-legend">
+                        <div class="bc-ba-side">
+                            <span class="bc-ba-badge">Standard Clips &bull; ~309 Views</span>
+                            <p>Early scenic footage, posted before we dialed in our scroll-stopping hook and retention pacing.</p>
+                        </div>
+                        <div class="bc-ba-side is-after">
+                            <span class="bc-ba-badge is-gold">High-Retention Edit &bull; 24.5K Views &amp; 199 Shares</span>
+                            <p>Local storytelling with an aerial hook: <strong>24,500 views</strong>, <strong>199 shares</strong> and <strong>496 reactions</strong> on a single local reel.</p>
+                        </div>
+                        </div>
+                    </div>
+                    <figure class="bc-ba-card">
+                        <div class="bc-ba-stage" data-ba="facebook-reach" style="--ba-ratio: 16 / 10;">
+                            <div class="bc-ba-layer is-before">
+                                <img class="bc-ba-media" src="proof-fb-before.jpg" alt="Early scenic aerial reel on the Baseline Cinematic Facebook page" width="1280" height="458" loading="lazy" decoding="async">
+                                <span class="bc-ba-chip">Before</span>
+                                <p class="bc-ba-receipt"><img src="proof-fb-before-stats.jpg" alt="Facebook stats: 2 comments, 1 share, 309 views" width="1280" height="78" loading="lazy"></p>
+                            </div>
+                            <div class="bc-ba-layer is-after">
+                                <img class="bc-ba-media" src="proof-fb-after.jpg" alt="Autumn aerial over Grandview Drive, Peoria, from the Baseline Cinematic reel" width="1280" height="646" loading="lazy" decoding="async">
+                                <span class="bc-ba-chip">After</span>
+                                <p class="bc-ba-receipt"><img src="proof-fb-after-stats.jpg" alt="Facebook stats: 496 reactions, 38 comments, 199 shares, 24.5K views" width="1280" height="77" loading="lazy"></p>
+                            </div>
+                            <div class="bc-ba-line" aria-hidden="true"></div>
+                            <div class="bc-ba-knob" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></div>
+                            <input class="bc-ba-range" type="range" min="0" max="100" value="50" aria-label="Compare our Facebook reach before and after: drag or use arrow keys">
+                        </div>
+                        <figcaption class="bc-ba-source">Screenshots from the Baseline Cinematic Facebook page, November 2026.</figcaption>
+                    </figure>
                 </div>
-                <div class="bc-compare-foot">
-                    <p>That difference is what makes people stop scrolling on your post instead of the next one.</p>
-                    <a class="bc-btn bc-btn-quote" href="quote.html">Build a Quote</a>
-                </div>
+                <ul class="bc-kpis" aria-label="Verified results">
+                    <li class="bc-kpi"><strong>84K+</strong><span>TikTok views across 22 videos</span></li>
+                    <li class="bc-kpi"><strong>32.8K</strong><span>Views on a single Pekin home walkthrough</span></li>
+                    <li class="bc-kpi"><strong>5x</strong><span>More views per Short for a local church</span></li>
+                    <li class="bc-kpi"><strong>199</strong><span>Shares on a single local Facebook reel</span></li>
+                </ul>
+                <p class="bc-kpis-note">From our own TikTok, Facebook and client YouTube accounts, as of November 2026.</p>
             </div>
         </section>
 
@@ -518,6 +544,7 @@
     <script src="site-nav.js"></script>
     <script src="home.js"></script>
     <script src="site-render.js"></script>
+    <script src="proof-slider.js"></script>
     <script src="golden-ticket.js"></script>
     <script src="lead-tracking.js"></script>
 </body>
