@@ -1,6 +1,8 @@
 // "Starting Base Packages + Available Upgrades" picker on the service pages.
-// Markup: one [data-upgrades] block holding base-package radios (name="bc-base", data-price,
-// data-monthly) and upgrade checkboxes (data-price, data-up, optional data-for, data-group).
+// Markup: one [data-upgrades] block holding the base package, either as radios (name="bc-base")
+// or as a <select data-base> whose options carry data-name, data-price, data-goal, data-from and
+// data-monthly, plus upgrade checkboxes (data-price or data-price="custom", data-up, optional
+// data-for, data-group). Elements with data-show-for="pkg pkg" show only for those packages.
 // Shows a running estimate and hands the selection to the full quote builder:
 //   quote.html?goal=…&pkg=…&up=drone,reel1,…
 (function () {
@@ -8,6 +10,8 @@
     document.querySelectorAll('[data-upgrades]').forEach(function (box) {
         var goal = box.getAttribute('data-goal');
         var bases = box.querySelectorAll('input[name="bc-base"]');
+        var select = box.querySelector('select[data-base]');
+        function currentBase() { return select ? select.options[select.selectedIndex] : box.querySelector('input[name="bc-base"]:checked'); }
         var ups = box.querySelectorAll('input[data-up]');
         var list = box.querySelector('[data-est-lines]'), total = box.querySelector('[data-est-total]');
         var label = box.querySelector('[data-est-label]'), go = box.querySelector('[data-est-go]');
@@ -16,7 +20,7 @@
         function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]; }); }
 
         function update() {
-            var base = box.querySelector('input[name="bc-base"]:checked');
+            var base = currentBase();
             var key = base ? base.value : '';
             var monthly = base && base.hasAttribute('data-monthly');
             // Show only the upgrades that fit the chosen package
@@ -28,10 +32,18 @@
             });
             // Founding Client Rate: promo-check.js marks the page while the launch price is live
             var promo = base && base.hasAttribute('data-promo-price') && document.documentElement.classList.contains('promo-active');
+            box.querySelectorAll('[data-show-for]').forEach(function (el) {
+                el.hidden = el.getAttribute('data-show-for').split(' ').indexOf(key) === -1;
+            });
             var sum = base ? +(promo ? base.getAttribute('data-promo-price') : base.getAttribute('data-price')) : 0, rows = [], picked = [];
             if (base) rows.push([base.getAttribute('data-name') + (promo ? ' (Founding Client Rate)' : ''), usd(sum) + (monthly ? '/mo' : '')]);
             ups.forEach(function (u) {
                 if (!u.checked) return;
+                if (u.getAttribute('data-price') === 'custom') {   // priced with the client, not added to the total
+                    picked.push(u.getAttribute('data-up'));
+                    rows.push([u.getAttribute('data-name'), 'Quoted with you']);
+                    return;
+                }
                 var p = +u.getAttribute('data-price');
                 sum += p;
                 picked.push(u.getAttribute('data-up'));
@@ -59,6 +71,7 @@
             });
         });
         bases.forEach(function (b) { b.addEventListener('change', update); });
+        if (select) select.addEventListener('change', update);
         go.addEventListener('click', function () {
             if (typeof window.gtag === 'function') window.gtag('event', 'upgrades_to_quote', { goal: goal });
         });

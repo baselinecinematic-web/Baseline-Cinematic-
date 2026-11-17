@@ -847,6 +847,9 @@
         if (ups.indexOf('reel3') > -1) state.reels = 3; else if (ups.indexOf('reel1') > -1) state.reels = 1;
         if (ups.indexOf('raw') > -1) state.raw = true;
         if (ups.indexOf('rush') > -1) state.rush = true;
+        if (ups.indexOf('voiceover') > -1 && form.elements.notes && !form.elements.notes.value) {
+            form.elements.notes.value = 'Please include a quote for the Licensed Commercial Voiceover / Music Upgrade.';
+        }
         if (pkg || params.get('up')) render();
     })();
     if (wanted && state.goal && !window.location.hash) {
