@@ -16,6 +16,14 @@
 // nothing breaks for a visitor (or search engine) whose browser doesn't
 // run this script.
 
+// ---------------------------------------------------------------------
+// First-Time Client Free $75 Vertical Reel Voucher: on/off switch.
+//   true  = the voucher shows on the homepage booking form and in Step 3
+//           of the quote configurator
+//   false = the offer is hidden everywhere
+// ---------------------------------------------------------------------
+const FIRST_TIME_REEL_PROMO_ACTIVE = true;
+
 window.SITE_DATA = {
   business: {
     // Calls go to the main line; texts go to the separate texting line.
@@ -51,7 +59,7 @@ window.SITE_DATA = {
     bannerActiveCta: "Claim Your Spot →",
     introNote: "*Founding Client Rate — a limited introductory price for our first bookings as we build our portfolio.",
     priceNoteSuffix: " Founding Client Rate — limited spots available.",
-    bannerAfterText: "🎁 New clients: get a free vertical social reel ({{pricing.realEstate.verticalAddOnDisplay}} value) with your first shoot",
+    bannerAfterText: "🎁 New clients: get a free vertical social reel ({{pricing.realEstate.verticalUpgradeDisplay}} value) with your first shoot",
     bannerAfterCta: "Claim Voucher →"
   },
 
@@ -70,7 +78,7 @@ window.SITE_DATA = {
       tourRegularDisplay: "$399",
       tourPromoDisplay: "$199",
       aerialOnlyDisplay: "$199",
-      verticalAddOnDisplay: "$75"
+      verticalUpgradeDisplay: "$75"
     },
     commercial: {
       brandProfileDisplay: "$850",
@@ -102,7 +110,7 @@ window.SITE_DATA = {
     },
     pricing: {
       question: "How much does a real estate video cost?",
-      answer: "Our Cinematic Property Tour is {{pricing.realEstate.tourRegularDisplay}}, an Aerial-Only Showcase is {{pricing.realEstate.aerialOnlyDisplay}}, and a vertical social cut can be added for {{pricing.realEstate.verticalAddOnDisplay}}. Commercial brand profiles start at {{pricing.commercial.brandProfileDisplay}}. Every price is listed up front on our homepage. No surprise fees."
+      answer: "Our Cinematic Property Tour is {{pricing.realEstate.tourRegularDisplay}}, an Aerial-Only Showcase is {{pricing.realEstate.aerialOnlyDisplay}}, and a vertical social reel upgrade is {{pricing.realEstate.verticalUpgradeDisplay}}. Commercial brand profiles start at {{pricing.commercial.brandProfileDisplay}}. Every price is listed up front in our quote builder. No surprise fees."
     },
     payment: {
       question: "How do I pay? Is a deposit required?",
@@ -177,7 +185,7 @@ window.SITE_DATA = {
 
   voucher: {
     badge: "New Client Special",
-    heading: "🎁 Claim a Free Vertical Social Media Reel ({{pricing.realEstate.verticalAddOnDisplay}} Value)",
+    heading: "🎁 Claim a Free Vertical Social Media Reel ({{pricing.realEstate.verticalUpgradeDisplay}} Value)",
     body: "Drop your email below to instantly receive your digital voucher. Get a fully edited, 9:16 vertical video optimized for Instagram and TikTok included completely free when you book your first property tour or commercial shoot!"
   }
 };

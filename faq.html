@@ -771,6 +771,7 @@
         }
     </style>
     <link rel="stylesheet" href="site-ui.css">
+    <link rel="stylesheet" href="site-v2.css">
     <style>
         header.page-hero { min-height: 55vh; min-height: 55dvh; padding-top: 110px; box-sizing: border-box; }
         @media (max-width: 768px) { header.page-hero { min-height: 50vh; padding-top: 150px; } }
@@ -793,38 +794,40 @@
 </head>
 <body ontouchstart="">
 
-    <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
-    <div class="sticky-wrapper">
-        <div class="top-banner">
-            <!-- Founding-client rate; auto-falls back after promo.endDateISO in site-data.js -->
-            <span class="promo-only" data-field="promo.bannerActiveText">🎬 Founding Client Rate: Full 4K Drone & Ground Walkthrough for $199 — Limited Spots While We Launch</span>
-            <a class="promo-only" href="index.html#contact" data-field="promo.bannerActiveCta">Claim Your Spot →</a>
-            <!-- Shows from Oct 1 onward -->
-            <span class="after-promo" data-field="promo.bannerAfterText">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
-            <a class="after-promo" href="index.html#contact" data-field="promo.bannerAfterCta">Claim Voucher →</a>
+    <!-- HEADER: slim promo bar, logo, Check Our Dates, menu drawer (styles: site-v2.css, behavior: site-nav.js) -->
+    <div class="sticky-wrapper bc-top" id="site-top">
+        <div class="bc-promo">
+            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?goal=realestate">Claim your spot</a></span>
+            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="index.html#contact">Claim it</a></span>
         </div>
-        <nav>
-            <a href="index.html" class="nav-logo">
-                <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
-            </a>
-            <button class="menu-toggle" id="mobile-menu">☰</button>
-            <div class="nav-links" id="nav-links">
-                <!-- DROPDOWN MENU -->
-                <div class="dropdown">
-                    <button class="dropbtn" id="services-btn">Services ▾</button>
-                    <div class="dropdown-content" id="services-dropdown">
-                        <a href="real-estate.html">Real Estate Media</a>
-                        <a href="commercial.html">Commercial & Brand</a>
-                    </div>
-                </div>
-                <a href="index.html#portfolio">Portfolio</a>
-                <a href="index.html#pricing">Pricing</a>
-                <a href="quote.html">Build a Quote</a>
-                <a href="faq.html" aria-current="page">FAQ</a>
-                <a href="about.html">About Us</a>
-                <a href="index.html#contact">Contact</a>
+        <div class="bc-bar">
+            <a class="bc-logo" href="index.html"><img src="share-preview.jpg" alt="" width="44" height="44"><span>BASELINE CINEMATIC</span></a>
+            <div class="bc-bar-actions">
+                <a class="bc-btn bc-btn-gold bc-btn-sm" href="index.html#contact" data-check-dates>Check Our Dates</a>
+                <button type="button" class="bc-burger" aria-expanded="false" aria-controls="bc-drawer" aria-label="Open menu"><span></span><span></span><span></span></button>
             </div>
-        </nav>
+        </div>
+    </div>
+    <div class="bc-drawer" id="bc-drawer" hidden>
+        <div class="bc-drawer-backdrop" data-close></div>
+        <div class="bc-drawer-panel" role="dialog" aria-modal="true" aria-label="Site menu">
+            <div class="bc-drawer-head"><span>Menu</span><button type="button" class="bc-drawer-close" data-close aria-label="Close menu">×</button></div>
+            <nav aria-label="Main">
+                <a href="commercial.html">Commercial &amp; Brand</a>
+                <a href="real-estate.html">Real Estate Media</a>
+                <a href="quote.html">Build a Quote <small>See your price</small></a>
+                <a href="index.html#portfolio">Portfolio</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About Us</a>
+                <a href="peoria-video-production.html">Peoria Video Production</a>
+            </nav>
+            <a class="bc-btn bc-btn-gold" href="index.html#contact">Check Our Dates</a>
+            <div class="bc-drawer-contact">
+                Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>
+                Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><br>
+                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
+            </div>
+        </div>
     </div>
 
     <header class="page-hero">
@@ -838,12 +841,12 @@
         </div>
     </header>
 
-    <section id="questions">
+    <section id="questions" class="s-paper-band">
         <div class="faq-group">
             <h2>Pricing &amp; Booking</h2>
             <details>
                 <summary data-field="faq.pricing.question">How much does a real estate video cost?</summary>
-                <p data-field="faq.pricing.answer">Our Cinematic Property Tour is $399, an Aerial-Only Showcase is $199, and a vertical social cut can be added for $75. Commercial brand profiles start at $850. Every price is listed up front on our homepage. No surprise fees.</p>
+                <p data-field="faq.pricing.answer">Our Cinematic Property Tour is $399, an Aerial-Only Showcase is $199, and a vertical social reel upgrade is $75. Commercial brand profiles start at $850. Every price is listed up front in our quote builder. No surprise fees.</p>
             </details>
             <details>
                 <summary data-field="faq.travel.question">Do you charge a travel fee?</summary>
@@ -946,32 +949,37 @@
         </div>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
-                </a>
-                <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg>
-                </a>
-                <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
-                </a>
+    <footer class="bc-footer">
+        <div class="bc-wrap">
+            <div class="bc-footer-grid">
+                <div>
+                    <div class="bc-footer-brand"><img src="share-preview.jpg" alt="" width="48" height="48"><strong>BASELINE CINEMATIC</strong></div>
+                    <p>Drone and ground video for businesses, churches and listings across Central Illinois. Based in Pekin, serving Peoria and everywhere within 50 miles at no travel fee.</p>
+                    <div class="bc-social">
+                        <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg></a>
+                        <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+                        <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg></a>
+                        <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h2>Get in touch</h2>
+                    <p class="footer-phones bc-footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
+                    <p><a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a><br><a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a></p>
+                </div>
+                <div>
+                    <h2>Explore</h2>
+                    <ul>
+                        <li><a href="index.html#portfolio">Portfolio</a></li>
+                        <li><a href="quote.html">Build a Quote</a></li>
+                        <li><a href="peoria-video-production.html">Peoria Video Production</a></li>
+                        <li><a href="prep.html">Shoot Prep Checklist</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
             </div>
-            <p class="footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
-            <div class="footer-links">
-                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
-                <a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
-                <a href="index.html#portfolio">View Portfolio</a>
-                <a href="peoria-video-production.html">Peoria Video Production</a>
-                <a href="prep.html">Shoot Prep Checklist</a>
-            </div>
+            <p class="bc-footer-legal">&copy; 2026 Baseline Cinematic LLC. All rights reserved. FAA Part 107 certified &amp; insured.</p>
         </div>
-        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
     </footer>
 
     <script>
@@ -998,71 +1006,9 @@
             appearOnScroll.observe(fader);
         });
 
-        // --- Form Background Submit Script (Kills the white "Accepted" screen) ---
-        const form = document.getElementById('lead-gen-form');
-        const successMessage = document.getElementById('success-message');
-
-        if(form && successMessage) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                const formData = new FormData(form);
-                
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                }).then(response => {
-                    if(response.ok) {
-                        if (window.trackLead) { window.trackLead(form); } // counts the lead in Google Analytics
-                        form.style.display = 'none'; 
-                        successMessage.style.display = 'block'; 
-                    } else {
-                        alert("There was an issue submitting your request. Please call (309) 863-5181 or text (309) 863-5089.");
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert("There was an issue submitting your request. Please call (309) 863-5181 or text (309) 863-5089.");
-                });
-            });
-        }
-
-        // --- Hamburger Menu Script ---
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-        const servicesBtn = document.getElementById('services-btn');
-        const servicesDropdown = document.getElementById('services-dropdown');
-        const menuAnchorLinks = document.querySelectorAll('.nav-links a');
-
-        if(mobileMenu && navLinks) {
-            mobileMenu.addEventListener('click', () => {
-                navLinks.classList.toggle('nav-active');
-            });
-        }
-        
-        if(servicesBtn && servicesDropdown) {
-            servicesBtn.addEventListener('click', (e) => {
-                if(window.innerWidth <= 768) {
-                    e.preventDefault();
-                    servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
-                }
-            });
-        }
-
-        // Auto-close the mobile menu when any link is clicked
-        if(menuAnchorLinks.length > 0) {
-            menuAnchorLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if(window.innerWidth <= 768) {
-                        navLinks.classList.remove('nav-active');
-                        if(servicesDropdown) {
-                            servicesDropdown.style.display = 'none'; 
-                        }
-                    }
-                });
-            });
-        }
     </script>
+    <script src="site-nav.js"></script>
     <script src="site-render.js"></script>
     <script src="lead-tracking.js"></script>
-    <script src="floating-cta.js"></script>
 </body>
 </html>

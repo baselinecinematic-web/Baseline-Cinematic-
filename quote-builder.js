@@ -5,15 +5,13 @@
 // inside the element marked data-quote-builder. Styles: quote-builder.css.
 // Prices that already exist in site-data.js are read from there.
 
-// ---------------------------------------------------------------------
-// First-Time Client Free $75 Vertical Reel Voucher: on/off switch.
-//   true  = the voucher toggle shows in Step 3 on paid shoots
-//   false = the offer is hidden everywhere in the configurator
-// ---------------------------------------------------------------------
-const FIRST_TIME_REEL_PROMO_ACTIVE = true;
+// The First-Time Client Free $75 Vertical Reel Voucher is switched on and off with
+// FIRST_TIME_REEL_PROMO_ACTIVE at the top of site-data.js (shared with the homepage form).
 
 (function () {
     'use strict';
+
+    var FIRST_TIME_REEL_PROMO_ACTIVE_ = (typeof FIRST_TIME_REEL_PROMO_ACTIVE === 'undefined') ? true : !!FIRST_TIME_REEL_PROMO_ACTIVE;
 
     var TEMPLATE = `
 
@@ -78,8 +76,8 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
 
     <!-- STEP 2 -->
     <fieldset class="bq-step" id="step-2">
-        <legend class="bq-visually-hidden">Step 2: select your core package</legend>
-        <div class="bq-step-head"><span class="bq-num" aria-hidden="true">2</span><h2>Select your core package</h2></div>
+        <legend class="bq-visually-hidden">Step 2: choose your starting base package</legend>
+        <div class="bq-step-head"><span class="bq-num" aria-hidden="true">2</span><h2>Choose your starting base package</h2></div>
         <p class="bq-step-lead" id="bq-pkg-lead">Packages appear here once you choose a goal.</p>
         <div class="bq-cards is-packages" id="bq-packages">
             <div class="bq-empty">Choose a goal in step 1 to see the packages for it.</div>
@@ -95,14 +93,14 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
 
     <!-- STEP 3 -->
     <fieldset class="bq-step" id="step-3">
-        <legend class="bq-visually-hidden">Step 3: customize deliverables and location</legend>
-        <div class="bq-step-head"><span class="bq-num" aria-hidden="true">3</span><h2>Customize deliverables &amp; location</h2></div>
-        <p class="bq-step-lead">Add only what you'll use. Every change shows up in your quote right away.</p>
+        <legend class="bq-visually-hidden">Step 3: available upgrades and location</legend>
+        <div class="bq-step-head"><span class="bq-num" aria-hidden="true">3</span><h2>Available upgrades &amp; location</h2></div>
+        <p class="bq-step-lead">Pick only the upgrades you'll use. Every change shows up in your quote right away.</p>
 
         <div class="bq-opts">
             <div class="bq-opt" id="opt-drone">
                 <div>
-                    <div class="bq-opt-title">4K aerial drone <b data-bq="droneLabel">+$150</b></div>
+                    <div class="bq-opt-title">4K Aerial Drone Upgrade <b data-bq="droneLabel">+$150</b></div>
                     <p class="bq-opt-desc" id="opt-drone-desc">Aerial footage flown by an FAA Part 107 certified, insured pilot and matched to your ground shots.</p>
                 </div>
                 <label class="bq-switch" id="opt-drone-switch"><input type="checkbox" id="bq-drone" aria-label="Add 4K aerial drone"><i></i></label>
@@ -111,7 +109,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
 
             <div class="bq-opt" id="opt-reels">
                 <div class="bq-opt-wide">
-                    <div class="bq-opt-title">Vertical social reels</div>
+                    <div class="bq-opt-title">Vertical Social Reel Upgrade</div>
                     <p class="bq-opt-desc">9:16 cuts of your shoot, edited for Instagram, TikTok and YouTube Shorts.</p>
                     <div class="bq-seg" role="radiogroup" aria-label="Vertical social reels">
                         <label><input type="radio" name="bq-reels" value="0" checked><span>None</span></label>
@@ -122,7 +120,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
             </div>
 
             <!-- First-Time Client Free $75 Vertical Reel Voucher: optional bonus on paid shoots.
-             Shown only while FIRST_TIME_REEL_PROMO_ACTIVE is true (top of quote-builder.js). -->
+             Shown only while FIRST_TIME_REEL_PROMO_ACTIVE is true (top of site-data.js). -->
         <div class="bq-opt" id="opt-voucher">
             <div class="bq-opt-wide">
                 <div class="bq-offer is-bonus">
@@ -138,7 +136,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
 
         <div class="bq-opt" id="opt-raw">
                 <div>
-                    <div class="bq-opt-title">Raw footage delivery <b data-bq="rawLabel">+$100</b></div>
+                    <div class="bq-opt-title">Raw Footage Upgrade <b data-bq="rawLabel">+$100</b></div>
                     <p class="bq-opt-desc">The unedited, high-bitrate files, delivered alongside your finished cut.</p>
                 </div>
                 <label class="bq-switch"><input type="checkbox" id="bq-raw" aria-label="Add raw footage delivery"><i></i></label>
@@ -146,7 +144,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
 
             <div class="bq-opt" id="opt-rush">
                 <div>
-                    <div class="bq-opt-title">Rush 24-hour turnaround <b data-bq="rushLabel">+$125</b></div>
+                    <div class="bq-opt-title">Rush 24-Hour Turnaround Upgrade <b data-bq="rushLabel">+$125</b></div>
                     <p class="bq-opt-desc">Your finished film within 24 hours of the shoot. Standard delivery is <span data-bq="turnaround">1–2 business days</span>.</p>
                 </div>
                 <label class="bq-switch"><input type="checkbox" id="bq-rush" aria-label="Add rush 24-hour turnaround"><i></i></label>
@@ -314,7 +312,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
         aerial:    fromSite('pricing.realEstate.aerialOnlyDisplay', 199),
         event:     650,
         drone:     150,
-        reel1:     fromSite('pricing.realEstate.verticalAddOnDisplay', 75),
+        reel1:     fromSite('pricing.realEstate.verticalUpgradeDisplay', 75),
         reel3:     199,
         raw:       100,
         rush:      125
@@ -330,16 +328,16 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
     var TURNAROUND = (D.delivery && D.delivery.turnaroundBadge) || '1–2 business days';
 
     // deposit: 0 = none, 0.4 = 40% to lock the date, null = not applicable (monthly)
-    // drone:   'addon' = offered in step 3, 'included' = already part of the package
+    // drone:   'upgrade' = offered in step 3, 'included' = already part of the package
     var PACKAGES = {
         brand: {
-            name: 'Brand Profile Film', price: PRICE.brand, from: true, deposit: 0.4, drone: 'addon',
+            name: 'Brand Profile Film', price: PRICE.brand, from: true, deposit: 0.4, drone: 'upgrade',
             service: 'Commercial Brand Film',
             blurb: 'A 60–90 second cinematic overview of your business.',
             includes: ['Stabilized ground footage', 'Licensed music', '10-bit color grading']
         },
         campaign: {
-            name: 'Multi-Scene Commercial Campaign', price: PRICE.campaign, from: true, deposit: 0.4, drone: 'addon',
+            name: 'Multi-Scene Commercial Campaign', price: PRICE.campaign, from: true, deposit: 0.4, drone: 'upgrade',
             service: 'Commercial Brand Film',
             blurb: 'A half-day or multi-location production.',
             includes: ['Staff and customer interviews', 'B-roll of your team at work', 'Hero brand cut']
@@ -363,13 +361,13 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
             includes: ['4 Reels a month', 'Monthly on-site filming and editing']
         },
         growth: {
-            name: 'Growth Retainer', price: PRICE.growth, monthly: true, deposit: null, drone: 'none',
+            name: 'Growth Retainer Upgrade', price: PRICE.growth, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'More Reels, plus a cut for your website.',
             includes: ['6 Reels a month', '1 horizontal web cut', 'Monthly on-site filming and editing']
         },
         partner: {
-            name: 'Full Partner Retainer', price: PRICE.partner, monthly: true, deposit: null, drone: 'none',
+            name: 'Full Partner Retainer Upgrade', price: PRICE.partner, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'A hero film and a full month of social, every month.',
             includes: ['1 hero cut a month', '8 Reels a month', 'Monthly on-site filming and editing']
@@ -385,7 +383,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
     var GOALS = {
         commercial: { label: 'Business & Commercial', packages: ['brand', 'campaign'], lead: 'Both are custom-scoped, so the price shown is where each one starts.' },
         realestate: { label: 'Real Estate Listing', packages: ['tour', 'aerial'], lead: 'Flat prices. Every real estate video comes with an unbranded copy for the MLS.' },
-        retainer:   { label: 'Monthly Social Retainer', packages: ['starter', 'growth', 'partner'], lead: 'Three monthly plans. We come to you, film on-site and handle the edit.' },
+        retainer:   { label: 'Monthly Social Retainer', packages: ['starter', 'growth', 'partner'], lead: 'Start with the Starter plan, or upgrade to Growth or Full Partner. We come to you, film on-site and handle the edit.' },
         event:      { label: 'Event Coverage', packages: ['event'], lead: 'One package, priced from the size and length of your event.' }
     };
     var GOAL_ALIASES = { business: 'commercial', brand: 'commercial', 'real-estate': 'realestate', realtor: 'realestate', listing: 'realestate', social: 'retainer', events: 'event', church: 'event' };
@@ -394,7 +392,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
        State + pricing
        ================================================================ */
     // Founding Client Rate ($199 tour) runs on its own end date; it is separate
-    // from FIRST_TIME_REEL_PROMO_ACTIVE, which controls the free reel voucher.
+    // from FIRST_TIME_REEL_PROMO_ACTIVE (site-data.js), which controls the free reel voucher.
     var promoEnd = new Date((D.promo && D.promo.endDateISO) || PROMO_END_FALLBACK);
     var FOUNDING_RATE_LIVE = new Date() < promoEnd;
 
@@ -412,7 +410,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
         if (!p) return null;
         var lines = [], total = 0, saved = 0;
         function add(label, amount, kind) {
-            lines.push({ label: label, amount: amount, kind: kind || 'addon' });
+            lines.push({ label: label, amount: amount, kind: kind || 'upgrade' });
             if (typeof amount === 'number') { total += amount; if (amount < 0) saved += -amount; }
         }
         var monthly = !!p.monthly;
@@ -423,13 +421,13 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
         if (promoOn) add('Founding Client Rate', p.promoPrice - p.price, 'discount');
 
         if (!monthly) {
-            if (p.drone === 'addon' && s.drone) add('4K aerial drone', PRICE.drone);
-            if (s.reels === 1) add('Vertical reel, 1 cut', PRICE.reel1);
-            if (s.reels === 3) add('Vertical reels, 3-pack', PRICE.reel3);
-            var voucherOk = FIRST_TIME_REEL_PROMO_ACTIVE && s.voucher && s.reels > 0 && (ALLOW_PROMO_WITH_VOUCHER || !promoOn);
+            if (p.drone === 'upgrade' && s.drone) add('4K Aerial Drone Upgrade', PRICE.drone);
+            if (s.reels === 1) add('Vertical Social Reel Upgrade (1 cut)', PRICE.reel1);
+            if (s.reels === 3) add('Vertical Social Reels Upgrade (3-pack)', PRICE.reel3);
+            var voucherOk = FIRST_TIME_REEL_PROMO_ACTIVE_ && s.voucher && s.reels > 0 && (ALLOW_PROMO_WITH_VOUCHER || !promoOn);
             if (voucherOk) { add('First-time client reel voucher', -PRICE.reel1, 'discount'); voucherRequested = true; }
-            if (s.raw) add('Raw footage delivery', PRICE.raw);
-            if (s.rush) add('Rush 24-hour turnaround', PRICE.rush);
+            if (s.raw) add('Raw Footage Upgrade', PRICE.raw);
+            if (s.rush) add('Rush 24-Hour Turnaround Upgrade', PRICE.rush);
         }
 
         var t = TRAVEL[s.travel] || TRAVEL.z0;
@@ -441,9 +439,9 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
             turnaround: monthly ? 'Filmed and edited every month' : (s.rush ? 'Within 24 hours of the shoot' : TURNAROUND + ' after the shoot')
         };
         // Logged on the receipt and in the submitted form so it can be verified before confirming
-        q.voucherOffered = FIRST_TIME_REEL_PROMO_ACTIVE && !monthly;
+        q.voucherOffered = FIRST_TIME_REEL_PROMO_ACTIVE_ && !monthly;
         q.voucherRequested = voucherRequested;
-        q.voucherField = !FIRST_TIME_REEL_PROMO_ACTIVE ? 'Not offered (promo off)'
+        q.voucherField = !FIRST_TIME_REEL_PROMO_ACTIVE_ ? 'Not offered (promo off)'
             : monthly ? 'Not applicable (monthly retainer)'
             : voucherRequested ? 'REQUESTED: verify new-client status before confirming'
             : 'Not requested';
@@ -510,6 +508,8 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
         var g = GOALS[state.goal];
         if (!g) return;
         $('bq-pkg-lead').textContent = g.lead;
+        function entryPrice(k) { var p = PACKAGES[k]; return (p.promoPrice !== undefined && FOUNDING_RATE_LIVE && state.promo) ? p.promoPrice : p.price; }
+        var lowest = g.packages.length > 1 ? g.packages.reduce(function (a, k) { return entryPrice(k) < entryPrice(a) ? k : a; }, g.packages[0]) : null;
         box.innerHTML = g.packages.map(function (key) {
             var p = PACKAGES[key];
             var price;
@@ -523,7 +523,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
                 note = '<span class="bq-card-note">Heads up: at the Founding Client Rate, the full tour with ground footage is ' + usd(PRICE.tourPromo) + ' too.</span>';
             }
             return '<label class="bq-card"><input type="radio" name="bq-pkg" value="' + key + '"' + (state.pkg === key ? ' checked' : '') + '>' +
-                '<span class="bq-card-body"><span class="bq-card-top"><h3 style="margin:0">' + esc(p.name) + '</h3>' + TICK + '</span>' +
+                '<span class="bq-card-body">' + (key === lowest ? '<span class="bq-entry">Lowest entry price</span>' : '') + '<span class="bq-card-top"><h3 style="margin:0">' + esc(p.name) + '</h3>' + TICK + '</span>' +
                 '<p>' + esc(p.blurb) + '</p>' +
                 '<ul class="bq-incl">' + p.includes.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>' +
                 note +
@@ -535,7 +535,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
     function renderOptions() {
         var p = PACKAGES[state.pkg];
         var monthly = !!(p && p.monthly);
-        var droneMode = p ? p.drone : 'addon';
+        var droneMode = p ? p.drone : 'upgrade';
 
         $('opt-drone').hidden = monthly;
         $('opt-reels').hidden = monthly;
@@ -553,7 +553,7 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
         setLabel('droneLabel', included ? '' : '+' + usd(PRICE.drone));
 
         var promoOn = FOUNDING_RATE_LIVE && state.promo && state.pkg === 'tour';
-        $('opt-voucher').hidden = !FIRST_TIME_REEL_PROMO_ACTIVE || monthly || (!ALLOW_PROMO_WITH_VOUCHER && promoOn);
+        $('opt-voucher').hidden = !FIRST_TIME_REEL_PROMO_ACTIVE_ || monthly || (!ALLOW_PROMO_WITH_VOUCHER && promoOn);
 
         $('bq-travel-note').textContent = state.travel === 'z3'
             ? "Over 100 miles, we price travel with you. Send the request and we'll reply with a number before you commit."
@@ -836,12 +836,23 @@ const FIRST_TIME_REEL_PROMO_ACTIVE = true;
        ================================================================ */
     var params = new URLSearchParams(window.location.search);
     var wanted = (params.get('goal') || params.get('track') || '').toLowerCase();
-    if (FIRST_TIME_REEL_PROMO_ACTIVE && params.get('voucher') === '1') { state.voucher = true; state.reels = 1; }
+    if (FIRST_TIME_REEL_PROMO_ACTIVE_ && params.get('voucher') === '1') { state.voucher = true; state.reels = 1; }
     if (!(wanted && setGoal(wanted))) render();
+    // From the service pages' "Available Upgrades" picker: &pkg=brand&up=drone,reel1,raw,rush
+    (function () {
+        var pkg = (params.get('pkg') || '').toLowerCase(), ups = (params.get('up') || '').toLowerCase().split(',');
+        if (!state.goal) return;
+        if (pkg && GOALS[state.goal].packages.indexOf(pkg) > -1) state.pkg = pkg;
+        if (ups.indexOf('drone') > -1) state.drone = true;
+        if (ups.indexOf('reel3') > -1) state.reels = 3; else if (ups.indexOf('reel1') > -1) state.reels = 1;
+        if (ups.indexOf('raw') > -1) state.raw = true;
+        if (ups.indexOf('rush') > -1) state.rush = true;
+        if (pkg || params.get('up')) render();
+    })();
     if (wanted && state.goal && !window.location.hash) {
         window.addEventListener('load', function () { $('step-2').scrollIntoView({ block: 'start' }); });
     }
 
     // Exposed for testing in the browser console: BaselineQuote.quote({...})
-    window.BaselineQuote = { quote: quote, state: state, PRICE: PRICE, summaryText: summaryText, FIRST_TIME_REEL_PROMO_ACTIVE: FIRST_TIME_REEL_PROMO_ACTIVE };
+    window.BaselineQuote = { quote: quote, state: state, PRICE: PRICE, summaryText: summaryText, FIRST_TIME_REEL_PROMO_ACTIVE: FIRST_TIME_REEL_PROMO_ACTIVE_ };
 })();

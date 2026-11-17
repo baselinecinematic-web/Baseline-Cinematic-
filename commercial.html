@@ -576,41 +576,44 @@
         }
     </style>
     <link rel="stylesheet" href="site-ui.css">
+    <link rel="stylesheet" href="site-v2.css">
 </head>
 <body ontouchstart="">
 
-    <!-- STICKY WRAPPER CONTAINING BANNER & NAVIGATION -->
-    <div class="sticky-wrapper">
-        <div class="top-banner">
-            <!-- Founding-client rate; auto-falls back after promo.endDateISO in site-data.js -->
-            <span class="promo-only" data-field="promo.bannerActiveText">🎬 Founding Client Rate: Full 4K Drone & Ground Walkthrough for $199 — Limited Spots While We Launch</span>
-            <a class="promo-only" href="#contact" data-field="promo.bannerActiveCta">Claim Your Spot →</a>
-            <!-- Shows from Oct 1 onward -->
-            <span class="after-promo" data-field="promo.bannerAfterText">🎁 New clients: get a free vertical social reel ($75 value) with your first shoot</span>
-            <a class="after-promo" href="#contact" data-field="promo.bannerAfterCta">Claim Voucher →</a>
+    <!-- HEADER: slim promo bar, logo, Check Our Dates, menu drawer (styles: site-v2.css, behavior: site-nav.js) -->
+    <div class="sticky-wrapper bc-top" id="site-top">
+        <div class="bc-promo">
+            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?goal=realestate">Claim your spot</a></span>
+            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="index.html#contact">Claim it</a></span>
         </div>
-        <nav>
-            <a href="index.html" class="nav-logo">
-                <img src="share-preview.jpg" alt="Baseline Cinematic Logo">
-            </a>
-            <button class="menu-toggle" id="mobile-menu">☰</button>
-            <div class="nav-links" id="nav-links">
-                <!-- DROPDOWN MENU -->
-                <div class="dropdown">
-                    <button class="dropbtn is-current" id="services-btn">Services ▾</button>
-                    <div class="dropdown-content" id="services-dropdown">
-                        <a href="real-estate.html">Real Estate Media</a>
-                        <a href="commercial.html" aria-current="page">Commercial & Brand</a>
-                    </div>
-                </div>
+        <div class="bc-bar">
+            <a class="bc-logo" href="index.html"><img src="share-preview.jpg" alt="" width="44" height="44"><span>BASELINE CINEMATIC</span></a>
+            <div class="bc-bar-actions">
+                <a class="bc-btn bc-btn-gold bc-btn-sm" href="index.html#contact" data-check-dates>Check Our Dates</a>
+                <button type="button" class="bc-burger" aria-expanded="false" aria-controls="bc-drawer" aria-label="Open menu"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </div>
+    <div class="bc-drawer" id="bc-drawer" hidden>
+        <div class="bc-drawer-backdrop" data-close></div>
+        <div class="bc-drawer-panel" role="dialog" aria-modal="true" aria-label="Site menu">
+            <div class="bc-drawer-head"><span>Menu</span><button type="button" class="bc-drawer-close" data-close aria-label="Close menu">×</button></div>
+            <nav aria-label="Main">
+                <a href="commercial.html">Commercial &amp; Brand</a>
+                <a href="real-estate.html">Real Estate Media</a>
+                <a href="quote.html">Build a Quote <small>See your price</small></a>
                 <a href="index.html#portfolio">Portfolio</a>
-                <a href="#pricing">Pricing</a>
-                <a href="quote.html">Build a Quote</a>
                 <a href="faq.html">FAQ</a>
                 <a href="about.html">About Us</a>
-                <a href="#contact">Contact</a>
+                <a href="peoria-video-production.html">Peoria Video Production</a>
+            </nav>
+            <a class="bc-btn bc-btn-gold" href="index.html#contact">Check Our Dates</a>
+            <div class="bc-drawer-contact">
+                Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>
+                Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><br>
+                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
             </div>
-        </nav>
+        </div>
     </div>
 
     <header>
@@ -627,7 +630,7 @@
         </div>
     </header>
 
-    <section id="services" class="section-alt">
+    <section id="services" class="s-paper-band">
         <h2 class="fade-in">Our Services</h2>
         <div class="grid">
             <div class="card fade-in">
@@ -687,7 +690,7 @@
     </section>
 
     <!-- CLIENT REVIEWS (copied word-for-word from Google) -->
-    <section id="reviews" class="section-alt">
+    <section id="reviews" class="s-paper-band">
         <h2 class="fade-in">What Our Clients Say</h2>
         <div class="reviews-grid">
             <figure class="review-card fade-in">
@@ -708,7 +711,7 @@
         </div>
     </section>
 
-    <section id="production-value">
+    <section id="production-value" class="s-paper-band">
         <h2 class="fade-in">Why Brands Choose Baseline</h2>
         <div class="grid">
             <div class="card fade-in">
@@ -726,7 +729,7 @@
         </div>
     </section>
 
-    <section id="process" class="section-alt">
+    <section id="process" class="s-paper-band">
         <h2 class="fade-in" data-field="process.heading">Our Process</h2>
         <p class="fade-in" style="text-align: center; color: #ccc; margin-top: -10px; margin-bottom: 30px; font-size: 1.1rem;" data-field="process.subheading">A simple, fast path from booking to a finished film.</p>
         <div class="grid">
@@ -749,7 +752,7 @@
         </div>
     </section>
 
-    <section id="equipment">
+    <section id="equipment" class="s-paper-band">
         <h2 class="fade-in">Production Capabilities & Credentials</h2>
         <div class="grid">
             <div class="card fade-in">
@@ -769,7 +772,7 @@
         </div>
     </section>
 
-    <section id="faq" class="section-alt">
+    <section id="faq" class="s-paper-band">
         <h2 class="fade-in">Commercial FAQ</h2>
         
         <div class="faq-item fade-in">
@@ -795,97 +798,90 @@
         <p class="fade-in" style="text-align: center; margin-top: 30px;"><a href="faq.html" class="btn">See All Questions</a></p>
     </section>
 
-    <section id="contact">
-        <h2 class="fade-in">Let's Work Together</h2>
-        <div class="contact-container fade-in">
-            
-            <!-- DEDICATED COMMERCIAL PRICING DISPLAY -->
-            <div id="pricing" style="scroll-margin-top: 130px; max-width: 600px; margin: 0 auto 40px auto; text-align: left;">
-                <div style="background: #1a1a1a; border: 1px solid #444; border-radius: 8px; padding: 35px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-                    <h3 style="color: #fff; font-size: 1.8rem; margin-top: 0; border-bottom: 2px solid #333; padding-bottom: 10px;">Commercial & Brand Storytelling</h3>
-                    <p style="color: #ccc; font-size: 1.1rem; margin-bottom: 20px;">Every business is unique. We build custom quotes based on your specific vision, motion tracking requirements, and licensed audio needs.</p>
-                    <ul style="color: #aaa; padding-left: 20px; font-size: 1.05rem; margin-bottom: 25px; line-height: 1.8;">
-                        <li><strong>The Brand Profile:</strong> Starting at <span data-field="pricing.commercial.brandProfileDisplay">$850</span><br><span style="font-size: 0.9rem; color: #888;">A 1-2 minute cinematic overview of your facility, staff, and services.</span></li>
-                        <li><strong>Commercial Campaigns:</strong> Starting at <span data-field="pricing.commercial.campaignDisplay">$1,500</span><br><span style="font-size: 0.9rem; color: #888;">Full-scale production with voiceover, multi-format delivery, and advanced color grading.</span></li>
-                        <li><strong>The Social Short Bundle:</strong> <span data-field="pricing.commercial.socialRetainerDisplay">$299/mo</span><br><span style="font-size: 0.9rem; color: #888;">We drop by monthly to shoot and deliver 4 vertical reels for your TikTok and Instagram.</span></li>
-                    </ul>
-                    <p style="color: #d4af37; font-size: 0.95rem; font-style: italic; margin: 0; text-align: center;">*Ask about our Founding Client Rate for your first project as we build our portfolio.</p>
-                </div>
-            </div>
-            <!-- END PRICING -->
-
-            <p style="color: #ccc; font-size: 0.95rem; text-align: center; margin: -20px auto 30px; max-width: 500px;">🛡️ <span data-field="business.guarantee">100% Satisfaction Guarantee: if you're not happy with your final video, we'll re-edit it at no additional charge.</span></p>
-
-            <!-- UPDATED VOUCHER LEAD MAGNET CALLOUT -->
-            <div style="background: linear-gradient(135deg, #1f1a0e 0%, #2a2212 100%); border: 2px dashed #d4af37; border-radius: 8px; padding: 25px; margin-bottom: 30px; text-align: center; box-shadow: 0 4px 20px rgba(212,175,55,0.15);">
-                <span style="background: #d4af37; color: #000; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px;" data-field="voucher.badge">New Client Special</span>
-                <h3 style="color: #fff; font-size: 1.5rem; margin: 15px 0 10px 0; font-family: 'Montserrat', sans-serif;" data-field="voucher.heading">🎁 Claim a Free Vertical Social Media Reel ($75 Value)</h3>
-                <p style="color: #ddd; font-size: 1rem; line-height: 1.6; margin: 0 auto; max-width: 500px;" data-field="voucher.body">
-                    Drop your email below to instantly receive your digital voucher. Get a fully edited, 9:16 vertical video optimized for Instagram and TikTok included completely free when you book your first property tour or commercial shoot!
-                </p>
-            </div>
-            
-            <div style="background: #2a2a2a; border: 1px solid #444; border-radius: 5px; padding: 15px; margin-bottom: 25px; display: inline-block;">
-                <p style="margin: 0; font-size: 1.1rem; color: #fff;">Need immediate availability?</p>
-                <p style="margin: 5px 0 0 0; font-size: 1.3rem; font-weight: bold;">Call: <a href="tel:+13098635181" style="color: #d4af37; text-decoration: none;" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a></p>
-                <p style="margin: 5px 0 0 0; font-size: 1.3rem; font-weight: bold;">Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." style="color: #d4af37; text-decoration: none;" data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
-            </div>
-
-            <p style="margin-bottom: 30px;" data-field="business.serviceArea">Headquartered in the Greater Peoria area, Baseline Cinematic serves clients throughout Central Illinois within a 50-mile radius, with extended-range coverage available for select projects.</p>
-            
-            <!-- LEAD GEN FORM -->
-            <form id="lead-gen-form" action="https://hook.us2.make.com/8j75tewx8yk48zpdt55ibo6lu4sfssly" method="POST" class="contact-form">
-                <input type="text" name="name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email Address" required>
-                <input type="tel" name="phone" placeholder="Your Phone Number (Optional but recommended)">
-                
-                <select name="service_needed" required>
-                    <option value="" disabled>What type of project are you planning?</option>
-                    <option value="Commercial Brand Film" selected>Commercial Brand Film</option>
-                    <option value="Social Media Retainer">Social Media Retainer</option>
-                    <option value="Full Property Tour">Full Property Tour (Real Estate)</option>
-                    <option value="Drone Photos/Video Only">Aerial Showcase Only</option>
-                    <option value="General Question">Just a General Question</option>
-                </select>
-                
-                <button type="submit" class="btn">Get My Free Voucher & Book</button>
-            </form>
-            
-            <!-- HIDDEN SUCCESS MESSAGE -->
-            <div id="success-message" style="display: none; background: #2a2a2a; border: 1px solid #d4af37; padding: 25px; border-radius: 5px; margin-top: 20px;">
-                <h3 style="color: #d4af37; margin-top: 0; font-family: 'Montserrat', sans-serif;">Voucher Sent!</h3>
-                <p style="color: #fff; font-size: 1.1rem; margin-bottom: 0;">Check your inbox right now for your Free Vertical Reel Voucher. We will be in touch shortly to discuss your project!</p>
-            </div>
-            
+    <!-- PRICING: Starting Base Packages + Available Upgrades (picker: upgrades.js) -->
+    <section id="contact" class="s-paper-band bc-pricing" data-upgrades data-goal="commercial">
+        <h2 id="pricing" style="scroll-margin-top: calc(var(--nav-h) + 20px);">Starting Base Packages</h2>
+        <p class="bc-lead">Start with the package that fits, then upgrade. Brand films and campaigns are custom-scoped, so these are starting prices.</p>
+        <div class="bc-packages">
+                    <article class="bc-pkg is-entry">
+                        <span class="bc-pkg-flag">Lowest entry price</span>
+                        <h3>Monthly Social Media Retainer</h3>
+                        <p class="bc-pkg-price">$299<small>/mo</small></p>
+                        <p>We film on-site every month and edit Reels for you.</p>
+                        <ul><li>4 Reels a month</li><li>Monthly on-site filming and editing</li></ul>
+                        <label class="bc-pkg-pick"><input type="radio" name="bc-base" value="starter" data-name="Monthly Social Media Retainer" data-price="299" data-goal="retainer" data-monthly checked> Start with this package</label>
+                    </article>
+                    <article class="bc-pkg">
+                        
+                        <h3>Brand Profile Film</h3>
+                        <p class="bc-pkg-price"><small>from </small>$850</p>
+                        <p>A 60–90 second film that shows customers who you are.</p>
+                        <ul><li>Stabilized ground footage</li><li>Licensed music</li><li>10-bit color grading</li></ul>
+                        <label class="bc-pkg-pick"><input type="radio" name="bc-base" value="brand" data-name="Brand Profile Film" data-price="850" data-goal="commercial" data-from> Start with this package</label>
+                    </article>
+                    <article class="bc-pkg">
+                        
+                        <h3>Multi-Scene Commercial Campaign</h3>
+                        <p class="bc-pkg-price"><small>from </small>$1,500</p>
+                        <p>Half-day or multi-location production.</p>
+                        <ul><li>Staff and customer interviews</li><li>B-roll of your team at work</li><li>Hero brand cut</li></ul>
+                        <label class="bc-pkg-pick"><input type="radio" name="bc-base" value="campaign" data-name="Multi-Scene Commercial Campaign" data-price="1500" data-goal="commercial" data-from> Start with this package</label>
+                    </article>
         </div>
+        <h2>Available Upgrades</h2>
+        <p class="bc-lead">Add only what you'll use. Your estimate updates as you go, and the quote builder carries your picks over.</p>
+        <div class="bc-upgrades">
+            <div class="bc-up-list">
+                        <label class="bc-up"><input type="checkbox" data-up="tier-growth" data-name="Growth Retainer Upgrade" data-price="351" data-for="starter" data-group="tier"><div><strong>Growth Retainer Upgrade</strong><span>6 Reels + 1 horizontal web cut a month ($650/mo total).</span></div><b>+$351/mo</b></label>
+                        <label class="bc-up"><input type="checkbox" data-up="tier-partner" data-name="Full Partner Retainer Upgrade" data-price="951" data-for="starter" data-group="tier"><div><strong>Full Partner Retainer Upgrade</strong><span>1 hero cut + 8 Reels a month ($1,250/mo total).</span></div><b>+$951/mo</b></label>
+                        <label class="bc-up"><input type="checkbox" data-up="drone" data-name="4K Aerial Drone Upgrade" data-price="150" data-for="brand campaign"><div><strong>4K Aerial Drone Upgrade</strong><span>FAA Part 107 certified and insured aerial footage.</span></div><b>+$150</b></label>
+                        <label class="bc-up"><input type="checkbox" data-up="reel1" data-name="Vertical Social Reel Upgrade" data-price="75" data-for="brand campaign"><div><strong>Vertical Social Reel Upgrade</strong><span>One 9:16 cut for Instagram, TikTok and Shorts.</span></div><b>+$75</b></label>
+                        <label class="bc-up"><input type="checkbox" data-up="reel3" data-name="Vertical Social Reels Upgrade (3-pack)" data-price="199" data-for="brand campaign"><div><strong>Vertical Social Reels Upgrade (3-pack)</strong><span>Three 9:16 cuts to roll out over a few weeks.</span></div><b>+$199</b></label>
+                        <label class="bc-up"><input type="checkbox" data-up="raw" data-name="Raw Footage Upgrade" data-price="100" data-for="brand campaign"><div><strong>Raw Footage Upgrade</strong><span>The unedited, high-bitrate files alongside your finished cut.</span></div><b>+$100</b></label>
+                        <label class="bc-up"><input type="checkbox" data-up="rush" data-name="Rush 24-Hour Turnaround Upgrade" data-price="125" data-for="brand campaign"><div><strong>Rush 24-Hour Turnaround Upgrade</strong><span>Your finished film within 24 hours of the shoot.</span></div><b>+$125</b></label>
+            </div>
+            <aside class="bc-estimate" aria-live="polite">
+                <h3>Your estimate</h3>
+                <ul data-est-lines></ul>
+                <div class="bc-estimate-total"><span data-est-label>Estimate</span><strong data-est-total>$0</strong></div>
+                <a class="bc-btn bc-btn-gold" data-est-go href="quote.html?goal=commercial">Build this exact quote</a>
+                <p>Brand films and campaigns take a 40% deposit to lock your date. Retainers are billed monthly.</p>
+            </aside>
+        </div>
+        <p class="bc-contact-line" style="margin-top: 36px;">Rather talk it through? Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><span class="bc-sep" aria-hidden="true">|</span>Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><span class="bc-sep" aria-hidden="true">|</span><a href="index.html#contact">Check our dates</a></p>
     </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="social-links">
-                <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg>
-                </a>
-                <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>
-                </a>
-                <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok">
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg>
-                </a>
-                <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube">
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg>
-                </a>
+    <footer class="bc-footer">
+        <div class="bc-wrap">
+            <div class="bc-footer-grid">
+                <div>
+                    <div class="bc-footer-brand"><img src="share-preview.jpg" alt="" width="48" height="48"><strong>BASELINE CINEMATIC</strong></div>
+                    <p>Drone and ground video for businesses, churches and listings across Central Illinois. Based in Pekin, serving Peoria and everywhere within 50 miles at no travel fee.</p>
+                    <div class="bc-social">
+                        <a href="https://www.facebook.com/profile.php?id=61591572504349" data-href-field="social.facebookHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22 12.06C22 6.53 17.52 2 12 2S2 6.53 2 12.06c0 5 3.66 9.13 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.81 8.44-4.94 8.44-9.94z"/></svg></a>
+                        <a href="https://www.instagram.com/baselinecinematic" data-href-field="social.instagramHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a>
+                        <a href="https://www.tiktok.com/@baseline.cinemati" data-href-field="social.tiktokHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.6 2h-3.2v13.9a3.1 3.1 0 1 1-2.2-2.97v-3.28a6.3 6.3 0 1 0 5.4 6.25V9.1a7.9 7.9 0 0 0 4.5 1.4V7.3a4.7 4.7 0 0 1-4.5-4.7V2z"/></svg></a>
+                        <a href="https://www.youtube.com/@BaselineCinematic" data-href-field="social.youtubeHref" target="_blank" rel="noopener" aria-label="Baseline Cinematic on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5.5" width="19" height="13" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M10.2 8.7l6 3.3-6 3.3z" fill="currentColor"/></svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h2>Get in touch</h2>
+                    <p class="footer-phones bc-footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><br>Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
+                    <p><a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a><br><a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a></p>
+                </div>
+                <div>
+                    <h2>Explore</h2>
+                    <ul>
+                        <li><a href="index.html#portfolio">Portfolio</a></li>
+                        <li><a href="quote.html">Build a Quote</a></li>
+                        <li><a href="peoria-video-production.html">Peoria Video Production</a></li>
+                        <li><a href="prep.html">Shoot Prep Checklist</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
             </div>
-            <p class="footer-phones">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a> <span aria-hidden="true">|</span> Text: <a href="sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a></p>
-            <div class="footer-links">
-                <a href="mailto:michael@baselinecinematic.com" data-field="business.email" data-href-field="business.emailHref">michael@baselinecinematic.com</a>
-                <a href="mailto:judith@baselinecinematic.com" data-field="business.emailJudith" data-href-field="business.emailJudithHref">judith@baselinecinematic.com</a>
-                <a href="#portfolio">View Portfolio</a>
-                <a href="peoria-video-production.html">Peoria Video Production</a>
-                <a href="prep.html">Shoot Prep Checklist</a>
-            </div>
+            <p class="bc-footer-legal">&copy; 2026 Baseline Cinematic LLC. All rights reserved. FAA Part 107 certified &amp; insured.</p>
         </div>
-        <p>&copy; 2026 Baseline Cinematic. All rights reserved.</p>
     </footer>
 
     <script>
@@ -912,71 +908,10 @@
             appearOnScroll.observe(fader);
         });
 
-        // --- Form Background Submit Script (Kills the white "Accepted" screen) ---
-        const form = document.getElementById('lead-gen-form');
-        const successMessage = document.getElementById('success-message');
-
-        if(form && successMessage) {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault(); 
-                const formData = new FormData(form);
-                
-                fetch(form.action, {
-                    method: 'POST',
-                    body: formData
-                }).then(response => {
-                    if(response.ok) {
-                        if (window.trackLead) { window.trackLead(form); } // counts the lead in Google Analytics
-                        form.style.display = 'none'; 
-                        successMessage.style.display = 'block'; 
-                    } else {
-                        alert("There was an issue submitting your request. Please call (309) 863-5181 or text (309) 863-5089.");
-                    }
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert("There was an issue submitting your request. Please call (309) 863-5181 or text (309) 863-5089.");
-                });
-            });
-        }
-
-        // --- Hamburger Menu Script ---
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navLinks = document.getElementById('nav-links');
-        const servicesBtn = document.getElementById('services-btn');
-        const servicesDropdown = document.getElementById('services-dropdown');
-        const menuAnchorLinks = document.querySelectorAll('.nav-links a');
-
-        if(mobileMenu && navLinks) {
-            mobileMenu.addEventListener('click', () => {
-                navLinks.classList.toggle('nav-active');
-            });
-        }
-        
-        if(servicesBtn && servicesDropdown) {
-            servicesBtn.addEventListener('click', (e) => {
-                if(window.innerWidth <= 768) {
-                    e.preventDefault();
-                    servicesDropdown.style.display = servicesDropdown.style.display === 'block' ? 'none' : 'block';
-                }
-            });
-        }
-
-        // Auto-close the mobile menu when any link is clicked
-        if(menuAnchorLinks.length > 0) {
-            menuAnchorLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if(window.innerWidth <= 768) {
-                        navLinks.classList.remove('nav-active');
-                        if(servicesDropdown) {
-                            servicesDropdown.style.display = 'none'; 
-                        }
-                    }
-                });
-            });
-        }
     </script>
+    <script src="site-nav.js"></script>
+    <script src="upgrades.js"></script>
     <script src="site-render.js"></script>
     <script src="lead-tracking.js"></script>
-    <script src="floating-cta.js"></script>
 </body>
 </html>
