@@ -1000,3 +1000,73 @@ html.bc-ba-dialog-open, html.bc-ba-dialog-open body { overflow: hidden; }
 .bc-ba-dialog-body.is-single { grid-template-columns: minmax(0, 420px); justify-content: center; }
 
 .bc-ba-cta { margin: clamp(26px, 3.5vw, 36px) 0 0; text-align: center; }
+
+/* ------------------------------------------------------------------ */
+/* 13. Real Estate: aerial photo mosaic + featured film                */
+/*     Feature tile (2x2), six standard tiles and one wide tile on a   */
+/*     4-column grid; captions on a soft gradient; lightbox from       */
+/*     gallery-lightbox.js (.photo-gallery .photo-tile img).           */
+/* ------------------------------------------------------------------ */
+.bc-aerial-sec { border-top: 1px solid rgba(212, 175, 55, 0.3); }
+.bc-aerial-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 48px; align-items: end; margin-bottom: clamp(28px, 4vw, 44px); }
+.bc-aerial-head .bc-h2 { margin: 0; max-width: 14ch; }
+.bc-aerial-head .bc-lead { margin: 0; color: var(--bc-cinema-mute); }
+.photo-gallery.bc-aerials {
+    display: grid; max-width: none; margin: 0;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-auto-rows: clamp(150px, 15.5vw, 215px);
+    gap: clamp(8px, 1vw, 14px);
+}
+.bc-aerials .photo-tile.bc-aerial {
+    position: relative; aspect-ratio: auto; margin: 0; border-radius: 14px; overflow: hidden;
+    background: #0d0e10; border: 1px solid rgba(212, 175, 55, 0.22);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.bc-aerials .photo-tile.is-feature { grid-column: span 2; grid-row: span 2; }
+.bc-aerials .photo-tile.is-wide { grid-column: span 2; }
+.bc-aerials .photo-tile img {
+    width: 100%; height: 100%; max-width: none; object-fit: cover; display: block;
+    transition: transform 0.9s cubic-bezier(.2, .7, .2, 1), filter 0.4s ease; filter: saturate(1.04) contrast(1.02);
+}
+.bc-aerials .photo-tile:hover { border-color: rgba(232, 205, 120, 0.7); box-shadow: 0 22px 50px rgba(0, 0, 0, 0.45); }
+.bc-aerials .photo-tile:hover img { transform: scale(1.05); filter: saturate(1.12) contrast(1.04); }
+.bc-aerials .photo-tile figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none;
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    padding: 34px 16px 13px;
+    background: linear-gradient(to top, rgba(9, 10, 12, 0.82), rgba(9, 10, 12, 0));
+    font-family: 'Inter', system-ui, sans-serif;
+}
+.bc-aerials .photo-tile figcaption strong { font: 700 0.92rem/1.2 'Montserrat', sans-serif; color: #f5f2eb; }
+.bc-aerials .photo-tile figcaption span { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: #e8cd78; }
+.bc-aerials .photo-tile.is-feature figcaption { padding: 60px 22px 20px; }
+.bc-aerials .photo-tile.is-feature figcaption strong { font-size: clamp(1.05rem, 1.8vw, 1.4rem); }
+.bc-aerial-hint { margin: 16px 2px 0; font-size: 0.82rem; color: #8f8a7f; }
+
+.bc-film-sec { padding-top: 0; }
+.bc-film { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
+.bc-film-copy .bc-h2 { max-width: 16ch; }
+.bc-film-copy .bc-lead { margin-bottom: 0; color: var(--bc-cinema-mute); }
+.bc-film-frame {
+    position: relative; aspect-ratio: 16 / 9; border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.4); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5); background: #0b0c0e;
+}
+.bc-film-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+
+@media (max-width: 960px) {
+    .bc-aerial-head, .bc-film { grid-template-columns: minmax(0, 1fr); }
+    .photo-gallery.bc-aerials { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: clamp(130px, 30vw, 230px); }
+}
+@media (max-width: 640px) {
+    .photo-gallery.bc-aerials { grid-auto-rows: 38vw; gap: 8px; }
+    .bc-aerials .photo-tile.bc-aerial { border-radius: 10px; }
+    .bc-aerials .photo-tile figcaption { padding: 26px 10px 9px; gap: 2px 8px; }
+    .bc-aerials .photo-tile figcaption strong { font-size: 0.8rem; }
+    .bc-aerials .photo-tile figcaption span { display: none; }
+    .bc-aerials .photo-tile.is-feature figcaption span { display: inline; font-size: 0.62rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .bc-aerials .photo-tile img { transition: none; }
+    .bc-aerials .photo-tile:hover img { transform: none; }
+}
