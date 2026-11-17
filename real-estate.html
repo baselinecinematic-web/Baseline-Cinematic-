@@ -277,7 +277,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: radial-gradient(70% 60% at 50% 50%, rgba(0,0,0,0.42), rgba(0,0,0,0.2) 70%), linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.5));
             z-index: 2;
         }
         .hero-content { 
@@ -701,8 +701,10 @@
     </div>
 
     <header>
-        <video autoplay muted loop playsinline poster="hero-poster.jpg" class="hero-video">
-            <source src="hero-reel.mp4" type="video/mp4">
+        <!-- Hero: 1920 Susan Hope Drive, Pekin. 22-second loop cut in DaVinci Resolve (Speed Warp ramps, push-ins, warm grade). -->
+        <video autoplay muted loop playsinline preload="auto" poster="re-hero-poster.jpg" class="hero-video" aria-label="Video tour of 1920 Susan Hope Drive, a lakefront home in Pekin, Illinois">
+            <source src="re-hero-720.mp4" type="video/mp4" media="(max-width: 820px)">
+            <source src="re-hero-1080.mp4" type="video/mp4">
         </video>
         
         <div class="overlay"></div>
@@ -793,51 +795,45 @@
         </div>
     </section>
 
-    <section id="portfolio">
-        <h2 class="fade-in">Real Estate Property Tours</h2>
-
-        <!-- REAL ESTATE VIDEO 1: LAKEFRONT -->
-        <div class="portfolio-video-wrapper fade-in">
-            <div class="portfolio-text">
-                <h3>Inside a Hidden Lakefront Oasis in Pekin, IL</h3>
-                <p>Showcasing our seamless aerial-to-ground transitions and 10-bit color grading, this private lakefront property tour demonstrates how we can make any listing feel expansive and luxurious.</p>
+    <!-- AERIAL PHOTOGRAPHY (Michael's stills). Tap a photo: gallery-lightbox.js. Styles: site-v2.css section 13 -->
+    <div class="bc-sec s-cinema bc-aerial-sec" id="aerial-gallery" role="region" aria-labelledby="aerial-gallery-h">
+        <div class="bc-wrap">
+            <div class="bc-aerial-head">
+                <div>
+                    <span class="bc-ba-eyebrow">Aerial Photography &bull; FAA Part 107 Certified</span>
+                    <h2 class="bc-h2" id="aerial-gallery-h">Every Listing, From the Air.</h2>
+                </div>
+                <p class="bc-lead">High-resolution aerial stills come with every property video, so buyers see the lot, the roofline and the neighborhood before they ever schedule a showing.</p>
             </div>
-            <div class="iframe-container">
-                <iframe src="https://www.youtube.com/embed/uyRREsG8igk?rel=0" title="Inside a Hidden Lakefront Oasis in Pekin, IL" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            <div class="photo-gallery bc-aerials">
+                    <figure class="photo-tile bc-aerial is-feature"><img src="aerial-estate-front.jpg" alt="Aerial view of a red-tile-roof Tudor estate with striped lawn and circular drive in Peoria, Illinois" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Aerial view of a red-tile-roof Tudor estate with striped lawn and circular drive in Peoria, Illinois"><figcaption><strong>Tudor Estate</strong><span>Peoria</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial "><img src="aerial-estate-golf.jpg" alt="Drone view of a red-roof estate with a golf course stretching out behind it in Peoria" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Drone view of a red-roof estate with a golf course stretching out behind it in Peoria"><figcaption><strong>Estate &amp; Fairways</strong><span>Peoria</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial "><img src="aerial-estate-top.jpg" alt="Top-down aerial of an estate roofline, circular drive and manicured grounds" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Top-down aerial of an estate roofline, circular drive and manicured grounds"><figcaption><strong>Roofline &amp; Grounds</strong><span>Top-down</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial "><img src="aerial-clubhouse-golf.jpg" alt="Aerial view of a Peoria golf clubhouse and fairways with the Illinois River in the distance" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Aerial view of a Peoria golf clubhouse and fairways with the Illinois River in the distance"><figcaption><strong>Clubhouse &amp; River</strong><span>Peoria</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial "><img src="aerial-marina.jpg" alt="Aerial view of a marina and boat slips on the Illinois River near Peoria" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Aerial view of a marina and boat slips on the Illinois River near Peoria"><figcaption><strong>Marina</strong><span>Illinois River</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial is-wide"><img src="aerial-river-bluff.jpg" alt="Drone view along the bluff toward the Illinois River and marina" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Drone view along the bluff toward the Illinois River and marina"><figcaption><strong>River Bluff</strong><span>Peoria</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial "><img src="aerial-river-boat.jpg" alt="Boat cruising the Illinois River with a bridge in the distance, aerial view" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Boat cruising the Illinois River with a bridge in the distance, aerial view"><figcaption><strong>On the River</strong><span>Illinois River</span></figcaption></figure>
+                    <figure class="photo-tile bc-aerial "><img src="aerial-sandbar.jpg" alt="Illinois River sandbar and marshland seen from a drone" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo: Illinois River sandbar and marshland seen from a drone"><figcaption><strong>Sandbar &amp; Marsh</strong><span>Illinois River</span></figcaption></figure>
+            </div>
+            <p class="bc-aerial-hint">Tap any photo to view it full screen.</p>
+        </div>
+    </div>
+
+    <!-- FEATURED PROPERTY FILM (one video) -->
+    <div class="bc-sec s-cinema bc-film-sec" id="portfolio" role="region" aria-labelledby="portfolio-h">
+        <div class="bc-wrap">
+            <div class="bc-film">
+                <div class="bc-film-copy">
+                    <span class="bc-ba-eyebrow">Featured Film &bull; Historic Peoria</span>
+                    <h2 class="bc-h2" id="portfolio-h">150-Year-Old Mansions, From the Air.</h2>
+                    <p class="bc-lead">Century-old architecture across Peoria&rsquo;s historic neighborhoods, flown and graded the same way we film every listing.</p>
+                </div>
+                <div class="bc-film-frame">
+                    <iframe loading="lazy" src="https://www.youtube.com/embed/lOHeRYUJ5iU?rel=0&amp;modestbranding=1" title="Exploring 150-Year-Old Mansions You Didn't Know Existed in Peoria!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                </div>
             </div>
         </div>
-
-        <!-- REAL ESTATE VIDEO 2: LUXURY ESTATE -->
-        <div class="portfolio-video-wrapper fade-in">
-            <div class="portfolio-text">
-                <h3>Luxury Estate Aerial Showcase</h3>
-                <p>A cinematic flight highlighting grand architecture and sweeping landscapes. Featuring buttery-smooth tracking and precision color grading to elevate high-end properties.</p>
-            </div>
-            <div class="iframe-container">
-                <iframe src="https://www.youtube.com/embed/oRcIXcG3-tU?rel=0" title="Luxury Estate Aerial Showcase" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>
-
-        <!-- REAL ESTATE VIDEO 3: MANSIONS -->
-        <div class="portfolio-video-wrapper fade-in">
-            <div class="portfolio-text">
-                <h3>Exploring 150-Year-Old Mansions in Peoria!</h3>
-                <p>A stunning aerial showcase highlighting the timeless architecture found throughout Peoria's luxury residential neighborhoods. Perfect for showcasing neighborhood amenities and property lines.</p>
-            </div>
-            <div class="iframe-container">
-                <iframe src="https://www.youtube.com/embed/lOHeRYUJ5iU?rel=0" title="Exploring 150-Year-Old Mansions You Didn't Know Existed in Peoria!" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- AERIAL STILLS (Grandview Drive, Peoria) -->
-    <section id="aerial-gallery" class="section-alt">
-        <h2 class="fade-in">Listing Photography From the Air</h2>
-        <p class="photo-gallery-intro fade-in">Every property gets high-resolution aerial stills along with the video, so the listing shows the lot, the roofline and the neighborhood. Tap a photo to open it, then swipe or use the arrows to see more.</p>
-        <div class="photo-gallery full fade-in"><figure class="photo-tile"><img src="aerial-estate-front.jpg" alt="Aerial view of a red-tile-roof Tudor estate with striped lawn and circular drive in Peoria, Illinois" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-estate-golf.jpg" alt="Drone view of a red-roof estate with a golf course stretching out behind it in Peoria" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-estate-top.jpg" alt="Top-down aerial of an estate roofline, circular drive and manicured grounds" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-clubhouse-golf.jpg" alt="Aerial view of a Peoria golf clubhouse and fairways with the Illinois River in the distance" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-marina.jpg" alt="Aerial view of a marina and boat slips on the Illinois River near Peoria" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-river-bluff.jpg" alt="Drone view along the bluff toward the Illinois River and marina" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure></div><div class="gallery-extras" hidden><img data-src="aerial-river-boat.jpg" alt="Boat cruising the Illinois River with a bridge in the distance, aerial view"><img data-src="aerial-sandbar.jpg" alt="Illinois River sandbar and marshland seen from a drone"></div>
-    </section>
-
+    </div>
 
     <!-- CLIENT REVIEWS (copied word-for-word from Google) -->
     <section id="reviews" class="s-paper-band">
