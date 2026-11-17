@@ -539,7 +539,7 @@ section.s-paper-band .faq-item h3 { color: var(--bc-ink); }
 .s-paper .bc-msg.is-error, .s-paper-band .bc-msg.is-error { background: rgba(140, 30, 20, 0.1); border-color: #8a2a20; color: #4f140c; }
 
 /* ------------------------------------------------------------------ */
-/* 10. "Build a Quote" button: the one call-to-action used site-wide   */
+/* 10. "Ready to Be Seen" button: the one call-to-action used site-wide */
 /*     Warm metallic gold fill, crisp charcoal text, on every surface. */
 /*     Every one links to quote.html (with ?service= where it helps).  */
 /* ------------------------------------------------------------------ */

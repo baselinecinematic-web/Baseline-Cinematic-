@@ -21,5 +21,5 @@
         });
     });
 
-    // Booking now happens only on the Build a Quote page (quote.html + quote-builder.js).
+    // Booking now happens only on the quote page (quote.html + quote-builder.js).
 })();

@@ -1,7 +1,7 @@
 // Golden Cinema Ticket (the gold-rimmed promo pass right above the footer).
 //   - "Copy Code" button copies the promo code (BASELINE75) and confirms on screen
 //   - Sends ticket_code_copy / ticket_quote_click events to Google Analytics
-// The ticket's Build a Quote button links to quote.html?promo=BASELINE75, where the
+// The ticket's Ready to Be Seen button links to quote.html?promo=BASELINE75, where the
 // quote builder switches on the free vertical reel automatically.
 // Markup + styles: .bc-ticket in site-v2.css (section 11). Load at the end of <body>.
 (function () {
@@ -43,7 +43,7 @@
                 copyText(code).then(function () {
                     btn.classList.add('is-copied');
                     if (label) label.textContent = 'Copied';
-                    if (status) status.textContent = code + ' copied. Tap Build a Quote and it\'s applied for you.';
+                    if (status) status.textContent = code + ' copied. Tap Ready to Be Seen and it\'s applied for you.';
                     track('ticket_code_copy', { promo_code: code });
                 }, function () {
                     if (status) status.textContent = 'Couldn\'t copy. Your code is ' + code + '.';
