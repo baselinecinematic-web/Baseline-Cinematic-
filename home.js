@@ -1,18 +1,6 @@
-// Baseline Cinematic homepage: before/after slider and click-to-play videos.
+// Baseline Cinematic homepage: click-to-play videos. (Proof sliders: proof-slider.js)
 (function () {
     'use strict';
-
-    /* ---------- Before / after slider ---------- */
-    var cmp = document.getElementById('bc-compare');
-    if (cmp) {
-        var range = cmp.querySelector('input[type=range]'), used = false;
-        var set = function (v) { cmp.style.setProperty('--pos', v + '%'); };
-        range.addEventListener('input', function () {
-            set(range.value);
-            if (!used) { used = true; if (typeof window.gtag === 'function') window.gtag('event', 'difference_slider_used'); }
-        });
-        set(range.value);
-    }
 
     /* ---------- Featured work: show a thumbnail, load YouTube only when played ---------- */
     document.querySelectorAll('.bc-yt[data-yt]').forEach(function (btn) {
