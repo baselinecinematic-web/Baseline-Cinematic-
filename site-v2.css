@@ -320,6 +320,33 @@ div.bc-outcome p:last-child { margin-bottom: 0; }
 .bc-page-head { padding: calc(var(--nav-h) + 56px) 0 56px; }
 .bc-page-head h1 { font: 800 clamp(2.1rem, 5vw, 3.6rem)/1.06 'Montserrat', sans-serif; margin: 0 0 12px; letter-spacing: -0.01em; max-width: 18ch; }
 .bc-page-head p { color: var(--bc-cinema-mute); font-size: 1.12rem; margin: 0; max-width: 54ch; }
+/* Editorial page header on paper (no video) */
+.bc-page-head.s-paper { padding-bottom: 44px; }
+.bc-page-head.s-paper h1 { max-width: 16ch; }
+.bc-page-head.s-paper p { color: var(--bc-ink-2); font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.5; max-width: 50ch; }
+.bc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Proof ledger: who / the number / how to check it */
+.bc-proof { border-top: 2px solid var(--bc-ink); margin-top: 28px; }
+.bc-proof-row { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.15fr) minmax(0, 1.25fr); gap: 20px 40px; padding: 34px 0; border-bottom: 1px solid #d9d4c9; align-items: start; }
+.bc-proof-who h3 { font: 800 1.25rem/1.2 'Montserrat', sans-serif; margin: 0 0 4px; }
+.bc-proof-who p { margin: 0; color: var(--bc-ink-2); }
+.bc-proof-num { font: 800 clamp(2rem, 4vw, 2.9rem)/1 'Montserrat', sans-serif; letter-spacing: -0.01em; margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.bc-proof-num span[aria-hidden] { color: var(--bc-gold); }
+.bc-proof-unit { margin: 6px 0 12px; font-weight: 700; color: var(--bc-gold-ink); }
+.bc-proof-fact p:last-child { margin: 0; color: var(--bc-ink-2); line-height: 1.55; }
+.bc-proof-verify { margin: 0; padding-left: 22px; border-left: 3px solid var(--bc-gold); }
+.bc-proof-verify blockquote { margin: 0 0 10px; line-height: 1.55; color: var(--bc-ink); }
+.bc-proof-verify figcaption { color: var(--bc-ink-2); font-size: 0.9rem; font-weight: 600; }
+.bc-proof-verify p { margin: 0 0 14px; color: var(--bc-ink); line-height: 1.55; }
+.bc-proof-verify .bc-stars { margin-bottom: 8px; }
+
+/* Numbered pillars */
+.bc-pillars { list-style: none; counter-reset: pillar; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; }
+.bc-pillars li { counter-increment: pillar; border-top: 2px solid var(--bc-ink); padding-top: 18px; }
+.bc-pillars li::before { content: counter(pillar); display: block; font: 800 2.2rem/1 'Montserrat', sans-serif; color: var(--bc-gold-ink); margin-bottom: 14px; }
+.bc-pillars h3 { font: 800 1.2rem/1.25 'Montserrat', sans-serif; margin: 0 0 10px; }
+.bc-pillars p { margin: 0; color: var(--bc-ink-2); line-height: 1.6; }
 .bc-why { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
 .bc-why-text p { font-size: clamp(1.08rem, 1.5vw, 1.22rem); line-height: 1.65; margin: 0 0 16px; max-width: 58ch; }
 .bc-why figure { margin: 0; }
@@ -431,6 +458,9 @@ section.s-paper-band .bc-pkg-flag { color: #121417; }
 @media (max-width: 960px) {
     .bc-outcomes, .bc-outcomes.is-4, .bc-reviews { grid-template-columns: 1fr; }
     .bc-book, .bc-why, .bc-family, .bc-upgrades { grid-template-columns: 1fr; }
+    .bc-proof-row, .bc-pillars { grid-template-columns: 1fr; }
+    .bc-proof-row { gap: 18px; padding: 28px 0; }
+    .bc-pillars { gap: 28px; }
     .bc-estimate { position: static; }
     .bc-footer-grid { grid-template-columns: 1fr 1fr; }
     .bc-footer-grid > div:first-child { grid-column: 1 / -1; }
