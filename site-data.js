@@ -110,7 +110,7 @@ window.SITE_DATA = {
     },
     pricing: {
       question: "How much does a real estate video cost?",
-      answer: "Our Cinematic Property Tour is {{pricing.realEstate.tourRegularDisplay}}, an Aerial-Only Showcase is {{pricing.realEstate.aerialOnlyDisplay}}, and a vertical social reel upgrade is {{pricing.realEstate.verticalUpgradeDisplay}}. Commercial brand profiles start at {{pricing.commercial.brandProfileDisplay}}. Every price is listed up front in our quote builder. No surprise fees."
+      answer: "Our Cinematic Property Tour is {{pricing.realEstate.tourRegularDisplay}}, an Aerial-Only Showcase is {{pricing.realEstate.aerialOnlyDisplay}}, and a vertical social reel enhancement is {{pricing.realEstate.verticalUpgradeDisplay}}. Commercial brand profiles start at {{pricing.commercial.brandProfileDisplay}}. Every price is listed up front in our quote builder. No surprise fees."
     },
     payment: {
       question: "How do I pay? Is a deposit required?",

@@ -97,14 +97,14 @@
 
     <!-- STEP 3 -->
     <fieldset class="bq-step" id="step-3">
-        <legend class="bq-visually-hidden">Step 3: available upgrades and location</legend>
-        <div class="bq-step-head"><span class="bq-num" aria-hidden="true">3</span><h2>Available upgrades &amp; location</h2></div>
-        <p class="bq-step-lead">Pick only the upgrades you'll use. Every change shows up in your quote right away.</p>
+        <legend class="bq-visually-hidden">Step 3: enhancements and location</legend>
+        <div class="bq-step-head"><span class="bq-num" aria-hidden="true">3</span><h2>Enhance your film &amp; location</h2></div>
+        <p class="bq-step-lead">Elevate your package with only the enhancements you'll use. Every change shows up in your quote right away.</p>
 
         <div class="bq-opts">
             <div class="bq-opt" id="opt-drone">
                 <div>
-                    <div class="bq-opt-title">4K Aerial Drone Upgrade <b data-bq="droneLabel">+$150</b></div>
+                    <div class="bq-opt-title">4K Aerial Drone Enhancement <b data-bq="droneLabel">+$150</b></div>
                     <p class="bq-opt-desc" id="opt-drone-desc">Aerial footage flown by an FAA Part 107 certified, insured pilot and matched to your ground shots.</p>
                 </div>
                 <label class="bq-switch" id="opt-drone-switch"><input type="checkbox" id="bq-drone" aria-label="Add 4K aerial drone"><i></i></label>
@@ -113,7 +113,7 @@
 
             <div class="bq-opt" id="opt-reels">
                 <div class="bq-opt-wide">
-                    <div class="bq-opt-title">Vertical Social Reel Upgrade</div>
+                    <div class="bq-opt-title">Vertical Social Reel Enhancement</div>
                     <p class="bq-opt-desc">9:16 cuts of your shoot, edited for Instagram, TikTok and YouTube Shorts.</p>
                     <div class="bq-seg" role="radiogroup" aria-label="Vertical social reels">
                         <label><input type="radio" name="bq-reels" value="0" checked><span>None</span></label>
@@ -140,7 +140,7 @@
 
         <div class="bq-opt" id="opt-raw">
                 <div>
-                    <div class="bq-opt-title">Raw Footage Upgrade <b data-bq="rawLabel">+$100</b></div>
+                    <div class="bq-opt-title">Raw Footage Enhancement <b data-bq="rawLabel">+$100</b></div>
                     <p class="bq-opt-desc">The unedited, high-bitrate files, delivered alongside your finished cut.</p>
                 </div>
                 <label class="bq-switch"><input type="checkbox" id="bq-raw" aria-label="Add raw footage delivery"><i></i></label>
@@ -148,7 +148,7 @@
 
             <div class="bq-opt" id="opt-rush">
                 <div>
-                    <div class="bq-opt-title">Rush 24-Hour Turnaround Upgrade <b data-bq="rushLabel">+$125</b></div>
+                    <div class="bq-opt-title">Rush 24-Hour Turnaround Enhancement <b data-bq="rushLabel">+$125</b></div>
                     <p class="bq-opt-desc">Your finished film within 24 hours of the shoot. Standard delivery is <span data-bq="turnaround">1–2 business days</span>.</p>
                 </div>
                 <label class="bq-switch"><input type="checkbox" id="bq-rush" aria-label="Add rush 24-hour turnaround"><i></i></label>
@@ -376,19 +376,19 @@
             includes: ['High-resolution 4K drone exterior', 'Lot lines', 'Neighborhood context']
         },
         starter: {
-            name: 'Starter Retainer', price: PRICE.starter, monthly: true, deposit: null, drone: 'none',
+            name: 'Elevate Retainer', price: PRICE.starter, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'A steady presence without the stress.',
             includes: ['4 Reels a month', 'Monthly on-site filming and editing']
         },
         growth: {
-            name: 'Growth Retainer Upgrade', price: PRICE.growth, monthly: true, deposit: null, drone: 'none',
+            name: 'Ascend Retainer', price: PRICE.growth, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'More Reels, plus a cut for your website.',
             includes: ['6 Reels a month', '1 horizontal web cut', 'Monthly on-site filming and editing']
         },
         partner: {
-            name: 'Full Partner Retainer Upgrade', price: PRICE.partner, monthly: true, deposit: null, drone: 'none',
+            name: 'The Pinnacle Retainer', price: PRICE.partner, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'A hero film and a full month of social, every month.',
             includes: ['1 hero cut a month', '8 Reels a month', 'Monthly on-site filming and editing']
@@ -404,7 +404,7 @@
     var GOALS = {
         commercial: { label: 'Business & Commercial', packages: ['brand', 'campaign'], lead: 'Both are custom-scoped, so the price shown is where each one starts.' },
         realestate: { label: 'Real Estate Listing', packages: ['tour', 'aerial'], lead: 'Flat prices. Every real estate video comes with an unbranded copy for the MLS.' },
-        retainer:   { label: 'Monthly Social Retainer', packages: ['starter', 'growth', 'partner'], lead: 'Start with the Starter plan, or upgrade to Growth or Full Partner. We come to you, film on-site and handle the edit.' },
+        retainer:   { label: 'Monthly Social Retainer', packages: ['starter', 'growth', 'partner'], lead: 'Start with Elevate, ascend to more Reels and a web cut, or reach The Pinnacle with a monthly hero film. We come to you, film on-site and handle the edit.' },
         event:      { label: 'Event Coverage', packages: ['event'], lead: 'One package, priced from the size and length of your event.' }
     };
     var GOAL_ALIASES = { business: 'commercial', brand: 'commercial', 'real-estate': 'realestate', realtor: 'realestate', listing: 'realestate', social: 'retainer', events: 'event', church: 'event' };
@@ -442,13 +442,13 @@
         if (promoOn) add('Founding Client Rate', p.promoPrice - p.price, 'discount');
 
         if (!monthly) {
-            if (p.drone === 'upgrade' && s.drone) add('4K Aerial Drone Upgrade', PRICE.drone);
-            if (s.reels === 1) add('Vertical Social Reel Upgrade (1 cut)', PRICE.reel1);
-            if (s.reels === 3) add('Vertical Social Reels Upgrade (3-pack)', PRICE.reel3);
+            if (p.drone === 'upgrade' && s.drone) add('4K Aerial Drone Enhancement', PRICE.drone);
+            if (s.reels === 1) add('Vertical Social Reel Enhancement (1 cut)', PRICE.reel1);
+            if (s.reels === 3) add('Vertical Social Reels Enhancement (3-pack)', PRICE.reel3);
             var voucherOk = FIRST_TIME_REEL_PROMO_ACTIVE_ && s.voucher && s.reels > 0 && (ALLOW_PROMO_WITH_VOUCHER || !promoOn);
             if (voucherOk) { add('First-time client reel voucher', -PRICE.reel1, 'discount'); voucherRequested = true; }
-            if (s.raw) add('Raw Footage Upgrade', PRICE.raw);
-            if (s.rush) add('Rush 24-Hour Turnaround Upgrade', PRICE.rush);
+            if (s.raw) add('Raw Footage Enhancement', PRICE.raw);
+            if (s.rush) add('Rush 24-Hour Turnaround Enhancement', PRICE.rush);
         }
 
         var t = TRAVEL[s.travel] || TRAVEL.z0;
@@ -910,7 +910,7 @@
     if (FIRST_TIME_REEL_PROMO_ACTIVE_ && params.get('voucher') === '1') { state.voucher = true; state.reels = 1; }
     if (params.get('promo')) applyCode(params.get('promo'), true);
     if (!(wanted && setGoal(wanted))) render();
-    // From the service pages' "Available Upgrades" picker: &pkg=brand&up=drone,reel1,raw,rush
+    // From links that preselect enhancements: &pkg=brand&up=drone,reel1,raw,rush
     (function () {
         var pkg = (params.get('pkg') || '').toLowerCase(), ups = (params.get('up') || '').toLowerCase().split(',');
         if (!state.goal) return;
@@ -920,7 +920,7 @@
         if (ups.indexOf('raw') > -1) state.raw = true;
         if (ups.indexOf('rush') > -1) state.rush = true;
         if (ups.indexOf('voiceover') > -1 && form.elements.message && !form.elements.message.value) {
-            form.elements.message.value = 'Please include a quote for the Licensed Commercial Voiceover / Music Upgrade.';
+            form.elements.message.value = 'Please include a quote for the Licensed Commercial Voiceover / Music Enhancement.';
         }
         if (pkg || params.get('up')) render();
     })();
