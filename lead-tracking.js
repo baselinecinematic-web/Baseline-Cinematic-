@@ -4,7 +4,7 @@
 //
 // Events it sends:
 //   generate_lead  - the contact form was sent successfully (the page's own
-//                    form script calls trackLead(form) once Make.com accepts it)
+//                    form script calls trackLead(form) once Formspree accepts it)
 //   phone_click    - someone tapped a phone number link
 //   email_click    - someone tapped an email link
 //   sms_click      - someone tapped the texting number
@@ -43,7 +43,7 @@
 
   // Called by the page's form script after a successful send.
   window.trackLead = function (form) {
-    var service = form && form.querySelector('[name="service_needed"]');
+    var service = form && (form.querySelector('[name="service"]:checked') || form.querySelector('input[type="hidden"][name="service"]'));
     send('generate_lead', {
       form_id: (form && form.id) || 'lead-gen-form',
       link_location: form ? locationOf(form) : 'page',

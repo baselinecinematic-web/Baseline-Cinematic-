@@ -205,7 +205,7 @@
         <div class="bq-step-head"><span class="bq-num" aria-hidden="true">4</span><h2 id="step-4-h">Send your booking request</h2></div>
         <p class="bq-step-lead">Your itemized quote is attached automatically. Most bookings are confirmed within 24 hours.</p>
 
-        <form class="bq-form" id="bq-form" novalidate>
+        <form class="bq-form" id="bq-form" action="https://formspree.io/f/mwvdljwd" method="POST" novalidate>
             <div class="bq-field">
                 <label for="f-name">Name</label>
                 <input id="f-name" name="name" type="text" autocomplete="name" required>
@@ -228,14 +228,15 @@
             </div>
             <div class="bq-field is-full">
                 <label for="f-notes">Project notes <small>(optional)</small></label>
-                <textarea id="f-notes" name="notes" placeholder="Property address, what the business does, event schedule, anything we should know."></textarea>
+                <textarea id="f-notes" name="message" placeholder="Property address, what the business does, event schedule, anything we should know."></textarea>
             </div>
 
-            <input type="hidden" name="service_needed" id="f-service">
+            <input type="hidden" name="service" id="f-service">
             <input type="hidden" name="quote_total" id="f-total">
             <input type="hidden" name="quote_summary" id="f-summary">
             <input type="hidden" name="first_time_reel_voucher" id="f-voucher">
-            <input type="hidden" name="_subject" id="f-subject">
+            <input type="hidden" name="_subject" id="f-subject" value="New Baseline Cinematic Inquiry">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
             <input type="hidden" name="source" id="f-source" value="Quote configurator">
 
             <div class="bq-msg is-error" id="bq-error" role="alert" hidden></div>
@@ -275,12 +276,13 @@
        MORE SETTINGS
        ================================================================ */
 
-    // Where "Send booking request" posts the form: the same Make.com webhook the
-    // site's other forms use. Fields sent: name, business, email, phone, shoot_date,
-    // notes, service_needed, quote_total, quote_summary, first_time_reel_voucher,
-    // _subject, source. If this is ever left '' the button opens the visitor's
-    // email app with the quote addressed to Michael (CC Judith) instead.
-    var FORM_ENDPOINT = 'https://hook.us2.make.com/8j75tewx8yk48zpdt55ibo6lu4sfssly';
+    // Booking requests go to Formspree (which emails you), then are copied to the
+    // Make.com webhook (which emails the client a confirmation). Both addresses
+    // live in form-submit.js. Fields sent: name,
+    // business, email, phone, shoot_date, message, service, quote_total,
+    // quote_summary, first_time_reel_voucher, _subject, source. If form-submit.js
+    // isn't loaded, the button opens the visitor's email app with the quote instead.
+    var FORM_ENDPOINT = (window.BCForms && window.BCForms.endpoint) || '';
 
     var EMAIL_TO = 'michael@baselinecinematic.com';
     var EMAIL_CC = 'judith@baselinecinematic.com';
@@ -629,7 +631,7 @@
         $('f-summary').value = text;
         $('f-voucher').value = q.voucherField;
         $('f-source').value = 'Quote configurator on ' + (window.location.pathname || '/');
-        $('f-subject').value = 'Quote request: ' + q.pkg.name + ' (' + q.totalText + ')' + (f.name ? ' from ' + f.name : '');
+        $('f-subject').value = 'New Baseline Cinematic Inquiry: Quote request: ' + q.pkg.name + ' (' + q.totalText + ')' + (f.name ? ' from ' + f.name : '');
         $('bq-mailto').href = mailtoHref(q, f);
     }
 
@@ -688,7 +690,7 @@
     function formValues() {
         var o = {};
         ['name', 'business', 'email', 'phone', 'shoot_date', 'notes'].forEach(function (n) {
-            o[n] = (form.elements[n].value || '').trim();
+            o[n] = (form.elements[n === 'notes' ? 'message' : n].value || '').trim();
         });
         return o;
     }
@@ -743,9 +745,9 @@
         sendBtn.disabled = true;
         var originalLabel = sendBtn.textContent;
         sendBtn.textContent = 'Sending…';
-        fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
-            .then(function (r) {
-                if (!r.ok) throw new Error('bad response');
+        // Waits for Formspree's 200 OK before showing the confirmation (form-submit.js)
+        window.BCForms.send(form)
+            .then(function () {
                 if (window.trackLead) window.trackLead(form);
                 form.hidden = true;
                 form.style.display = 'none';
@@ -755,7 +757,7 @@
             .catch(function () {
                 sendBtn.disabled = false;
                 sendBtn.textContent = originalLabel;
-                showError("Your request didn't go through. Try again, use <strong>Email this quote</strong>, or call <a href=\"tel:+13098635181\">(309) 863-5181</a> / text <a href=\"sms:+13098635089?&body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot.\">(309) 863-5089</a>.");
+                showError("Your request didn't go through, so we didn't get it. Text us at <a href=\"sms:+13098635089\">(309) 863-5089</a> or call <a href=\"tel:+13098635181\">(309) 863-5181</a>, or use <strong>Email this quote</strong>.");
             });
     });
 
@@ -847,8 +849,8 @@
         if (ups.indexOf('reel3') > -1) state.reels = 3; else if (ups.indexOf('reel1') > -1) state.reels = 1;
         if (ups.indexOf('raw') > -1) state.raw = true;
         if (ups.indexOf('rush') > -1) state.rush = true;
-        if (ups.indexOf('voiceover') > -1 && form.elements.notes && !form.elements.notes.value) {
-            form.elements.notes.value = 'Please include a quote for the Licensed Commercial Voiceover / Music Upgrade.';
+        if (ups.indexOf('voiceover') > -1 && form.elements.message && !form.elements.message.value) {
+            form.elements.message.value = 'Please include a quote for the Licensed Commercial Voiceover / Music Upgrade.';
         }
         if (pkg || params.get('up')) render();
     })();
