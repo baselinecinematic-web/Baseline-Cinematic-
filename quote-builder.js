@@ -23,7 +23,7 @@
         <div class="bq-step-head"><span class="bq-num" aria-hidden="true">1</span><h2>Choose your goal</h2></div>
         <p class="bq-step-lead">What are we filming? You can switch at any time and your quote updates.</p>
         <div class="bq-ticket-applied" id="bq-ticket-applied" role="status" hidden>
-            <strong>Golden Cinema Ticket applied: <code id="bq-ticket-code">PEKIN75</code></strong>
+            <strong>Golden Cinema Ticket applied: <code id="bq-ticket-code">BASELINE75</code></strong>
             <span>Your free vertical social reel (<span data-bq="reel1">$75</span> value) is switched on below, and travel is $0 within 50 miles of Pekin and Peoria.</span>
         </div>
         <div class="bq-cards is-goals">
@@ -304,11 +304,13 @@
     // voucher on the same booking? Set to false to make them pick one.
     var ALLOW_PROMO_WITH_VOUCHER = true;
 
-    // Promo codes. PEKIN75 is the Golden Cinema Ticket shown above the footer on
+    // Promo codes. BASELINE75 is the Golden Cinema Ticket shown above the footer on
     // the main pages: it switches on the free vertical reel voucher (new clients,
-    // first shoot). Links can pass it in the URL: quote.html?promo=PEKIN75
+    // first shoot). Links can pass it in the URL: quote.html?promo=BASELINE75
+    // PEKIN75 was the ticket's first code (Nov 2026); it still works for anyone who copied it.
     var PROMO_CODES = {
-        PEKIN75: { label: 'Golden Cinema Ticket', freeReel: true }
+        BASELINE75: { label: 'Golden Cinema Ticket', freeReel: true },
+        PEKIN75:    { label: 'Golden Cinema Ticket', freeReel: true }
     };
 
     var D = window.SITE_DATA || {};
