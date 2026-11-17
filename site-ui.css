@@ -566,7 +566,7 @@ button:focus-visible {
 
 /* ------------------------------------------------------------------ */
 /* 11. Tighter desktop nav on narrow tablets, so the seven menu items   */
-/*     (including Ready to Be Seen) stay on one row                        */
+/*     (including Check Availability) stay on one row                        */
 /* ------------------------------------------------------------------ */
 
 @media (min-width: 769px) and (max-width: 960px) {
