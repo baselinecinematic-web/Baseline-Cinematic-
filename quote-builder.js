@@ -22,6 +22,10 @@
         <legend class="bq-visually-hidden">Step 1: choose your goal</legend>
         <div class="bq-step-head"><span class="bq-num" aria-hidden="true">1</span><h2>Choose your goal</h2></div>
         <p class="bq-step-lead">What are we filming? You can switch at any time and your quote updates.</p>
+        <div class="bq-ticket-applied" id="bq-ticket-applied" role="status" hidden>
+            <strong>Golden Cinema Ticket applied: <code id="bq-ticket-code">PEKIN75</code></strong>
+            <span>Your free vertical social reel (<span data-bq="reel1">$75</span> value) is switched on below, and travel is $0 within 50 miles of Pekin and Peoria.</span>
+        </div>
         <div class="bq-cards is-goals">
             <label class="bq-card">
                 <input type="radio" name="bq-goal" value="commercial">
@@ -191,6 +195,7 @@
                     <div><dt>Turnaround</dt><dd id="q-turn">1–2 business days</dd></div>
                     <div><dt>Deposit</dt><dd id="q-deposit"></dd></div>
                 <div id="q-voucher-row"><dt>Reel voucher</dt><dd id="q-voucher"></dd></div>
+                <div id="q-promo-row" hidden><dt>Promo code</dt><dd id="q-promo"></dd></div>
                 </dl>
                 <a class="bq-btn is-wide" href="#step-4">Book this shoot</a>
                 <p class="bq-quote-foot">No payment taken on this page.</p>
@@ -225,6 +230,11 @@
             <div class="bq-field">
                 <label for="f-date">Preferred shoot date <small>(optional)</small></label>
                 <input id="f-date" name="shoot_date" type="date">
+            </div>
+            <div class="bq-field">
+                <label for="f-promo">Promo code <small>(optional)</small></label>
+                <input id="f-promo" name="promo_code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Enter code" aria-describedby="f-promo-msg">
+                <p class="bq-fineprint" id="f-promo-msg" aria-live="polite"></p>
             </div>
             <div class="bq-field is-full">
                 <label for="f-notes">Project notes <small>(optional)</small></label>
@@ -293,6 +303,13 @@
     // Can a visitor use the $199 Founding Client Rate AND the free reel
     // voucher on the same booking? Set to false to make them pick one.
     var ALLOW_PROMO_WITH_VOUCHER = true;
+
+    // Promo codes. PEKIN75 is the Golden Cinema Ticket shown above the footer on
+    // the main pages: it switches on the free vertical reel voucher (new clients,
+    // first shoot). Links can pass it in the URL: quote.html?promo=PEKIN75
+    var PROMO_CODES = {
+        PEKIN75: { label: 'Golden Cinema Ticket', freeReel: true }
+    };
 
     var D = window.SITE_DATA || {};
     function fromSite(path, fallback) {
@@ -398,7 +415,7 @@
     var promoEnd = new Date((D.promo && D.promo.endDateISO) || PROMO_END_FALLBACK);
     var FOUNDING_RATE_LIVE = new Date() < promoEnd;
 
-    var state = { goal: null, pkg: null, promo: FOUNDING_RATE_LIVE, drone: false, reels: 0, voucher: false, raw: false, rush: false, travel: 'z0' };
+    var state = { goal: null, pkg: null, promo: FOUNDING_RATE_LIVE, drone: false, reels: 0, voucher: false, raw: false, rush: false, travel: 'z0', code: '' };
 
     function usd(n) {
         var neg = n < 0, v = Math.abs(n);
@@ -478,6 +495,7 @@
         out.push('Turnaround: ' + q.turnaround);
         out.push('Deposit: ' + q.depositText);
         out.push('First-time $75 vertical reel voucher: ' + q.voucherField);
+        if (state.code) out.push('Promo code: ' + state.code + ' (' + PROMO_CODES[state.code].label + ')');
         if (f) {
             out.push('');
             out.push('Name: ' + (f.name || ''));
@@ -617,6 +635,8 @@
         $('q-deposit').textContent = q.depositText;
         $('q-voucher-row').hidden = !q.voucherOffered;
         $('q-voucher').textContent = q.voucherRequested ? 'Requested. Verified upon booking confirmation.' : 'Not requested';
+        $('q-promo-row').hidden = !state.code;
+        $('q-promo').textContent = state.code ? state.code + ' (' + PROMO_CODES[state.code].label + ')' : '';
 
         $('bar-label').textContent = q.totalLabel;
         $('bar-total').textContent = q.totalText + (q.customTravel ? ' + travel' : '');
@@ -631,7 +651,7 @@
         $('f-summary').value = text;
         $('f-voucher').value = q.voucherField;
         $('f-source').value = 'Quote configurator on ' + (window.location.pathname || '/');
-        $('f-subject').value = 'New Baseline Cinematic Inquiry: Quote request: ' + q.pkg.name + ' (' + q.totalText + ')' + (f.name ? ' from ' + f.name : '');
+        $('f-subject').value = 'New Baseline Cinematic Inquiry: Quote request: ' + q.pkg.name + ' (' + q.totalText + ')' + (f.name ? ' from ' + f.name : '') + (state.code ? ' [' + state.code + ']' : '');
         $('bq-mailto').href = mailtoHref(q, f);
     }
 
@@ -684,6 +704,37 @@
     });
 
     /* ================================================================
+       Promo codes (Golden Cinema Ticket)
+       ================================================================ */
+    // quiet: while someone is still typing, don't complain about a half-typed code
+    function applyCode(raw, fromLink, quiet) {
+        var code = String(raw || '').trim().toUpperCase().replace(/\s+/g, '');
+        var deal = PROMO_CODES[code];
+        var msg = $('f-promo-msg');
+        if (!deal) {
+            var had = !!state.code;
+            state.code = '';
+            $('bq-ticket-applied').hidden = true;
+            msg.textContent = (code && !quiet) ? "That code isn't recognized. Double-check it, or send your request and we'll sort it out." : '';
+            if (had) render();
+            return false;
+        }
+        var isNew = state.code !== code;
+        state.code = code;
+        $('bq-ticket-code').textContent = code;
+        $('bq-ticket-applied').hidden = false;
+        if (deal.freeReel && FIRST_TIME_REEL_PROMO_ACTIVE_ && isNew) {
+            state.voucher = true;
+            if (state.reels === 0) state.reels = 1;
+        }
+        msg.textContent = deal.label + ' applied: free vertical reel for new clients, verified upon booking confirmation.';
+        if ($('f-promo').value.trim().toUpperCase() !== code) $('f-promo').value = code;
+        if (isNew && typeof window.gtag === 'function') window.gtag('event', 'promo_code_applied', { promo_code: code, source: fromLink ? 'link' : 'typed' });
+        if (isNew) render();
+        return true;
+    }
+
+    /* ================================================================
        Booking form
        ================================================================ */
     var form = $('bq-form');
@@ -706,7 +757,11 @@
         box.hidden = !msg;
     }
 
-    form.addEventListener('input', renderQuote);
+    form.addEventListener('input', function (e) {
+        if (e.target && e.target.id === 'f-promo') { applyCode(e.target.value, false, true); }
+        renderQuote();
+    });
+    $('f-promo').addEventListener('change', function (e) { applyCode(e.target.value, false, false); });
     var dateInput = $('f-date');
     (function () {
         var d = new Date();
@@ -851,6 +906,7 @@
     var wanted = svc ? svc[0] : (params.get('goal') || params.get('track') || '').toLowerCase();
     if (svc && svc[1] && !params.get('pkg')) params.set('pkg', svc[1]);
     if (FIRST_TIME_REEL_PROMO_ACTIVE_ && params.get('voucher') === '1') { state.voucher = true; state.reels = 1; }
+    if (params.get('promo')) applyCode(params.get('promo'), true);
     if (!(wanted && setGoal(wanted))) render();
     // From the service pages' "Available Upgrades" picker: &pkg=brand&up=drone,reel1,raw,rush
     (function () {

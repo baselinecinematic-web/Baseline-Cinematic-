@@ -292,3 +292,20 @@
     .bq-btn, .bq-switch i, .bq-switch i::after, .bq-bar, .bq-card-body, .bq-seg span { transition: none; }
     .bq-total strong.is-bump { animation: none; }
 }
+
+/* ------------------------------------------------------------ */
+/* Golden Cinema Ticket / promo code applied (?promo=PEKIN75)    */
+/* ------------------------------------------------------------ */
+.bq-ticket-applied {
+    display: flex; flex-direction: column; gap: 4px;
+    margin: 0 0 22px; padding: 14px 18px; border-radius: 10px;
+    border: 1.5px solid var(--gold);
+    background: linear-gradient(135deg, rgba(212,175,55,0.16), rgba(212,175,55,0.04) 70%), var(--panel);
+    color: var(--ink); line-height: 1.5;
+}
+.bq-ticket-applied strong { font-family: 'Montserrat', 'Inter', sans-serif; font-size: 1rem; color: var(--gold-hi); }
+.bq-ticket-applied code { font: 700 1em ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.08em; color: var(--ink); }
+.bq-ticket-applied > span { color: var(--mute); font-size: 0.92rem; }
+#f-promo { text-transform: uppercase; letter-spacing: 0.08em; }
+#f-promo::placeholder { text-transform: none; letter-spacing: normal; }
+#f-promo-msg:empty { display: none; }
