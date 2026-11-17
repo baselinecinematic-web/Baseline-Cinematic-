@@ -94,8 +94,8 @@
     <!-- HEADER: slim promo bar, logo, Check Our Dates, menu drawer (styles: site-v2.css, behavior: site-nav.js) -->
     <div class="sticky-wrapper bc-top" id="site-top">
         <div class="bc-promo">
-            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?goal=realestate">Claim your spot</a></span>
-            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="#contact">Claim it</a></span>
+            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?service=real-estate-tour">Claim your spot</a></span>
+            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="quote.html?voucher=1">Claim it</a></span>
         </div>
         <div class="bc-bar">
             <a class="bc-logo" href="index.html"><img src="share-preview.jpg" alt="" width="44" height="44"><span>BASELINE CINEMATIC</span></a>
@@ -253,61 +253,39 @@
                         <h3>Starter Retainer</h3>
                         <p class="bc-pkg-price">$299<small>/mo</small></p>
                         <ul><li>4 Reels a month</li><li>Filmed on-site and edited monthly</li></ul>
-                        <a class="bc-btn bc-btn-line" href="quote.html?goal=retainer&amp;pkg=starter" aria-label="Build a quote starting with the Starter Retainer">Build a quote</a>
+                        <a class="bc-btn bc-btn-line" href="quote.html?service=retainer-starter" aria-label="Build a quote starting with the Starter Retainer">Build a quote</a>
                     </article>
                     <article class="bc-pkg">
                         <h3>Growth Retainer</h3>
                         <p class="bc-pkg-price">$650<small>/mo</small></p>
                         <ul><li>6 Reels a month</li><li>1 horizontal cut for your website</li><li>Filmed on-site and edited monthly</li></ul>
-                        <a class="bc-btn bc-btn-line" href="quote.html?goal=retainer&amp;pkg=growth" aria-label="Build a quote starting with the Growth Retainer">Build a quote</a>
+                        <a class="bc-btn bc-btn-line" href="quote.html?service=retainer-growth" aria-label="Build a quote starting with the Growth Retainer">Build a quote</a>
                     </article>
                     <article class="bc-pkg">
                         <h3>Full Partner</h3>
                         <p class="bc-pkg-price">$1,250<small>/mo</small></p>
                         <ul><li>8 Reels a month</li><li>1 hero cut a month</li><li>Filmed on-site and edited monthly</li></ul>
-                        <a class="bc-btn bc-btn-line" href="quote.html?goal=retainer&amp;pkg=partner" aria-label="Build a quote starting with the Full Partner retainer">Build a quote</a>
+                        <a class="bc-btn bc-btn-line" href="quote.html?service=retainer-partner" aria-label="Build a quote starting with the Full Partner retainer">Build a quote</a>
                     </article>
                     <article class="bc-pkg">
                         <h3>Brand Films</h3>
                         <p class="bc-pkg-price"><small>From </small>$850</p>
                         <ul><li>Brand Profile film, 60–90 seconds: from $850</li><li>Full commercial campaign with interviews: from $1,500</li><li>Licensed music and color grading</li></ul>
-                        <a class="bc-btn bc-btn-line" href="quote.html?goal=commercial&amp;pkg=brand" aria-label="Build a quote starting with a Brand Film">Build a quote</a>
+                        <a class="bc-btn bc-btn-line" href="quote.html?service=brand" aria-label="Build a quote starting with a Brand Film">Build a quote</a>
                     </article>
                 </div>
 
-                <!-- Optional Upgrades picker (upgrades.js): running estimate, hands picks to the quote builder -->
+                <!-- Optional Upgrades: chosen in the quote builder -->
                 <h3 class="bc-h3" id="upgrades">Optional Upgrades</h3>
-                <p class="bc-group-note">For brand films. Tick what you need.</p>
-                <div class="bc-upgrades" data-upgrades data-goal="commercial">
-                    <div>
-                        <div class="bc-up-list">
-                            <label class="bc-up"><input type="checkbox" data-up="drone" data-name="4K Aerial Drone Showcase Upgrade" data-price="150" data-for="brand campaign"><div><strong>4K Aerial Drone Showcase Upgrade</strong><span>Your building, lot and location from the air. FAA Part 107 certified and insured.</span></div><b>+$150</b></label>
-                            <label class="bc-up"><input type="checkbox" data-up="reel1" data-name="Extra Vertical Reel Cut Upgrade" data-price="75" data-for="brand campaign"><div><strong>Extra Vertical Reel Cut Upgrade</strong><span>One 9:16 cut of your film for Instagram, TikTok and Shorts.</span></div><b>+$75</b></label>
-                            <label class="bc-up"><input type="checkbox" data-up="rush" data-name="24-Hour Rush Delivery Upgrade" data-price="125" data-for="brand campaign"><div><strong>24-Hour Rush Delivery Upgrade</strong><span>Finished film within 24 hours of the shoot.</span></div><b>+$125</b></label>
-                            <label class="bc-up"><input type="checkbox" data-up="voiceover" data-name="Licensed Commercial Voiceover / Music Upgrade" data-price="custom"><div><strong>Licensed Commercial Voiceover / Music Upgrade</strong><span>A professional voiceover or a specific licensed track.</span></div><b>Quoted with you</b></label>
-                        </div>
-                        <p class="bc-up-note" data-show-for="starter growth partner">Retainers already include monthly filming and editing. Need drone footage or extra cuts in your plan? Put it in the project notes in the quote builder.</p>
-                    </div>
-                    <aside class="bc-estimate" aria-live="polite">
-                        <h3>Your estimate</h3>
-                        <label class="bc-estimate-base" for="est-base">Starting with</label>
-                        <select id="est-base" data-base>
-                            <optgroup label="Brand films">
-                                <option value="brand" data-name="Brand Profile film" data-price="850" data-goal="commercial" data-from selected>Brand Profile film (from $850)</option>
-                                <option value="campaign" data-name="Full commercial campaign" data-price="1500" data-goal="commercial" data-from>Full commercial campaign (from $1,500)</option>
-                            </optgroup>
-                            <optgroup label="Monthly retainers">
-                                <option value="starter" data-name="Starter Retainer" data-price="299" data-goal="retainer" data-monthly>Starter Retainer ($299/mo)</option>
-                                <option value="growth" data-name="Growth Retainer" data-price="650" data-goal="retainer" data-monthly>Growth Retainer ($650/mo)</option>
-                                <option value="partner" data-name="Full Partner" data-price="1250" data-goal="retainer" data-monthly>Full Partner ($1,250/mo)</option>
-                            </optgroup>
-                        </select>
-                        <ul data-est-lines></ul>
-                        <div class="bc-estimate-total"><span data-est-label>Estimate</span><strong data-est-total>$0</strong></div>
-                        <a class="bc-btn bc-btn-gold" data-est-go href="quote.html?goal=commercial">Build this quote</a>
-                        <p>Opens the quote builder with these picks. Films take a 40% deposit to lock the date. Retainers are billed monthly.</p>
-                    </aside>
+                <p class="bc-group-note">For brand films. Pick them in the quote builder after you choose a package.</p>
+                <div class="bc-up-list is-static">
+                    <div class="bc-up"><div><strong>4K Aerial Drone Showcase Upgrade</strong><span>Your building, lot and location from the air. FAA Part 107 certified and insured.</span></div><b>+$150</b></div>
+                    <div class="bc-up"><div><strong>Extra Vertical Reel Cut Upgrade</strong><span>One 9:16 cut of your film for Instagram, TikTok and Shorts.</span></div><b>+$75</b></div>
+                    <div class="bc-up"><div><strong>24-Hour Rush Delivery Upgrade</strong><span>Finished film within 24 hours of the shoot.</span></div><b>+$125</b></div>
+                    <div class="bc-up"><div><strong>Licensed Commercial Voiceover / Music Upgrade</strong><span>A professional voiceover or a specific licensed track. Ask in your project notes.</span></div><b>Quoted with you</b></div>
                 </div>
+                <p style="margin-top: 28px;"><a class="bc-btn bc-btn-gold" href="quote.html?service=commercial">Build Your Quote</a></p>
+                <p class="bc-contact-line">Films take a 40% deposit to lock the date. Retainers are billed monthly.</p>
                 <p class="bc-contact-line" style="margin-top: 36px;">Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><span class="bc-sep" aria-hidden="true">|</span>Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><span class="bc-sep" aria-hidden="true">|</span><a href="quote.html">Open the quote builder</a></p>
             </div>
         </section>
@@ -421,7 +399,6 @@
     <script src="site-nav.js"></script>
     <script src="form-submit.js"></script>
     <script src="home.js"></script>
-    <script src="upgrades.js"></script>
     <script src="site-render.js"></script>
     <script src="lead-tracking.js"></script>
 </body>

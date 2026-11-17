@@ -667,8 +667,8 @@
     <!-- HEADER: slim promo bar, logo, Check Our Dates, menu drawer (styles: site-v2.css, behavior: site-nav.js) -->
     <div class="sticky-wrapper bc-top" id="site-top">
         <div class="bc-promo">
-            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?goal=realestate">Claim your spot</a></span>
-            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="index.html#contact">Claim it</a></span>
+            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?service=real-estate-tour">Claim your spot</a></span>
+            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="quote.html?voucher=1">Claim it</a></span>
         </div>
         <div class="bc-bar">
             <a class="bc-logo" href="index.html"><img src="share-preview.jpg" alt="" width="44" height="44"><span>BASELINE CINEMATIC</span></a>
@@ -710,7 +710,7 @@
         <div class="hero-content">
             <h1>Listings That Sell Themselves</h1>
             <p class="tagline">Premium Real Estate Videography & Aerial Property Tours</p>
-            <a href="#contact" class="btn" style="margin-top: 40px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Book a Free Consultation</a>
+            <a href="quote.html?service=real-estate" class="btn" style="margin-top: 40px; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Build Your Listing Quote</a>
         </div>
     </header>
 
@@ -769,7 +769,7 @@
         </div>
         
         <div style="text-align: center; margin-top: 50px; margin-bottom: 20px;" class="fade-in">
-            <a href="#contact" class="btn" style="box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Book Your Next Listing</a>
+            <a href="quote.html?service=real-estate" class="btn" style="box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Book Your Next Listing</a>
         </div>
     </section>
 
@@ -779,7 +779,7 @@
         <p class="photo-gallery-intro fade-in">Every property gets high-resolution aerial stills along with the video, so the listing shows the lot, the roofline and the neighborhood. Tap a photo to open it, then swipe or use the arrows to see more.</p>
         <div class="photo-gallery full fade-in"><figure class="photo-tile"><img src="aerial-estate-front.jpg" alt="Aerial view of a red-tile-roof Tudor estate with striped lawn and circular drive in Peoria, Illinois" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-estate-golf.jpg" alt="Drone view of a red-roof estate with a golf course stretching out behind it in Peoria" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-estate-top.jpg" alt="Top-down aerial of an estate roofline, circular drive and manicured grounds" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-clubhouse-golf.jpg" alt="Aerial view of a Peoria golf clubhouse and fairways with the Illinois River in the distance" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-marina.jpg" alt="Aerial view of a marina and boat slips on the Illinois River near Peoria" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure><figure class="photo-tile"><img src="aerial-river-bluff.jpg" alt="Drone view along the bluff toward the Illinois River and marina" loading="lazy" width="1400" height="1050" tabindex="0" role="button" aria-label="Enlarge photo"></figure></div><div class="gallery-extras" hidden><img data-src="aerial-river-boat.jpg" alt="Boat cruising the Illinois River with a bridge in the distance, aerial view"><img data-src="aerial-sandbar.jpg" alt="Illinois River sandbar and marshland seen from a drone"></div>
         <div style="text-align: center; margin-top: 50px; margin-bottom: 20px;" class="fade-in">
-            <a href="#contact" class="btn" style="box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Book Your Next Listing</a>
+            <a href="quote.html?service=real-estate" class="btn" style="box-shadow: 0 4px 15px rgba(0,0,0,0.5);">Book Your Next Listing</a>
         </div>
     </section>
 
@@ -903,9 +903,9 @@
         <p class="fade-in" style="text-align: center; margin-top: 30px;"><a href="faq.html" class="btn">See All Questions</a></p>
     </section>
 
-    <!-- PRICING: Starting Base Packages + Available Upgrades (picker: upgrades.js) -->
-    <section id="contact" class="s-paper-band bc-pricing" data-upgrades data-goal="realestate">
-        <h2 id="pricing" style="scroll-margin-top: calc(var(--nav-h) + 20px);">Starting Base Packages</h2>
+    <!-- PRICING: Starting Base Packages + Optional Upgrades. Every button opens the quote builder (quote.html). -->
+    <section id="pricing" class="s-paper-band bc-pricing">
+        <h2 style="scroll-margin-top: calc(var(--nav-h) + 20px);">Starting Base Packages</h2>
         <p class="bc-lead">Two flat-price listing packages. Every real estate video includes a free unbranded MLS version and $0 travel within 50 miles.</p>
         <div class="bc-packages">
                     <article class="bc-pkg is-entry">
@@ -914,35 +914,27 @@
                         <p class="bc-pkg-price">$199</p>
                         <p>Drone footage only, for land, lots and exteriors.</p>
                         <ul><li>High-resolution 4K drone exterior</li><li>Lot lines</li><li>Neighborhood context</li></ul>
-                        <label class="bc-pkg-pick"><input type="radio" name="bc-base" value="aerial" data-name="Aerial-Only Showcase" data-price="199" data-goal="realestate" checked> Start with this package</label>
+                        <a class="bc-btn bc-btn-line" href="quote.html?service=real-estate-aerial">Start with this package</a>
                     </article>
                     <article class="bc-pkg">
-                        
                         <h3>Cinematic Property Tour</h3>
                         <p class="bc-pkg-price"><span class="after-promo">$399</span><span class="promo-only"><s>$399</s>$199</span></p>
                         <p class="promo-only" style="color: var(--bc-gold-ink); font-weight: 600; margin: 0 0 12px;">Founding Client Rate while launch spots last.</p><p>The full listing video, sky to front door.</p>
                         <ul><li>4K aerial drone footage</li><li>Stabilized interior and exterior walkthrough</li><li>Custom color grading</li><li>Unbranded MLS version, free</li></ul>
-                        <label class="bc-pkg-pick"><input type="radio" name="bc-base" value="tour" data-name="Cinematic Property Tour" data-price="399" data-goal="realestate" data-promo-price="199"> Start with this package</label>
+                        <a class="bc-btn bc-btn-gold" href="quote.html?service=real-estate-tour">Start with this package</a>
                     </article>
         </div>
-        <h2>Available Upgrades</h2>
-        <p class="bc-lead">Add only what you'll use. Your estimate updates as you go, and the quote builder carries your picks over.</p>
-        <div class="bc-upgrades">
-            <div class="bc-up-list">
-                        <label class="bc-up"><input type="checkbox" data-up="reel1" data-name="Vertical Social Reel Upgrade" data-price="75"><div><strong>Vertical Social Reel Upgrade</strong><span>One 9:16 cut for Instagram, TikTok and Shorts.</span></div><b>+$75</b></label>
-                        <label class="bc-up"><input type="checkbox" data-up="reel3" data-name="Vertical Social Reels Upgrade (3-pack)" data-price="199"><div><strong>Vertical Social Reels Upgrade (3-pack)</strong><span>Three 9:16 cuts to post across the listing period.</span></div><b>+$199</b></label>
-                        <label class="bc-up"><input type="checkbox" data-up="raw" data-name="Raw Footage Upgrade" data-price="100"><div><strong>Raw Footage Upgrade</strong><span>The unedited, high-bitrate files alongside your finished cut.</span></div><b>+$100</b></label>
-                        <label class="bc-up"><input type="checkbox" data-up="rush" data-name="Rush 24-Hour Turnaround Upgrade" data-price="125"><div><strong>Rush 24-Hour Turnaround Upgrade</strong><span>Your finished video within 24 hours of the shoot.</span></div><b>+$125</b></label>
-            </div>
-            <aside class="bc-estimate" aria-live="polite">
-                <h3>Your estimate</h3>
-                <ul data-est-lines></ul>
-                <div class="bc-estimate-total"><span data-est-label>Estimate</span><strong data-est-total>$0</strong></div>
-                <a class="bc-btn bc-btn-gold" data-est-go href="quote.html?goal=realestate">Build this exact quote</a>
-                <p>First shoot with us? The free vertical reel voucher is in the quote builder. $0 deposit for real estate.</p>
-            </aside>
+        <h2>Optional Upgrades</h2>
+        <p class="bc-lead">Pick these in the quote builder after you choose a package.</p>
+        <div class="bc-up-list is-static">
+            <div class="bc-up"><div><strong>Vertical Social Reel Upgrade</strong><span>One 9:16 cut for Instagram, TikTok and Shorts.</span></div><b>+$75</b></div>
+            <div class="bc-up"><div><strong>Vertical Social Reels Upgrade (3-pack)</strong><span>Three 9:16 cuts to post across the listing period.</span></div><b>+$199</b></div>
+            <div class="bc-up"><div><strong>Raw Footage Upgrade</strong><span>The unedited, high-bitrate files alongside your finished cut.</span></div><b>+$100</b></div>
+            <div class="bc-up"><div><strong>Rush 24-Hour Turnaround Upgrade</strong><span>Your finished video within 24 hours of the shoot.</span></div><b>+$125</b></div>
         </div>
-        <p class="bc-contact-line" style="margin-top: 36px;">Rather talk it through? Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><span class="bc-sep" aria-hidden="true">|</span>Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><span class="bc-sep" aria-hidden="true">|</span><a href="index.html#contact">Check our dates</a></p>
+        <p style="margin-top: 28px;"><a class="bc-btn bc-btn-gold" href="quote.html?service=real-estate">Build Your Listing Quote</a></p>
+        <p class="bc-contact-line">First shoot with us? The free vertical reel voucher is in the quote builder. $0 deposit for real estate.</p>
+        <p class="bc-contact-line">Rather talk it through? Call: <a href="tel:+13098635181" data-field="business.phoneDisplay" data-href-field="business.phoneHref">(309) 863-5181</a><span class="bc-sep" aria-hidden="true">|</span>Text: <a href="sms:+13098635089?&amp;body=Hi%20Baseline%20Cinematic%2C%20I%27d%20like%20to%20inquire%20about%20a%20video%20shoot." data-field="business.textDisplay" data-href-field="business.textHref">(309) 863-5089</a><span class="bc-sep" aria-hidden="true">|</span><a href="index.html#contact">Check our dates</a></p>
     </section>
 
     <footer class="bc-footer">
@@ -1017,7 +1009,6 @@
 
     </script>
     <script src="site-nav.js"></script>
-    <script src="upgrades.js"></script>
     <script src="site-render.js"></script>
     <script src="lead-tracking.js"></script>
     <script src="gallery-lightbox.js"></script>

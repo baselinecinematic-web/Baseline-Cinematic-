@@ -837,7 +837,19 @@
        so buttons elsewhere on the site can open the right track.
        ================================================================ */
     var params = new URLSearchParams(window.location.search);
-    var wanted = (params.get('goal') || params.get('track') || '').toLowerCase();
+    // ?service= picks the service and, where named, the exact starting package:
+    //   commercial, brand, campaign, retainer, retainer-starter, retainer-growth,
+    //   retainer-partner, real-estate, real-estate-tour, real-estate-aerial, event
+    // (older links using ?goal= and &pkg= still work)
+    var SERVICES = {
+        'commercial': ['commercial'], 'brand': ['commercial', 'brand'], 'brand-film': ['commercial', 'brand'], 'campaign': ['commercial', 'campaign'],
+        'retainer': ['retainer'], 'retainer-starter': ['retainer', 'starter'], 'retainer-growth': ['retainer', 'growth'], 'retainer-partner': ['retainer', 'partner'],
+        'real-estate': ['realestate'], 'real-estate-tour': ['realestate', 'tour'], 'real-estate-aerial': ['realestate', 'aerial'],
+        'event': ['event']
+    };
+    var svc = SERVICES[(params.get('service') || '').toLowerCase()];
+    var wanted = svc ? svc[0] : (params.get('goal') || params.get('track') || '').toLowerCase();
+    if (svc && svc[1] && !params.get('pkg')) params.set('pkg', svc[1]);
     if (FIRST_TIME_REEL_PROMO_ACTIVE_ && params.get('voucher') === '1') { state.voucher = true; state.reels = 1; }
     if (!(wanted && setGoal(wanted))) render();
     // From the service pages' "Available Upgrades" picker: &pkg=brand&up=drone,reel1,raw,rush

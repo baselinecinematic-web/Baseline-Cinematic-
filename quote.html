@@ -225,18 +225,15 @@
             html { scroll-behavior: auto; }
         }
 
-        /* Warm-white reading surface (Hybrid Cinema + Editorial): remaps this page's colors */
+        /* Charcoal reading surface (Black, Charcoal & Gold) for the comparison and FAQ */
         .bq-paper {
-            --ink: #181a1f; --mute: #4b4f58; --dim: #6b6f77; --line: #e2ded5; --panel: #ffffff; --gold-hi: #7a5e0e;
-            background: #f8f7f4; color: #181a1f; border-color: #e2ded5;
+            --ink: #f2f0eb; --mute: #b8b5ad; --dim: #8a877f; --line: rgba(212, 175, 55, 0.24); --panel: #232730; --gold-hi: #e8cd78;
+            background: #1b1e24; color: #f2f0eb; border-color: rgba(212, 175, 55, 0.24);
         }
         .bq-paper-full { max-width: none; padding-left: max(24px, calc((100% - 1132px) / 2)); padding-right: max(24px, calc((100% - 1132px) / 2)); }
-        .bq-paper .bq-compare tbody th, .bq-paper .bq-review blockquote, .bq-paper .bq-faq details p { color: #2b2e35; }
-        .bq-paper .bq-compare thead th:last-child { color: #7a5e0e; border-bottom-color: #d4af37; }
-        .bq-paper .bq-compare td:last-child { background: #fbf6e7; color: #181a1f; }
-        .bq-paper .bq-faq summary:hover { color: #7a5e0e; }
-        .bq-paper .bq-link { color: #7a5e0e; }
-        .bq-paper .bq-frames figure.is-after figcaption { color: #7a5e0e; }
+        .bq-paper .bq-compare thead th:last-child { color: #d4af37; border-bottom-color: #d4af37; }
+        .bq-paper .bq-compare td:last-child { background: rgba(212, 175, 55, 0.12); color: #f2f0eb; }
+        .bq-paper .bq-faq summary:hover { color: #e8cd78; }
     </style>
     <link rel="stylesheet" href="quote-builder.css">
     <link rel="stylesheet" href="site-ui.css">
@@ -247,8 +244,8 @@
     <!-- HEADER: slim promo bar, logo, Check Our Dates, menu drawer (styles: site-v2.css, behavior: site-nav.js) -->
     <div class="sticky-wrapper bc-top" id="site-top">
         <div class="bc-promo">
-            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?goal=realestate">Claim your spot</a></span>
-            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="index.html#contact">Claim it</a></span>
+            <span class="promo-only">Founding Client Rate: full 4K drone + walkthrough listing tour for $199.<a href="quote.html?service=real-estate-tour">Claim your spot</a></span>
+            <span class="after-promo">New clients: a free vertical social reel with your first shoot.<a href="quote.html?voucher=1">Claim it</a></span>
         </div>
         <div class="bc-bar">
             <a class="bc-logo" href="index.html"><img src="share-preview.jpg" alt="" width="44" height="44"><span>BASELINE CINEMATIC</span></a>
