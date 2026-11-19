@@ -931,7 +931,7 @@ async function cloudLoad() {
   ]);
   if (pr.error) throw pr.error;
   projects = pr.data.map(r => normalize(r.data)).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-  leads = (ld.data || []).map(r => r.data);
+  leads = (ld.data || []).map(r => ({ ...r.data, id:r.id }));
   settings = Object.assign({ reviewUrl:'' }, (st.data && st.data.data) || {});
   snapSaved(); cloud.loadedAt = Date.now();
 }
@@ -950,7 +950,7 @@ function remoteChange(table, ev) {
     delete saved[id];
   } else {
     const row = ev.new; if (!row || !row.data) return;
-    const j = canon(table === 'projects' ? normalize(row.data) : row.data);
+    const j = canon(table === 'projects' ? normalize({ ...row.data, id:row.id }) : { ...row.data, id:row.id });
     if (saved[row.id] === j) return;
     const i = list.findIndex(x => x.id === row.id);
     if (i > -1 && canon(list[i]) !== saved[row.id]) return; // you have unsaved edits here; yours win
