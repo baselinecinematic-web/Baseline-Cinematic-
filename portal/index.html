@@ -1031,6 +1031,8 @@ function needs(p) {
     const open = p.notes.filter(n => !n.resolved).length;
     if (open) out.push({ sev:'warn', title:`${open} open note${s(open)} from ${fn}`, detail:p.title, act:'open', label:'Review notes' });
   }
+  const noLink = p.files.filter(fl => !fl.url).length;
+  if (p.stage >= 4 && !p.folderUrl && (noLink || !p.files.length)) out.push({ sev: p.stage === 5 ? 'alert' : 'info', title: p.files.length ? `${noLink} file${s(noLink)} on ${p.title} need${noLink === 1 ? 's' : ''} a download link` : `No files added to ${p.title} yet`, detail: p.stage === 5 ? `${fn} can’t download ${p.files.length ? 'them' : 'anything'} until you add Drive links.` : 'Add them before you deliver, so downloads work the moment it’s approved.', act:'open', label:'Add links' });
   const late = p.stage === 5 && bal > 0 && p.deliveredAt ? daysSince(p.deliveredAt) : 0;
   if (late >= 7) out.push({ sev:'alert', title:`${money(bal)} overdue on ${p.title}`, detail:`Delivered ${late} days ago. A reminder is written and ready to send.`, act:'message', label:'Send reminder' });
   else if (p.stage === 5 && bal > 0) out.push({ sev:'warn', title:`${money(bal)} still due on ${p.title}`, detail: p.requirePayment ? `${fn}’s files stay locked until it’s paid.` : 'Files are already unlocked.', act:'paid', label:'Mark paid' });
@@ -1558,13 +1560,15 @@ function sheetHTML(p) {
   <section class="sb">
     <h3 class="h3">Files</h3>
     ${f('Shared folder link for "Download all" (Google Drive folder)', 'folderUrl', p.folderUrl, 'url')}
+    ${p.files.length && p.files.some(fl => !fl.url) && !p.folderUrl ? `<div class="banner"><span><strong>${p.files.filter(fl => !fl.url).length} of ${p.files.length} file${s(p.files.length)} ${p.files.filter(fl => !fl.url).length === 1 ? 'has' : 'have'} no download link</strong><br><span class="muted">${esc(first(p.clientName))} can’t download ${p.files.filter(fl => !fl.url).length === 1 ? 'it' : 'them'} yet. Paste each file’s Drive link below, or one shared folder link above.</span></span></div>` : ''}
     <label class="drop" id="drop" data-id="${p.id}" tabindex="0">
       <input type="file" id="drop-input" data-id="${p.id}" multiple accept="video/*,image/*,.zip,.pdf,.mov,.mp4">
       <span class="drop-t">${I.down}Drag files or a Google Drive link here</span>
       <span class="muted small">Or tap to choose files. Name, size, resolution and length fill in for you.</span>
     </label>
     <div>${p.files.map(fl => `<div class="file-a ${fl.url ? '' : 'needs-link'}"><div class="file-a-top"><input class="input fname" data-file-name="${fl.id}" data-id="${p.id}" value="${esc(fl.name)}" aria-label="File name"><span class="muted small" style="white-space:nowrap">${esc(fl.size)}</span><button class="btn btn-sm btn-quiet" data-act="remove-file" data-id="${p.id}" data-x="${fl.id}" aria-label="Remove ${esc(fl.name)}">${I.x}</button></div>${fl.detail ? `<span class="muted small">${esc(fl.detail)}</span>` : ''}<input class="input" data-file="${fl.id}" data-id="${p.id}" value="${esc(fl.url)}" placeholder="Paste this file's Google Drive link so the client can download it"></div>`).join('') || '<p class="empty">No files listed.</p>'}</div>
-    ${p.files.some(fl => !fl.url) ? `<p class="muted small">${p.files.filter(fl => !fl.url).length} file${s(p.files.filter(fl => !fl.url).length)} still need${p.files.filter(fl => !fl.url).length === 1 ? 's' : ''} a download link. Until the portal has its own storage, clients download from your Drive.</p>` : ''}
+    ${!p.files.length ? `<div><button class="btn btn-sm" data-act="std-files" data-id="${p.id}">${I.plus}Add the usual ${SERVICES[p.service].label.toLowerCase()} deliverables as placeholders</button></div>` : ''}
+    ${p.files.some(fl => !fl.url) && false ? `<p class="muted small">${p.files.filter(fl => !fl.url).length} file${s(p.files.filter(fl => !fl.url).length)} still need${p.files.filter(fl => !fl.url).length === 1 ? 's' : ''} a download link. Until the portal has its own storage, clients download from your Drive.</p>` : ''}
     <form class="subform" data-form="file" data-id="${p.id}">
       <div class="fields"><label class="field"><span>File name</span><input id="file-name" required placeholder="Twilight stills"></label><label class="field"><span>Size</span><input id="file-size" placeholder="150 MB"></label><label class="field full"><span>Description</span><input id="file-detail" placeholder="Edited JPEGs for MLS"></label></div>
       <button class="btn btn-sm" type="submit">${I.plus}Add file</button>
@@ -1865,11 +1869,11 @@ function filesSection(p) {
       if (!ready) btn = `<span class="muted small">After approval</span>`;
       else if (locked) btn = `<button class="btn btn-sm" data-act="locked">${I.lock}Locked</button>`;
       else if (fl.url) btn = `<a class="btn btn-sm btn-gold" href="${esc(fl.url)}" target="_blank" rel="noopener">${I.down}Download</a>`;
-      else btn = `<button class="btn btn-sm btn-gold" data-act="demo-file" data-x="${esc(fl.name)}">${I.down}Download</button>`;
+      else btn = LIVE ? `<span class="muted small">Link coming soon</span>` : `<button class="btn btn-sm btn-gold" data-act="demo-file" data-x="${esc(fl.name)}">${I.down}Download</button>`;
       return `<div class="file"><div class="file-main"><div class="file-name">${esc(fl.name)}</div><div class="file-meta">${esc(fl.detail)}${fl.size ? ', ' + esc(fl.size) : ''}</div></div>${btn}</div>`;
     }).join('') || '<p class="empty">Files will be listed here.</p>'}</div>
     ${ready && !locked ? `<div class="row-btns">
-      ${p.folderUrl ? `<a class="btn btn-gold" href="${esc(p.folderUrl)}" target="_blank" rel="noopener">${I.down}Download all</a>` : `<button class="btn btn-gold" data-act="demo-file" data-x="all files">${I.down}Download all</button>`}
+      ${p.folderUrl ? `<a class="btn btn-gold" href="${esc(p.folderUrl)}" target="_blank" rel="noopener">${I.down}Download all</a>` : LIVE ? '' : `<button class="btn btn-gold" data-act="demo-file" data-x="all files">${I.down}Download all</button>`}
       <button class="btn" data-act="copy-link" data-id="${p.id}">${I.copy}Copy share link</button>
       <span class="muted small" style="align-self:center">Send the link to a co-listing agent, seller or your marketing team.</span>
     </div>
@@ -2051,7 +2055,7 @@ function duplicate(p) {
   c.airspace = SERVICES[c.service].drone ? 'pending' : 'not_needed';
   c.access = { method:p.access.method, code:/Lockbox|Smart lock/.test(p.access.method) ? '' : p.access.code, notes:p.access.notes };
   c.prep = c.prep.map(i => ({ ...i, done:false }));
-  c.files = c.files.map(f => ({ ...f, url:'' }));
+  c.files = [];
   if (c.service === 'social') {
     c.reelsDelivered = 0;
     const nn = new Date(next); nn.setMonth(nn.getMonth() + 1); c.nextShootAt = nn.toISOString();
@@ -2107,6 +2111,7 @@ document.addEventListener('click', e => {
     case 'locked': toast('Pay the balance above to unlock this file.'); break;
     case 'demo-file': toast(`Sample file. Add a real download link for "${x}" in Studio.`); break;
     case 'undo': undoLast(); break;
+    case 'std-files': p.files = defaultFiles(p.service).map(fl => ({ ...fl, id:uid(), size:'' })); save(); renderSheet(); toast('Added. Rename or remove any you won\u2019t deliver, and paste each link.'); break;
     case 'sign-out': sb && sb.auth.signOut(); break;
     case 'magic': {
       const email = $('li-email').value.trim(), msg = $('li-msg');
@@ -2281,7 +2286,7 @@ document.addEventListener('submit', e => {
       stage: 1, shootAt: shoot.toISOString(), proofDueAt: new Date(+shoot + 24 * 36e5).toISOString(),
       airspace: SERVICES[service].drone ? 'pending' : 'not_needed', requirePayment: true, payUrl: '', approvedAt: null,
       access: { method: service === 'real_estate' ? 'Lockbox' : 'Someone on site', code: '', notes: '' },
-      prep: defaultPrep(service, pkg.id), files: defaultFiles(service), cuts: [], activeCut: null, notes: [],
+      prep: defaultPrep(service, pkg.id), files: LIVE ? [] : defaultFiles(service), cuts: [], activeCut: null, notes: [],
       activity: [], createdAt: new Date().toISOString()
     };
     log(p, 'Shoot booked');
