@@ -218,6 +218,7 @@ main{max-width:1240px;margin:0 auto;padding:30px 24px 96px}
 .drop{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:18px 14px;border:1.5px dashed var(--line-strong);border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s}
 .drop:hover,.drop.over{border-color:var(--satin);background:rgba(223,200,150,.06)}
 .drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.upl{display:flex;flex-direction:column;gap:6px}
 .drop-t{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
 .drop-t svg{width:17px;height:17px;color:var(--satin)}
 .sum{display:flex;justify-content:space-between;gap:12px;align-items:center}
@@ -505,12 +506,15 @@ body.client-mode main{padding-top:24px}
 <div class="tip" id="tip" hidden></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 /* ================= setup: fill these two in to go live ================= */
 const CONFIG = {
   supabaseUrl: 'https://temwrepdhydpsgwhugee.supabase.co',   // Supabase > Project Settings > API > Project URL
   supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlbXdyZXBkaHlkcHNnd2h1Z2VlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxMDAxMTksImV4cCI6MjExMDY3NjExOX0.ur2XzOTlN0fP6q2mBMGuUn2Cswor5VUKTERr7SGN248',   // Supabase > Project Settings > API > anon public key (never the service_role key)
-  portalBase: 'https://baselinecinematic.com/portal/'
+  portalBase: 'https://baselinecinematic.com/portal/',
+  googleClientId: '', // Google Cloud > Credentials > OAuth client ID (ends in .apps.googleusercontent.com)
+  driveAccount: 'michaelcunningham89@gmail.com'
 };
 const LIVE = !!(CONFIG.supabaseUrl && CONFIG.supabaseKey && window.supabase);
 const CLIENT_TOKEN = new URLSearchParams(location.search).get('p');
@@ -1563,10 +1567,11 @@ function sheetHTML(p) {
     ${p.files.length && p.files.some(fl => !fl.url) && !p.folderUrl ? `<div class="banner"><span><strong>${p.files.filter(fl => !fl.url).length} of ${p.files.length} file${s(p.files.length)} ${p.files.filter(fl => !fl.url).length === 1 ? 'has' : 'have'} no download link</strong><br><span class="muted">${esc(first(p.clientName))} can’t download ${p.files.filter(fl => !fl.url).length === 1 ? 'it' : 'them'} yet. Paste each file’s Drive link below, or one shared folder link above.</span></span></div>` : ''}
     <label class="drop" id="drop" data-id="${p.id}" tabindex="0">
       <input type="file" id="drop-input" data-id="${p.id}" multiple accept="video/*,image/*,.zip,.pdf,.mov,.mp4">
-      <span class="drop-t">${I.down}Drag files or a Google Drive link here</span>
-      <span class="muted small">Or tap to choose files. Name, size, resolution and length fill in for you.</span>
+      <span class="drop-t">${I.down}${CONFIG.googleClientId ? 'Drop files to upload them to Google Drive' : 'Drag files or a Google Drive link here'}</span>
+      <span class="muted small">${CONFIG.googleClientId ? 'Each file gets its own download link automatically. Or tap to choose files.' : 'Or tap to choose files. Name, size, resolution and length fill in for you.'}</span>
     </label>
-    <div>${p.files.map(fl => `<div class="file-a ${fl.url ? '' : 'needs-link'}"><div class="file-a-top"><input class="input fname" data-file-name="${fl.id}" data-id="${p.id}" value="${esc(fl.name)}" aria-label="File name"><span class="muted small" style="white-space:nowrap">${esc(fl.size)}</span><button class="btn btn-sm btn-quiet" data-act="remove-file" data-id="${p.id}" data-x="${fl.id}" aria-label="Remove ${esc(fl.name)}">${I.x}</button></div>${fl.detail ? `<span class="muted small">${esc(fl.detail)}</span>` : ''}<input class="input" data-file="${fl.id}" data-id="${p.id}" value="${esc(fl.url)}" placeholder="Paste this file's Google Drive link so the client can download it"></div>`).join('') || '<p class="empty">No files listed.</p>'}</div>
+    ${CONFIG.googleClientId ? `<div class="sd-row"><span class="small">${driveConnected() ? `<span class="pill ok">${I.check}Google Drive connected</span>` : '<span class="muted">Google Drive isn\u2019t connected in this browser yet.</span>'}</span>${driveConnected() ? (p.folderUrl ? `<a class="btn btn-sm btn-quiet" href="${esc(p.folderUrl)}" target="_blank" rel="noopener">Open Drive folder${I.ext}</a>` : '') : `<button class="btn btn-sm btn-gold" data-act="drive-connect">Connect Google Drive</button>`}</div>` : ''}
+    <div>${p.files.map(fl => `<div class="file-a ${fl.url ? '' : 'needs-link'}"><div class="file-a-top"><input class="input fname" data-file-name="${fl.id}" data-id="${p.id}" value="${esc(fl.name)}" aria-label="File name"><span class="muted small" style="white-space:nowrap">${esc(fl.size)}</span><button class="btn btn-sm btn-quiet" data-act="remove-file" data-id="${p.id}" data-x="${fl.id}" aria-label="Remove ${esc(fl.name)}">${I.x}</button></div>${fl.detail ? `<span class="muted small">${esc(fl.detail)}</span>` : ''}${DRIVE.up[fl.id] ? uploadRow(fl) : `<input class="input" data-file="${fl.id}" data-id="${p.id}" value="${esc(fl.url)}" placeholder="${CONFIG.googleClientId ? 'Drop the file above to upload it, or paste a link' : 'Paste this file\u2019s Google Drive link so the client can download it'}">`}</div>`).join('') || '<p class="empty">No files listed.</p>'}</div>
     ${!p.files.length ? `<div><button class="btn btn-sm" data-act="std-files" data-id="${p.id}">${I.plus}Add the usual ${SERVICES[p.service].label.toLowerCase()} deliverables as placeholders</button></div>` : ''}
     ${p.files.some(fl => !fl.url) && false ? `<p class="muted small">${p.files.filter(fl => !fl.url).length} file${s(p.files.filter(fl => !fl.url).length)} still need${p.files.filter(fl => !fl.url).length === 1 ? 's' : ''} a download link. Until the portal has its own storage, clients download from your Drive.</p>` : ''}
     <form class="subform" data-form="file" data-id="${p.id}">
@@ -1961,12 +1966,118 @@ function stopPlay() { clearInterval(P.timer); P.timer = null; P.playing = false;
 const fmtBytes = b => b >= 1e9 ? (b / 1e9).toFixed(1) + ' GB' : b >= 1e6 ? Math.round(b / 1e6) + ' MB' : Math.max(1, Math.round(b / 1e3)) + ' KB';
 const KINDS = { mp4:'MP4 video', mov:'MOV video', m4v:'MP4 video', webm:'WebM video', jpg:'JPEG photo', jpeg:'JPEG photo', png:'PNG image', heic:'HEIC photo', tif:'TIFF photo', tiff:'TIFF photo', dng:'RAW photo', zip:'ZIP folder', pdf:'PDF' };
 function niceName(fn) { const n = fn.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim() || fn; return n.charAt(0).toUpperCase() + n.slice(1); }
+/* ================= Google Drive uploads ================= */
+const DRIVE = { token:null, exp:0, client:null, up:{}, okIds:new Set() };
+try { const t = JSON.parse(sessionStorage.getItem('bc_drive') || 'null'); if (t && t.exp > Date.now()) { DRIVE.token = t.token; DRIVE.exp = t.exp; } } catch (e) {}
+const driveConnected = () => !!(DRIVE.token && Date.now() < DRIVE.exp - 60000);
+function driveConnect() {
+  return new Promise((ok, bad) => {
+    if (!window.google || !google.accounts || !google.accounts.oauth2) { toast('Google sign-in is still loading. Try again in a moment.'); return bad(new Error('gsi')); }
+    if (!DRIVE.client) DRIVE.client = google.accounts.oauth2.initTokenClient({ client_id:CONFIG.googleClientId, scope:'https://www.googleapis.com/auth/drive.file', callback:() => {} });
+    DRIVE.client.callback = r => {
+      if (r.error) { toast('Google Drive wasn’t connected.'); return bad(r); }
+      DRIVE.token = r.access_token; DRIVE.exp = Date.now() + (Number(r.expires_in) || 3600) * 1000;
+      try { sessionStorage.setItem('bc_drive', JSON.stringify({ token:DRIVE.token, exp:DRIVE.exp })); } catch (e) {}
+      ok();
+    };
+    DRIVE.client.error_callback = e => { toast('Google sign-in closed before it finished.'); bad(e); };
+    DRIVE.client.requestAccessToken({ login_hint:CONFIG.driveAccount });
+  });
+}
+async function gdrive(path, opts = {}) {
+  const r = await fetch('https://www.googleapis.com/drive/v3/' + path, { ...opts, headers:{ Authorization:'Bearer ' + DRIVE.token, 'Content-Type':'application/json', ...(opts.headers || {}) } });
+  if (!r.ok) { const e = new Error('drive ' + r.status); e.status = r.status; throw e; }
+  return r.status === 204 ? null : r.json();
+}
+const shareAnyone = id => gdrive(`files/${id}/permissions`, { method:'POST', body:JSON.stringify({ role:'reader', type:'anyone' }) });
+async function liveFolder(id) {
+  if (!id) return false; if (DRIVE.okIds.has(id)) return true;
+  try { const f = await gdrive(`files/${id}?fields=id,trashed`); if (!f.trashed) { DRIVE.okIds.add(id); return true; } } catch (e) { if (e.status === 401) throw e; }
+  return false;
+}
+async function newFolder(name, parent) {
+  const f = await gdrive('files?fields=id', { method:'POST', body:JSON.stringify({ name, mimeType:'application/vnd.google-apps.folder', ...(parent ? { parents:[parent] } : {}) }) });
+  DRIVE.okIds.add(f.id); return f.id;
+}
+async function projectFolder(pid) {
+  let p = byId(pid);
+  if (await liveFolder(p.driveFolderId)) return p.driveFolderId;
+  if (!(await liveFolder(settings.driveRootId))) { settings.driveRootId = await newFolder('Baseline Cinematic Portal'); save(); }
+  const id = await newFolder(p.title, settings.driveRootId);
+  await shareAnyone(id);
+  p = byId(pid); p.driveFolderId = id; p.folderUrl = `https://drive.google.com/drive/folders/${id}`;
+  log(p, 'Created the Google Drive folder for this project'); save();
+  return id;
+}
+function uploadRow(fl) {
+  const u = DRIVE.up[fl.id];
+  if (u.state === 'uploading') return `<div class="upl"><div class="meter" style="margin:0"><span id="upb-${fl.id}" style="width:${u.pct}%"></span></div><span class="muted small" id="upt-${fl.id}">Uploading to Google Drive, ${u.pct}%</span></div>`;
+  if (u.state === 'auth') return `<div class="sd-row"><span class="small" style="color:var(--warn)">${driveConnected() ? 'Waiting to upload' : 'Connect Google Drive to upload this file'}</span><button class="btn btn-sm btn-gold" data-act="drive-retry" data-x="${fl.id}">${driveConnected() ? 'Upload now' : 'Connect and upload'}</button></div>`;
+  return `<div class="sd-row"><span class="small" style="color:var(--alert)">Upload didn’t finish. ${esc(u.msg || '')}</span><button class="btn btn-sm" data-act="drive-retry" data-x="${fl.id}">Try again</button></div>`;
+}
+let paintRaf = 0;
+function paintUploads() {
+  if (paintRaf) return;
+  paintRaf = requestAnimationFrame(() => {
+    paintRaf = 0;
+    Object.entries(DRIVE.up).forEach(([id, u]) => {
+      const bar = $('upb-' + id), txt = $('upt-' + id);
+      if (u.state === 'uploading' && bar) { bar.style.width = u.pct + '%'; txt.textContent = `Uploading to Google Drive, ${u.pct}%`; }
+    });
+  });
+}
+function uploadFile(pid, fid, file) {
+  DRIVE.up[fid] = { pct:0, state:'uploading', file, pid };
+  if (state.sheet === pid) renderSheet();
+  (async () => {
+    try {
+      if (!driveConnected()) { const e = new Error('auth'); e.status = 401; throw e; }
+      const folder = await projectFolder(pid);
+      const init = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=resumable&fields=id,webViewLink', {
+        method:'POST',
+        headers:{ Authorization:'Bearer ' + DRIVE.token, 'Content-Type':'application/json; charset=UTF-8', 'X-Upload-Content-Type':file.type || 'application/octet-stream', 'X-Upload-Content-Length':String(file.size) },
+        body:JSON.stringify({ name:file.name, parents:[folder] })
+      });
+      if (!init.ok) { const e = new Error('init'); e.status = init.status; throw e; }
+      const loc = init.headers.get('Location'); if (!loc) throw new Error('No upload address from Google.');
+      const res = await new Promise((ok, bad) => {
+        const x = new XMLHttpRequest(); x.open('PUT', loc);
+        x.setRequestHeader('Content-Type', file.type || 'application/octet-stream');
+        x.upload.onprogress = e => { if (e.lengthComputable && DRIVE.up[fid]) { DRIVE.up[fid].pct = Math.min(99, Math.round(e.loaded / e.total * 100)); paintUploads(); } };
+        x.onload = () => x.status < 300 ? ok(JSON.parse(x.responseText)) : bad(Object.assign(new Error('upload'), { status:x.status }));
+        x.onerror = () => bad(new Error('The connection dropped.'));
+        x.send(file);
+      });
+      await shareAnyone(res.id);
+      const p = byId(pid), f2 = p && p.files.find(k => k.id === fid);
+      if (f2) { f2.url = res.webViewLink || `https://drive.google.com/file/d/${res.id}/view`; f2.driveId = res.id; }
+      delete DRIVE.up[fid];
+      if (p) { log(p, `Uploaded ${f2 ? f2.name : file.name} to Google Drive`); save(); }
+      if (state.sheet === pid) renderSheet(); renderMain();
+      toast(`${f2 ? f2.name : file.name} uploaded. Its download link is saved.`);
+    } catch (e) {
+      console.error(e);
+      const u = DRIVE.up[fid]; if (!u) return;
+      if (e.status === 401) { DRIVE.token = null; u.state = 'auth'; }
+      else { u.state = 'error'; u.msg = e.status === 403 ? 'Google refused it. Check the Drive setup.' : e.status === 404 ? 'The Drive folder is gone. Try again to make a new one.' : (e.message && e.message.length > 12 ? e.message : ''); if (e.status === 404) { const p = byId(pid); if (p) { p.driveFolderId = ''; } } }
+      if (state.sheet === pid) renderSheet();
+    }
+  })();
+}
+function driveResume(only) {
+  Object.entries(DRIVE.up).forEach(([fid, u]) => { if ((!only || only === fid) && u.state !== 'uploading') uploadFile(u.pid, fid, u.file); });
+}
+window.addEventListener('beforeunload', e => { if (Object.values(DRIVE.up).some(u => u.state === 'uploading')) { e.preventDefault(); e.returnValue = ''; } });
+
 function addFiles(p, list) {
   const added = [];
   [...list].forEach(file => {
     const ext = (file.name.split('.').pop() || '').toLowerCase();
-    const fl = { id:uid(), name:niceName(file.name), size:fmtBytes(file.size), detail:KINDS[ext] || (file.type ? file.type.split('/')[0] + ' file' : 'File'), url:'', original:file.name };
-    p.files.push(fl); added.push(fl);
+    const match = p.files.find(k => !k.url && k.original === file.name && !DRIVE.up[k.id]);
+    const fl = match || { id:uid(), name:niceName(file.name), size:fmtBytes(file.size), detail:KINDS[ext] || (file.type ? file.type.split('/')[0] + ' file' : 'File'), url:'', original:file.name };
+    if (!match) p.files.push(fl);
+    added.push(fl);
+    if (CONFIG.googleClientId) DRIVE.up[fl.id] = { pct:0, state:'auth', file, pid:p.id };
     if (file.type.startsWith('video/')) {
       const v = document.createElement('video'), u = URL.createObjectURL(file);
       v.preload = 'metadata'; v.muted = true;
@@ -1983,7 +2094,14 @@ function addFiles(p, list) {
       img.src = u;
     }
   });
-  if (added.length) { log(p, `Added ${added.length} file${s(added.length)}`); save(); renderSheet(); toast(`Added ${added.length} file${s(added.length)}. Paste ${added.length === 1 ? 'its' : 'each one’s'} Drive link so the client can download ${added.length === 1 ? 'it' : 'them'}.`); }
+  if (!added.length) return;
+  log(p, `Added ${added.length} file${s(added.length)}`); save();
+  if (CONFIG.googleClientId) {
+    if (driveConnected()) { added.forEach(fl => uploadFile(p.id, fl.id, DRIVE.up[fl.id].file)); toast(`Uploading ${added.length} file${s(added.length)} to Google Drive. Keep this page open until it finishes.`); }
+    else { renderSheet(); toast('Tap "Connect Google Drive" to start the upload.'); }
+    return;
+  }
+  renderSheet(); toast(`Added ${added.length} file${s(added.length)}. Paste ${added.length === 1 ? 'its' : 'each one\u2019s'} Drive link so the client can download ${added.length === 1 ? 'it' : 'them'}.`);
 }
 function addLink(p, url, label) {
   if (!/^https?:\/\//i.test(url)) return false;
@@ -2089,7 +2207,7 @@ document.addEventListener('click', e => {
     case 'toggle-code': state.showCode = !state.showCode; { const i = $('sheet-code'); if (i) i.type = state.showCode ? 'text' : 'password'; } break;
     case 'preview': state.clientId = p.id; state.sheet = null; renderSheet(); go('client'); break;
     case 'resolve': { const n = p.notes.find(k => k.id === x); if (n) { n.resolved = !n.resolved; if (n.resolved) log(p, `Resolved the note at ${tc(n.t)}`); } refresh(); break; }
-    case 'remove-file': p.files = p.files.filter(f => f.id !== x); refresh(); break;
+    case 'remove-file': if (DRIVE.up[x] && DRIVE.up[x].state === 'uploading') { toast('Wait for the upload to finish before removing this file.'); break; } delete DRIVE.up[x]; p.files = p.files.filter(f => f.id !== x); refresh(); break;
     case 'delete': state.confirm = 'delete:' + p.id; renderSheet(); break;
     case 'delete-yes': snapshot(); projects = projects.filter(k => k.id !== p.id); state.sheet = null; state.confirm = null; if (state.clientId === p.id) state.clientId = null; toast('Project deleted.', true); refresh(); break;
     case 'reset': state.confirm = 'reset'; renderMain(); break;
@@ -2111,6 +2229,8 @@ document.addEventListener('click', e => {
     case 'locked': toast('Pay the balance above to unlock this file.'); break;
     case 'demo-file': toast(`Sample file. Add a real download link for "${x}" in Studio.`); break;
     case 'undo': undoLast(); break;
+    case 'drive-connect': driveConnect().then(() => { toast('Google Drive connected.'); renderSheet(); driveResume(); }).catch(() => {}); break;
+    case 'drive-retry': (driveConnected() ? Promise.resolve() : driveConnect()).then(() => { renderSheet(); driveResume(x); }).catch(() => {}); break;
     case 'std-files': p.files = defaultFiles(p.service).map(fl => ({ ...fl, id:uid(), size:'' })); save(); renderSheet(); toast('Added. Rename or remove any you won\u2019t deliver, and paste each link.'); break;
     case 'sign-out': sb && sb.auth.signOut(); break;
     case 'magic': {
