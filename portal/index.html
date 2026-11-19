@@ -1,0 +1,2360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baseline Cinematic Client Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Layout: a quiet charcoal studio. The client's project lives on one satin-gold cinema ticket, the only bright surface in the app. */
+  --bg:#131519;
+  --panel:#1B1E24;
+  --panel-2:#23272E;
+  --line:rgba(223,200,150,.12);
+  --line-strong:rgba(223,200,150,.26);
+  --text:#F5F2EB;
+  --muted:#A9A496;
+  --faint:#7A766D;
+  --gold:#D4AF37;
+  --satin:#DFC896;
+  --ink:#17181B;
+  --ok:#86C095;
+  --warn:#E6AE5C;
+  --alert:#E58370;
+  --info:#93B6DC;
+  --display:"Bodoni Moda","Didot","Bodoni 72","Times New Roman",serif;
+  --body:"Hanken Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --metal:linear-gradient(180deg,#EDD27A 0%,#D4AF37 52%,#B48F2A 100%);
+  --satin-fill:linear-gradient(128deg,#EADBB0 0%,#DFC896 34%,#CDB27A 68%,#E6D3A0 100%);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font:400 15px/1.55 var(--body);-webkit-font-smoothing:antialiased;min-height:100vh}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+a{color:var(--satin)}
+:focus-visible{outline:2px solid var(--satin);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3{margin:0;text-wrap:balance}
+p{margin:0}
+ul,ol{margin:0;padding:0;list-style:none}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:30;background:rgba(19,21,25,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.top-in{max-width:1240px;margin:0 auto;height:62px;padding:0 24px;display:flex;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;background:none;border:0;padding:0;color:var(--text)}
+.brand svg{width:34px;height:34px;flex:none}
+.wordmark{font-family:var(--display);font-weight:500;font-size:14.5px;letter-spacing:.16em;white-space:nowrap}
+.tabs{display:flex;gap:4px;margin-left:12px}
+.tab{background:none;border:0;padding:8px 12px;border-radius:8px;color:var(--muted);font-weight:500;font-size:14px}
+.tab:hover{color:var(--text)}
+.tab[aria-current="page"]{color:var(--text);background:var(--panel-2)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.seg{display:inline-flex;padding:3px;border-radius:11px;background:var(--panel);border:1px solid var(--line)}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:8px;font-size:13.5px;font-weight:500;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--satin);color:var(--ink)}
+
+/* ---------- buttons, pills, fields ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 15px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;font-weight:600;font-size:14px;color:var(--text);text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--panel-2)}
+.btn svg{width:16px;height:16px}
+.btn-sm{height:32px;padding:0 11px;font-size:13px;border-radius:8px}
+.btn-gold{background:var(--metal);color:var(--ink);border:0;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
+.btn-gold:hover{background:var(--metal);filter:brightness(1.06)}
+.btn-ink{background:var(--ink);color:var(--satin);border:0}
+.btn-ink:hover{background:#26282d}
+.btn-quiet{border-color:transparent;color:var(--muted)}
+.btn-danger{border-color:rgba(229,131,112,.45);color:var(--alert)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.link{background:none;border:0;padding:0;color:var(--satin);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.icon-btn{width:36px;height:36px;display:inline-grid;place-items:center;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--text)}
+.icon-btn:hover{background:var(--panel-2)}
+.icon-btn svg{width:17px;height:17px}
+.pill{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:99px;font-size:12.5px;font-weight:600;white-space:nowrap;background:rgba(169,164,150,.12);color:var(--muted)}
+.pill.ok{background:rgba(134,192,149,.13);color:var(--ok)}
+.pill.warn{background:rgba(230,174,92,.13);color:var(--warn)}
+.pill.alert{background:rgba(229,131,112,.14);color:var(--alert)}
+.pill.info{background:rgba(147,182,220,.13);color:var(--info)}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--c,var(--muted));display:inline-block;flex:none}
+.field{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted);min-width:0}
+.field input,.field select,.field textarea,.input{width:100%;background:var(--bg);border:1px solid var(--line-strong);border-radius:9px;padding:9px 11px;color:var(--text);font-size:14px}
+.field textarea{resize:vertical;min-height:70px}
+.field input:focus,.field select:focus,.field textarea:focus,.input:focus{outline:none;border-color:var(--satin)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fields .full{grid-column:1/-1}
+input[type="checkbox"],input[type="radio"]{accent-color:var(--gold)}
+
+/* ---------- layout ---------- */
+main{max-width:1240px;margin:0 auto;padding:30px 24px 96px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.panel-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.h2{font-size:15.5px;font-weight:700}
+.h3{font-size:14.5px;font-weight:700}
+.display{font-family:var(--display);font-weight:500;letter-spacing:-.01em}
+.empty{color:var(--muted);font-size:14px;padding:6px 0}
+.stack{display:flex;flex-direction:column;gap:20px;min-width:0}
+
+/* ---------- studio: today ---------- */
+.today-head{margin-bottom:22px}
+.today-head h1{font-size:clamp(28px,4vw,40px);line-height:1.12}
+.lede{color:var(--muted);margin-top:8px;font-size:15.5px}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:22px;background:var(--panel)}
+.strip-seg{background:none;border:0;border-right:1px solid var(--line);padding:14px 16px;text-align:left;display:flex;flex-direction:column;gap:2px;position:relative}
+.strip-seg:last-child{border-right:0}
+.strip-seg:hover{background:var(--panel-2)}
+.strip-seg::after{content:"";position:absolute;left:16px;right:16px;bottom:0;height:2px;background:var(--gold);opacity:var(--o,0)}
+.strip-n{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.1}
+.strip-l{font-size:13px;color:var(--muted)}
+.today-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+.tasks{display:flex;flex-direction:column;gap:8px}
+.task{display:flex;align-items:center;gap:12px;padding:12px 12px 12px 14px;border-radius:10px;background:var(--bg);border:1px solid var(--line);position:relative}
+.task::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:3px;background:var(--sev)}
+.sev-alert{--sev:var(--alert)} .sev-warn{--sev:var(--warn)} .sev-info{--sev:var(--info)}
+.task-main{flex:1;min-width:0;background:none;border:0;padding:0;text-align:left;display:flex;flex-direction:column;gap:2px}
+.task-t{font-weight:600;font-size:14.5px}
+.task-d{color:var(--muted);font-size:13.5px}
+.up{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.up:first-of-type{border-top:0;padding-top:0}
+.cal{width:48px;flex:none;text-align:center;border:1px solid var(--line-strong);border-radius:10px;padding:5px 0 6px;line-height:1.1}
+.cal-m{font-size:12px;color:var(--muted)}
+.cal-d{font-family:var(--display);font-size:22px;font-weight:600}
+.up-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.up-title{background:none;border:0;padding:0;text-align:left;font-weight:600;font-size:14.5px}
+.up-title:hover{color:var(--satin)}
+.up-meta{color:var(--muted);font-size:13px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.money-mini{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.money-mini strong{font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;display:block}
+.acts li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:13.5px}
+.acts li:first-child{border-top:0;padding-top:0}
+.acts .when{color:var(--faint);white-space:nowrap}
+.foot-tools{margin-top:28px;display:flex;gap:10px;align-items:center;color:var(--faint);font-size:13px}
+
+/* ---------- studio: projects ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:18px}
+.search{position:relative;flex:1 1 220px;max-width:320px}
+.search svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--faint)}
+.search input{padding-left:34px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{height:32px;padding:0 12px;border-radius:99px;border:1px solid var(--line-strong);background:none;font-size:13px;font-weight:500;color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.chip:hover{color:var(--text)}
+.chip[aria-pressed="true"]{background:var(--satin);color:var(--ink);border-color:var(--satin)}
+.toolbar .seg{margin-left:auto}
+.board-wrap{overflow-x:auto;padding-bottom:6px}
+.board{display:grid;grid-template-columns:repeat(5,minmax(210px,1fr));gap:14px;min-width:1080px}
+.col-head{display:flex;justify-content:space-between;align-items:baseline;padding:0 4px 10px;font-size:13.5px;font-weight:600}
+.col-head span{color:var(--faint);font-variant-numeric:tabular-nums}
+.col{display:flex;flex-direction:column;gap:10px}
+.col-empty{border:1px dashed var(--line);border-radius:12px;padding:18px;text-align:center;color:var(--faint);font-size:13px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:6px;width:100%}
+.card:hover{border-color:var(--line-strong);background:#1e2128}
+.card-k{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted)}
+.card-t{font-weight:600;font-size:14.5px;line-height:1.35}
+.card-c{font-size:13px;color:var(--muted)}
+.card-hint{font-size:13px;color:var(--hc,var(--muted))}
+.card-foot{display:flex;justify-content:space-between;align-items:center;margin-top:4px;gap:8px}
+.rows{display:flex;flex-direction:column}
+.row{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(0,1fr) minmax(0,1.4fr) auto;gap:16px;align-items:center;padding:14px 16px;border-top:1px solid var(--line);background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;width:100%}
+.row:first-child{border-top:0}
+.row:hover{background:var(--panel-2)}
+
+/* ---------- studio: payments ---------- */
+.figs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+.fig{padding:18px 20px}
+.fig strong{display:block;font-size:28px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:2px}
+.bill{display:flex;align-items:center;gap:16px;padding:14px 0;border-top:1px solid var(--line)}
+.bill:first-of-type{border-top:0;padding-top:0}
+.bill-main{flex:1;min-width:0}
+.bill-amt{text-align:right;font-variant-numeric:tabular-nums}
+.bill-amt strong{display:block;font-size:17px}
+
+/* ---------- sheet ---------- */
+.scrim{position:fixed;inset:0;background:rgba(8,9,11,.6);z-index:40;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.sheet{position:fixed;top:0;right:0;bottom:0;width:min(580px,100%);background:#17191E;border-left:1px solid var(--line-strong);z-index:41;transform:translateX(102%);transition:transform .26s cubic-bezier(.2,.8,.2,1);overflow-y:auto;overscroll-behavior:contain}
+.sheet.open{transform:none}
+.sheet-head{position:sticky;top:0;z-index:2;background:#17191E;display:flex;justify-content:space-between;gap:14px;padding:20px 24px 16px;border-bottom:1px solid var(--line)}
+.sheet-k{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--muted)}
+.sheet-title{font-family:var(--display);font-size:26px;font-weight:500;line-height:1.15;margin:4px 0 2px}
+.sb{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:12px}
+.sb:last-child{border-bottom:0}
+.sb-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.stepper{display:grid;grid-template-columns:repeat(5,1fr);position:relative}
+.stepper::before{content:"";position:absolute;top:8px;left:10%;right:10%;height:2px;background:var(--line-strong)}
+.step{position:relative;background:none;border:0;padding:0;display:flex;flex-direction:column;align-items:center;gap:7px;font-size:12.5px;color:var(--faint)}
+.step-dot{width:18px;height:18px;border-radius:50%;background:#17191E;border:2px solid var(--line-strong);position:relative;z-index:1}
+.step.done{color:var(--muted)}
+.step.done .step-dot{background:var(--gold);border-color:var(--gold)}
+.step.now{color:var(--text);font-weight:600}
+.step.now .step-dot{border-color:var(--satin);box-shadow:0 0 0 4px rgba(223,200,150,.16)}
+.step:hover .step-dot{border-color:var(--satin)}
+.linkrow{display:flex;gap:8px;align-items:center}
+.linkrow code{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:7px 10px;font:500 13px/1.4 var(--body);color:var(--satin)}
+.row-btns{display:flex;flex-wrap:wrap;gap:8px}
+.code-wrap{display:flex;gap:6px}
+.code-wrap input{flex:1;min-width:0}
+.mini-list li{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;padding:3px 0;color:var(--muted)}
+.mini-list li.is-done{color:var(--faint);text-decoration:line-through}
+.mini-list svg{width:15px;height:15px;flex:none;margin-top:3px}
+.cut-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
+.anote{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:13.5px}
+.anote:first-child{border-top:0}
+.anote.res .anote-text{color:var(--faint);text-decoration:line-through}
+.tcode{font-weight:700;font-variant-numeric:tabular-nums;color:var(--satin);min-width:38px}
+.subform{border:1px dashed var(--line-strong);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.file-a{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--line)}
+.file-a:first-child{border-top:0}
+.file-a-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px}
+.fname{font-weight:600;padding:6px 9px}
+.pill svg{width:13px;height:13px;flex:none}
+.file-a.needs-link input[data-file]{border-color:rgba(230,174,92,.5)}
+.drop{position:relative;display:flex;flex-direction:column;align-items:center;gap:4px;text-align:center;padding:18px 14px;border:1.5px dashed var(--line-strong);border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s}
+.drop:hover,.drop.over{border-color:var(--satin);background:rgba(223,200,150,.06)}
+.drop input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%}
+.drop-t{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px}
+.drop-t svg{width:17px;height:17px;color:var(--satin)}
+.sum{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.sum strong{font-size:20px;font-variant-numeric:tabular-nums}
+.check-row{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text)}
+.check-row input{margin-top:4px}
+.confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;z-index:50;display:grid;place-items:start center;padding:6vh 16px;background:rgba(8,9,11,.66);overflow-y:auto}
+.modal[hidden]{display:none}
+.modal-card{width:min(560px,100%);background:#1A1C21;border:1px solid var(--line-strong);border-radius:16px;padding:24px;display:flex;flex-direction:column;gap:16px}
+.modal-head{display:flex;justify-content:space-between;gap:12px}
+.modal-head h2{font-family:var(--display);font-weight:500;font-size:26px}
+.svc-pick{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.svc-pick label{display:flex;flex-direction:column;gap:6px;padding:11px;border:1px solid var(--line-strong);border-radius:10px;font-size:13.5px;font-weight:600;cursor:pointer}
+.svc-pick input{position:absolute;opacity:0;pointer-events:none}
+.svc-pick label:has(input:checked){border-color:var(--satin);background:rgba(223,200,150,.08)}
+.svc-pick label:has(input:focus-visible){outline:2px solid var(--satin);outline-offset:2px}
+.modal-foot{display:flex;justify-content:flex-end;gap:8px;padding-top:4px}
+.msg-text{min-height:130px}
+
+/* ---------- client view ---------- */
+.client{max-width:960px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+.preview-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-size:13px;color:var(--muted);padding:9px 12px;border:1px dashed var(--line-strong);border-radius:11px}
+.preview-bar select{width:auto;max-width:100%;padding:6px 9px;font-size:13px}
+.ticket{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 200px;color:var(--ink);border-radius:18px;background-image:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.42) 50%,transparent 60%),var(--satin-fill);background-size:260% 100%,100% 100%;background-position:160% 0,0 0;background-repeat:no-repeat;box-shadow:0 18px 40px -22px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.45)}
+.ticket.sheen{animation:sheen 1.9s .25s cubic-bezier(.3,.6,.2,1) 1 both}
+@keyframes sheen{from{background-position:160% 0,0 0}to{background-position:-60% 0,0 0}}
+.ticket-main{padding:28px 30px 26px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.t-service{font-size:13.5px;font-weight:600;color:rgba(23,24,27,.68)}
+.t-title{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.4vw,42px);line-height:1.08;letter-spacing:-.015em}
+.t-status{font-family:var(--display);font-style:italic;font-size:21px;margin-top:10px}
+.t-detail{font-size:15px;color:rgba(23,24,27,.78);max-width:52ch}
+.t-steps{display:grid;grid-template-columns:repeat(5,1fr);margin-top:20px;position:relative}
+.t-steps::before{content:"";position:absolute;top:6px;left:0;right:0;height:2px;background:rgba(23,24,27,.18)}
+.t-steps li{position:relative;display:flex;flex-direction:column;gap:8px;font-size:12.5px;font-weight:600;color:rgba(23,24,27,.45)}
+.t-steps li::before{content:"";position:absolute;top:6px;left:0;right:0;height:2px;background:var(--ink);transform-origin:left;transform:scaleX(var(--f,0))}
+.t-steps li.done{--f:1;color:rgba(23,24,27,.75)}
+.t-steps li.now{--f:.5;color:var(--ink)}
+.t-dot{width:14px;height:14px;border-radius:50%;background:#D8C189;border:2px solid rgba(23,24,27,.3);position:relative;z-index:1}
+.t-steps li.done .t-dot{background:var(--ink);border-color:var(--ink)}
+.t-steps li.now .t-dot{background:var(--satin);border-color:var(--ink);box-shadow:0 0 0 4px rgba(23,24,27,.14)}
+.ticket-stub{position:relative;border-left:2px dashed rgba(23,24,27,.32);padding:28px 22px;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.ticket-stub::before,.ticket-stub::after{content:"";position:absolute;left:-13px;width:24px;height:24px;border-radius:50%;background:var(--bg)}
+.ticket-stub::before{top:-12px}
+.ticket-stub::after{bottom:-12px}
+.stub-k{font-size:13px;font-weight:600;color:rgba(23,24,27,.6)}
+.stub-day{font-family:var(--display);font-size:38px;font-weight:600;line-height:1.05}
+.stub-time{font-size:14px;color:rgba(23,24,27,.78)}
+.stub-code{margin-top:14px;font-size:12px;letter-spacing:.08em;color:rgba(23,24,27,.55);font-variant-numeric:tabular-nums}
+.next{display:flex;gap:18px;align-items:center;justify-content:space-between;padding:18px 20px;border:1px solid var(--line-strong);border-radius:14px;background:var(--panel)}
+.next h2{font-size:17px;font-weight:700}
+.next p{color:var(--muted);font-size:14.5px;margin-top:3px}
+.cnav{position:sticky;top:62px;z-index:5;display:flex;gap:6px;flex-wrap:wrap;padding:10px 0;background:var(--bg)}
+.c-sec{display:flex;flex-direction:column;gap:14px;scroll-margin-top:120px}
+.sec-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.c-h2{font-family:var(--display);font-weight:500;font-size:28px;line-height:1.15}
+.c-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;align-items:start}
+.meter{height:4px;border-radius:4px;background:var(--panel-2);overflow:hidden;margin-bottom:12px}
+.meter span{display:block;height:100%;background:var(--gold);border-radius:4px}
+.checks{display:flex;flex-direction:column;gap:4px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:10px 10px;border-radius:9px;cursor:pointer;font-size:14.5px}
+.check:hover{background:var(--panel-2)}
+.check input{width:18px;height:18px;margin:2px 0 0;flex:none}
+.check.is-done .check-t{color:var(--faint);text-decoration:line-through}
+.access-form{display:flex;flex-direction:column;gap:12px}
+.prep-g{font-size:13px;font-weight:600;color:var(--satin);margin:14px 0 2px 10px}
+.prep-g:first-of-type{margin-top:4px}
+.check-t{display:block}
+.check-tip{display:block;font-size:13px;color:var(--faint);margin-top:2px;text-decoration:none}
+.check.is-done .check-tip{text-decoration:none}
+.review-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:16px;align-items:start}
+.screen{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#0c0d10}
+.screen video{width:100%;height:100%;display:block;background:#000}
+.sim{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(120% 90% at 30% 20%,#2a2d34 0%,#15171b 55%,#0c0d10 100%)}
+.sim::before,.sim::after{content:"";position:absolute;left:0;right:0;height:9%;background:#050506}
+.sim::before{top:0} .sim::after{bottom:0}
+.sim-cut{position:absolute;top:12%;left:4%;font-size:13px;font-weight:600;color:rgba(245,242,235,.8);z-index:1}
+.sim-spec{position:absolute;top:12%;right:4%;font-size:12px;color:rgba(245,242,235,.55);z-index:1}
+.sim-scene{position:absolute;bottom:13%;left:4%;right:4%;font-family:var(--display);font-style:italic;font-size:clamp(15px,2.2vw,20px);color:rgba(245,242,235,.92);z-index:1}
+.big-play{width:64px;height:64px;border-radius:50%;border:0;background:var(--satin);color:var(--ink);display:grid;place-items:center;z-index:1;box-shadow:0 10px 30px -8px rgba(0,0,0,.7)}
+.big-play svg{width:24px;height:24px}
+.track{position:relative;height:30px;margin:10px 0 2px;cursor:pointer}
+.rail{position:absolute;left:0;right:0;top:13px;height:4px;border-radius:4px;background:var(--panel-2)}
+.fill{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--gold)}
+.pin{position:absolute;top:7px;width:16px;height:16px;margin-left:-8px;border-radius:50%;border:2px solid var(--ink);background:var(--satin);padding:0}
+.pin.res{background:var(--faint)}
+.pin:hover{transform:scale(1.2)}
+.controls{display:flex;align-items:center;gap:8px}
+.tc{margin-left:6px;font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
+.tc b{color:var(--text);font-weight:600}
+.note-form{display:flex;flex-direction:column;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+.note-row{display:flex;gap:8px}
+.note-row input{flex:1;min-width:0}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag input{position:absolute;opacity:0;pointer-events:none}
+.tag span{display:inline-flex;height:28px;align-items:center;padding:0 10px;border-radius:99px;border:1px solid var(--line-strong);font-size:12.5px;color:var(--muted);cursor:pointer}
+.tag input:checked+span{background:var(--satin);color:var(--ink);border-color:var(--satin)}
+.tag input:focus-visible+span{outline:2px solid var(--satin);outline-offset:2px}
+.notes{display:flex;flex-direction:column;gap:4px;max-height:360px;overflow-y:auto;margin:0 -8px}
+.note{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;background:none;border:0;border-radius:9px;padding:9px 8px;font-size:14px}
+.note:hover{background:var(--panel-2)}
+.note-body{flex:1;min-width:0}
+.note-tag{display:block;font-size:12px;color:var(--faint)}
+.note.res .note-text{color:var(--faint);text-decoration:line-through}
+.approve{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:10px}
+.files{padding:6px 20px}
+.file{display:flex;align-items:center;gap:14px;padding:14px 0;border-top:1px solid var(--line)}
+.file:first-child{border-top:0}
+.file-main{flex:1;min-width:0}
+.file-name{font-weight:600;font-size:14.5px}
+.file-meta{font-size:13px;color:var(--muted)}
+.paybox{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;border-color:rgba(212,175,55,.45)}
+.paybox strong{font-size:24px;font-variant-numeric:tabular-nums}
+.updates li{display:flex;gap:12px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.updates li:first-child{border-top:0}
+.updates .when{color:var(--faint);min-width:96px;font-size:13px;padding-top:1px}
+.people{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.person h3{font-size:16px;font-weight:700}
+.person p{color:var(--muted);font-size:13.5px;margin-top:2px}
+.contact-lines{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.contact-lines a{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:var(--text);font-size:14.5px}
+.contact-lines a svg{width:16px;height:16px;color:var(--satin)}
+.contact-lines span{color:var(--muted);font-size:13px}
+.login{display:grid;place-items:start center;padding-top:6vh}
+.login-card{width:min(420px,100%);display:flex;flex-direction:column;gap:12px}
+.login-card h1{font-size:30px}
+body.client-mode main{padding-top:24px}
+.legal{color:var(--faint);font-size:13px;text-align:center;padding-top:6px}
+
+/* ---------- toast + bottom bar ---------- */
+.toasts{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:min(440px,calc(100% - 32px))}
+.toast{background:#24272D;border:1px solid var(--line-strong);color:var(--text);padding:11px 16px;border-radius:12px;font-size:14px;box-shadow:0 14px 30px -12px rgba(0,0,0,.8);transition:opacity .25s,transform .25s}
+.toast.out{opacity:0;transform:translateY(8px)}
+.bottom-bar{display:none}
+.toast{pointer-events:auto;display:flex;align-items:center;gap:14px}
+.toast .link{font-size:14px}
+
+/* ---------- calendar ---------- */
+.month-head{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.month-head h2{font-family:var(--display);font-weight:500;font-size:26px;margin-right:auto}
+.cal-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);gap:20px;align-items:start}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.cal-dow{font-size:12px;color:var(--faint);text-align:center;padding-bottom:2px}
+.cal-cell{min-height:88px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:6px 7px;text-align:left;display:flex;flex-direction:column;gap:4px;color:var(--text);min-width:0}
+.cal-cell:hover{border-color:var(--line-strong)}
+.cal-cell.out{opacity:.38}
+.cal-cell.is-today .cal-num{background:var(--satin);color:var(--ink);border-radius:99px;padding:0 7px}
+.cal-cell.sel{background:var(--panel-2);border-color:var(--satin)}
+.cal-num{font-size:13px;font-weight:600;align-self:flex-start}
+.cal-ev{font-size:11.5px;display:flex;gap:5px;align-items:center;min-width:0}
+.cal-ev span:last-child{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.day-item{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-top:1px solid var(--line)}
+.day-item:first-of-type{border-top:0;padding-top:0}
+
+/* ---------- shoot day ---------- */
+.sd-block{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:8px}
+.sd-k{font-size:13px;color:var(--muted)}
+.sd-code{font-size:38px;font-weight:700;letter-spacing:.06em;font-variant-numeric:tabular-nums;line-height:1.1;word-break:break-word}
+.sd-big{font-size:17px;font-weight:600}
+.sd-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+
+/* ---------- clients, leads ---------- */
+.crow{display:flex;gap:16px;align-items:flex-start;padding:16px 0;border-top:1px solid var(--line);flex-wrap:wrap}
+.crow:first-of-type{border-top:0;padding-top:0}
+.crow-main{flex:1 1 260px;min-width:0;display:flex;flex-direction:column;gap:4px}
+.crow-name{font-size:16px;font-weight:700}
+.crow-projects{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.lead{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.lead:first-of-type{border-top:0;padding-top:0}
+.lead-main{flex:1;min-width:0}
+.lead-msg{font-size:13.5px;color:var(--muted);margin-top:2px}
+.banner{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;border-radius:10px;border:1px solid rgba(230,174,92,.45);background:rgba(230,174,92,.07);font-size:14px}
+.reels{display:flex;align-items:center;gap:10px}
+.reels strong{font-size:20px;font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
+
+/* ---------- earnings chart ---------- */
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.sw{width:10px;height:10px;border-radius:3px;background:var(--c)}
+.bars{display:flex;flex-direction:column;gap:12px}
+.bar-row{display:grid;grid-template-columns:64px minmax(0,1fr) 128px;gap:12px;align-items:center;font-size:13px}
+.bar-m{color:var(--muted)}
+.bar-track{display:flex;gap:2px;height:16px;align-items:stretch;border-radius:4px}
+.bar-track.empty{background:linear-gradient(90deg,var(--line) 0 100%) left center/100% 1px no-repeat}
+.bar-seg{background:var(--c);min-width:3px;border-radius:2px;cursor:default}
+.bar-seg:first-child{border-top-left-radius:4px;border-bottom-left-radius:4px}
+.bar-seg:last-child{border-top-right-radius:4px;border-bottom-right-radius:4px}
+.bar-v{text-align:right;font-variant-numeric:tabular-nums}
+.bar-v span{color:var(--faint)}
+.tip{position:fixed;z-index:70;pointer-events:none;background:#24272D;border:1px solid var(--line-strong);border-radius:9px;padding:7px 10px;font-size:13px;color:var(--text);box-shadow:0 10px 24px -10px rgba(0,0,0,.8);white-space:nowrap}
+.tip[hidden]{display:none}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+.tbl th{text-align:left;font-weight:600;color:var(--muted);padding:8px 0;border-bottom:1px solid var(--line-strong)}
+.tbl td{padding:9px 0;border-bottom:1px solid var(--line)}
+.tbl th:not(:first-child),.tbl td:not(:first-child){text-align:right}
+.tbl-wrap{overflow-x:auto}
+.next-actions{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.t-weather{font-size:14px;margin-top:6px;color:rgba(23,24,27,.78)}
+.t-weather a{color:var(--ink);font-weight:600}
+
+@media (max-width:1100px){ .wordmark{display:none} }
+@media (max-width:900px){
+  .today-grid,.review-grid,.c-grid,.cal-layout{grid-template-columns:1fr}
+  .figs{grid-template-columns:1fr 1fr 1fr}
+}
+@media (max-width:760px){
+  .top-in{padding:0 16px;gap:12px}
+  .tabs{display:none}
+  main{padding:22px 16px 110px}
+  .cal-cell{min-height:52px;padding:5px}
+  .cal-ev span:last-child{display:none}
+  .cal-grid{gap:4px}
+  .bar-row{grid-template-columns:44px minmax(0,1fr) 92px}
+  body.is-studio .bottom-bar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:30;background:rgba(19,21,25,.96);border-top:1px solid var(--line);padding:6px 8px calc(6px + env(safe-area-inset-bottom))}
+  .bottom-bar button{background:none;border:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;font-size:12px;color:var(--muted);border-radius:9px}
+  .bottom-bar button svg{width:20px;height:20px}
+  .bottom-bar button[aria-current="page"]{color:var(--satin)}
+  body.is-studio .toasts{bottom:84px}
+  .strip{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .strip-seg{padding:11px 10px}
+  .strip-n{font-size:20px}
+  .strip-l{font-size:12px}
+  .strip-seg::after{left:10px;right:10px}
+  .figs{grid-template-columns:1fr}
+  .row{grid-template-columns:1fr auto}
+  .row .hide-sm{display:none}
+  .ticket{grid-template-columns:1fr}
+  .ticket-main{padding:24px 22px 20px}
+  .ticket-stub{border-left:0;border-top:2px dashed rgba(23,24,27,.32);flex-direction:row;flex-wrap:wrap;align-items:baseline;gap:4px 12px;padding:18px 22px 20px}
+  .ticket-stub::before,.ticket-stub::after{top:-13px;left:auto}
+  .ticket-stub::before{left:-12px}
+  .ticket-stub::after{right:-12px;bottom:auto}
+  .stub-k{width:100%}
+  .stub-day{font-size:28px}
+  .stub-code{margin:0 0 0 auto}
+  .t-steps li{font-size:11px}
+  .next{flex-direction:column;align-items:flex-start}
+  .people,.fields,.svc-pick{grid-template-columns:1fr 1fr}
+  .hide-sm{display:none}
+  .sheet-head,.sb{padding-left:18px;padding-right:18px}
+  .cnav{top:62px}
+}
+@media (max-width:440px){
+  .wordmark{display:none}
+  .people,.fields{grid-template-columns:1fr}
+  .note-row{flex-direction:column}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body class="is-studio">
+
+<header class="top">
+  <div class="top-in">
+    <button class="brand" data-act="home" aria-label="Baseline Cinematic home">
+      <svg viewBox="0 0 40 40" aria-hidden="true">
+        <defs><linearGradient id="bcg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F3DFA2"/><stop offset=".45" stop-color="#D4AF37"/><stop offset=".72" stop-color="#A9872C"/><stop offset="1" stop-color="#EAD18C"/></linearGradient></defs>
+        <rect x="1" y="1" width="38" height="38" rx="9" fill="#17181B" stroke="url(#bcg)" stroke-width="1.3"/>
+        <text x="20" y="27.5" text-anchor="middle" font-family="Bodoni Moda, Didot, serif" font-size="19" font-weight="600" fill="url(#bcg)" letter-spacing="-.5">BC</text>
+      </svg>
+      <span class="wordmark">BASELINE CINEMATIC</span>
+    </button>
+    <nav class="tabs" id="tabs" aria-label="Studio sections"></nav>
+    <div class="top-right">
+      <div class="seg" role="group" aria-label="Switch view">
+        <button data-act="view" data-x="studio" id="seg-studio">Studio</button>
+        <button data-act="view" data-x="client" id="seg-client">Client view</button>
+      </div>
+      <button class="btn btn-gold" data-act="new" id="btn-new"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><span class="hide-sm">New project</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="main"></main>
+
+<nav class="bottom-bar" id="bottom-bar" aria-label="Studio sections"></nav>
+<div class="scrim" id="scrim" data-act="close-sheet"></div>
+<aside class="sheet" id="sheet" aria-label="Project details" aria-hidden="true"></aside>
+<div class="modal" id="modal" hidden></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="tip" id="tip" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ================= setup: fill these two in to go live ================= */
+const CONFIG = {
+  supabaseUrl: 'https://temwrepdhydpsgwhugee.supabase.co',   // Supabase > Project Settings > API > Project URL
+  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlbXdyZXBkaHlkcHNnd2h1Z2VlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxMDAxMTksImV4cCI6MjExMDY3NjExOX0.ur2XzOTlN0fP6q2mBMGuUn2Cswor5VUKTERr7SGN248',   // Supabase > Project Settings > API > anon public key (never the service_role key)
+  portalBase: 'https://baselinecinematic.com/portal/'
+};
+const LIVE = !!(CONFIG.supabaseUrl && CONFIG.supabaseKey && window.supabase);
+const CLIENT_TOKEN = new URLSearchParams(location.search).get('p');
+const MODE = CLIENT_TOKEN ? 'client' : 'studio';
+const sb = LIVE ? window.supabase.createClient(CONFIG.supabaseUrl, CONFIG.supabaseKey) : null;
+
+/* ================= constants ================= */
+const KEY = 'bc_portal_v5';
+const PORTAL = CONFIG.portalBase + '?p=';
+const STUDIO = {
+  call: '(309) 863-5181', callTel: '+13098635181',
+  text: '(309) 863-5089', textTel: '+13098635089'
+};
+
+const STAGES = [
+  { n:1, label:'Booked',    client:'You’re on the calendar' },
+  { n:2, label:'Shoot day', client:'We’re filming' },
+  { n:3, label:'Editing',   client:'Editing and color' },
+  { n:4, label:'Review',    client:'Your cut is ready' },
+  { n:5, label:'Delivered', client:'Your files are ready' }
+];
+
+/* Prep lists: [group, item, why it matters (optional)] */
+const PREP_RE = [
+  ['Inside', 'Turn on every light, including lamps and under-cabinet lights', 'Even, warm light makes rooms read bigger on camera.'],
+  ['Inside', 'Open blinds and curtains to the same height'],
+  ['Inside', 'Clear kitchen and bathroom counters down to one or two decor pieces'],
+  ['Inside', 'Put away personal photos, mail, pet bowls and trash cans', 'Buyers should picture themselves in the home, not the seller.'],
+  ['Inside', 'Make beds and straighten pillows and towels'],
+  ['Inside', 'Turn off ceiling fans and TVs', 'Spinning fans and screens flicker on video.'],
+  ['Outside', 'Move vehicles out of the driveway and off the street in front', 'Cars show up in every aerial shot.'],
+  ['Outside', 'Put away hoses, toys, yard tools and trash bins'],
+  ['Outside', 'Close the garage door'],
+  ['Outside', 'Turn on pool, fountain and fire features'],
+  ['Day of', 'Secure pets or take them off-site'],
+  ['Day of', 'Make sure no one will be home during the shoot, or plan to step outside with us']
+];
+const PREP_LEGACY = [
+  ['Before we film', 'Pick 8 to 10 questions you want answered on camera'],
+  ['Before we film', 'Ask family which stories they most want to hear'],
+  ['Before we film', 'Gather photo albums, VHS and 8mm tapes, letters and keepsakes', 'We scan and restore these to weave into the film.'],
+  ['Before we film', 'Send the correct spelling of every name that will appear on screen'],
+  ['Day of', 'Choose a quiet room with a comfortable chair', 'Away from the fridge, AC and ticking clocks. They come through in the audio.'],
+  ['Day of', 'Wear solid colors and skip small stripes and big logos', 'Tight patterns shimmer on camera.'],
+  ['Day of', 'Silence phones and turn off TVs in the house'],
+  ['Day of', 'Keep a glass of water near the storyteller']
+];
+const PREP_COMMERCIAL = [
+  ['Before we film', 'Approve the script and shot list'],
+  ['Before we film', 'Send your logo files and brand colors', 'We use them for titles and the end card.'],
+  ['Before we film', 'Choose who will speak on camera and give them a heads-up'],
+  ['Before we film', 'Get a yes from any staff or customers who will appear'],
+  ['Location', 'Clean and stage products, vehicles or displays'],
+  ['Location', 'Tidy signage, windows and the entryway'],
+  ['Location', 'Clear the front of the building for aerial shots', 'Move work trucks and dumpsters out of frame if you can.'],
+  ['Day of', 'Let your staff know we’re filming'],
+  ['Day of', 'Have branded shirts ready for anyone on camera']
+];
+const PREP_SOCIAL = [
+  ['This month', 'Approve this month’s reel ideas'],
+  ['This month', 'Tell us about promotions, events or new items to feature'],
+  ['This month', 'Send us any reels or trending sounds you like'],
+  ['Day of', 'Prep the dishes, products or people we’re featuring'],
+  ['Day of', 'Tidy the spaces we’ll film'],
+  ['Day of', 'Confirm the filming window with your staff']
+];
+const PREP_PACKAGE = {
+  campaign: [
+    ['Before we film', 'Tell us where the ads will run (Facebook, Instagram, YouTube)'],
+    ['Before we film', 'Pick the offer or call to action for the ads', 'For example, "Book your free estimate."']
+  ],
+  portfolio: [
+    ['Before we film', 'Confirm we can feature the finished film in the Baseline Cinematic portfolio']
+  ]
+};
+const SERVICES = {
+  real_estate: {
+    label:'Real estate', color:'#4A8DD8', drone:true,
+    prepTitle:'Get the property camera-ready', accessTitle:'How we get in',
+    prep:PREP_RE,
+    files:[['4K showcase film','3840×2160 MP4 for your website and YouTube','1.6 GB'],['MLS unbranded cut','1080p, no branding, MLS compliant','480 MB'],['Vertical reel','9:16 for Instagram Reels, TikTok and Shorts','290 MB'],['Aerial stills','Edited drone photos in one ZIP','220 MB']],
+    scenes:['Aerial establishing orbit','Front exterior push-in','Living room and kitchen flow','Primary suite walkthrough','Golden hour aerial and end card']
+  },
+  legacy: {
+    label:'Legacy film', color:'#B98226', drone:false,
+    prepTitle:'Before the interview', accessTitle:'Where we’re filming',
+    prep:PREP_LEGACY,
+    files:[['Full film in 4K','Chaptered master film','6.4 GB'],['Chapter clips','Short clips to share with family','1.9 GB'],['Digitized tapes and photos','Restored video files and high-res scans','3.2 GB']],
+    scenes:['Opening family photographs','Interview: the early years','Interview: building a family','Archival footage montage','Closing words and credits']
+  },
+  commercial: {
+    label:'Commercial', color:'#9472D6', drone:true,
+    prepTitle:'Before we film', accessTitle:'On-site contact',
+    prep:PREP_COMMERCIAL,
+    files:[['Hero film in 4K','Website and YouTube master','1.8 GB'],['Ad cutdowns','30s and 15s in 16:9 and 4:5','640 MB'],['Vertical reels','9:16 teasers for social','510 MB']],
+    scenes:['Aerial reveal of the property','Owner introduction','Products and craftsmanship','Customers and team','Logo and call to action']
+  },
+  social: {
+    label:'Social retainer', color:'#2F9A72', drone:false,
+    prepTitle:'This month’s shoot', accessTitle:'Filming location',
+    prep:PREP_SOCIAL,
+    files:[['Reels 1 and 2','9:16 with captions, plus clean versions','340 MB'],['Reels 3 and 4','9:16 with captions, plus clean versions','360 MB'],['Stills for your grid','Color-graded photos','180 MB']],
+    scenes:['Hook','Behind the counter','Hero product','Customer moment','Call to action']
+  }
+};
+
+const PACKAGES = [
+  { id:'walkthrough', service:'real_estate', name:'Basic walkthrough', price:199 },
+  { id:'retainer',    service:'social',      name:'Social media retainer', price:299, per:'/mo' },
+  { id:'brand',       service:'commercial',  name:'Brand profile', price:850 },
+  { id:'campaign',    service:'commercial',  name:'Commercial campaign', price:1500 },
+  { id:'legacy',      service:'legacy',      name:'Legacy story', price:null },
+  { id:'portfolio',   service:'any',         name:'Portfolio shoot (for two 5-star Google reviews)', price:0 }
+];
+const ACCESS = ['Lockbox','Smart lock','Key pickup','Someone on site'];
+const TAGS = ['General','Color','Pacing','Framing','Audio','Remove'];
+const SEV = { alert:0, warn:1, info:2 };
+const CREW = [
+  { t:'Drone batteries charged (Mini 5 Pro)', drone:true },
+  { t:'ND filters packed', drone:true },
+  { t:'LAANC authorization open on your phone', drone:true },
+  { t:'Pocket 3 charged' },
+  { t:'Two SD cards formatted' },
+  { t:'D-Log M set on every camera' },
+  { t:'Both cards backed up before leaving' }
+];
+const WEATHER = {
+  unknown:{ label:'Not checked yet' },
+  good:{ label:'Forecast looks good', client:'Forecast looks good for your shoot.' },
+  watch:{ label:'Watching the weather', client:'We’re watching the weather. If it turns, we’ll text you about a new time.' },
+  moved:{ label:'Moved for weather', client:'Weather moved your shoot. The date above is your new time.' }
+};
+
+/* ================= icons ================= */
+const sv = (d, extra='') => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" ${extra}>${d}</svg>`;
+const I = {
+  x: sv('<path d="M18 6 6 18M6 6l12 12"/>'),
+  plus: sv('<path d="M12 5v14M5 12h14"/>'),
+  copy: sv('<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>'),
+  check: sv('<path d="M20 6 9 17l-5-5"/>'),
+  circle: sv('<circle cx="12" cy="12" r="8"/>'),
+  lock: sv('<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>'),
+  play: sv('<path d="M7 4.5v15l12-7.5z" fill="currentColor"/>'),
+  pause: sv('<rect x="6" y="4.5" width="4" height="15" rx="1" fill="currentColor"/><rect x="14" y="4.5" width="4" height="15" rx="1" fill="currentColor"/>'),
+  back: sv('<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/>'),
+  fwd: sv('<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>'),
+  msg: sv('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'),
+  phone: sv('<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>'),
+  mail: sv('<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/>'),
+  ext: sv('<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>'),
+  down: sv('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>'),
+  search: sv('<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>'),
+  eye: sv('<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>'),
+  today: sv('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'),
+  film: sv('<rect x="2" y="2" width="20" height="20" rx="2.5"/><path d="M7 2v20M17 2v20M2 12h20M2 7h5M2 17h5M17 17h5M17 7h5"/>'),
+  wallet: sv('<path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/>'),
+  home: sv('<path d="m3 10 9-7 9 7v10a2 2 0 0 1-2 2h-4v-6h-6v6H5a2 2 0 0 1-2-2z"/>'),
+  users: sv('<circle cx="9" cy="8" r="4"/><path d="M2 21a7 7 0 0 1 14 0"/><path d="M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-5-6.7"/>'),
+  nav: sv('<path d="M3 11 22 2l-9 19-2-8z"/>'),
+  left: sv('<path d="m15 18-6-6 6-6"/>'),
+  right: sv('<path d="m9 18 6-6-6-6"/>'),
+  clap: sv('<path d="M4 11h16v9a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1z"/><path d="m4 11-.9-3.6a1 1 0 0 1 .7-1.2L17.6 2.7a1 1 0 0 1 1.2.7L19.7 7 4 11z"/>')
+};
+const GOOGLE = {
+  maps: a => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(a)}`,
+  forecast: a => `https://forecast.weather.gov/zipcity.php?inputstring=${encodeURIComponent(cityOf(a))}`
+};
+
+/* ================= helpers ================= */
+const $ = id => document.getElementById(id);
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const s = n => n === 1 ? '' : 's';
+const money = n => '$' + Math.round(Number(n) || 0).toLocaleString('en-US');
+const uid = () => Math.random().toString(36).slice(2, 10);
+const balance = p => Math.max(0, (p.total || 0) - (p.paid || 0));
+const first = name => String(name || '').split(/\s|&/)[0] || 'there';
+const byId = id => projects.find(p => p.id === id);
+const tc = sec => { sec = Math.max(0, Math.round(sec)); return Math.floor(sec / 60) + ':' + String(sec % 60).padStart(2, '0'); };
+const parseLen = v => { const m = String(v).trim().match(/^(\d+):(\d{1,2})$/); return m ? (+m[1]) * 60 + (+m[2]) : (Number(v) || 90); };
+function newToken() {
+  const a = 'abcdefghjkmnpqrstuvwxyz23456789'; let t = 'bc_';
+  try { const r = crypto.getRandomValues(new Uint8Array(10)); r.forEach(b => t += a[b % a.length]); }
+  catch (e) { for (let i = 0; i < 10; i++) t += a[Math.floor(Math.random() * a.length)]; }
+  return t;
+}
+const fmtDay = iso => new Date(iso).toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+const fmtTime = iso => new Date(iso).toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit' });
+const fmtWhen = iso => `${fmtDay(iso)}, ${fmtTime(iso)}`;
+const dayStart = d => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
+function rel(iso) {
+  const d = new Date(iso), now = new Date(), hrs = (d - now) / 36e5;
+  const dd = Math.round((dayStart(d) - dayStart(now)) / 864e5);
+  if (hrs >= 0 && hrs < 1) return 'within the hour';
+  if (hrs > -1 && hrs < 0) return 'within the last hour';
+  if (hrs > 0 && hrs < 12) { const h = Math.round(hrs); return `in ${h} hour${s(h)}`; }
+  if (hrs < 0 && hrs > -12) { const h = Math.round(-hrs); return `${h} hour${s(h)} ago`; }
+  if (dd === 0) return hrs > 0 ? `today at ${fmtTime(iso)}` : 'earlier today';
+  if (dd === 1) return `tomorrow at ${fmtTime(iso)}`;
+  if (dd === -1) return 'yesterday';
+  if (dd > 1 && dd < 7) return `${d.toLocaleDateString('en-US', { weekday:'long' })} at ${fmtTime(iso)}`;
+  if (dd >= 7) return `on ${fmtDay(iso)}`;
+  return `${-dd} days ago`;
+}
+function ago(iso) {
+  const m = (Date.now() - new Date(iso)) / 6e4;
+  if (m < 1) return 'just now';
+  if (m < 60) return `${Math.round(m)} min ago`;
+  const h = m / 60; if (h < 24) { const r = Math.round(h); return `${r} hour${s(r)} ago`; }
+  const d = Math.round(h / 24); if (d < 14) return `${d} day${s(d)} ago`;
+  return fmtDay(iso);
+}
+const toLocal = iso => { if (!iso) return ''; const d = new Date(iso); const p = n => String(n).padStart(2,'0'); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; };
+function greeting() { const h = new Date().getHours(); return h < 12 ? 'Good morning' : h < 17 ? 'Good afternoon' : 'Good evening'; }
+function log(p, text, who = 'studio') { p.activity.unshift({ at: new Date().toISOString(), text, who }); }
+function defaultFiles(service) { return SERVICES[service].files.map(([name, detail, size], i) => ({ id:'f' + i, name, detail, size, url:'' })); }
+function defaultPrep(service, pkgId) { return [...SERVICES[service].prep, ...(PREP_PACKAGE[pkgId] || [])].map(([g, text, tip], i) => ({ id:'c' + i, g, text, tip:tip || '', done:false })); }
+const addrOf = p => (p.address || '').trim() || p.title;
+function cityOf(a) { const parts = String(a).split(',').map(x => x.trim()).filter(Boolean); const c = parts.length > 1 ? parts[parts.length - 1] : 'Pekin'; return /\b(IL|Illinois)\b/i.test(c) ? c : c + ', IL'; }
+const dayKey = d => toLocal(new Date(d).toISOString()).slice(0, 10);
+const daysSince = iso => Math.floor((Date.now() - new Date(iso)) / 864e5);
+function gcalLink(p, forClient) {
+  const st = new Date(p.shootAt), en = new Date(+st + 2 * 36e5);
+  const f = d => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+  const text = forClient ? `Baseline Cinematic shoot: ${p.title}` : `${SERVICES[p.service].label} shoot: ${p.title}`;
+  const details = forClient
+    ? `Your project page: ${PORTAL + p.token}\nQuestions: call ${STUDIO.call} or text ${STUDIO.text}`
+    : `Client: ${p.clientName} ${p.clientPhone || ''}\nAccess: ${p.access.method}\n${p.access.notes || ''}\nProject: ${PORTAL + p.token}`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(text)}&dates=${f(st)}/${f(en)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(addrOf(p))}`;
+}
+function normalize(p) {
+  p.crew = p.crew || {}; p.weather = p.weather || 'unknown'; p.reschedule = p.reschedule || null;
+  p.address = p.address || ''; p.folderUrl = p.folderUrl || ''; p.activity = p.activity || [];
+  if (p.service === 'social') {
+    if (p.reelsPromised == null) p.reelsPromised = 4;
+    if (p.reelsDelivered == null) p.reelsDelivered = p.stage === 5 ? p.reelsPromised : 0;
+    if (p.nextShootAt === undefined) p.nextShootAt = null;
+  }
+  if (p.stage === 5 && !p.deliveredAt) p.deliveredAt = p.approvedAt || p.shootAt;
+  return p;
+}
+
+/* ================= demo data ================= */
+function seed() {
+  const now = new Date();
+  const at = (d, h, m = 0) => { const x = new Date(now); x.setDate(x.getDate() + d); x.setHours(h, m, 0, 0); return x.toISOString(); };
+  const hrs = h => new Date(Date.now() + h * 36e5).toISOString();
+  const base = (service, o) => Object.assign({
+    id: uid(), service, createdAt: hrs(-240), requirePayment: true, payUrl: '', approvedAt: null,
+    cuts: [], activeCut: null, notes: [], activity: [], prep: defaultPrep(service), files: defaultFiles(service)
+  }, o);
+  const doneAll = list => list.map(i => ({ ...i, done: true }));
+
+  const susan = base('real_estate', {
+    token:'bc_98a7f2x', title:'1920 Susan Hope Dr, Pekin', packageName:'Basic walkthrough',
+    clientName:'Sarah Jenkins', clientEmail:'sarah.jenkins@pekinrealty.com', clientPhone:'(309) 555-0142',
+    total:199, paid:100, stage:4, shootAt:at(-2,10), proofDueAt:at(-1,10), airspace:'cleared',
+    access:{ method:'Lockbox', code:'4812', notes:'Combo lockbox on the front porch railing. Seller will leave every light on.' },
+    cuts:[{ id:'v1', name:'V1', label:'First cut', url:'', duration:94 }, { id:'v2', name:'V2', label:'Color graded', url:'', duration:96 }],
+    activeCut:'v2',
+    notes:[
+      { id:'n1', cutId:'v2', t:42, tag:'Pacing', text:'Hold two seconds longer on the kitchen island reveal.', resolved:false, at:hrs(-5) },
+      { id:'n2', cutId:'v2', t:71, tag:'Pacing', text:'Can the backyard aerial come before the bedrooms?', resolved:false, at:hrs(-4) },
+      { id:'n3', cutId:'v1', t:15, tag:'Color', text:'Front door looks a little blue.', resolved:true, at:hrs(-30) }
+    ]
+  });
+  susan.prep = doneAll(susan.prep);
+  susan.activity = [
+    { at:hrs(-4), text:'Pinned a note at 1:11', who:'client' },
+    { at:hrs(-5), text:'Pinned a note at 0:42', who:'client' },
+    { at:hrs(-8), text:'Posted V2 for review', who:'studio' },
+    { at:hrs(-30), text:'Pinned a note at 0:15', who:'client' },
+    { at:hrs(-34), text:'Posted V1 for review', who:'studio' },
+    { at:hrs(-46), text:'Moved to Editing', who:'studio' },
+    { at:hrs(-60), text:'Finished the prep list', who:'client' },
+    { at:hrs(-200), text:'Shoot booked', who:'studio' }
+  ];
+
+  const miller = base('legacy', {
+    token:'bc_44k9m1p', title:'The Miller Family Story', packageName:'Legacy story',
+    clientName:'Robert & Evelyn Miller', clientEmail:'millerfamily@centralil.net', clientPhone:'(309) 555-0188',
+    total:1450, paid:725, stage:3, shootAt:at(-1,13), proofDueAt:at(3,17), airspace:'not_needed',
+    access:{ method:'Someone on site', code:'Evelyn Miller, (309) 555-0188', notes:'Filming by the living room fireplace. 12 VHS and 8mm tapes collected for digitizing.' }
+  });
+  miller.prep = miller.prep.map((i, k) => ({ ...i, done: k !== 2 }));
+  miller.activity = [
+    { at:hrs(-16), text:'Moved to Editing', who:'studio' },
+    { at:hrs(-26), text:'Shoot wrapped', who:'studio' },
+    { at:hrs(-300), text:'Shoot booked', who:'studio' }
+  ];
+
+  const noyes = base('commercial', {
+    token:'bc_71w3z8q', title:'Noyes Auto & Marine', packageName:'Brand profile',
+    clientName:'Nate Noyes', clientEmail:'nate@noyesautomarine.com', clientPhone:'(309) 555-0199',
+    total:850, paid:0, stage:1, shootAt:at(1,8,30), proofDueAt:at(2,8,30), airspace:'pending',
+    access:{ method:'Someone on site', code:'', notes:'' }
+  });
+  noyes.prep = noyes.prep.map((i, k) => ({ ...i, done: k < 2 }));
+  noyes.activity = [{ at:hrs(-50), text:'Shoot booked', who:'studio' }];
+
+  const broadway = base('real_estate', {
+    token:'bc_3hq8n5c', title:'512 Broadway St, Pekin', packageName:'Basic walkthrough',
+    clientName:'Jordan Taylor', clientEmail:'jordan@peoriarealty.com', clientPhone:'(309) 555-0117',
+    total:199, paid:100, stage:1, shootAt:at(6,10), proofDueAt:at(7,10), airspace:'pending',
+    access:{ method:'Lockbox', code:'', notes:'' }
+  });
+  broadway.activity = [{ at:hrs(-3), text:'Shoot booked', who:'studio' }];
+
+  const levee = base('social', {
+    token:'bc_19r5t2v', title:'Levee District Bistro, November reels', packageName:'Social media retainer',
+    clientName:'Elena Vance', clientEmail:'elena@leveedistrictbistro.com', clientPhone:'(309) 555-0164',
+    total:299, paid:299, stage:5, shootAt:at(-6,14), proofDueAt:at(-5,14), airspace:'not_needed', approvedAt:hrs(-70),
+    access:{ method:'Key pickup', code:'Host stand, ask for Elena', notes:'Patio exterior plus kitchen pass at 2 PM before dinner service.' },
+    cuts:[{ id:'v1', name:'V1', label:'Reels 1 to 4', url:'', duration:62 }], activeCut:'v1',
+    reelsPromised:4, reelsDelivered:4, nextShootAt:at(3,14)
+  });
+  levee.prep = doneAll(levee.prep);
+  levee.activity = [
+    { at:hrs(-69), text:'Balance paid', who:'client' },
+    { at:hrs(-70), text:'Approved the final cut', who:'client' },
+    { at:hrs(-100), text:'Posted V1 for review', who:'studio' },
+    { at:hrs(-150), text:'Shoot booked', who:'studio' }
+  ];
+
+  broadway.reschedule = { preferred:at(7,15), note:'The seller is moving furniture out that morning.', at:hrs(-2), status:'open' };
+  broadway.activity.unshift({ at:hrs(-2), text:`Asked to reschedule to ${fmtWhen(at(7,15))}`, who:'client' });
+  noyes.address = 'Noyes Auto & Marine, Peoria';
+
+  const court = base('real_estate', {
+    token:'bc_6tq2w9e', title:'407 Court St, Pekin', packageName:'Basic walkthrough',
+    clientName:'Kim Alvarez', clientEmail:'kim@alvarezhomes.com', clientPhone:'(309) 555-0131',
+    total:199, paid:100, stage:5, shootAt:at(-11,10), proofDueAt:at(-10,10), airspace:'cleared',
+    approvedAt:hrs(-24 * 9), deliveredAt:hrs(-24 * 9),
+    access:{ method:'Smart lock', code:'2207', notes:'' },
+    cuts:[{ id:'v1', name:'V1', label:'First cut', url:'', duration:88 }], activeCut:'v1'
+  });
+  court.prep = doneAll(court.prep);
+  court.activity = [{ at:hrs(-24 * 9), text:'Approved V1 as the final cut', who:'client' }, { at:hrs(-24 * 13), text:'Shoot booked', who:'studio' }];
+
+  const past = (service, o) => { const p = base(service, Object.assign({ stage:5, airspace:'cleared', access:{ method:'Lockbox', code:'', notes:'' } }, o)); p.prep = doneAll(p.prep); p.paid = p.total; p.approvedAt = p.deliveredAt = new Date(+new Date(p.shootAt) + 2 * 864e5).toISOString(); p.activity = [{ at:p.deliveredAt, text:'Balance paid', who:'client' }]; return p; };
+  const lofts = past('real_estate', { token:'bc_p4n7k2d', title:'Riverfront Lofts 4B, Peoria', packageName:'Basic walkthrough', clientName:'Sarah Jenkins', clientEmail:'sarah.jenkins@pekinrealty.com', clientPhone:'(309) 555-0142', total:199, shootAt:at(-34,11), proofDueAt:at(-33,11) });
+  const leveeOct = past('social', { token:'bc_r8m3x6a', title:'Levee District Bistro, October reels', packageName:'Social media retainer', clientName:'Elena Vance', clientEmail:'elena@leveedistrictbistro.com', clientPhone:'(309) 555-0164', total:299, shootAt:at(-36,14), proofDueAt:at(-35,14), reelsPromised:4, reelsDelivered:4, nextShootAt:null, airspace:'not_needed' });
+  const hartley = past('legacy', { token:'bc_h2c9v5y', title:'The Hartley Family Story', packageName:'Legacy story', clientName:'Diane Hartley', clientEmail:'dhartley@centralil.net', clientPhone:'(309) 555-0172', total:1450, shootAt:at(-58,13), proofDueAt:at(-54,13), airspace:'not_needed' });
+
+  return [susan, noyes, miller, broadway, levee, court, lofts, leveeOct, hartley].map(normalize);
+}
+function seedLeads() {
+  const hrs = h => new Date(Date.now() + h * 36e5).toISOString();
+  return [
+    { id:uid(), name:'Dana Price', email:'dana@heightsrealty.com', phone:'(309) 555-0153', service:'real_estate', project:'2210 W Moss Ave, Peoria', message:'Listing goes live next Friday. Need video and aerials.', at:hrs(-6) },
+    { id:uid(), name:'Marcus Lee', email:'marcus@riversidefitness.com', phone:'(309) 555-0186', service:'commercial', project:'Riverside Fitness', message:'Looking for a gym promo for January sign-ups.', at:hrs(-27) }
+  ];
+}
+
+let projects = [], leads = [], settings = { reviewUrl:'' };
+function load() {
+  try {
+    const r = localStorage.getItem(KEY);
+    if (r) { const d = JSON.parse(r); if (d && Array.isArray(d.projects) && d.projects.length) { projects = d.projects.map(normalize); leads = Array.isArray(d.leads) ? d.leads : []; settings = Object.assign({ reviewUrl:'' }, d.settings || {}); return; } }
+  } catch (e) {}
+  projects = seed(); leads = seedLeads();
+}
+function save() {
+  if (!LIVE) { try { localStorage.setItem(KEY, JSON.stringify({ projects, leads, settings })); } catch (e) {} return; }
+  if (MODE === 'client' || !cloud.ready) return;
+  clearTimeout(cloud.timer); setSync('saving'); cloud.timer = setTimeout(flush, 500);
+}
+
+/* ================= cloud (Supabase) ================= */
+const canon = v => JSON.stringify(v, (k, x) => x && typeof x === 'object' && !Array.isArray(x) ? Object.keys(x).sort().reduce((o, key) => (o[key] = x[key], o), {}) : x);
+const cloud = { ready:false, timer:null, busy:false, again:false, saved:{ projects:{}, leads:{}, settings:'' }, session:null, channel:null, loadedAt:0 };
+function snapSaved() {
+  cloud.saved.projects = Object.fromEntries(projects.map(p => [p.id, canon(p)]));
+  cloud.saved.leads = Object.fromEntries(leads.map(l => [l.id, canon(l)]));
+  cloud.saved.settings = canon(settings);
+}
+function setSync(st) { cloud.sync = st; const el = $('sync'); if (el) { el.textContent = st === 'saving' ? 'Saving…' : st === 'error' ? 'Not saved, retrying' : 'All changes saved'; el.className = 'pill ' + (st === 'error' ? 'alert' : st === 'saving' ? '' : 'ok'); } }
+async function flush() {
+  if (cloud.busy) { cloud.again = true; return; }
+  cloud.busy = true;
+  const now = new Date().toISOString();
+  const curP = {}, upP = [], delP = [], curL = {}, upL = [], delL = [];
+  projects.forEach(p => { const j = canon(p); curP[p.id] = j; if (cloud.saved.projects[p.id] !== j) upP.push({ id:p.id, token:p.token, data:p, updated_at:now }); });
+  Object.keys(cloud.saved.projects).forEach(id => { if (!(id in curP)) delP.push(id); });
+  leads.forEach(l => { const j = canon(l); curL[l.id] = j; if (cloud.saved.leads[l.id] !== j) upL.push({ id:l.id, data:l, updated_at:now }); });
+  Object.keys(cloud.saved.leads).forEach(id => { if (!(id in curL)) delL.push(id); });
+  const curS = canon(settings);
+  try {
+    const chk = r => { if (r && r.error) throw r.error; };
+    if (upP.length) chk(await sb.from('projects').upsert(upP));
+    if (delP.length) chk(await sb.from('projects').delete().in('id', delP));
+    if (upL.length) chk(await sb.from('leads').upsert(upL));
+    if (delL.length) chk(await sb.from('leads').delete().in('id', delL));
+    if (curS !== cloud.saved.settings) chk(await sb.from('settings').upsert({ id:1, data:settings }));
+    cloud.saved.projects = curP; cloud.saved.leads = curL; cloud.saved.settings = curS;
+    setSync('saved');
+  } catch (e) {
+    console.error(e); setSync('error');
+    if (!cloud.warned) { toast('Changes didn’t reach the cloud. Check your connection. The app keeps retrying.'); cloud.warned = true; }
+    setTimeout(save, 5000);
+  } finally {
+    cloud.busy = false;
+    if (cloud.again) { cloud.again = false; flush(); }
+  }
+}
+const pending = () => cloud.busy || cloud.sync === 'saving' || cloud.sync === 'error';
+async function cloudLoad() {
+  const [pr, ld, st] = await Promise.all([
+    sb.from('projects').select('id,data'),
+    sb.from('leads').select('id,data'),
+    sb.from('settings').select('data').eq('id', 1).maybeSingle()
+  ]);
+  if (pr.error) throw pr.error;
+  projects = pr.data.map(r => normalize(r.data)).sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+  leads = (ld.data || []).map(r => r.data);
+  settings = Object.assign({ reviewUrl:'' }, (st.data && st.data.data) || {});
+  snapSaved(); cloud.loadedAt = Date.now();
+}
+function subscribe() {
+  if (cloud.channel) return;
+  cloud.channel = sb.channel('studio-sync')
+    .on('postgres_changes', { event:'*', schema:'public', table:'projects' }, ev => remoteChange('projects', ev))
+    .on('postgres_changes', { event:'*', schema:'public', table:'leads' }, ev => remoteChange('leads', ev))
+    .subscribe();
+}
+function remoteChange(table, ev) {
+  const list = table === 'projects' ? projects : leads, saved = cloud.saved[table];
+  if (ev.eventType === 'DELETE') {
+    const id = ev.old && ev.old.id; if (!id || !saved[id]) return;
+    const i = list.findIndex(x => x.id === id); if (i > -1 && canon(list[i]) === saved[id]) list.splice(i, 1);
+    delete saved[id];
+  } else {
+    const row = ev.new; if (!row || !row.data) return;
+    const j = canon(table === 'projects' ? normalize(row.data) : row.data);
+    if (saved[row.id] === j) return;
+    const i = list.findIndex(x => x.id === row.id);
+    if (i > -1 && canon(list[i]) !== saved[row.id]) return; // you have unsaved edits here; yours win
+    const item = JSON.parse(j);
+    if (i > -1) list[i] = item; else list.unshift(item);
+    saved[row.id] = j;
+    if (table === 'projects' && row.data.activity && row.data.activity[0] && row.data.activity[0].who === 'client' && Date.now() - new Date(row.data.activity[0].at) < 60000) toast(`${first(item.clientName)}: ${row.data.activity[0].text}`);
+  }
+  const typing = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+  if (!typing) { renderMain(); if (state.sheet) renderSheet(); }
+}
+async function clientDo(action, payload, okMsg) {
+  if (!LIVE) return false;
+  const { data, error } = await sb.rpc('client_update', { p_token:CLIENT_TOKEN, p_action:action, p_payload:payload });
+  if (error || !data) { toast('That didn’t save. Check your connection and try again.'); console.error(error); return false; }
+  setClientData(data); renderMain(); if (okMsg) toast(okMsg); return true;
+}
+function setClientData(data) {
+  const keep = projects[0] && projects[0].activeCut;
+  const p = normalize(data); if (keep && p.cuts.some(c => c.id === keep)) p.activeCut = keep;
+  settings.reviewUrl = data.reviewUrl || ''; delete p.reviewUrl;
+  projects = [p]; state.clientId = p.id;
+}
+async function clientRefresh() {
+  if (!LIVE || MODE !== 'client' || document.hidden) return;
+  const typing = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
+  if (typing || state.modal || P.playing) return;
+  const { data } = await sb.rpc('get_client_project', { p_token:CLIENT_TOKEN });
+  if (!data) return;
+  const strip = o => { const c = { ...o }; delete c.reviewUrl; delete c.activeCut; return canon(normalize(c)); };
+  if (strip(data) !== strip(projects[0])) { setClientData(data); renderMain(); }
+}
+
+/* ================= sign-in (studio) ================= */
+function viewLogin(msg) {
+  return `<div class="login"><form class="panel login-card" data-form="login">
+    <h1 class="display">Studio sign-in</h1>
+    <p class="muted small">For Michael and Judith. Clients don’t sign in here. They use the private link you send them.</p>
+    <label class="field"><span>Email</span><input id="li-email" type="email" autocomplete="username" required></label>
+    <label class="field"><span>Password</span><input id="li-pass" type="password" autocomplete="current-password"></label>
+    <button class="btn btn-gold" type="submit">Sign in</button>
+    <button class="btn" type="button" data-act="magic">Email me a sign-in link instead</button>
+    <p class="small" id="li-msg" role="status">${msg ? esc(msg) : ''}</p>
+  </form></div>`;
+}
+function showMessage(title, body) {
+  $('main').innerHTML = `<div class="login"><div class="panel login-card"><h1 class="display">${esc(title)}</h1><p class="muted">${body}</p></div></div>`;
+}
+
+let undoSnap = null;
+function snapshot() { undoSnap = JSON.stringify({ projects, leads }); }
+function undoLast() {
+  if (!undoSnap) return;
+  const d = JSON.parse(undoSnap); projects = d.projects; leads = d.leads; undoSnap = null;
+  if (state.sheet && !byId(state.sheet)) state.sheet = null;
+  state.confirm = null; save(); render(); toast('Undone.');
+}
+
+const state = { view:'studio', tab:'today', sheet:null, clientId:null, filter:'all', query:'', layout:'board', confirm:null, modal:null, sheenDone:{}, showCode:false, calMonth:null, calDay:null };
+
+/* ================= smart logic ================= */
+function needs(p) {
+  const out = [], now = Date.now(), h = (new Date(p.shootAt) - now) / 36e5, fn = first(p.clientName), sv = SERVICES[p.service];
+  const left = p.prep.filter(i => !i.done).length, bal = balance(p);
+  if (p.reschedule && p.reschedule.status === 'open') out.push({ sev:'alert', title:`${fn} asked to move ${p.title}`, detail:`Wants ${fmtWhen(p.reschedule.preferred)}${p.reschedule.note ? '. ' + p.reschedule.note : ''}`, act:'accept-resched', label:'Accept new date' });
+  if (p.stage <= 2 && sv.drone && p.weather === 'unknown' && h > 0 && h < 48) out.push({ sev:'info', title:`Check the forecast for ${p.title}`, detail:`Shoot ${rel(p.shootAt)}. Mark it so ${fn} sees the weather status.`, act:'weather-ok', label:'Forecast looks good' });
+  if (p.service === 'social' && p.nextShootAt) {
+    const nh = (new Date(p.nextShootAt) - now) / 36e5;
+    const booked = projects.some(o => o !== p && o.service === 'social' && o.clientEmail === p.clientEmail && Math.abs(new Date(o.shootAt) - new Date(p.nextShootAt)) < 4 * 864e5);
+    if (!booked && nh < 24 * 5) out.push({ sev: nh < 24 ? 'warn' : 'info', title:`Next retainer shoot for ${fn} ${rel(p.nextShootAt)}`, detail:`${p.title}. Book it so ${fn} gets the prep list.`, act:'duplicate', label:'Book next shoot' });
+  }
+  if (p.stage === 1) {
+    if (h < -3) out.push({ sev:'warn', title:`${p.title} is still marked Booked`, detail:`The shoot was ${rel(p.shootAt)}.`, act:'stage', x:3, label:'Move to Editing' });
+    if (!p.access.code.trim() && h < 72 && h > -3) out.push({ sev: h < 36 ? 'alert' : 'warn', title:`No access info for ${p.title}`, detail:`Shoot ${rel(p.shootAt)}. Ask ${fn} how you’re getting in.`, act:'message', label:'Message client' });
+    if (sv.drone && p.airspace === 'pending' && h < 96 && h > -3) out.push({ sev: h < 36 ? 'alert' : 'warn', title:'LAANC authorization still pending', detail:`${p.title}, shoot ${rel(p.shootAt)}.`, act:'airspace', label:'Mark cleared' });
+    if (left && h > 0 && h < 48) out.push({ sev:'info', title:`${fn} has ${left} prep item${s(left)} left`, detail:`${p.title}, shoot ${rel(p.shootAt)}.`, act:'message', label:'Send reminder' });
+    if (p.total > 0 && p.paid === 0 && h < 72) out.push({ sev:'info', title:`No deposit yet from ${fn}`, detail:`${p.title}, ${money(p.total)} booked.`, act:'deposit', label:'Record 50% deposit' });
+  }
+  if (p.stage === 2) out.push({ sev:'info', title:`On location: ${p.title}`, detail:'Move it to Editing once both cards are backed up.', act:'stage', x:3, label:'Move to Editing' });
+  if (p.stage === 3) {
+    const due = (new Date(p.proofDueAt) - now) / 36e5;
+    if (due < 12) out.push({ sev: due < 0 ? 'alert' : 'warn', title: due < 0 ? `First cut overdue: ${p.title}` : `First cut due ${rel(p.proofDueAt)}`, detail: due < 0 ? `It was promised ${rel(p.proofDueAt)}.` : p.title, act:'open', label:'Post a cut' });
+  }
+  if (p.stage === 4) {
+    const open = p.notes.filter(n => !n.resolved).length;
+    if (open) out.push({ sev:'warn', title:`${open} open note${s(open)} from ${fn}`, detail:p.title, act:'open', label:'Review notes' });
+  }
+  const late = p.stage === 5 && bal > 0 && p.deliveredAt ? daysSince(p.deliveredAt) : 0;
+  if (late >= 7) out.push({ sev:'alert', title:`${money(bal)} overdue on ${p.title}`, detail:`Delivered ${late} days ago. A reminder is written and ready to send.`, act:'message', label:'Send reminder' });
+  else if (p.stage === 5 && bal > 0) out.push({ sev:'warn', title:`${money(bal)} still due on ${p.title}`, detail: p.requirePayment ? `${fn}’s files stay locked until it’s paid.` : 'Files are already unlocked.', act:'paid', label:'Mark paid' });
+  return out.map(t => ({ ...t, pid:p.id }));
+}
+
+function hint(p) {
+  const h = (new Date(p.shootAt) - Date.now()) / 36e5;
+  if (p.stage === 1) {
+    if (p.reschedule && p.reschedule.status === 'open') return { text:'Asked to reschedule', c:'var(--alert)' };
+    if (!p.access.code.trim() && h < 72) return { text:`Shoot ${rel(p.shootAt)}, no access info`, c:'var(--alert)' };
+    return { text:`Shoot ${rel(p.shootAt)}` };
+  }
+  if (p.stage === 2) return { text:'Filming now' };
+  if (p.stage === 3) { const due = (new Date(p.proofDueAt) - Date.now()) / 36e5; return { text:`First cut due ${rel(p.proofDueAt)}`, c: due < 0 ? 'var(--alert)' : due < 12 ? 'var(--warn)' : null }; }
+  if (p.stage === 4) { const o = p.notes.filter(n => !n.resolved).length; return o ? { text:`${o} open note${s(o)}`, c:'var(--warn)' } : { text:`Waiting on ${first(p.clientName)}` }; }
+  if (p.service === 'social') return { text:`${p.reelsDelivered} of ${p.reelsPromised} reels delivered` };
+  if (balance(p) && p.deliveredAt && daysSince(p.deliveredAt) >= 7) return { text:`Balance ${daysSince(p.deliveredAt)} days overdue`, c:'var(--alert)' };
+  return { text: p.approvedAt ? `Approved ${fmtDay(p.approvedAt)}` : 'Delivered' };
+}
+
+function payPill(p) {
+  const b = balance(p);
+  if (!p.total) return '<span class="pill">No charge</span>';
+  if (!b) return '<span class="pill ok">Paid</span>';
+  if (!p.paid) return `<span class="pill alert">${money(b)} unpaid</span>`;
+  return `<span class="pill warn">${money(b)} due</span>`;
+}
+
+function messageFor(p) {
+  const fn = first(p.clientName), link = PORTAL + p.token, bal = balance(p);
+  const lines = {
+    1: `Hi ${fn}, your Baseline Cinematic shoot is booked for ${fmtWhen(p.shootAt)}. Your project page has a short prep list and a spot for your access details:\n${link}`,
+    2: `Hi ${fn}, we're on location today. We'll let you know as soon as editing is underway.\n${link}`,
+    3: `Hi ${fn}, your footage is in and editing has started. Expect your first cut ${rel(p.proofDueAt)}.\n${link}`,
+    4: `Hi ${fn}, your cut is ready to watch. Leave notes right on the timeline, or approve it when it's right:\n${link}`,
+    5: (bal && p.deliveredAt && daysSince(p.deliveredAt) >= 7)
+      ? `Hi ${fn}, a friendly reminder that ${money(bal)} is still open for ${p.title}. You can pay and download your files here:\n${link}`
+      : `Hi ${fn}, your final files are ready:\n${link}` + (bal && p.requirePayment ? `\nYour remaining balance of ${money(bal)} unlocks the downloads.` : '')
+  };
+  if (p.reschedule && p.reschedule.status === 'open' && p.stage === 1) return `Hi ${fn}, thanks for letting us know. We can move your shoot to ${fmtWhen(p.reschedule.preferred)}. Your project page has the updated date:\n${link}\n\nMichael & Judith, Baseline Cinematic`;
+  return lines[p.stage] + '\n\nMichael & Judith, Baseline Cinematic';
+}
+
+function clientNext(p) {
+  const left = p.prep.filter(i => !i.done).length, bal = balance(p), cut = cutOf(p);
+  if (p.stage === 1) {
+    if (p.reschedule && p.reschedule.status === 'open') return { t:'Your reschedule request is in', b:`You asked for ${fmtWhen(p.reschedule.preferred)}. We’ll confirm the new time by text.` };
+    if (!p.access.code.trim()) return { t:'Tell us how to get in', b:`We need a code or an on-site contact before ${fmtDay(p.shootAt)}.`, label:'Add access details', go:'c-prep' };
+    if (left) return { t:'Finish your prep list', b:`${left} of ${p.prep.length} item${s(p.prep.length)} left. Ten minutes of prep shows up in every shot.`, label:'Open the prep list', go:'c-prep' };
+    return { t:'You’re all set', b:`See you ${rel(p.shootAt)}. Nothing else is needed from you.` };
+  }
+  if (p.stage === 2) return { t:'Nothing needed from you', b:'Your first cut will appear on this page as soon as it’s ready.' };
+  if (p.stage === 3) return { t:'Nothing needed from you', b:`Michael is editing and color grading. Expect your first cut ${rel(p.proofDueAt)}.` };
+  if (p.stage === 4) return { t:`Watch ${cut ? cut.name : 'your cut'} and tell us what you think`, b:'Pause anywhere to pin a note at that exact moment. When it’s right, approve it.', label:'Watch the cut', go:'c-review' };
+  if (bal && p.requirePayment) return { t:`Pay your ${money(bal)} balance`, b:'Your files unlock as soon as it’s paid.', label:'Go to your files', go:'c-files' };
+  return { t:'Download your files', b:'Your masters and social cuts are ready.', label:'Go to your files', go:'c-files' };
+}
+
+function stageDetail(p) {
+  const left = p.prep.filter(i => !i.done).length, bal = balance(p), cut = cutOf(p);
+  if (p.stage === 1) return `Shoot ${rel(p.shootAt)}. ${left ? 'Finish your prep list below so we’re ready to roll.' : 'Your prep list is done.'}`;
+  if (p.stage === 2) return SERVICES[p.service].drone ? 'We’re on location capturing aerial and ground footage.' : 'We’re on location filming.';
+  if (p.stage === 3) return `Footage is in. First cut expected ${rel(p.proofDueAt)}.`;
+  if (p.stage === 4) return `${cut ? cut.name + ', ' + cut.label.toLowerCase() + ',' : 'Your cut'} is ready to watch below.`;
+  return bal && p.requirePayment ? `Pay the ${money(bal)} balance to unlock your downloads.` : 'Everything is ready to download below.';
+}
+
+/* ================= rendering: chrome ================= */
+const TABS = [['today','Today',I.home],['projects','Projects',I.film],['calendar','Calendar',I.today],['clients','Clients',I.users],['payments','Payments',I.wallet]];
+const VIEWS = { today:() => viewToday(), projects:() => viewProjects(), calendar:() => viewCalendar(), clients:() => viewClients(), payments:() => viewPayments() };
+function renderChrome() {
+  const studio = state.view === 'studio';
+  document.body.classList.toggle('is-studio', studio);
+  $('seg-studio').setAttribute('aria-pressed', studio);
+  $('seg-client').setAttribute('aria-pressed', !studio);
+  $('btn-new').style.display = studio && (!LIVE || cloud.ready) ? '' : 'none';
+  document.querySelector('.top-right .seg').style.display = MODE === 'client' || (LIVE && !cloud.ready) ? 'none' : '';
+  if (MODE === 'client' || (LIVE && !cloud.ready)) { $('tabs').innerHTML = ''; $('bottom-bar').innerHTML = ''; document.body.classList.remove('is-studio'); return; }
+  const tabBtns = (cls) => TABS.map(([id, label, ic]) => `<button class="${cls}" data-act="tab" data-x="${id}" ${studio && state.tab === id ? 'aria-current="page"' : ''}>${cls === 'tab' ? '' : ic}<span>${label}</span></button>`).join('');
+  $('tabs').innerHTML = studio ? tabBtns('tab') : '';
+  $('bottom-bar').innerHTML = studio ? tabBtns('bb') : '';
+}
+
+function renderMain() {
+  renderChrome();
+  const m = $('main');
+  if (state.view === 'studio') {
+    stopPlay();
+    m.innerHTML = (VIEWS[state.tab] || VIEWS.today)();
+  } else {
+    m.innerHTML = viewClient();
+    afterClient();
+  }
+}
+function render() { renderMain(); renderSheet(); renderModal(); }
+
+/* ================= studio: today ================= */
+function viewToday() {
+  const tasks = projects.flatMap(needs).sort((a, b) => SEV[a.sev] - SEV[b.sev]);
+  const active = projects.filter(p => p.stage < 5 || balance(p) > 0).length;
+  const upcoming = projects.filter(p => p.stage <= 2 && new Date(p.shootAt) > Date.now() - 6 * 36e5).sort((a, b) => new Date(a.shootAt) - new Date(b.shootAt));
+  const openBal = projects.reduce((t, p) => t + balance(p), 0);
+  const openCount = projects.filter(p => balance(p) > 0).length;
+  const acts = projects.flatMap(p => p.activity.map(a => ({ ...a, p }))).sort((a, b) => new Date(b.at) - new Date(a.at)).slice(0, 6);
+  const today = new Date().toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' });
+  const most = Math.max(1, ...STAGES.map(st => projects.filter(p => p.stage === st.n).length));
+
+  return `
+  <section class="today-head">
+    <h1 class="display">${greeting()}, Michael &amp; Judith</h1>
+    <p class="lede">${today}. ${active} active project${s(active)}, ${tasks.length ? `${tasks.length} thing${s(tasks.length)} need${tasks.length === 1 ? 's' : ''} you.` : 'nothing needs you right now.'}</p>
+  </section>
+
+  <nav class="strip" aria-label="Projects by stage">
+    ${STAGES.map(st => { const n = projects.filter(p => p.stage === st.n).length; return `<button class="strip-seg" style="--o:${n ? (0.35 + 0.65 * n / most).toFixed(2) : 0}" data-act="tab" data-x="projects"><span class="strip-n">${n}</span><span class="strip-l">${st.label}</span></button>`; }).join('')}
+  </nav>
+
+  <div class="today-grid">
+    <section class="panel">
+      <div class="panel-head"><h2 class="h2">Needs you</h2>${tasks.length ? '<span class="muted small">Most urgent first</span>' : ''}</div>
+      ${tasks.length ? `<ul class="tasks">${tasks.map(taskRow).join('')}</ul>` : '<p class="empty">Nothing needs you right now. Every project is moving.</p>'}
+    </section>
+
+    <div class="stack">
+      <section class="panel">
+        <div class="panel-head"><h2 class="h2">New leads${leads.length ? ` <span class="pill info">${leads.length}</span>` : ''}</h2><button class="btn btn-sm" data-act="add-lead">${I.plus}Add lead</button></div>
+        ${leads.length ? leads.slice().sort((a, b) => new Date(b.at) - new Date(a.at)).map(leadRow).join('') : '<p class="empty">No open leads. Quote requests from your website will land here once the form is connected.</p>'}
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2 class="h2">Coming up</h2></div>
+        ${upcoming.length ? upcoming.map(upRow).join('') : '<p class="empty">No shoots on the calendar. <button class="link" data-act="new">Book one</button></p>'}
+      </section>
+      <section class="panel money-mini">
+        <div><span class="muted small">Open balances</span><strong>${money(openBal)}</strong><span class="muted small">${openCount} project${s(openCount)}</span></div>
+        <button class="btn btn-sm" data-act="tab" data-x="payments">See payments</button>
+      </section>
+      <section class="panel">
+        <div class="panel-head"><h2 class="h2">Recent activity</h2></div>
+        <ul class="acts">${acts.map(a => `<li><span>${a.who === 'client' ? esc(first(a.p.clientName)) : 'You'}: ${esc(a.text)} <span class="muted">on ${esc(a.p.title)}</span></span><span class="when">${ago(a.at)}</span></li>`).join('')}</ul>
+      </section>
+    </div>
+  </div>
+
+  ${LIVE ? `<div class="foot-tools"><span id="sync" class="pill ok">All changes saved</span><span>Signed in as ${esc(cloud.session ? cloud.session.user.email : '')}</span><button class="link" data-act="sign-out">Sign out</button></div>` : `<div class="foot-tools">${state.confirm === 'reset'
+    ? `<span>Replace everything with the sample projects?</span><button class="btn btn-sm btn-danger" data-act="reset-yes">Reset</button><button class="btn btn-sm btn-quiet" data-act="cancel-confirm">Keep my data</button>`
+    : `<span>Sample data is stored in this browser only.</span><button class="link" data-act="reset">Reset sample data</button>`}</div>`}`;
+}
+
+function taskRow(t) {
+  const p = byId(t.pid);
+  return `<li class="task sev-${t.sev}">
+    <button class="task-main" data-act="open" data-id="${p.id}"><span class="task-t">${esc(t.title)}</span><span class="task-d">${esc(t.detail)}</span></button>
+    <button class="btn btn-sm" data-act="${t.act}" data-id="${p.id}" ${t.x ? `data-x="${t.x}"` : ''}>${t.label}</button>
+  </li>`;
+}
+
+function upRow(p) {
+  const d = new Date(p.shootAt), sv = SERVICES[p.service], done = p.prep.filter(i => i.done).length;
+  const hasCode = p.access.code.trim();
+  return `<div class="up">
+    <div class="cal"><div class="cal-m">${d.toLocaleDateString('en-US', { month:'short' })}</div><div class="cal-d">${d.getDate()}</div></div>
+    <div class="up-main">
+      <button class="up-title" data-act="open" data-id="${p.id}">${esc(p.title)}</button>
+      <span class="up-meta">${fmtTime(p.shootAt)} with ${esc(p.clientName)}</span>
+      <div class="pills">
+        ${hasCode ? `<span class="pill ok">${esc(p.access.method)} set</span>` : '<span class="pill alert">No access info</span>'}
+        ${sv.drone ? (p.airspace === 'cleared' ? '<span class="pill ok">Airspace cleared</span>' : '<span class="pill warn">LAANC pending</span>') : ''}
+        <span class="pill ${done === p.prep.length ? 'ok' : ''}">Prep ${done}/${p.prep.length}</span>
+        ${hasCode ? `<button class="btn btn-sm btn-quiet" data-act="copy-code" data-id="${p.id}">${I.copy}Copy code</button>` : ''}
+      </div>
+      <div class="row-btns"><button class="btn btn-sm" data-act="shootday" data-id="${p.id}">${I.clap}Shoot-day mode</button></div>
+    </div>
+  </div>`;
+}
+
+function leadRow(l) {
+  const sv = SERVICES[l.service] || SERVICES.real_estate;
+  return `<div class="lead">
+    <div class="lead-main">
+      <div><strong>${esc(l.name)}</strong> <span class="card-k" style="display:inline-flex"><span class="dot" style="--c:${sv.color}"></span>${sv.label}</span></div>
+      <div class="muted small">${esc(l.project || '')}${l.project ? ', ' : ''}${ago(l.at)}</div>
+      ${l.message ? `<p class="lead-msg">${esc(l.message)}</p>` : ''}
+    </div>
+    <div class="row-btns"><button class="btn btn-sm btn-gold" data-act="book-lead" data-x="${l.id}">Book it</button><button class="icon-btn" data-act="drop-lead" data-x="${l.id}" aria-label="Dismiss lead from ${esc(l.name)}">${I.x}</button></div>
+  </div>`;
+}
+
+/* ================= studio: calendar ================= */
+function monthStart(d) { const x = new Date(d); x.setDate(1); x.setHours(0,0,0,0); return x; }
+function calEvents() {
+  const ev = {};
+  const add = (iso, item) => { const k = dayKey(iso); (ev[k] = ev[k] || []).push(item); };
+  projects.forEach(p => {
+    add(p.shootAt, { p, kind:'shoot', at:p.shootAt });
+    if (p.service === 'social' && p.nextShootAt && p.stage === 5) add(p.nextShootAt, { p, kind:'next', at:p.nextShootAt });
+  });
+  Object.values(ev).forEach(list => list.sort((a, b) => new Date(a.at) - new Date(b.at)));
+  return ev;
+}
+function viewCalendar() {
+  const m = state.calMonth ? new Date(state.calMonth) : monthStart(new Date());
+  const ev = calEvents(), todayK = dayKey(new Date());
+  const start = new Date(m); start.setDate(1 - m.getDay());
+  const days = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
+  const cells = Math.ceil((m.getDay() + days) / 7) * 7;
+  const sel = state.calDay || (dayKey(m) === dayKey(monthStart(new Date())) ? todayK : dayKey(m));
+  const grid = [];
+  for (let i = 0; i < cells; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i);
+    const k = dayKey(d), list = ev[k] || [];
+    grid.push(`<button class="cal-cell ${d.getMonth() !== m.getMonth() ? 'out' : ''} ${k === todayK ? 'is-today' : ''} ${k === sel ? 'sel' : ''}" data-act="cal-day" data-x="${k}" aria-label="${d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' })}, ${list.length} shoot${s(list.length)}">
+      <span class="cal-num">${d.getDate()}</span>
+      ${list.slice(0, 3).map(e => `<span class="cal-ev"><span class="dot" style="--c:${SERVICES[e.p.service].color}${e.kind === 'next' ? ';opacity:.45' : ''}"></span><span>${fmtTime(e.at).replace(':00', '')} ${esc(e.kind === 'next' ? 'Retainer' : e.p.title.split(',')[0])}</span></span>`).join('')}
+      ${list.length > 3 ? `<span class="cal-ev muted">+${list.length - 3} more</span>` : ''}
+    </button>`);
+  }
+  const selList = ev[sel] || [];
+  const selDate = new Date(sel + 'T12:00');
+  return `
+  <div class="cal-layout">
+    <section>
+      <div class="month-head">
+        <h2>${m.toLocaleDateString('en-US', { month:'long', year:'numeric' })}</h2>
+        <button class="icon-btn" data-act="cal-move" data-x="-1" aria-label="Previous month">${I.left}</button>
+        <button class="btn btn-sm" data-act="cal-today">Today</button>
+        <button class="icon-btn" data-act="cal-move" data-x="1" aria-label="Next month">${I.right}</button>
+      </div>
+      <div class="cal-grid">${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].map(d => `<span class="cal-dow">${d}</span>`).join('')}${grid.join('')}</div>
+    </section>
+    <section class="panel">
+      <div class="panel-head"><h2 class="h2">${selDate.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' })}</h2></div>
+      ${selList.length ? selList.map(e => {
+        const p = e.p, sv = SERVICES[p.service];
+        if (e.kind === 'next') return `<div class="day-item"><span class="card-k"><span class="dot" style="--c:${sv.color}"></span>Retainer shoot due</span><strong>${esc(p.clientName)}</strong><span class="muted small">${fmtTime(e.at)}, not booked yet</span><div class="row-btns"><button class="btn btn-sm btn-gold" data-act="duplicate" data-id="${p.id}">Book next shoot</button></div></div>`;
+        return `<div class="day-item">
+          <span class="card-k"><span class="dot" style="--c:${sv.color}"></span>${sv.label}, ${STAGES[p.stage - 1].label}</span>
+          <button class="up-title" data-act="open" data-id="${p.id}">${esc(p.title)}</button>
+          <span class="muted small">${fmtTime(p.shootAt)} with ${esc(p.clientName)}</span>
+          <div class="row-btns">
+            ${p.stage <= 2 ? `<button class="btn btn-sm" data-act="shootday" data-id="${p.id}">${I.clap}Shoot-day mode</button>` : ''}
+            <a class="btn btn-sm" href="${esc(gcalLink(p, false))}" target="_blank" rel="noopener">${I.today}Add to Google Calendar</a>
+          </div>
+        </div>`;
+      }).join('') : `<p class="empty">No shoots this day. <button class="link" data-act="new" data-x="${sel}">Book one</button></p>`}
+    </section>
+  </div>`;
+}
+
+/* ================= studio: clients ================= */
+function clientList() {
+  const map = new Map();
+  projects.forEach(p => {
+    const k = (p.clientEmail || p.clientName || '').toLowerCase().trim(); if (!k) return;
+    if (!map.has(k)) map.set(k, { key:k, name:p.clientName, email:p.clientEmail, phone:p.clientPhone, projects:[] });
+    const c = map.get(k); c.projects.push(p); if (!c.phone && p.clientPhone) c.phone = p.clientPhone;
+  });
+  return [...map.values()].map(c => {
+    c.projects.sort((a, b) => new Date(b.shootAt) - new Date(a.shootAt));
+    c.booked = c.projects.reduce((t, p) => t + (p.total || 0), 0);
+    c.owed = c.projects.reduce((t, p) => t + balance(p), 0);
+    c.last = c.projects[0];
+    return c;
+  }).sort((a, b) => new Date(b.last.shootAt) - new Date(a.last.shootAt));
+}
+function viewClients() {
+  const q = state.query.trim().toLowerCase();
+  const list = clientList().filter(c => !q || (c.name + ' ' + c.email + ' ' + c.phone).toLowerCase().includes(q));
+  return `
+  <div class="toolbar">
+    <label class="search"><span class="sr">Search clients</span>${I.search}<input class="input" id="client-search" type="search" placeholder="Search clients" value="${esc(state.query)}" autocomplete="off"></label>
+    <span class="muted small">${list.length} client${s(list.length)}. Clients are saved automatically from your projects.</span>
+  </div>
+  <section class="panel" style="margin-bottom:20px">
+    ${list.length ? list.map(c => `<div class="crow">
+      <div class="crow-main">
+        <span class="crow-name">${esc(c.name)}</span>
+        <span class="muted small">${[c.email, c.phone].filter(Boolean).map(esc).join(', ')}</span>
+        <span class="small">${c.projects.length} project${s(c.projects.length)}, ${money(c.booked)} booked${c.owed ? `, <span style="color:var(--warn)">${money(c.owed)} owed</span>` : ''}. Last shoot ${fmtDay(c.last.shootAt)}.</span>
+        <div class="crow-projects">${c.projects.slice(0, 4).map(p => `<button class="chip" data-act="open" data-id="${p.id}"><span class="dot" style="--c:${SERVICES[p.service].color}"></span>${esc(p.title.length > 34 ? p.title.slice(0, 32) + '…' : p.title)}</button>`).join('')}${c.projects.length > 4 ? `<span class="muted small" style="align-self:center">+${c.projects.length - 4} more</span>` : ''}</div>
+      </div>
+      <div class="row-btns">
+        <button class="btn btn-sm btn-gold" data-act="duplicate" data-id="${c.last.id}">Book again</button>
+        <button class="btn btn-sm" data-act="new-for" data-x="${esc(c.key)}">New project</button>
+      </div>
+    </div>`).join('') : '<p class="empty">No clients match that search.</p>'}
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2 class="h2">Your Google review link</h2></div>
+    <p class="muted small" style="margin-bottom:10px">Clients see a "Leave a review" button after their files unlock. Paste the link from your Google Business Profile.</p>
+    <label class="field"><span class="sr">Google review link</span><input id="review-url" type="url" value="${esc(settings.reviewUrl)}" placeholder="https://g.page/r/..."></label>
+  </section>`;
+}
+
+/* ================= studio: projects ================= */
+function viewProjects() {
+  const chips = [['all','All', null], ...Object.entries(SERVICES).map(([k, v]) => [k, v.label, v.color])];
+  return `
+  <div class="toolbar">
+    <label class="search"><span class="sr">Search projects</span>${I.search}<input class="input" id="search" type="search" placeholder="Search by address or client" value="${esc(state.query)}" autocomplete="off"></label>
+    <div class="chips" role="group" aria-label="Filter by service">
+      ${chips.map(([k, l, c]) => `<button class="chip" data-act="filter" data-x="${k}" aria-pressed="${state.filter === k}">${c ? `<span class="dot" style="--c:${c}"></span>` : ''}${l}</button>`).join('')}
+    </div>
+    <div class="seg" role="group" aria-label="Layout">
+      <button data-act="layout" data-x="board" aria-pressed="${state.layout === 'board'}">Board</button>
+      <button data-act="layout" data-x="list" aria-pressed="${state.layout === 'list'}">List</button>
+    </div>
+  </div>
+  <div id="board">${boardHTML()}</div>`;
+}
+
+function filtered() {
+  const q = state.query.trim().toLowerCase();
+  return projects.filter(p => (state.filter === 'all' || p.service === state.filter) && (!q || (p.title + ' ' + p.clientName + ' ' + p.clientEmail).toLowerCase().includes(q)));
+}
+
+function boardHTML() {
+  const list = filtered();
+  if (!list.length) return `<div class="panel"><p class="empty">No projects match that search. <button class="link" data-act="clear-search">Show all projects</button></p></div>`;
+  if (state.layout === 'list') {
+    return `<div class="panel" style="padding:0"><div class="rows">${list.map(p => {
+      const h = hint(p), sv = SERVICES[p.service];
+      return `<button class="row" data-act="open" data-id="${p.id}">
+        <span><span class="card-t">${esc(p.title)}</span><br><span class="card-c">${esc(p.clientName)}</span></span>
+        <span class="card-k hide-sm"><span class="dot" style="--c:${sv.color}"></span>${sv.label}</span>
+        <span class="hide-sm"><span class="small">${STAGES[p.stage - 1].label}</span><br><span class="card-hint" ${h.c ? `style="--hc:${h.c}"` : ''}>${esc(h.text)}</span></span>
+        ${payPill(p)}
+      </button>`; }).join('')}</div></div>`;
+  }
+  return `<div class="board-wrap"><div class="board">${STAGES.map(st => {
+    const items = list.filter(p => p.stage === st.n);
+    return `<div><div class="col-head">${st.label}<span>${items.length}</span></div><div class="col">
+      ${items.length ? items.map(card).join('') : '<div class="col-empty">Nothing here</div>'}
+    </div></div>`;
+  }).join('')}</div></div>`;
+}
+
+function card(p) {
+  const sv = SERVICES[p.service], h = hint(p);
+  return `<button class="card" data-act="open" data-id="${p.id}">
+    <span class="card-k"><span class="dot" style="--c:${sv.color}"></span>${sv.label}</span>
+    <span class="card-t">${esc(p.title)}</span>
+    <span class="card-c">${esc(p.clientName)}</span>
+    <span class="card-foot"><span class="card-hint" ${h.c ? `style="--hc:${h.c}"` : ''}>${esc(h.text)}</span>${payPill(p)}</span>
+  </button>`;
+}
+
+/* ================= studio: payments ================= */
+function viewPayments() {
+  const open = projects.filter(p => balance(p) > 0).sort((a, b) => b.stage - a.stage);
+  const paid = projects.filter(p => p.total > 0 && !balance(p));
+  const owed = open.reduce((t, p) => t + balance(p), 0);
+  const got = projects.reduce((t, p) => t + (p.paid || 0), 0);
+  const booked = projects.reduce((t, p) => t + (p.total || 0), 0);
+  return `
+  <div class="figs">
+    <div class="panel fig"><span class="muted small">Open balances</span><strong style="color:var(--warn)">${money(owed)}</strong><span class="muted small">${open.length} project${s(open.length)}</span></div>
+    <div class="panel fig"><span class="muted small">Collected</span><strong style="color:var(--ok)">${money(got)}</strong><span class="muted small">Deposits and payments</span></div>
+    <div class="panel fig"><span class="muted small">Booked value</span><strong>${money(booked)}</strong><span class="muted small">All projects here</span></div>
+  </div>
+  <section class="panel" style="margin-bottom:20px">
+    <div class="panel-head"><h2 class="h2">Open balances</h2><span class="muted small">Delivered projects first. Files stay locked until paid unless you turn that off.</span></div>
+    ${open.length ? open.map(p => `<div class="bill">
+      <div class="bill-main"><button class="up-title" data-act="open" data-id="${p.id}">${esc(p.title)}</button><div class="muted small">${esc(p.clientName)}, ${esc(p.packageName)}, ${STAGES[p.stage - 1].label}</div></div>
+      <div class="bill-amt"><strong>${money(balance(p))}</strong><span class="muted small">of ${money(p.total)}</span></div>
+      ${p.paid === 0 && p.stage < 3 ? `<button class="btn btn-sm" data-act="deposit" data-id="${p.id}">Record deposit</button>` : ''}
+      <button class="btn btn-sm btn-gold" data-act="paid" data-id="${p.id}">Mark paid</button>
+    </div>`).join('') : '<p class="empty">Every balance is paid.</p>'}
+  </section>
+  <section class="panel">
+    <div class="panel-head"><h2 class="h2">Paid in full</h2></div>
+    ${paid.length ? paid.map(p => `<div class="bill"><div class="bill-main"><button class="up-title" data-act="open" data-id="${p.id}">${esc(p.title)}</button><div class="muted small">${esc(p.clientName)}</div></div><div class="bill-amt"><strong>${money(p.total)}</strong></div></div>`).join('') : '<p class="empty">Nothing paid in full yet.</p>'}
+  </section>
+  ${earningsHTML()}`;
+}
+
+function earningsHTML() {
+  const now = new Date(), months = [];
+  for (let i = 5; i >= 0; i--) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); months.push({ y:d.getFullYear(), m:d.getMonth(), label:d.toLocaleDateString('en-US', { month:'short' }), long:d.toLocaleDateString('en-US', { month:'long', year:'numeric' }), by:{}, total:0, paid:0 }); }
+  projects.forEach(p => {
+    const d = new Date(p.shootAt), mo = months.find(x => x.y === d.getFullYear() && x.m === d.getMonth()); if (!mo) return;
+    mo.by[p.service] = (mo.by[p.service] || 0) + (p.total || 0); mo.total += p.total || 0; mo.paid += p.paid || 0;
+  });
+  const max = Math.max(1, ...months.map(x => x.total));
+  const keys = Object.keys(SERVICES);
+  const cur = months[months.length - 1], recurring = cur.by.social || 0;
+  const rows = keys.map(k => {
+    const ps = projects.filter(p => p.service === k && months.some(x => x.y === new Date(p.shootAt).getFullYear() && x.m === new Date(p.shootAt).getMonth()));
+    return { k, n:ps.length, booked:ps.reduce((t, p) => t + (p.total || 0), 0), paid:ps.reduce((t, p) => t + (p.paid || 0), 0) };
+  });
+  return `<section class="panel" style="margin-top:20px">
+    <div class="panel-head"><h2 class="h2">Earnings by month</h2><span class="muted small">Booked value by shoot month, last 6 months</span></div>
+    <p class="small" style="margin-bottom:14px">This month: ${money(cur.total)} booked, ${money(cur.paid)} collected. Retainers make up ${money(recurring)}${cur.total ? ` (${Math.round(recurring / cur.total * 100)}%)` : ''}.</p>
+    <div class="legend">${keys.map(k => `<span><span class="sw" style="--c:${SERVICES[k].color}"></span>${SERVICES[k].label}</span>`).join('')}</div>
+    <div class="bars" role="img" aria-label="Booked value by month and service, last six months">
+      ${months.map(mo => `<div class="bar-row">
+        <span class="bar-m">${mo.label}</span>
+        <div class="bar-track ${mo.total ? '' : 'empty'}">${mo.total ? `<div style="display:flex;gap:2px;width:${(mo.total / max * 100).toFixed(1)}%">${keys.filter(k => mo.by[k]).map(k => `<span class="bar-seg" style="--c:${SERVICES[k].color};flex:${mo.by[k]}" data-tip="${esc(mo.long)}: ${SERVICES[k].label} ${money(mo.by[k])}"></span>`).join('')}</div>` : ''}</div>
+        <span class="bar-v">${money(mo.total)} <span>/ ${money(mo.paid)} in</span></span>
+      </div>`).join('')}
+    </div>
+    <div class="tbl-wrap" style="margin-top:20px">
+      <table class="tbl">
+        <thead><tr><th>Service, last 6 months</th><th>Projects</th><th>Booked</th><th>Collected</th></tr></thead>
+        <tbody>${rows.map(r => `<tr><td><span class="card-k" style="color:var(--text)"><span class="dot" style="--c:${SERVICES[r.k].color}"></span>${SERVICES[r.k].label}</span></td><td>${r.n}</td><td>${money(r.booked)}</td><td>${money(r.paid)}</td></tr>`).join('')}</tbody>
+      </table>
+    </div>
+  </section>`;
+}
+
+/* ================= project sheet ================= */
+function renderSheet() {
+  const sh = $('sheet'), sc = $('scrim');
+  const p = state.sheet && byId(state.sheet);
+  if (!p) { sh.classList.remove('open'); sc.classList.remove('open'); sh.setAttribute('aria-hidden','true'); return; }
+  const top = sh.scrollTop;
+  sh.innerHTML = sheetHTML(p);
+  sh.classList.add('open'); sc.classList.add('open'); sh.setAttribute('aria-hidden','false');
+  sh.scrollTop = top;
+}
+
+function sheetHTML(p) {
+  const sv = SERVICES[p.service], link = PORTAL + p.token, bal = balance(p), done = p.prep.filter(i => i.done).length;
+  const f = (label, field, value, type = 'text', cls = '') => `<label class="field ${cls}"><span>${label}</span><input type="${type}" data-field="${field}" data-id="${p.id}" value="${esc(value)}"></label>`;
+  const nextN = Math.min(5, p.stage + 1);
+  return `
+  <header class="sheet-head">
+    <div>
+      <p class="sheet-k"><span class="dot" style="--c:${sv.color}"></span>${sv.label}, ${esc(p.packageName)}</p>
+      <h2 class="sheet-title">${esc(p.title)}</h2>
+      <p class="muted small">${esc(p.clientName)}</p>
+    </div>
+    <button class="icon-btn" data-act="close-sheet" aria-label="Close">${I.x}</button>
+  </header>
+
+  ${p.reschedule && p.reschedule.status === 'open' ? `<section class="sb"><div class="banner">
+    <span><strong>${esc(first(p.clientName))} asked to reschedule</strong><br><span class="muted">To ${fmtWhen(p.reschedule.preferred)}${p.reschedule.note ? '. ' + esc(p.reschedule.note) : ''}</span></span>
+    <span class="row-btns"><button class="btn btn-sm btn-gold" data-act="accept-resched" data-id="${p.id}">Accept new date</button><button class="btn btn-sm" data-act="decline-resched" data-id="${p.id}">Keep original</button></span>
+  </div></section>` : ''}
+
+  <section class="sb">
+    <div class="stepper" role="group" aria-label="Stage">
+      ${STAGES.map(st => `<button class="step ${st.n < p.stage ? 'done' : st.n === p.stage ? 'now' : ''}" data-act="stage" data-id="${p.id}" data-x="${st.n}" ${st.n === p.stage ? 'aria-current="step"' : ''}><span class="step-dot"></span><span>${st.label}</span></button>`).join('')}
+    </div>
+    ${p.stage < 5 ? `<div class="row-btns"><button class="btn btn-gold" data-act="stage" data-id="${p.id}" data-x="${nextN}">Move to ${STAGES[nextN - 1].label}</button><span class="muted small" style="align-self:center">The client page updates right away.</span></div>` : ''}
+  </section>
+
+  <section class="sb">
+    <h3 class="h3">Client link</h3>
+    <div class="linkrow"><code>${esc(link)}</code><button class="btn btn-sm" data-act="copy-link" data-id="${p.id}">${I.copy}Copy</button></div>
+    <div class="row-btns">
+      <button class="btn btn-sm" data-act="message" data-id="${p.id}">${I.msg}Message client</button>
+      <button class="btn btn-sm" data-act="preview" data-id="${p.id}">${I.eye}Preview here</button>
+      ${LIVE ? `<a class="btn btn-sm" href="${esc(link)}" target="_blank" rel="noopener">${I.ext}Open client page</a>` : ''}
+    </div>
+  </section>
+
+  <section class="sb">
+    <h3 class="h3">Client and project</h3>
+    <div class="fields">
+      ${f('Project or address', 'title', p.title, 'text', 'full')}
+      ${f('Client name', 'clientName', p.clientName)}
+      ${f('Phone', 'clientPhone', p.clientPhone, 'tel')}
+      ${f('Email', 'clientEmail', p.clientEmail, 'email', 'full')}
+    </div>
+  </section>
+
+  <section class="sb">
+    <div class="sb-head"><h3 class="h3">Shoot</h3>${p.stage <= 2 ? `<button class="btn btn-sm" data-act="shootday" data-id="${p.id}">${I.clap}Shoot-day mode</button>` : ''}</div>
+    <div class="fields">
+      <label class="field full"><span>Shoot address (for directions)</span><input data-field="address" data-id="${p.id}" value="${esc(p.address)}" placeholder="${esc(p.title)}"></label>
+      ${f('Shoot date', 'shootAt', toLocal(p.shootAt), 'datetime-local')}
+      ${f('First cut due', 'proofDueAt', toLocal(p.proofDueAt), 'datetime-local')}
+      <label class="field"><span>Access</span><select data-field="access.method" data-id="${p.id}">${ACCESS.map(m => `<option ${m === p.access.method ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
+      <label class="field"><span>Code or contact</span><span class="code-wrap"><input id="sheet-code" type="${state.showCode ? 'text' : 'password'}" data-field="access.code" data-id="${p.id}" value="${esc(p.access.code)}" placeholder="Not provided yet" autocomplete="off"><button class="icon-btn" type="button" data-act="toggle-code" aria-label="${state.showCode ? 'Hide' : 'Show'} code">${I.eye}</button><button class="icon-btn" type="button" data-act="copy-code" data-id="${p.id}" aria-label="Copy code">${I.copy}</button></span></label>
+      ${sv.drone ? `<label class="field full"><span>Airspace (FAA Part 107)</span><select data-field="airspace" data-id="${p.id}">
+        <option value="pending" ${p.airspace === 'pending' ? 'selected' : ''}>LAANC authorization pending</option>
+        <option value="cleared" ${p.airspace === 'cleared' ? 'selected' : ''}>Cleared to fly</option>
+        <option value="not_needed" ${p.airspace === 'not_needed' ? 'selected' : ''}>Uncontrolled airspace, no LAANC needed</option>
+      </select></label>` : ''}
+      <label class="field full"><span>Weather (shown to the client the week of the shoot)</span><select data-field="weather" data-id="${p.id}">${Object.entries(WEATHER).map(([k, w]) => `<option value="${k}" ${p.weather === k ? 'selected' : ''}>${w.label}</option>`).join('')}</select><a class="small" href="${esc(GOOGLE.forecast(addrOf(p)))}" target="_blank" rel="noopener">Open the forecast for ${esc(cityOf(addrOf(p)))}</a></label>
+      <label class="field full"><span>Arrival notes</span><textarea data-field="access.notes" data-id="${p.id}" rows="2">${esc(p.access.notes)}</textarea></label>
+    </div>
+  </section>
+
+  <section class="sb">
+    <div class="sb-head"><h3 class="h3">Client prep list</h3><span class="muted small">${done} of ${p.prep.length} done</span></div>
+    ${prepGroups(p).map(([g, items]) => `<div><span class="muted small">${esc(g)}</span><ul class="mini-list">${items.map(i => `<li class="${i.done ? 'is-done' : ''}">${i.done ? I.check : I.circle}<span style="flex:1">${esc(i.text)}</span><button class="btn btn-sm btn-quiet" style="height:24px;padding:0 6px" data-act="prep-remove" data-id="${p.id}" data-x="${i.id}" aria-label="Remove ${esc(i.text)}">${I.x}</button></li>`).join('')}</ul></div>`).join('') || '<p class="empty">No prep items.</p>'}
+    <form class="subform" data-form="prep-add" data-id="${p.id}">
+      <span class="small">Add an item just for this shoot</span>
+      <div class="note-row"><label class="sr" for="prep-new">New prep item</label><input id="prep-new" class="input" required placeholder="${p.service === 'real_estate' ? 'Unlock the side gate for the backyard shots' : 'Have the new menu printed'}"><button class="btn btn-sm" type="submit">${I.plus}Add</button></div>
+    </form>
+    <div><button class="btn btn-sm btn-quiet" data-act="prep-reset" data-id="${p.id}">Reset to the standard ${SERVICES[p.service].label.toLowerCase()} list</button></div>
+  </section>
+
+  <section class="sb">
+    <div class="sb-head"><h3 class="h3">Cuts and notes</h3><span class="muted small">${p.notes.filter(n => !n.resolved).length} open</span></div>
+    ${p.cuts.length ? p.cuts.slice().reverse().map(c => {
+      const ns = p.notes.filter(n => n.cutId === c.id).sort((a, b) => a.t - b.t);
+      return `<div class="cut-row"><span><strong>${esc(c.name)}</strong> <span class="muted">${esc(c.label)}, ${tc(c.duration)}</span></span>${c.id === p.activeCut ? '<span class="pill info">Client sees this</span>' : ''}</div>
+      ${ns.length ? `<div>${ns.map(n => `<div class="anote ${n.resolved ? 'res' : ''}"><span class="tcode">${tc(n.t)}</span><span style="flex:1"><span class="muted small">${esc(n.tag)}</span><br><span class="anote-text">${esc(n.text)}</span></span><button class="btn btn-sm ${n.resolved ? 'btn-quiet' : ''}" data-act="resolve" data-id="${p.id}" data-x="${n.id}">${n.resolved ? 'Reopen' : 'Resolve'}</button></div>`).join('')}</div>` : ''}`;
+    }).join('') : '<p class="empty">No cuts yet. Post the first one below and the project moves to Review.</p>'}
+    <form class="subform" data-form="cut" data-id="${p.id}">
+      <span class="small">Post a new cut</span>
+      <div class="fields">
+        <label class="field"><span>Name</span><input id="cut-name" value="V${p.cuts.length + 1}" required></label>
+        <label class="field"><span>Length (m:ss)</span><input id="cut-len" value="1:30" inputmode="numeric"></label>
+        <label class="field full"><span>What changed</span><input id="cut-label" placeholder="${p.cuts.length ? 'Notes applied' : 'First cut'}"></label>
+        <label class="field full"><span>Video link (optional, a direct .mp4 plays in the review player)</span><input id="cut-url" type="url" placeholder="https://"></label>
+      </div>
+      <button class="btn btn-gold" type="submit">Post cut for review</button>
+    </form>
+  </section>
+
+  ${p.service === 'social' ? `<section class="sb">
+    <h3 class="h3">Retainer this month</h3>
+    <div class="sum"><div class="reels"><button class="icon-btn" data-act="reels" data-id="${p.id}" data-x="-1" aria-label="One fewer reel delivered">−</button><strong>${p.reelsDelivered} of ${p.reelsPromised}</strong><button class="icon-btn" data-act="reels" data-id="${p.id}" data-x="1" aria-label="One more reel delivered">+</button><span class="muted small">reels delivered</span></div></div>
+    <div class="fields">
+      ${f('Reels promised per month', 'reelsPromised', p.reelsPromised, 'number')}
+      ${f('Next monthly shoot', 'nextShootAt', toLocal(p.nextShootAt), 'datetime-local')}
+    </div>
+    <div><button class="btn btn-sm" data-act="duplicate" data-id="${p.id}">Book next month’s shoot</button></div>
+  </section>` : ''}
+
+  <section class="sb">
+    <h3 class="h3">Files</h3>
+    ${f('Shared folder link for "Download all" (Google Drive folder)', 'folderUrl', p.folderUrl, 'url')}
+    <label class="drop" id="drop" data-id="${p.id}" tabindex="0">
+      <input type="file" id="drop-input" data-id="${p.id}" multiple accept="video/*,image/*,.zip,.pdf,.mov,.mp4">
+      <span class="drop-t">${I.down}Drag files or a Google Drive link here</span>
+      <span class="muted small">Or tap to choose files. Name, size, resolution and length fill in for you.</span>
+    </label>
+    <div>${p.files.map(fl => `<div class="file-a ${fl.url ? '' : 'needs-link'}"><div class="file-a-top"><input class="input fname" data-file-name="${fl.id}" data-id="${p.id}" value="${esc(fl.name)}" aria-label="File name"><span class="muted small" style="white-space:nowrap">${esc(fl.size)}</span><button class="btn btn-sm btn-quiet" data-act="remove-file" data-id="${p.id}" data-x="${fl.id}" aria-label="Remove ${esc(fl.name)}">${I.x}</button></div>${fl.detail ? `<span class="muted small">${esc(fl.detail)}</span>` : ''}<input class="input" data-file="${fl.id}" data-id="${p.id}" value="${esc(fl.url)}" placeholder="Paste this file's Google Drive link so the client can download it"></div>`).join('') || '<p class="empty">No files listed.</p>'}</div>
+    ${p.files.some(fl => !fl.url) ? `<p class="muted small">${p.files.filter(fl => !fl.url).length} file${s(p.files.filter(fl => !fl.url).length)} still need${p.files.filter(fl => !fl.url).length === 1 ? 's' : ''} a download link. Until the portal has its own storage, clients download from your Drive.</p>` : ''}
+    <form class="subform" data-form="file" data-id="${p.id}">
+      <div class="fields"><label class="field"><span>File name</span><input id="file-name" required placeholder="Twilight stills"></label><label class="field"><span>Size</span><input id="file-size" placeholder="150 MB"></label><label class="field full"><span>Description</span><input id="file-detail" placeholder="Edited JPEGs for MLS"></label></div>
+      <button class="btn btn-sm" type="submit">${I.plus}Add file</button>
+    </form>
+  </section>
+
+  <section class="sb">
+    <h3 class="h3">Billing</h3>
+    <div class="sum"><span><span class="muted small">Paid</span><br><strong id="bill-sum">${money(p.paid)} of ${money(p.total)}</strong><br><span class="muted small">${bal ? `${money(bal)} still owed` : p.total ? 'Nothing owed' : 'No charge'}</span></span>${payPill(p)}</div>
+    <div class="fields">
+      ${f('Project total ($)', 'total', p.total, 'number')}
+      ${f('Paid so far ($)', 'paid', p.paid, 'number')}
+      ${f('Payment link (Square, Stripe, PayPal)', 'payUrl', p.payUrl, 'url', 'full')}
+    </div>
+    ${bal ? `<form class="subform" data-form="payment" data-id="${p.id}">
+      <span class="small">Record a payment</span>
+      <div class="note-row"><label class="sr" for="pay-amt">Amount received</label><input id="pay-amt" class="input" type="number" min="1" step="0.01" max="${bal}" placeholder="Amount received, up to ${money(bal)}" required><button class="btn btn-sm" type="submit">Add payment</button></div>
+    </form>` : ''}
+    <label class="check-row"><input type="checkbox" data-field="requirePayment" data-id="${p.id}" ${p.requirePayment ? 'checked' : ''}><span>Lock downloads until the balance is paid</span></label>
+    ${bal ? `<div class="row-btns">${p.paid === 0 ? `<button class="btn btn-sm" data-act="deposit" data-id="${p.id}">Record 50% deposit</button>` : ''}<button class="btn btn-sm btn-gold" data-act="paid" data-id="${p.id}">Mark paid in full</button></div>` : ''}
+  </section>
+
+  <section class="sb">
+    <h3 class="h3">Activity</h3>
+    <ul class="acts">${p.activity.map(a => `<li><span>${a.who === 'client' ? esc(first(p.clientName)) : 'You'}: ${esc(a.text)}</span><span class="when">${ago(a.at)}</span></li>`).join('') || '<li class="muted">Nothing yet.</li>'}</ul>
+  </section>
+
+  <section class="sb">
+    ${state.confirm === 'delete:' + p.id
+      ? `<div class="confirm"><span>Delete this project and its client page?</span><button class="btn btn-sm btn-danger" data-act="delete-yes" data-id="${p.id}">Delete project</button><button class="btn btn-sm btn-quiet" data-act="cancel-confirm">Keep it</button></div>`
+      : `<div class="row-btns"><button class="btn btn-sm" data-act="duplicate" data-id="${p.id}">${I.copy}Duplicate project</button><button class="btn btn-sm btn-quiet" data-act="delete" data-id="${p.id}">Delete project</button></div>`}
+  </section>`;
+}
+
+/* ================= modals ================= */
+function renderModal(focus = true) {
+  const m = $('modal');
+  if (!state.modal) { m.hidden = true; m.innerHTML = ''; return; }
+  const t = state.modal.type, p = state.modal.id ? byId(state.modal.id) : null;
+  if (state.modal.id && !p) { state.modal = null; m.hidden = true; m.innerHTML = ''; return; }
+  const top = m.scrollTop;
+  m.hidden = false;
+  m.innerHTML = t === 'new' ? newHTML(state.modal.prefill || {}) : t === 'shootday' ? shootDayHTML(p) : t === 'reschedule' ? reschedHTML(p) : t === 'lead' ? leadHTML() : msgHTML(p);
+  if (focus) { const firstInput = m.querySelector('input:not([type="radio"]):not([type="checkbox"]),textarea,button'); if (firstInput) setTimeout(() => firstInput.focus({ preventScroll:true }), 30); }
+  else m.scrollTop = top;
+}
+
+function shootDayHTML(p) {
+  const sv = SERVICES[p.service], crew = CREW.filter(c => sv.drone || !c.drone), done = crew.filter((c, i) => p.crew[c.t]).length;
+  const code = p.access.code.trim();
+  return `<div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="sd-h">
+    <div class="modal-head"><div><p class="sheet-k"><span class="dot" style="--c:${sv.color}"></span>Shoot day, ${fmtTime(p.shootAt)} (${rel(p.shootAt)})</p><h2 id="sd-h">${esc(p.title)}</h2></div><button class="icon-btn" type="button" data-act="close-modal" aria-label="Close">${I.x}</button></div>
+    <div class="sd-block">
+      <span class="sd-k">Address</span><span class="sd-big">${esc(addrOf(p))}</span>
+      <div class="row-btns"><a class="btn btn-gold" href="${esc(GOOGLE.maps(addrOf(p)))}" target="_blank" rel="noopener">${I.nav}Directions</a></div>
+    </div>
+    <div class="sd-block">
+      <div class="sd-row"><span class="sd-k">${esc(p.access.method)}</span>${code ? `<button class="btn btn-sm" data-act="copy-code" data-id="${p.id}">${I.copy}Copy</button>` : ''}</div>
+      ${code ? `<span class="sd-code">${esc(code)}</span>` : `<span class="sd-big" style="color:var(--alert)">No code yet</span><div><button class="btn btn-sm" data-act="message" data-id="${p.id}">${I.msg}Ask ${esc(first(p.clientName))}</button></div>`}
+      ${p.access.notes ? `<span class="muted">${esc(p.access.notes)}</span>` : ''}
+    </div>
+    <div class="sd-block">
+      <span class="sd-k">Client</span><span class="sd-big">${esc(p.clientName)}</span>
+      ${p.clientPhone ? `<div class="contact-lines"><a href="tel:${esc(p.clientPhone.replace(/[^\d+]/g, ''))}">${I.phone}Call ${esc(p.clientPhone)}</a><a href="sms:${esc(p.clientPhone.replace(/[^\d+]/g, ''))}">${I.msg}Text ${esc(p.clientPhone)}</a></div>` : '<span class="muted">No phone on file</span>'}
+    </div>
+    <div class="sd-row">
+      <span class="pills">
+        ${sv.drone ? (p.airspace === 'cleared' ? '<span class="pill ok">Airspace cleared</span>' : p.airspace === 'not_needed' ? '<span class="pill">No LAANC needed</span>' : `<span class="pill warn">LAANC pending</span><button class="btn btn-sm" data-act="airspace" data-id="${p.id}">Mark cleared</button>`) : ''}
+        <span class="pill ${p.weather === 'good' ? 'ok' : p.weather === 'unknown' ? '' : 'warn'}">${WEATHER[p.weather].label}</span>
+        <a class="btn btn-sm btn-quiet" href="${esc(GOOGLE.forecast(addrOf(p)))}" target="_blank" rel="noopener">Forecast${I.ext}</a>
+      </span>
+    </div>
+    <div class="sd-block">
+      <div class="sd-row"><span class="sd-k">Crew checklist</span><span class="muted small">${done} of ${crew.length}</span></div>
+      <ul class="checks">${crew.map((c, i) => `<li><label class="check ${p.crew[c.t] ? 'is-done' : ''}"><input type="checkbox" data-crew="${esc(c.t)}" data-id="${p.id}" ${p.crew[c.t] ? 'checked' : ''}><span>${esc(c.t)}</span></label></li>`).join('')}</ul>
+    </div>
+    <div class="modal-foot">
+      ${p.stage === 1 ? `<button class="btn" data-act="sd-start" data-id="${p.id}">We’re on site</button>` : ''}
+      <button class="btn btn-gold" data-act="sd-wrap" data-id="${p.id}">Wrapped, move to Editing</button>
+    </div>
+  </div>`;
+}
+
+function reschedHTML(p) {
+  return `<form class="modal-card" data-form="reschedule" role="dialog" aria-modal="true" aria-labelledby="rs-h">
+    <div class="modal-head"><div><h2 id="rs-h">Request a new date</h2><p class="muted small">Currently ${fmtWhen(p.shootAt)}. Michael and Judith will confirm by text.</p></div><button class="icon-btn" type="button" data-act="close-modal" aria-label="Close">${I.x}</button></div>
+    <label class="field"><span>Preferred date and time</span><input id="rs-date" type="datetime-local" required min="${toLocal(new Date().toISOString())}"></label>
+    <label class="field"><span>Reason (optional)</span><textarea id="rs-note" rows="3" placeholder="The seller needs another day to finish staging"></textarea></label>
+    <div class="modal-foot"><button class="btn btn-quiet" type="button" data-act="close-modal">Cancel</button><button class="btn btn-gold" type="submit">Send request</button></div>
+  </form>`;
+}
+
+function leadHTML() {
+  return `<form class="modal-card" data-form="lead" role="dialog" aria-modal="true" aria-labelledby="ld-h">
+    <div class="modal-head"><div><h2 id="ld-h">Add a lead</h2><p class="muted small">For calls, texts and walk-ins. Website quote requests will add themselves once the form is connected.</p></div><button class="icon-btn" type="button" data-act="close-modal" aria-label="Close">${I.x}</button></div>
+    <div class="fields">
+      <label class="field"><span>Name</span><input id="ld-name" required></label>
+      <label class="field"><span>Service</span><select id="ld-service">${Object.entries(SERVICES).map(([k, v]) => `<option value="${k}">${v.label}</option>`).join('')}</select></label>
+      <label class="field"><span>Phone</span><input id="ld-phone" type="tel"></label>
+      <label class="field"><span>Email</span><input id="ld-email" type="email"></label>
+      <label class="field full"><span>Property or business</span><input id="ld-project" placeholder="2210 W Moss Ave, Peoria"></label>
+      <label class="field full"><span>What they asked for</span><textarea id="ld-msg" rows="2"></textarea></label>
+    </div>
+    <div class="modal-foot"><button class="btn btn-quiet" type="button" data-act="close-modal">Cancel</button><button class="btn btn-gold" type="submit">Save lead</button></div>
+  </form>`;
+}
+
+function pkgOptions(service) {
+  return PACKAGES.filter(k => k.service === service || k.service === 'any').map(k => `<option value="${k.id}">${k.name}${k.price === null ? ', custom quote' : k.price === 0 ? '' : `, ${money(k.price)}${k.per || ''}`}</option>`).join('');
+}
+
+function newHTML(pre) {
+  const svc = pre.service || 'real_estate';
+  const firstPkg = PACKAGES.find(k => k.service === svc) || PACKAGES[0];
+  const names = clientList();
+  return `<form class="modal-card" data-form="new" role="dialog" aria-modal="true" aria-labelledby="new-h">
+    <div class="modal-head"><div><h2 id="new-h">New project</h2><p class="muted small">${pre.leadId ? 'Booking a lead. Their details are filled in.' : 'Creates the client’s private page with a prep list for the service.'}</p></div><button class="icon-btn" type="button" data-act="close-modal" aria-label="Close">${I.x}</button></div>
+    <fieldset class="svc-pick" style="border:0;padding:0;margin:0"><legend class="sr">Service</legend>
+      ${Object.entries(SERVICES).map(([k, v]) => `<label><input type="radio" name="np-service" value="${k}" ${k === svc ? 'checked' : ''}><span class="dot" style="--c:${v.color}"></span>${v.label}</label>`).join('')}
+    </fieldset>
+    <div class="fields">
+      <label class="field"><span>Package</span><select id="np-package">${pkgOptions(svc)}</select></label>
+      <label class="field"><span>Total ($)</span><input id="np-total" type="number" min="0" value="${firstPkg.price ?? ''}" required></label>
+      <label class="field full"><span>Property address or project name</span><input id="np-title" required placeholder="512 Broadway St, Pekin" value="${esc(pre.title || '')}"></label>
+      <label class="field"><span>Client name</span><input id="np-client" required placeholder="Start typing a saved client" list="client-names" autocomplete="off" value="${esc(pre.name || '')}"></label>
+      <datalist id="client-names">${names.map(c => `<option value="${esc(c.name)}"></option>`).join('')}</datalist>
+      <label class="field"><span>Client phone</span><input id="np-phone" type="tel" placeholder="(309) 555-0100" value="${esc(pre.phone || '')}"></label>
+      <label class="field full"><span>Client email</span><input id="np-email" type="email" placeholder="jordan@peoriarealty.com" value="${esc(pre.email || '')}"></label>
+      <label class="field"><span>Shoot date</span><input id="np-date" type="datetime-local" required value="${esc(pre.date || '')}"></label>
+      <label class="field"><span>Payment so far</span><select id="np-paid"><option value="0">Nothing yet</option><option value="half">50% deposit</option><option value="full">Paid in full</option></select></label>
+    </div>
+    <div class="modal-foot"><button class="btn btn-quiet" type="button" data-act="close-modal">Cancel</button><button class="btn btn-gold" type="submit">Create project</button></div>
+  </form>`;
+}
+
+function msgHTML(p) {
+  if (!p) return '';
+  const body = messageFor(p);
+  return `<div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="msg-h">
+    <div class="modal-head"><div><h2 id="msg-h">Message ${esc(first(p.clientName))}</h2><p class="muted small">Written for the ${STAGES[p.stage - 1].label.toLowerCase()} stage. Edit it before you send.</p></div><button class="icon-btn" type="button" data-act="close-modal" aria-label="Close">${I.x}</button></div>
+    <label class="field"><span class="sr">Message</span><textarea id="msg-text" class="msg-text" rows="7">${esc(body)}</textarea></label>
+    <div class="row-btns">
+      <button class="btn btn-gold" data-act="copy-msg">${I.copy}Copy message</button>
+      ${p.clientPhone ? `<a class="btn" id="msg-sms" href="sms:${esc(p.clientPhone.replace(/[^\d+]/g, ''))}?&body=${encodeURIComponent(body)}">${I.msg}Text ${esc(p.clientPhone)}</a>` : ''}
+      ${p.clientEmail ? `<a class="btn" id="msg-mail" href="mailto:${esc(p.clientEmail)}?subject=${encodeURIComponent('Your Baseline Cinematic project')}&body=${encodeURIComponent(body)}">${I.mail}Email</a>` : ''}
+    </div>
+    ${LIVE ? '' : '<p class="small" style="color:var(--warn)">Sample mode: the project link in this message only works once the portal is set up online.</p>'}
+    <p class="muted small">Texts go from your phone's messaging app. If the buttons don't open it here, copy the message and paste it.</p>
+  </div>`;
+}
+
+/* ================= client view ================= */
+function clientProject() { return byId(state.clientId) || projects[0]; }
+function cutOf(p) { return p.cuts.find(c => c.id === p.activeCut) || p.cuts[p.cuts.length - 1] || null; }
+const isVideo = url => /\.(mp4|webm|m4v|mov)(\?|#|$)/i.test(url || '');
+
+function viewClient() {
+  if (!projects.length) return '<div class="client"><div class="panel"><p class="empty">There are no projects yet. Switch to Studio and create one.</p></div></div>';
+  const p = clientProject(); state.clientId = p.id;
+  const st = STAGES[p.stage - 1], nx = clientNext(p), d = new Date(p.shootAt), sv = SERVICES[p.service];
+  const sheen = !state.sheenDone[p.id]; state.sheenDone[p.id] = true;
+  const showPrep = p.stage <= 2, showReview = p.stage >= 3;
+  const nav = [['c-status','Status'], showPrep && ['c-prep','Prep'], showReview && ['c-review','Review'], ['c-files','Files'], ['c-contact','Contact']].filter(Boolean);
+
+  return `<div class="client">
+    ${MODE === 'client' ? '' : `<div class="preview-bar">
+      <label for="preview-select">Previewing the client page for</label>
+      <select id="preview-select" class="input">${projects.map(x => `<option value="${x.id}" ${x.id === p.id ? 'selected' : ''}>${esc(x.title)}</option>`).join('')}</select>
+      <span class="hide-sm">Clients open this from their private link and see only their own project.</span>
+    </div>`}
+
+    <article class="ticket ${sheen ? 'sheen' : ''}" id="c-status">
+      <div class="ticket-main">
+        <p class="t-service">${sv.label} for ${esc(p.clientName)}</p>
+        <h1 class="t-title">${esc(p.title)}</h1>
+        <p class="t-status">${st.client}</p>
+        <p class="t-detail">${esc(stageDetail(p))}</p>
+        ${p.stage <= 2 && sv.drone && (new Date(p.shootAt) - Date.now()) < 7 * 864e5 && (new Date(p.shootAt) - Date.now()) > -6 * 36e5 ? `<p class="t-weather">${WEATHER[p.weather].client ? esc(WEATHER[p.weather].client) + ' ' : ''}<a href="${esc(GOOGLE.forecast(addrOf(p)))}" target="_blank" rel="noopener">See the forecast</a></p>` : ''}
+        <ol class="t-steps" aria-label="Progress: ${st.label}, step ${p.stage} of 5">
+          ${STAGES.map(x => `<li class="${x.n < p.stage ? 'done' : x.n === p.stage ? 'now' : ''}"><span class="t-dot"></span><span>${x.label}</span></li>`).join('')}
+        </ol>
+      </div>
+      <aside class="ticket-stub">
+        <span class="stub-k">${p.stage <= 2 ? 'Shoot day' : 'Filmed'}</span>
+        <span class="stub-day">${d.toLocaleDateString('en-US', { month:'short', day:'numeric' })}</span>
+        <span class="stub-time">${d.toLocaleDateString('en-US', { weekday:'long' })}, ${fmtTime(p.shootAt)}</span>
+        <span class="stub-code">${esc(p.token.replace('bc_', 'BC ').toUpperCase())}</span>
+      </aside>
+    </article>
+
+    <section class="next" aria-label="Your next step">
+      <div><h2>${esc(nx.t)}</h2><p>${esc(nx.b)}</p></div>
+      <div class="next-actions">
+        ${nx.label ? `<button class="btn btn-gold" data-act="jump" data-x="${nx.go}">${nx.label}</button>` : ''}
+        ${p.stage === 1 ? `<a class="btn" href="${esc(gcalLink(p, true))}" target="_blank" rel="noopener">${I.today}Add to my calendar</a>${!(p.reschedule && p.reschedule.status === 'open') ? `<button class="btn btn-quiet" data-act="reschedule">Request a new date</button>` : ''}` : ''}
+      </div>
+    </section>
+
+    ${p.service === 'social' ? `<section class="panel sum" aria-label="Retainer this month">
+      <span><span class="muted small">This month</span><br><strong>${p.reelsDelivered} of ${p.reelsPromised} reels delivered</strong></span>
+      <span class="muted small" style="text-align:right">${p.nextShootAt ? `Next shoot<br><span style="color:var(--text)">${fmtWhen(p.nextShootAt)}</span>` : 'Next shoot date coming soon'}</span>
+    </section>` : ''}
+
+    <nav class="cnav" aria-label="Sections">${nav.map(([id, l]) => `<button class="chip" data-act="jump" data-x="${id}">${l}</button>`).join('')}</nav>
+
+    ${showPrep ? prepSection(p) : ''}
+    ${showReview ? reviewSection(p) : ''}
+    ${filesSection(p)}
+    ${updatesAndContact(p)}
+    <p class="legal">Baseline Cinematic LLC, Pekin, Illinois. FAA Part 107 certified drone operations.</p>
+  </div>`;
+}
+
+function prepGroups(p) {
+  const order = [], map = {};
+  p.prep.forEach(i => { const g = i.g || 'Checklist'; if (!map[g]) { map[g] = []; order.push(g); } map[g].push(i); });
+  return order.map(g => [g, map[g]]);
+}
+function pkgIdOf(p) { const k = PACKAGES.find(x => x.name === p.packageName || (x.id === 'portfolio' && p.packageName === 'Portfolio shoot')); return k ? k.id : null; }
+function prepSection(p) {
+  const sv = SERVICES[p.service], done = p.prep.filter(i => i.done).length;
+  return `<section class="c-sec" id="c-prep">
+    <h2 class="c-h2">${sv.prepTitle}</h2>
+    <div class="c-grid">
+      <div class="panel">
+        <div class="panel-head"><h3 class="h3">Checklist</h3><span class="muted small num">${done} of ${p.prep.length} done</span></div>
+        <div class="meter"><span style="width:${p.prep.length ? (done / p.prep.length * 100) : 0}%"></span></div>
+        ${prepGroups(p).map(([g, items]) => `<h4 class="prep-g">${esc(g)}</h4><ul class="checks">${items.map(i => `<li><label class="check ${i.done ? 'is-done' : ''}"><input type="checkbox" data-prep="${i.id}" ${i.done ? 'checked' : ''}><span><span class="check-t">${esc(i.text)}</span>${i.tip ? `<span class="check-tip">${esc(i.tip)}</span>` : ''}</span></label></li>`).join('')}</ul>`).join('')}
+      </div>
+      <form class="panel access-form" data-form="access">
+        <div><h3 class="h3">${sv.accessTitle}</h3><p class="muted small">Only Michael and Judith see this.</p></div>
+        <label class="field"><span>Access method</span><select id="ca-method">${ACCESS.map(m => `<option ${m === p.access.method ? 'selected' : ''}>${m}</option>`).join('')}</select></label>
+        <label class="field"><span>Code, or who will meet us</span><input id="ca-code" value="${esc(p.access.code)}" placeholder="Lockbox code, smart lock PIN, or name and phone" autocomplete="off"></label>
+        <label class="field"><span>Gate, parking or alarm notes</span><textarea id="ca-notes" rows="3" placeholder="Anything we should know when we arrive">${esc(p.access.notes)}</textarea></label>
+        <button class="btn btn-gold" type="submit">Save access details</button>
+      </form>
+    </div>
+  </section>`;
+}
+
+function reviewSection(p) {
+  const cut = cutOf(p);
+  if (!cut) return `<section class="c-sec" id="c-review"><h2 class="c-h2">Review your cut</h2><div class="panel"><p class="empty">Your first cut will appear here, expected ${rel(p.proofDueAt)}. We'll text you when it's up.</p></div></section>`;
+  const notes = p.notes.filter(n => n.cutId === cut.id).sort((a, b) => a.t - b.t);
+  const open = notes.filter(n => !n.resolved).length;
+  if (P.t > cut.duration) P.t = 0;
+  const pins = notes.map(n => `<button class="pin ${n.resolved ? 'res' : ''}" style="left:${Math.min(100, n.t / cut.duration * 100)}%" data-act="seek" data-x="${n.t}" title="${tc(n.t)} ${esc(n.text)}" aria-label="Jump to note at ${tc(n.t)}"></button>`).join('');
+  const video = isVideo(cut.url);
+  return `<section class="c-sec" id="c-review">
+    <div class="sec-head"><h2 class="c-h2">Review your cut</h2>
+      ${p.cuts.length > 1 ? `<div class="seg" role="group" aria-label="Version">${p.cuts.map(c => `<button data-act="cut" data-x="${c.id}" aria-pressed="${c.id === cut.id}">${esc(c.name)}</button>`).join('')}</div>` : ''}
+    </div>
+    <div class="review-grid">
+      <div class="panel">
+        <div class="screen">
+          ${video ? `<video id="pv" src="${esc(cut.url)}" playsinline preload="metadata"></video>`
+            : `<div class="sim"><span class="sim-cut">${esc(cut.name)}, ${esc(cut.label)}</span><span class="sim-spec">4K UHD</span><button class="big-play" data-act="play" aria-label="Play or pause" id="p-big">${P.playing ? I.pause : I.play}</button><span class="sim-scene" id="p-scene"></span></div>`}
+        </div>
+        <div class="track" id="p-track" data-act="track" data-dur="${cut.duration}"><div class="rail"><span class="fill" id="p-fill"></span></div>${pins}</div>
+        <div class="controls">
+          <button class="icon-btn" data-act="play" id="p-play" aria-label="Play or pause">${P.playing ? I.pause : I.play}</button>
+          <button class="icon-btn" data-act="skip" data-x="-5" aria-label="Back 5 seconds">${I.back}</button>
+          <button class="icon-btn" data-act="skip" data-x="5" aria-label="Forward 5 seconds">${I.fwd}</button>
+          <span class="tc"><b id="p-tc">0:00</b> / ${tc(cut.duration)}</span>
+        </div>
+        ${p.stage === 4 ? `<form class="note-form" data-form="note">
+          <div class="note-row"><label class="sr" for="note-text">Note</label><input id="note-text" class="input" placeholder="What should change at this moment?" required autocomplete="off"><button class="btn btn-gold" type="submit" id="p-add">Pin note at 0:00</button></div>
+          <div class="tags" role="radiogroup" aria-label="Note type">${TAGS.map((t, i) => `<label class="tag"><input type="radio" name="tag" value="${t}" ${i === 0 ? 'checked' : ''}><span>${t}</span></label>`).join('')}</div>
+        </form>` : ''}
+      </div>
+      <aside class="panel">
+        <div class="panel-head"><h3 class="h3">Notes on ${esc(cut.name)}</h3><span class="muted small">${open} open</span></div>
+        ${notes.length ? `<ul class="notes">${notes.map(n => `<li><button class="note ${n.resolved ? 'res' : ''}" data-act="seek" data-x="${n.t}"><span class="tcode">${tc(n.t)}</span><span class="note-body"><span class="note-tag">${esc(n.tag)}</span><span class="note-text">${esc(n.text)}</span></span>${n.resolved ? '<span class="pill ok">Done</span>' : '<span class="pill">Open</span>'}</button></li>`).join('')}</ul>`
+          : `<p class="empty">${p.stage === 4 ? 'No notes yet. Pause the video where something should change and pin a note.' : 'No notes on this cut.'}</p>`}
+        ${p.stage === 4 ? `<div class="approve">
+          ${state.confirm === 'approve'
+            ? `<p class="small">Approve ${esc(cut.name)} as your final cut? We'll start exporting your files.</p><div class="row-btns"><button class="btn btn-gold" data-act="approve-yes">Approve ${esc(cut.name)}</button><button class="btn btn-quiet" data-act="cancel-confirm">Not yet</button></div>`
+            : `<button class="btn btn-gold" data-act="approve">Approve final cut</button><p class="muted small">Notes go straight to Michael and Judith. If you leave notes, we'll post a new version with your changes.</p>`}
+        </div>` : p.approvedAt ? `<div class="approve"><span class="pill ok">${I.check}Approved ${fmtDay(p.approvedAt)}</span></div>` : ''}
+      </aside>
+    </div>
+  </section>`;
+}
+
+function filesSection(p) {
+  const bal = balance(p), locked = p.requirePayment && bal > 0, ready = p.stage === 5;
+  const status = !ready ? '<span class="pill">Available after approval</span>' : locked ? `<span class="pill warn">${I.lock}Locked</span>` : '<span class="pill ok">Ready</span>';
+  return `<section class="c-sec" id="c-files">
+    <div class="sec-head"><h2 class="c-h2">${ready ? 'Your files' : 'What you’ll receive'}</h2>${status}</div>
+    ${ready && locked ? `<div class="panel paybox">
+      <div><span class="muted small">Balance due</span><br><strong>${money(bal)}</strong><span class="muted small"> of ${money(p.total)}</span></div>
+      <div style="display:flex;flex-direction:column;gap:6px;align-items:flex-end">
+        ${p.payUrl ? `<a class="btn btn-gold" href="${esc(p.payUrl)}" target="_blank" rel="noopener">Pay ${money(bal)}${I.ext}</a>` : LIVE ? `<span class="muted small" style="text-align:right">To pay, call ${STUDIO.call}<br>or text ${STUDIO.text}.</span>` : `<button class="btn btn-gold" data-act="pay-demo">Pay ${money(bal)}</button><span class="muted small">Demo: no card is charged.</span>`}
+      </div>
+    </div>` : ''}
+    <div class="panel files">${p.files.map(fl => {
+      let btn;
+      if (!ready) btn = `<span class="muted small">After approval</span>`;
+      else if (locked) btn = `<button class="btn btn-sm" data-act="locked">${I.lock}Locked</button>`;
+      else if (fl.url) btn = `<a class="btn btn-sm btn-gold" href="${esc(fl.url)}" target="_blank" rel="noopener">${I.down}Download</a>`;
+      else btn = `<button class="btn btn-sm btn-gold" data-act="demo-file" data-x="${esc(fl.name)}">${I.down}Download</button>`;
+      return `<div class="file"><div class="file-main"><div class="file-name">${esc(fl.name)}</div><div class="file-meta">${esc(fl.detail)}${fl.size ? ', ' + esc(fl.size) : ''}</div></div>${btn}</div>`;
+    }).join('') || '<p class="empty">Files will be listed here.</p>'}</div>
+    ${ready && !locked ? `<div class="row-btns">
+      ${p.folderUrl ? `<a class="btn btn-gold" href="${esc(p.folderUrl)}" target="_blank" rel="noopener">${I.down}Download all</a>` : `<button class="btn btn-gold" data-act="demo-file" data-x="all files">${I.down}Download all</button>`}
+      <button class="btn" data-act="copy-link" data-id="${p.id}">${I.copy}Copy share link</button>
+      <span class="muted small" style="align-self:center">Send the link to a co-listing agent, seller or your marketing team.</span>
+    </div>
+    <div class="panel next">
+      <div><h2>Happy with your film?</h2><p>A short Google review helps other Central Illinois families and businesses find us. It takes about a minute.</p></div>
+      ${settings.reviewUrl ? `<a class="btn btn-gold" href="${esc(settings.reviewUrl)}" target="_blank" rel="noopener">Leave a review${I.ext}</a>` : `<button class="btn btn-gold" data-act="demo-review">Leave a review</button>`}
+    </div>` : ''}
+  </section>`;
+}
+
+function updatesAndContact(p) {
+  const fn = first(p.clientName);
+  return `<section class="c-sec" id="c-contact">
+    <div class="c-grid">
+      <div class="panel">
+        <div class="panel-head"><h3 class="h3">Updates</h3></div>
+        <ul class="updates">${p.activity.slice(0, 6).map(a => `<li><span class="when">${ago(a.at)}</span><span>${a.who === 'client' ? 'You: ' : ''}${esc(a.text)}</span></li>`).join('')}</ul>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3 class="h3">Questions? Reach us directly</h3></div>
+        <div class="people">
+          <div class="person"><h3>Michael Cunningham</h3><p>Owner. Drone pilot, editor and colorist.</p></div>
+          <div class="person"><h3>Judith Cunningham</h3><p>Owner. Lead videographer and client strategy.</p></div>
+        </div>
+        <div class="contact-lines" style="margin-top:14px">
+          <a href="tel:${STUDIO.callTel}">${I.phone}Call ${STUDIO.call}</a>
+          <a href="sms:${STUDIO.textTel}">${I.msg}Text ${STUDIO.text}</a>
+          <a href="mailto:michael@baselinecinematic.com">${I.mail}michael@baselinecinematic.com</a>
+          <a href="mailto:judith@baselinecinematic.com">${I.mail}judith@baselinecinematic.com</a>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+/* ================= player ================= */
+const P = { t:0, playing:false, timer:null };
+function afterClient() {
+  const v = $('pv');
+  if (v) {
+    v.addEventListener('timeupdate', () => { P.t = v.currentTime; paintPlayer(); });
+    v.addEventListener('play', () => { P.playing = true; paintPlay(); });
+    v.addEventListener('pause', () => { P.playing = false; paintPlay(); });
+    v.addEventListener('loadedmetadata', () => {
+      const p = clientProject(), c = cutOf(p);
+      if (c && isFinite(v.duration) && Math.round(v.duration) !== c.duration) { c.duration = Math.round(v.duration); save(); renderMain(); }
+      else if (P.t) v.currentTime = P.t;
+    });
+  }
+  paintPlayer();
+}
+function curCut() { const p = clientProject(); return p ? cutOf(p) : null; }
+function paintPlayer() {
+  const c = curCut(); if (!c || !$('p-tc')) return;
+  const pct = Math.min(100, P.t / c.duration * 100);
+  $('p-tc').textContent = tc(P.t);
+  $('p-fill').style.width = pct + '%';
+  if ($('p-add')) $('p-add').textContent = `Pin note at ${tc(P.t)}`;
+  if ($('p-scene')) { const sc = SERVICES[clientProject().service].scenes; $('p-scene').textContent = sc[Math.min(sc.length - 1, Math.floor(P.t / c.duration * sc.length))]; }
+}
+function paintPlay() { ['p-play', 'p-big'].forEach(id => { if ($(id)) $(id).innerHTML = P.playing ? I.pause : I.play; }); }
+function seek(t) {
+  const c = curCut(); if (!c) return;
+  P.t = Math.max(0, Math.min(c.duration, t));
+  const v = $('pv'); if (v) { try { v.currentTime = P.t; } catch (e) {} }
+  paintPlayer();
+}
+function togglePlay() {
+  const v = $('pv');
+  if (v) { v.paused ? v.play().catch(() => toast('This video couldn’t play here. Check the link in Studio.')) : v.pause(); return; }
+  if (P.playing) { stopPlay(); return; }
+  const c = curCut(); if (!c) return;
+  if (P.t >= c.duration) P.t = 0;
+  P.playing = true; paintPlay();
+  P.timer = setInterval(() => {
+    const cc = curCut(); if (!cc || state.view !== 'client') { stopPlay(); return; }
+    P.t = Math.min(cc.duration, P.t + 0.25);
+    if (P.t >= cc.duration) stopPlay();
+    paintPlayer();
+  }, 250);
+}
+function stopPlay() { clearInterval(P.timer); P.timer = null; P.playing = false; const v = $('pv'); if (v && !v.paused) v.pause(); paintPlay(); }
+
+/* ================= drag and drop files ================= */
+const fmtBytes = b => b >= 1e9 ? (b / 1e9).toFixed(1) + ' GB' : b >= 1e6 ? Math.round(b / 1e6) + ' MB' : Math.max(1, Math.round(b / 1e3)) + ' KB';
+const KINDS = { mp4:'MP4 video', mov:'MOV video', m4v:'MP4 video', webm:'WebM video', jpg:'JPEG photo', jpeg:'JPEG photo', png:'PNG image', heic:'HEIC photo', tif:'TIFF photo', tiff:'TIFF photo', dng:'RAW photo', zip:'ZIP folder', pdf:'PDF' };
+function niceName(fn) { const n = fn.replace(/\.[^.]+$/, '').replace(/[_-]+/g, ' ').replace(/\s+/g, ' ').trim() || fn; return n.charAt(0).toUpperCase() + n.slice(1); }
+function addFiles(p, list) {
+  const added = [];
+  [...list].forEach(file => {
+    const ext = (file.name.split('.').pop() || '').toLowerCase();
+    const fl = { id:uid(), name:niceName(file.name), size:fmtBytes(file.size), detail:KINDS[ext] || (file.type ? file.type.split('/')[0] + ' file' : 'File'), url:'', original:file.name };
+    p.files.push(fl); added.push(fl);
+    if (file.type.startsWith('video/')) {
+      const v = document.createElement('video'), u = URL.createObjectURL(file);
+      v.preload = 'metadata'; v.muted = true;
+      v.onloadedmetadata = () => {
+        const kind = (v.videoWidth ? `${v.videoWidth}×${v.videoHeight} ` : '') + (KINDS[ext] || 'Video');
+        fl.detail = [kind, isFinite(v.duration) ? tc(v.duration) : '', v.videoHeight > v.videoWidth ? 'vertical 9:16' : ''].filter(Boolean).join(', '); URL.revokeObjectURL(u); save(); if (state.sheet === p.id) renderSheet();
+      };
+      v.onerror = () => URL.revokeObjectURL(u);
+      v.src = u;
+    } else if (file.type.startsWith('image/')) {
+      const img = new Image(), u = URL.createObjectURL(file);
+      img.onload = () => { fl.detail = `${img.naturalWidth}×${img.naturalHeight} ${KINDS[ext] || 'image'}`; URL.revokeObjectURL(u); save(); if (state.sheet === p.id) renderSheet(); };
+      img.onerror = () => URL.revokeObjectURL(u);
+      img.src = u;
+    }
+  });
+  if (added.length) { log(p, `Added ${added.length} file${s(added.length)}`); save(); renderSheet(); toast(`Added ${added.length} file${s(added.length)}. Paste ${added.length === 1 ? 'its' : 'each one’s'} Drive link so the client can download ${added.length === 1 ? 'it' : 'them'}.`); }
+}
+function addLink(p, url, label) {
+  if (!/^https?:\/\//i.test(url)) return false;
+  const drive = /drive\.google\.com|docs\.google\.com/i.test(url), folder = /\/folders\//.test(url);
+  if (folder && !p.folderUrl) { p.folderUrl = url; log(p, 'Added the shared folder link'); save(); renderSheet(); toast('Folder link saved. The client’s "Download all" button opens it.'); return true; }
+  p.files.push({ id:uid(), name:(label && !/^https?:/i.test(label) ? label : drive ? 'Google Drive file' : 'Linked file'), size:'', detail:drive ? 'Google Drive link' : 'Download link', url });
+  log(p, 'Added a file link'); save(); renderSheet(); toast('Link added. Rename the file so the client knows what it is.');
+  return true;
+}
+document.addEventListener('dragover', e => { const d = e.target.closest && e.target.closest('#drop'); if (d) { e.preventDefault(); d.classList.add('over'); } else if (e.target.closest && e.target.closest('#sheet')) e.preventDefault(); });
+document.addEventListener('dragleave', e => { const d = e.target.closest && e.target.closest('#drop'); if (d && !d.contains(e.relatedTarget)) d.classList.remove('over'); });
+document.addEventListener('drop', e => {
+  const d = e.target.closest && e.target.closest('#drop');
+  if (!d) { if (e.target.closest && e.target.closest('#sheet')) e.preventDefault(); return; }
+  e.preventDefault(); d.classList.remove('over');
+  const p = byId(d.dataset.id); if (!p) return;
+  const dt = e.dataTransfer;
+  if (dt.files && dt.files.length) { addFiles(p, dt.files); return; }
+  const uri = (dt.getData('text/uri-list') || dt.getData('text/plain') || '').split('\n').map(x => x.trim()).find(x => x && !x.startsWith('#'));
+  const label = (dt.getData('text/plain') || '').trim();
+  if (!uri || !addLink(p, uri, label !== uri ? label : '')) toast('That didn’t look like a file or a link. Try dragging the file itself, or paste the link below.');
+});
+
+/* ================= actions ================= */
+function toast(msg, undo = false) {
+  if (undo) $('toasts').querySelectorAll('.toast [data-act="undo"]').forEach(b => b.remove());
+  const el = document.createElement('div'); el.className = 'toast out';
+  const t = document.createElement('span'); t.textContent = msg; el.appendChild(t);
+  if (undo) { const b = document.createElement('button'); b.className = 'link'; b.dataset.act = 'undo'; b.textContent = 'Undo'; el.appendChild(b); }
+  $('toasts').appendChild(el);
+  requestAnimationFrame(() => el.classList.remove('out'));
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, undo ? 7000 : 3000);
+}
+async function copy(text, msg) {
+  try { await navigator.clipboard.writeText(text); toast(msg); return; } catch (e) {}
+  const ta = document.createElement('textarea'); ta.value = text; ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+  let ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+  ta.remove(); toast(ok ? msg : 'Copying is blocked here. Select the text and copy it by hand.');
+}
+function go(view, tab) {
+  if (tab && tab !== state.tab) state.query = '';
+  state.view = view; if (tab) state.tab = tab; state.confirm = null;
+  const h = view === 'client' ? 'client' : state.tab;
+  try { if (location.hash.slice(1) !== h) history.replaceState(null, '', '#' + h); } catch (e) {}
+  window.scrollTo(0, 0); renderMain();
+}
+function openSheet(id) { state.sheet = id; state.confirm = null; state.showCode = false; $('sheet').scrollTop = 0; renderSheet(); }
+function closeSheet() { state.sheet = null; if (state.confirm && state.confirm.startsWith('delete')) state.confirm = null; renderSheet(); }
+function refresh() { save(); renderMain(); renderSheet(); }
+
+function setStage(p, n, who = 'studio') {
+  n = Math.max(1, Math.min(5, Number(n)));
+  if (p.stage === n) return;
+  snapshot();
+  p.stage = n;
+  if (n === 3) { const due = new Date(Math.max(Date.now(), +new Date(p.shootAt)) + 24 * 36e5); if (new Date(p.proofDueAt) < new Date()) p.proofDueAt = due.toISOString(); }
+  if (n === 5) p.deliveredAt = new Date().toISOString();
+  log(p, `Moved to ${STAGES[n - 1].label}`, who);
+  toast(`${p.title} moved to ${STAGES[n - 1].label}.`, true);
+}
+function markPaid(p) { snapshot(); p.paid = p.total; log(p, 'Balance paid'); toast(`${p.title} marked paid. Downloads are unlocked.`, true); }
+function duplicate(p) {
+  snapshot();
+  const c = JSON.parse(JSON.stringify(p)), now = new Date();
+  let next = new Date(p.service === 'social' && p.nextShootAt ? p.nextShootAt : p.shootAt);
+  if (!(p.service === 'social' && p.nextShootAt)) { if (p.service === 'social') next.setMonth(next.getMonth() + 1); else next.setDate(next.getDate() + 7); }
+  while (next < now) next.setDate(next.getDate() + 7);
+  Object.assign(c, { id:uid(), token:newToken(), stage:1, paid:0, approvedAt:null, deliveredAt:null, cuts:[], activeCut:null, notes:[], activity:[], reschedule:null, crew:{}, weather:'unknown', folderUrl:'', createdAt:now.toISOString(), shootAt:next.toISOString(), proofDueAt:new Date(+next + 24 * 36e5).toISOString() });
+  c.airspace = SERVICES[c.service].drone ? 'pending' : 'not_needed';
+  c.access = { method:p.access.method, code:/Lockbox|Smart lock/.test(p.access.method) ? '' : p.access.code, notes:p.access.notes };
+  c.prep = c.prep.map(i => ({ ...i, done:false }));
+  c.files = c.files.map(f => ({ ...f, url:'' }));
+  if (c.service === 'social') {
+    c.reelsDelivered = 0;
+    const nn = new Date(next); nn.setMonth(nn.getMonth() + 1); c.nextShootAt = nn.toISOString();
+    c.title = c.title.replace(/,\s*\w+ reels$/i, '') + ', ' + next.toLocaleDateString('en-US', { month:'long' }) + ' reels';
+    p.nextShootAt = null;
+  }
+  log(c, `Shoot booked, copied from ${p.title}`);
+  projects.unshift(c);
+  return c;
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-act]'); if (!el) return;
+  const act = el.dataset.act, x = el.dataset.x, p = el.dataset.id ? byId(el.dataset.id) : null;
+  switch (act) {
+    case 'home': if (MODE === 'client' || (LIVE && !cloud.ready)) { window.scrollTo(0, 0); break; } go(state.view, state.view === 'studio' ? 'today' : undefined); break;
+    case 'view': go(x); break;
+    case 'tab': go('studio', x); break;
+    case 'new': state.modal = { type:'new', prefill: x ? { date: x + 'T10:00' } : {} }; renderModal(); break;
+    case 'close-modal': state.modal = null; renderModal(); break;
+    case 'open': openSheet(p.id); break;
+    case 'close-sheet': closeSheet(); break;
+    case 'stage': setStage(p, x); refresh(); break;
+    case 'airspace': p.airspace = 'cleared'; log(p, 'Airspace cleared'); toast('Airspace marked cleared.'); refresh(); break;
+    case 'deposit': snapshot(); p.paid = Math.round(p.total / 2); log(p, `Deposit of ${money(p.paid)} received`); toast(`Deposit recorded for ${p.title}.`, true); refresh(); break;
+    case 'paid': markPaid(p); refresh(); break;
+    case 'message': state.modal = { type:'message', id:p.id }; renderModal(); break;
+    case 'copy-msg': copy($('msg-text').value, 'Message copied.'); break;
+    case 'copy-link': copy(PORTAL + p.token, 'Client link copied.'); break;
+    case 'copy-code': if (p.access.code.trim()) copy(p.access.code, `${p.access.method} code copied.`); else toast('No code yet. Ask the client to add it.'); break;
+    case 'toggle-code': state.showCode = !state.showCode; { const i = $('sheet-code'); if (i) i.type = state.showCode ? 'text' : 'password'; } break;
+    case 'preview': state.clientId = p.id; state.sheet = null; renderSheet(); go('client'); break;
+    case 'resolve': { const n = p.notes.find(k => k.id === x); if (n) { n.resolved = !n.resolved; if (n.resolved) log(p, `Resolved the note at ${tc(n.t)}`); } refresh(); break; }
+    case 'remove-file': p.files = p.files.filter(f => f.id !== x); refresh(); break;
+    case 'delete': state.confirm = 'delete:' + p.id; renderSheet(); break;
+    case 'delete-yes': snapshot(); projects = projects.filter(k => k.id !== p.id); state.sheet = null; state.confirm = null; if (state.clientId === p.id) state.clientId = null; toast('Project deleted.', true); refresh(); break;
+    case 'reset': state.confirm = 'reset'; renderMain(); break;
+    case 'reset-yes': snapshot(); projects = seed(); leads = seedLeads(); state.confirm = null; state.sheet = null; state.clientId = null; toast('Sample projects restored.', true); refresh(); break;
+    case 'cancel-confirm': state.confirm = null; renderMain(); if (state.sheet) renderSheet(); break;
+    case 'filter': state.filter = x; renderMain(); break;
+    case 'layout': state.layout = x; renderMain(); break;
+    case 'clear-search': state.query = ''; state.filter = 'all'; renderMain(); break;
+    case 'jump': { const t = $(x); if (t) t.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start' }); break; }
+    case 'play': togglePlay(); break;
+    case 'skip': seek(P.t + Number(x)); break;
+    case 'seek': e.stopPropagation(); seek(Number(x)); break;
+    case 'track': { const r = el.getBoundingClientRect(); seek((e.clientX - r.left) / r.width * Number(el.dataset.dur)); break; }
+    case 'cut': { const cp = clientProject(); stopPlay(); P.t = 0; cp.activeCut = x; save(); renderMain(); break; }
+    case 'approve': state.confirm = 'approve'; renderMain(); break;
+    case 'approve-yes': if (LIVE && MODE === 'client') { const cp = clientProject(); state.confirm = null; stopPlay(); clientDo('approve', { cutName:cutOf(cp).name }, 'Approved. Your files are being prepared.').then(ok => ok && setTimeout(() => { const t = $('c-files'); if (t) t.scrollIntoView({ block:'start' }); }, 50)); break; }
+    { const cp = clientProject(); state.confirm = null; stopPlay(); cp.approvedAt = cp.deliveredAt = new Date().toISOString(); log(cp, `Approved ${cutOf(cp).name} as the final cut`, 'client'); cp.stage = 5; save(); renderMain(); toast('Approved. Your files are being prepared.'); setTimeout(() => { const t = $('c-files'); if (t) t.scrollIntoView({ block:'start' }); }, 50); break; }
+    case 'pay-demo': { const cp = clientProject(); cp.paid = cp.total; log(cp, 'Balance paid', 'client'); save(); renderMain(); toast('Payment recorded. Your downloads are unlocked.'); break; }
+    case 'locked': toast('Pay the balance above to unlock this file.'); break;
+    case 'demo-file': toast(`Sample file. Add a real download link for "${x}" in Studio.`); break;
+    case 'undo': undoLast(); break;
+    case 'sign-out': sb && sb.auth.signOut(); break;
+    case 'magic': {
+      const email = $('li-email').value.trim(), msg = $('li-msg');
+      if (!email) { msg.textContent = 'Enter your email first.'; break; }
+      msg.textContent = 'Sending…';
+      sb.auth.signInWithOtp({ email, options:{ shouldCreateUser:false, emailRedirectTo:location.origin + location.pathname } }).then(({ error }) => { msg.textContent = error ? 'Couldn’t send the link. Check the email is on the studio list.' : `Check ${email} for a sign-in link.`; });
+      break;
+    }
+    case 'prep-remove': snapshot(); p.prep = p.prep.filter(i => i.id !== x); save(); refresh(); toast('Prep item removed.', true); break;
+    case 'prep-reset': { snapshot(); const old = new Set(p.prep.filter(i => i.done).map(i => i.text)); p.prep = defaultPrep(p.service, pkgIdOf(p)).map(i => ({ ...i, done: old.has(i.text) })); save(); refresh(); toast('Prep list reset to the standard list.', true); break; }
+    case 'demo-review': toast('Add your Google review link in Studio, under Clients, and this button opens it.'); break;
+    case 'shootday': state.modal = { type:'shootday', id:p.id }; renderModal(); break;
+    case 'sd-start': setStage(p, 2); save(); renderMain(); renderSheet(); renderModal(false); break;
+    case 'sd-wrap': { const wasOnSite = p.stage === 2; setStage(p, 3); if (p.stage === 3) log(p, 'Shoot wrapped'); state.modal = null; renderModal(); refresh(); break; }
+    case 'duplicate': { const c = duplicate(p); state.modal = null; renderModal(); save(); renderMain(); openSheet(c.id); toast(`Copy created for ${first(c.clientName)} on ${fmtDay(c.shootAt)}. Check the date and address.`, true); break; }
+    case 'new-for': { const c = clientList().find(k => k.key === x); if (c) { state.modal = { type:'new', prefill:{ name:c.name, email:c.email, phone:c.phone, service:c.last.service } }; renderModal(); } break; }
+    case 'add-lead': state.modal = { type:'lead' }; renderModal(); break;
+    case 'drop-lead': { snapshot(); const l = leads.find(k => k.id === x); leads = leads.filter(k => k.id !== x); save(); renderMain(); toast(`Lead from ${l ? l.name : 'client'} dismissed.`, true); break; }
+    case 'book-lead': { const l = leads.find(k => k.id === x); if (l) { state.modal = { type:'new', prefill:{ name:l.name, email:l.email, phone:l.phone, service:l.service, title:l.project, leadId:l.id } }; renderModal(); } break; }
+    case 'accept-resched': { snapshot(); const r = p.reschedule; p.shootAt = r.preferred; p.proofDueAt = new Date(+new Date(r.preferred) + 24 * 36e5).toISOString(); p.reschedule = null; log(p, `Moved the shoot to ${fmtWhen(p.shootAt)}`); refresh(); toast(`Shoot moved to ${fmtWhen(p.shootAt)}. Let ${first(p.clientName)} know.`, true); state.modal = { type:'message', id:p.id }; renderModal(); break; }
+    case 'decline-resched': { snapshot(); p.reschedule = null; log(p, 'Kept the original shoot date'); refresh(); toast('Kept the original date. Message the client to explain.', true); break; }
+    case 'reschedule': state.modal = { type:'reschedule', id:clientProject().id }; renderModal(); break;
+    case 'weather-ok': p.weather = 'good'; log(p, 'Forecast looks good'); save(); refresh(); toast('Weather marked good. The client sees it on their page.'); break;
+    case 'reels': p.reelsDelivered = Math.max(0, Math.min(p.reelsPromised, (p.reelsDelivered || 0) + Number(x))); save(); refresh(); break;
+    case 'cal-move': { const m = state.calMonth ? new Date(state.calMonth) : monthStart(new Date()); m.setMonth(m.getMonth() + Number(x)); state.calMonth = m.toISOString(); state.calDay = null; renderMain(); break; }
+    case 'cal-today': state.calMonth = null; state.calDay = null; renderMain(); break;
+    case 'cal-day': state.calDay = x; renderMain(); break;
+  }
+});
+
+document.addEventListener('change', e => {
+  const el = e.target;
+  if (el.dataset.prep && LIVE && MODE === 'client') { clientDo('prep', { id:el.dataset.prep, done:el.checked }); return; }
+  if (el.dataset.prep) {
+    const p = clientProject(), item = p.prep.find(i => i.id === el.dataset.prep);
+    if (item) { item.done = el.checked; if (p.prep.every(i => i.done)) { log(p, 'Finished the prep list', 'client'); toast('Prep list finished. You’re ready for shoot day.'); } }
+    save(); renderMain(); return;
+  }
+  if (el.dataset.field) {
+    const p = byId(el.dataset.id), f = el.dataset.field; if (!p) return;
+    let v = el.type === 'checkbox' ? el.checked : el.value;
+    if (f === 'shootAt' || f === 'proofDueAt') { if (!v) return; v = new Date(v).toISOString(); }
+    if (f === 'nextShootAt') v = v ? new Date(v).toISOString() : null;
+    if (f === 'reelsPromised') { v = Math.max(1, Math.round(Number(v) || 1)); if (p.reelsDelivered > v) p.reelsDelivered = v; }
+    if (f === 'paid') snapshot();
+    if (f === 'total') { v = Math.max(0, Number(v) || 0); if (p.paid > v) p.paid = v; }
+    if (f === 'paid') { v = Math.min(p.total, Math.max(0, Number(v) || 0)); }
+    if (typeof v === 'string') v = v.trim();
+    if (f.startsWith('access.')) p.access[f.slice(7)] = v; else p[f] = v;
+    if (f === 'paid') log(p, `Paid amount set to ${money(v)} of ${money(p.total)}`);
+    save(); renderMain();
+    if (f === 'title') { const t = document.querySelector('.sheet-title'); if (t) t.textContent = v; }
+    if (f === 'total' || f === 'paid') { renderSheet(); toast(`Saved. ${balance(p) ? money(balance(p)) + ' still owed.' : 'Paid in full.'}`, f === 'paid'); return; }
+    if (f === 'reelsPromised' || f === 'weather' || f === 'address') renderSheet();
+    toast('Saved.'); return;
+  }
+  if (el.id === 'drop-input') { const p = byId(el.dataset.id); if (p && el.files.length) addFiles(p, el.files); el.value = ''; return; }
+  if (el.dataset.fileName) {
+    const p = byId(el.dataset.id), fl = p && p.files.find(k => k.id === el.dataset.fileName);
+    if (fl && el.value.trim()) { fl.name = el.value.trim(); save(); toast('File renamed.'); }
+    return;
+  }
+  if (el.dataset.file) {
+    const p = byId(el.dataset.id), fl = p && p.files.find(k => k.id === el.dataset.file);
+    if (fl) { fl.url = el.value.trim(); save(); renderSheet(); toast(fl.url ? 'Download link saved.' : 'Download link removed.'); }
+    return;
+  }
+  if (el.dataset.crew) {
+    const p = byId(el.dataset.id); if (!p) return;
+    p.crew[el.dataset.crew] = el.checked; save(); renderModal(false); return;
+  }
+  if (el.id === 'review-url') { settings.reviewUrl = el.value.trim(); save(); toast('Review link saved.'); return; }
+  if (el.id === 'np-client') {
+    const c = clientList().find(k => k.name.toLowerCase() === el.value.trim().toLowerCase());
+    if (c) { if (!$('np-phone').value) $('np-phone').value = c.phone || ''; if (!$('np-email').value) $('np-email').value = c.email || ''; toast(`Filled in ${c.name}'s details.`); }
+    return;
+  }
+  if (el.id === 'preview-select') { stopPlay(); P.t = 0; state.clientId = el.value; state.confirm = null; renderMain(); return; }
+  if (el.name === 'np-service') { $('np-package').innerHTML = pkgOptions(el.value); syncPrice(); return; }
+  if (el.id === 'np-package') { syncPrice(); return; }
+});
+function syncPrice() { const k = PACKAGES.find(x => x.id === $('np-package').value); if (k && k.price !== null) $('np-total').value = k.price; else if (k) { $('np-total').value = ''; $('np-total').focus(); } }
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'search') { state.query = e.target.value; $('board').innerHTML = boardHTML(); }
+  if (e.target.id === 'client-search') { state.query = e.target.value; const pos = e.target.selectionStart; renderMain(); const i = $('client-search'); if (i) { i.focus(); try { i.setSelectionRange(pos, pos); } catch (er) {} } }
+});
+
+document.addEventListener('submit', e => {
+  const form = e.target.closest('[data-form]'); if (!form) return;
+  e.preventDefault();
+  const kind = form.dataset.form;
+  if (kind === 'login') {
+    const email = $('li-email').value.trim(), pass = $('li-pass').value, msg = $('li-msg');
+    if (!pass) { msg.textContent = 'Enter your password, or use the sign-in link button.'; return; }
+    msg.textContent = 'Signing in…';
+    sb.auth.signInWithPassword({ email, password:pass }).then(({ error }) => { if (error) msg.textContent = error.message === 'Invalid login credentials' ? 'That email and password don’t match. Try again, or email yourself a sign-in link.' : error.message; });
+    return;
+  }
+  if (LIVE && MODE === 'client') {
+    if (kind === 'access') clientDo('access', { method:$('ca-method').value, code:$('ca-code').value.trim(), notes:$('ca-notes').value.trim() }, 'Access details saved. Michael and Judith can see them now.');
+    if (kind === 'note') {
+      const p = clientProject(), c = cutOf(p), text = $('note-text').value.trim(); if (!text || !c) return;
+      const tag = (form.querySelector('input[name="tag"]:checked') || {}).value || 'General', t = Math.round(P.t);
+      clientDo('note', { cutId:c.id, t, tag, text, tc:tc(t) }, `Note pinned at ${tc(t)}.`).then(ok => { const i = $('note-text'); if (i) i.focus({ preventScroll:true }); });
+    }
+    if (kind === 'reschedule') {
+      const v = $('rs-date').value; if (!v) return; const iso = new Date(v).toISOString();
+      clientDo('reschedule', { preferred:iso, note:$('rs-note').value.trim(), label:fmtWhen(iso) }, 'Request sent. Michael and Judith will confirm the new time.').then(ok => { if (ok) { state.modal = null; renderModal(); } });
+    }
+    return;
+  }
+  if (kind === 'access') {
+    const p = clientProject();
+    p.access.method = $('ca-method').value; p.access.code = $('ca-code').value.trim(); p.access.notes = $('ca-notes').value.trim();
+    log(p, 'Updated access details', 'client'); save(); renderMain(); toast('Access details saved. Michael and Judith can see them now.');
+  }
+  if (kind === 'note') {
+    const p = clientProject(), c = cutOf(p), text = $('note-text').value.trim(); if (!text || !c) return;
+    const tag = (form.querySelector('input[name="tag"]:checked') || {}).value || 'General';
+    const t = Math.round(P.t);
+    p.notes.push({ id: uid(), cutId: c.id, t, tag, text, resolved:false, at:new Date().toISOString() });
+    log(p, `Pinned a note at ${tc(t)}`, 'client'); save(); renderMain(); toast(`Note pinned at ${tc(t)}.`);
+    const inp = $('note-text'); if (inp) inp.focus({ preventScroll:true });
+  }
+  if (kind === 'cut') {
+    const p = byId(form.dataset.id);
+    const c = { id: uid(), name: $('cut-name').value.trim() || `V${p.cuts.length + 1}`, label: $('cut-label').value.trim() || (p.cuts.length ? 'Notes applied' : 'First cut'), url: $('cut-url').value.trim(), duration: Math.max(5, parseLen($('cut-len').value)) };
+    p.cuts.push(c); p.activeCut = c.id;
+    log(p, `Posted ${c.name} for review`);
+    if (p.stage !== 4) { p.stage = 4; log(p, 'Moved to Review'); }
+    refresh(); toast(`${c.name} posted. ${first(p.clientName)} can watch it now.`);
+  }
+  if (kind === 'payment') {
+    const p = byId(form.dataset.id), amt = Math.min(balance(p), Math.max(0, Number($('pay-amt').value) || 0));
+    if (!amt) { toast('Enter the amount you received.'); return; }
+    snapshot(); p.paid = Math.round((p.paid + amt) * 100) / 100;
+    log(p, `Payment of ${money(amt)} received`);
+    refresh(); toast(`${money(amt)} recorded. ${balance(p) ? money(balance(p)) + ' still owed.' : 'Paid in full. Downloads are unlocked.'}`, true);
+  }
+  if (kind === 'prep-add') {
+    const p = byId(form.dataset.id), t = $('prep-new').value.trim(); if (!p || !t) return;
+    p.prep.push({ id:'x' + uid(), g:'Just for this shoot', text:t, tip:'', done:false });
+    log(p, `Added a prep item: ${t}`); refresh(); toast('Added to the client\u2019s prep list.');
+    const i = $('prep-new'); if (i) i.focus({ preventScroll:true });
+  }
+  if (kind === 'reschedule') {
+    const p = byId(state.modal.id), v = $('rs-date').value; if (!p || !v) return;
+    p.reschedule = { preferred:new Date(v).toISOString(), note:$('rs-note').value.trim(), at:new Date().toISOString(), status:'open' };
+    log(p, `Asked to reschedule to ${fmtWhen(p.reschedule.preferred)}`, 'client');
+    state.modal = null; renderModal(); save(); renderMain(); toast('Request sent. Michael and Judith will confirm the new time.');
+  }
+  if (kind === 'lead') {
+    leads.unshift({ id:uid(), name:$('ld-name').value.trim(), email:$('ld-email').value.trim(), phone:$('ld-phone').value.trim(), service:$('ld-service').value, project:$('ld-project').value.trim(), message:$('ld-msg').value.trim(), at:new Date().toISOString() });
+    state.modal = null; renderModal(); save(); renderMain(); toast('Lead saved.');
+  }
+  if (kind === 'file') {
+    const p = byId(form.dataset.id);
+    p.files.push({ id: uid(), name: $('file-name').value.trim(), size: $('file-size').value.trim(), detail: $('file-detail').value.trim(), url:'' });
+    refresh(); toast('File added.');
+  }
+  if (kind === 'new') {
+    const service = form.querySelector('input[name="np-service"]:checked').value;
+    const pkg = PACKAGES.find(k => k.id === $('np-package').value);
+    const total = Math.max(0, Number($('np-total').value) || 0);
+    const paidSel = $('np-paid').value;
+    const shoot = new Date($('np-date').value);
+    const p = {
+      id: uid(), token: newToken(), service, packageName: pkg.id === 'portfolio' ? 'Portfolio shoot' : pkg.name,
+      title: $('np-title').value.trim(), clientName: $('np-client').value.trim(), clientEmail: $('np-email').value.trim(), clientPhone: $('np-phone').value.trim(),
+      total, paid: paidSel === 'full' ? total : paidSel === 'half' ? Math.round(total / 2) : 0,
+      stage: 1, shootAt: shoot.toISOString(), proofDueAt: new Date(+shoot + 24 * 36e5).toISOString(),
+      airspace: SERVICES[service].drone ? 'pending' : 'not_needed', requirePayment: true, payUrl: '', approvedAt: null,
+      access: { method: service === 'real_estate' ? 'Lockbox' : 'Someone on site', code: '', notes: '' },
+      prep: defaultPrep(service, pkg.id), files: defaultFiles(service), cuts: [], activeCut: null, notes: [],
+      activity: [], createdAt: new Date().toISOString()
+    };
+    log(p, 'Shoot booked');
+    const leadId = state.modal && state.modal.prefill && state.modal.prefill.leadId; if (leadId) leads = leads.filter(k => k.id !== leadId);
+    normalize(p); projects.unshift(p); state.modal = null; renderModal(); save(); renderMain(); openSheet(p.id);
+    toast('Project created. Send the client their link when you’re ready.');
+  }
+});
+
+document.addEventListener('mouseover', e => {
+  const seg = e.target.closest('[data-tip]'), tip = $('tip');
+  if (!seg) { tip.hidden = true; return; }
+  tip.textContent = seg.dataset.tip; tip.hidden = false;
+  const r = seg.getBoundingClientRect(); tip.style.left = Math.max(8, Math.min(innerWidth - tip.offsetWidth - 8, r.left + r.width / 2 - tip.offsetWidth / 2)) + 'px'; tip.style.top = (r.top - tip.offsetHeight - 8) + 'px';
+});
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  if (state.modal) { state.modal = null; renderModal(); }
+  else if (state.sheet) closeSheet();
+});
+
+function readHash() {
+  const h = location.hash.slice(1);
+  if (h === 'client') state.view = 'client';
+  else if (VIEWS[h]) { state.view = 'studio'; state.tab = h; }
+}
+window.addEventListener('hashchange', () => { if (MODE === 'client' || (LIVE && !cloud.ready)) return; readHash(); renderMain(); });
+async function startStudio() {
+  if (!cloud.session) { cloud.ready = false; renderChrome(); $('main').innerHTML = viewLogin(); return; }
+  showMessage('Loading your projects', 'One moment.');
+  try {
+    const ok = await sb.rpc('is_studio');
+    if (ok.error) throw ok.error;
+    if (!ok.data) { showMessage('This account isn’t on the studio list', `Signed in as ${esc(cloud.session.user.email)}. Add this email to the studio_members table in Supabase, or <button class="link" data-act="sign-out">sign out</button>.`); return; }
+    await cloudLoad();
+  } catch (e) { console.error(e); showMessage('Couldn’t reach the database', 'Check your connection, then reload the page. If it keeps happening, check that setup.sql ran in Supabase.'); return; }
+  cloud.ready = true; render(); setSync('saved'); subscribe();
+}
+async function boot() {
+  if (!LIVE) {
+    load();
+    if (MODE === 'client') {
+      const p = projects.find(x => x.token === CLIENT_TOKEN);
+      if (!p) { document.body.classList.add('client-mode'); renderChrome(); showMessage('Project not found', 'Check the link you were sent, or call us at (309) 863-5181.'); return; }
+      state.view = 'client'; state.clientId = p.id; document.body.classList.add('client-mode');
+    } else readHash();
+    render(); return;
+  }
+  if (MODE === 'client') {
+    document.body.classList.add('client-mode'); state.view = 'client'; renderChrome();
+    showMessage('Loading your project', 'One moment.');
+    const { data, error } = await sb.rpc('get_client_project', { p_token:CLIENT_TOKEN });
+    if (error || !data) { showMessage('Project not found', 'Check the link you were sent, or call us at (309) 863-5181 or text (309) 863-5089.'); return; }
+    setClientData(data); render();
+    setInterval(clientRefresh, 60000);
+    document.addEventListener('visibilitychange', clientRefresh);
+    return;
+  }
+  document.body.classList.add('live');
+  readHash();
+  const { data } = await sb.auth.getSession(); cloud.session = data.session;
+  sb.auth.onAuthStateChange((ev, session) => {
+    const was = cloud.session && cloud.session.user.id, now = session && session.user.id;
+    cloud.session = session; if (was !== now) startStudio();
+  });
+  startStudio();
+  document.addEventListener('visibilitychange', async () => {
+    if (document.hidden || !cloud.ready || pending() || Date.now() - cloud.loadedAt < 120000) return;
+    try { await cloudLoad(); renderMain(); if (state.sheet) renderSheet(); } catch (e) {}
+  });
+  window.addEventListener('beforeunload', e => { if (pending()) { flush(); e.preventDefault(); e.returnValue = ''; } });
+}
+boot();
+</script>
+</body>
+</html>
