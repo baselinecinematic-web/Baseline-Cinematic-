@@ -36,7 +36,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500..600;1,6..96,500&family=Hanken+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
     <script type="application/ld+json">
     {
@@ -894,6 +894,82 @@
             <div class="card fade-in">
                 <h3 data-field="process.step4Title">4. Deliver</h3>
                 <p data-field="process.step4Desc">Your finished film lands in your inbox in 1 to 2 business days, ready to publish.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CLIENT PORTAL SHOWCASE (cinema, same block as index.html): private project link perk (styles: site-v2.css section 14). Mock-up of the Client View only, with sample project data. -->
+    <section class="bc-sec s-cinema bc-portal-sec" id="client-portal" aria-labelledby="re-portal-h">
+        <div class="bc-wrap bc-portal">
+            <div class="bc-portal-head">
+                <span class="bc-portal-badge">No App to Download &bull; Instant Private Link</span>
+                <h2 class="bc-h2" id="re-portal-h">Your Listing, Tracked From Shoot Day to 4K Delivery.</h2>
+                <p class="bc-lead">Built for busy agents. No passwords, no app store downloads, and no chasing updates. We send you one private link where you can watch your project move from Booked to Delivered, check off prep items, review drafts, pay securely, and download your 4K files in one tap.</p>
+            </div>
+
+            <figure class="bc-portal-phone">
+                <div class="bc-portal-screen" role="img" aria-label="The Baseline Cinematic client portal on a phone: a gold ticket for the project The Lakeside Estate, marked Delivered, with 4K files ready to download">
+                    <div class="pp-bar" aria-hidden="true">
+                        <span class="pp-logo">BC</span>
+                        <span class="pp-private"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Private link</span>
+                    </div>
+                    <div class="pp-body" aria-hidden="true">
+                        <div class="pp-ticket">
+                            <div class="pp-main">
+                                <p class="pp-service">Real estate listing film</p>
+                                <p class="pp-title">The Lakeside Estate</p>
+                                <p class="pp-status">Your files are ready</p>
+                                <p class="pp-detail">Everything is ready to download below.</p>
+                                <ol class="pp-steps">
+                                    <li class="done"><span class="pp-dot"></span>Booked</li>
+                                    <li class="done"><span class="pp-dot"></span>Shoot day</li>
+                                    <li class="done"><span class="pp-dot"></span>Editing</li>
+                                    <li class="done"><span class="pp-dot"></span>Review</li>
+                                    <li class="now"><span class="pp-dot"></span>Delivered</li>
+                                </ol>
+                            </div>
+                            <div class="pp-stub">
+                                <span class="pp-stub-k">Filmed</span>
+                                <span class="pp-stub-day">Nov 19</span>
+                                <span class="pp-stub-time">Thursday, 10:04 AM</span>
+                                <span class="pp-stub-code">BC 7KQ4LX2M9P</span>
+                            </div>
+                        </div>
+
+                        <div class="pp-panel">
+                            <p class="pp-h">Download your files</p>
+                            <p class="pp-muted">Your masters and social cuts are ready.</p>
+                            <span class="pp-btn">Go to your files</span>
+                        </div>
+
+                        <div class="pp-chips"><span>Status</span><span>Review</span><span>Files</span><span>Contact</span></div>
+
+                        <div class="pp-files-head"><p class="pp-display">Your files</p><span class="pp-ready">Ready</span></div>
+                        <div class="pp-panel pp-files">
+                            <div class="pp-file">
+                                <div><p class="pp-fname">Lakeside Estate &middot; 4K Master</p><p class="pp-meta">3840&times;2160 &middot; MP4 &middot; 1:12</p></div>
+                                <span class="pp-btn pp-btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</span>
+                            </div>
+                            <div class="pp-file">
+                                <div><p class="pp-fname">Lakeside Estate &middot; Social Cut</p><p class="pp-meta">1080&times;1920 &middot; MP4 &middot; 0:30</p></div>
+                                <span class="pp-btn pp-btn-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>Download</span>
+                            </div>
+                            <div class="pp-file-actions"><span class="pp-btn">Download All</span><span class="pp-btn pp-btn-line">Copy Share Link</span></div>
+                        </div>
+                    </div>
+                </div>
+                <figcaption>The Client View your private link opens to. Sample project shown.</figcaption>
+            </figure>
+
+            <div class="bc-portal-copy">
+                <ol class="bc-portal-list">
+                    <li><strong>Live Golden Ticket Progress Tracker</strong><span>Watch your project move step by step in real time across Booked &rarr; Shoot Day &rarr; Editing &rarr; Review &rarr; Delivered, with your shoot date and project code.</span></li>
+                    <li><strong>Interactive Prep Checklist &amp; Text Alerts</strong><span>Check off simple shoot-prep items right inside your dashboard and get an automatic text the moment your first cut is uploaded.</span></li>
+                    <li><strong>In-Browser Cut Review &amp; Revisions</strong><span>Watch your draft right from your link and tell us if you love it or want tweaks before we lock the final edit.</span></li>
+                    <li><strong>One-Tap 4K Master &amp; Social Cut Downloads</strong><span>Download your full-resolution 3840&times;2160 4K masters and 1080p social cuts one at a time or hit <b>Download All</b>, then use <b>Copy Share Link</b> to send files straight to your co-listing agent, seller or marketing team.</span></li>
+                    <li><strong>Secure Payments &amp; Full Receipt Records</strong><span>Pay your invoice securely inside your project link to unlock your final files, and keep clean payment records for your business.</span></li>
+                </ol>
+                <a class="bc-btn bc-btn-quote" href="quote.html?service=real-estate-tour">Check Availability <span class="bc-arrow" aria-hidden="true">&rarr;</span></a>
             </div>
         </div>
     </section>

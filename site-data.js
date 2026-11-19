@@ -88,6 +88,10 @@ window.SITE_DATA = {
   },
 
   faq: {
+    portal: {
+      question: "Do I need to download an app to track my project?",
+      answer: "No. As soon as you book, we text and email you a private link that opens your project page in any browser. No app, no account and no password. From that link you can follow your project from Booked to Delivered, check off prep items, review your draft, pay your invoice and download your 4K files."
+    },
     licensed: {
       question: "Are you licensed and insured to fly commercially?",
       answer: "Absolutely. We operate under full FAA Part 107 Certification for commercial flight and carry comprehensive liability insurance. Safety and compliance are our top priorities. We handle all local airspace authorizations in the Peoria and Pekin region before the drone ever leaves the ground, ensuring your property and project are completely protected."
@@ -180,7 +184,7 @@ window.SITE_DATA = {
     step3Title: "3. Edit",
     step3Desc: "Every clip goes through our in-house, node-based color grading and editing pipeline — no outsourcing, no shortcuts.",
     step4Title: "4. Deliver",
-    step4Desc: "Your finished film lands in your inbox in {{delivery.turnaroundWords}}, ready to publish."
+    step4Desc: "Your finished film lands in your private project link in {{delivery.turnaroundWords}}, ready to download, share and publish."
   },
 
   voucher: {

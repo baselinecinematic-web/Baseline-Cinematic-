@@ -1219,6 +1219,15 @@ html.bc-ba-dialog-open, html.bc-ba-dialog-open body { overflow: hidden; }
     .bc-portal-phone { position: relative; top: auto; width: min(100%, 360px); margin: 6px auto 44px; }
     .bc-portal-copy .bc-btn-quote { width: 100%; }
 }
+/* Homepage hero: small link down to the portal showcase */
+.bc-hero-portal {
+    display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 8px 14px; border-radius: 999px;
+    font: 600 0.9rem/1.3 'Inter', sans-serif; color: #f5e3a8; text-decoration: none;
+    background: rgba(12, 13, 16, 0.45); border: 1px solid rgba(212, 175, 55, 0.5); backdrop-filter: blur(4px);
+}
+.bc-hero-portal svg { width: 15px; height: 15px; flex: none; }
+.bc-hero-portal:hover { color: #fff; border-color: #d4af37; }
+@media (max-width: 640px) { .bc-hero-portal { font-size: 0.8rem; padding: 7px 12px; margin-top: 14px; } }
 @media (max-width: 420px) { .bc-portal-badge { letter-spacing: 0.08em; font-size: 0.66rem; padding: 7px 12px; } }
 @media (prefers-reduced-motion: reduce) {
     .pp-ticket { animation: none; }
