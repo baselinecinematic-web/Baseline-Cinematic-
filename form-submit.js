@@ -17,6 +17,40 @@
 
     var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mwvdljwd';
     var MAKE_WEBHOOK = 'https://hook.us2.make.com/8j75tewx8yk48zpdt55ibo6lu4sfssly';
+    // 3. Adds the lead to the client portal's "New leads" list (baselinecinematic.com/portal).
+    //    The key below is Supabase's public key: it can only add a lead, never read anything.
+    var PORTAL_LEADS = 'https://temwrepdhydpsgwhugee.supabase.co/rest/v1/rpc/submit_lead';
+    var PORTAL_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRlbXdyZXBkaHlkcHNnd2h1Z2VlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTUxMDAxMTksImV4cCI6MjExMDY3NjExOX0.ur2XzOTlN0fP6q2mBMGuUn2Cswor5VUKTERr7SGN248';
+
+    function portalService(text) {
+        var t = String(text || '').toLowerCase();
+        if (/property|real estate|listing|drone|aerial|walkthrough/.test(t)) return 'real_estate';
+        if (/social|retainer|reel/.test(t)) return 'social';
+        if (/legacy|life|story|family|memorial/.test(t)) return 'legacy';
+        return 'commercial';
+    }
+
+    function copyToPortal(form) {
+        if (!PORTAL_LEADS) return;
+        try {
+            var d = new FormData(form), g = function (k) { return String(d.get(k) || '').trim(); };
+            var total = g('quote_total'), msg = g('message');
+            var lead = {
+                name: g('name'), email: g('email'), phone: g('phone'),
+                service: portalService(g('service') + ' ' + g('quote_summary')),
+                project: g('business') || g('address') || g('service'),
+                message: [total, msg].filter(Boolean).join('. '),
+                quote: g('quote_summary'), shootDate: g('shoot_date'),
+                source: g('source') || ('Website form on ' + location.pathname)
+            };
+            if (!lead.name || !(lead.email || lead.phone)) return;
+            fetch(PORTAL_LEADS, {
+                method: 'POST', keepalive: true,
+                headers: { 'Content-Type': 'application/json', 'apikey': PORTAL_KEY, 'Authorization': 'Bearer ' + PORTAL_KEY },
+                body: JSON.stringify({ p: lead })
+            }).catch(function () {});
+        } catch (e) { /* the email already went out; the portal copy is a bonus */ }
+    }
 
     function copyToMake(form) {
         if (!MAKE_WEBHOOK) return;
@@ -39,7 +73,7 @@
         }).then(function (r) {
             if (r.ok) {
                 var trap = form.elements._gotcha;
-                if (!(trap && trap.value)) copyToMake(form);   // skip spam bots
+                if (!(trap && trap.value)) { copyToMake(form); copyToPortal(form); }   // skip spam bots
                 return r;
             }
             return r.json().catch(function () { return {}; }).then(function (body) {

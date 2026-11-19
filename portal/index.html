@@ -391,6 +391,9 @@ body.client-mode main{padding-top:24px}
 .lead{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
 .lead:first-of-type{border-top:0;padding-top:0}
 .lead-main{flex:1;min-width:0}
+.lead-q{margin-top:6px;font-size:13px}
+.lead-q summary{cursor:pointer;color:var(--satin);font-weight:600}
+.lead-q pre{white-space:pre-wrap;font:13px/1.5 var(--body);color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:10px;margin:8px 0 0;max-height:260px;overflow:auto}
 .lead-msg{font-size:13.5px;color:var(--muted);margin-top:2px}
 .banner{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;padding:12px 14px;border-radius:10px;border:1px solid rgba(230,174,92,.45);background:rgba(230,174,92,.07);font-size:14px}
 .reels{display:flex;align-items:center;gap:10px}
@@ -954,6 +957,7 @@ function remoteChange(table, ev) {
     const item = JSON.parse(j);
     if (i > -1) list[i] = item; else list.unshift(item);
     saved[row.id] = j;
+    if (table === 'leads' && i === -1) toast(`New lead from ${item.name || 'your website'}.`);
     if (table === 'projects' && row.data.activity && row.data.activity[0] && row.data.activity[0].who === 'client' && Date.now() - new Date(row.data.activity[0].at) < 60000) toast(`${first(item.clientName)}: ${row.data.activity[0].text}`);
   }
   const typing = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName);
@@ -1220,6 +1224,9 @@ function leadRow(l) {
       <div><strong>${esc(l.name)}</strong> <span class="card-k" style="display:inline-flex"><span class="dot" style="--c:${sv.color}"></span>${sv.label}</span></div>
       <div class="muted small">${esc(l.project || '')}${l.project ? ', ' : ''}${ago(l.at)}</div>
       ${l.message ? `<p class="lead-msg">${esc(l.message)}</p>` : ''}
+      ${l.shootDate ? `<p class="lead-msg">Wants to shoot ${esc(fmtDay(l.shootDate + 'T12:00'))}</p>` : ''}
+      ${[l.phone, l.email].filter(Boolean).length ? `<p class="lead-msg">${[l.phone, l.email].filter(Boolean).map(esc).join(', ')}</p>` : ''}
+      ${l.quote ? `<details class="lead-q"><summary>See their quote</summary><pre>${esc(l.quote)}</pre></details>` : ''}
     </div>
     <div class="row-btns"><button class="btn btn-sm btn-gold" data-act="book-lead" data-x="${l.id}">Book it</button><button class="icon-btn" data-act="drop-lead" data-x="${l.id}" aria-label="Dismiss lead from ${esc(l.name)}">${I.x}</button></div>
   </div>`;
@@ -2251,7 +2258,7 @@ document.addEventListener('click', e => {
     case 'new-for': { const c = clientList().find(k => k.key === x); if (c) { state.modal = { type:'new', prefill:{ name:c.name, email:c.email, phone:c.phone, service:c.last.service } }; renderModal(); } break; }
     case 'add-lead': state.modal = { type:'lead' }; renderModal(); break;
     case 'drop-lead': { snapshot(); const l = leads.find(k => k.id === x); leads = leads.filter(k => k.id !== x); save(); renderMain(); toast(`Lead from ${l ? l.name : 'client'} dismissed.`, true); break; }
-    case 'book-lead': { const l = leads.find(k => k.id === x); if (l) { state.modal = { type:'new', prefill:{ name:l.name, email:l.email, phone:l.phone, service:l.service, title:l.project, leadId:l.id } }; renderModal(); } break; }
+    case 'book-lead': { const l = leads.find(k => k.id === x); if (l) { state.modal = { type:'new', prefill:{ name:l.name, email:l.email, phone:l.phone, service:l.service, title:l.project, leadId:l.id, date: /^\d{4}-\d{2}-\d{2}$/.test(l.shootDate || '') ? l.shootDate + 'T10:00' : '' } }; renderModal(); } break; }
     case 'accept-resched': { snapshot(); const r = p.reschedule; p.shootAt = r.preferred; p.proofDueAt = new Date(+new Date(r.preferred) + 24 * 36e5).toISOString(); p.reschedule = null; log(p, `Moved the shoot to ${fmtWhen(p.shootAt)}`); refresh(); toast(`Shoot moved to ${fmtWhen(p.shootAt)}. Let ${first(p.clientName)} know.`, true); state.modal = { type:'message', id:p.id }; renderModal(); break; }
     case 'decline-resched': { snapshot(); p.reschedule = null; log(p, 'Kept the original shoot date'); refresh(); toast('Kept the original date. Message the client to explain.', true); break; }
     case 'reschedule': state.modal = { type:'reschedule', id:clientProject().id }; renderModal(); break;
