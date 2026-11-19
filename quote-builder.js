@@ -350,6 +350,9 @@
 
     // deposit: 0 = none, 0.4 = 40% to lock the date, null = not applicable (monthly)
     // drone:   'upgrade' = offered in step 3, 'included' = already part of the package
+    // Shown with a gold check on the packages that come with the private client portal link.
+    var PORTAL_PERK = 'Private Client Portal link included (no app download — live progress, 4K downloads, team share link & payment records)';
+
     var PACKAGES = {
         brand: {
             name: 'Brand Profile Film', price: PRICE.brand, from: true, deposit: 0.4, drone: 'upgrade',
@@ -367,7 +370,7 @@
             name: 'Cinematic Property Tour', price: PRICE.tour, promoPrice: PRICE.tourPromo, deposit: 0, drone: 'included',
             service: 'Full Property Tour',
             blurb: 'The full listing video, sky to front door.',
-            includes: ['4K aerial drone footage', 'Stabilized interior and exterior walkthrough', 'Custom color grading', 'Unbranded MLS version, free']
+            includes: ['4K aerial drone footage', 'Stabilized interior and exterior walkthrough', 'Custom color grading', 'Unbranded MLS version, free', PORTAL_PERK]
         },
         aerial: {
             name: 'Aerial-Only Showcase', price: PRICE.aerial, deposit: 0, drone: 'included',
@@ -379,19 +382,19 @@
             name: 'Elevate Retainer', price: PRICE.starter, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'A steady presence without the stress.',
-            includes: ['4 Reels a month', 'Monthly on-site filming and editing']
+            includes: ['4 Reels a month', 'Monthly on-site filming and editing', PORTAL_PERK]
         },
         growth: {
             name: 'Ascend Retainer', price: PRICE.growth, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'More Reels, plus a cut for your website.',
-            includes: ['6 Reels a month', '1 horizontal web cut', 'Monthly on-site filming and editing']
+            includes: ['6 Reels a month', '1 horizontal web cut', 'Monthly on-site filming and editing', PORTAL_PERK]
         },
         partner: {
             name: 'The Pinnacle Retainer', price: PRICE.partner, monthly: true, deposit: null, drone: 'none',
             service: 'Social Media Retainer',
             blurb: 'A hero film and a full month of social, every month.',
-            includes: ['1 hero cut a month', '8 Reels a month', 'Monthly on-site filming and editing']
+            includes: ['1 hero cut a month', '8 Reels a month', 'Monthly on-site filming and editing', PORTAL_PERK]
         },
         event: {
             name: 'Event Highlight Film', price: PRICE.event, from: true, deposit: 0.4, drone: 'included',
@@ -547,7 +550,7 @@
             return '<label class="bq-card"><input type="radio" name="bq-pkg" value="' + key + '"' + (state.pkg === key ? ' checked' : '') + '>' +
                 '<span class="bq-card-body">' + (key === lowest ? '<span class="bq-entry">Lowest entry price</span>' : '') + '<span class="bq-card-top"><h3 style="margin:0">' + esc(p.name) + '</h3>' + TICK + '</span>' +
                 '<p>' + esc(p.blurb) + '</p>' +
-                '<ul class="bq-incl">' + p.includes.map(function (i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>' +
+                '<ul class="bq-incl">' + p.includes.map(function (i) { return '<li' + (i === PORTAL_PERK ? ' class="is-portal"' : '') + '>' + esc(i) + '</li>'; }).join('') + '</ul>' +
                 note +
                 '<span class="bq-card-price">' + price + '</span></span></label>';
         }).join('');
