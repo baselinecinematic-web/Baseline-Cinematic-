@@ -809,8 +809,8 @@ function seed() {
   ];
 
   const noyes = base('commercial', {
-    token:'bc_71w3z8q', title:'Noyes Auto & Marine', packageName:'Brand profile',
-    clientName:'Nate Noyes', clientEmail:'nate@noyesautomarine.com', clientPhone:'(309) 555-0199',
+    token:'bc_71w3z8q', title:'Ridgeline Auto & Marine', packageName:'Brand profile',
+    clientName:'Dan Carver', clientEmail:'dan@ridgelineauto.example', clientPhone:'(309) 555-0199',
     total:850, paid:0, stage:1, shootAt:at(1,8,30), proofDueAt:at(2,8,30), airspace:'pending',
     access:{ method:'Someone on site', code:'', notes:'' }
   });
@@ -843,7 +843,7 @@ function seed() {
 
   broadway.reschedule = { preferred:at(7,15), note:'The seller is moving furniture out that morning.', at:hrs(-2), status:'open' };
   broadway.activity.unshift({ at:hrs(-2), text:`Asked to reschedule to ${fmtWhen(at(7,15))}`, who:'client' });
-  noyes.address = 'Noyes Auto & Marine, Peoria';
+  noyes.address = 'Ridgeline Auto & Marine, Peoria';
 
   const court = base('real_estate', {
     token:'bc_6tq2w9e', title:'407 Court St, Pekin', packageName:'Basic walkthrough',
