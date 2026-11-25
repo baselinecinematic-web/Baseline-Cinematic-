@@ -110,7 +110,7 @@ window.SITE_DATA = {
     },
     turnaround: {
       question: "How long does it take to receive the final edited video?",
-      answer: "Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is {{delivery.turnaroundWords}}. We ensure every frame is polished to perfection before delivering the final product."
+      answer: "Because we handle all of our editing, motion tracking, and color enhancement in-house, our typical turnaround time for standard promotional and real estate projects is {{delivery.turnaroundWords}}. We ensure every frame is polished to perfection before delivering the final product. Need it faster? Add our 24-hour rush delivery for an extra fee when you build your quote."
     },
     pricing: {
       question: "How much does a real estate video cost?",
